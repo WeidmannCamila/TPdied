@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vista.StationGUI">
+  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1175" height="734"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="d48b7" binding="panel1" custom-create="true" default-binding="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="1200" height="720"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-14869163"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="e2238" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="1200" height="720"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-14869163"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="3b67f" binding="panel2" custom-create="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                    <preferred-size width="250" height="542"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-15066559"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="14bd5" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <foreground color="-14470036"/>
+                      <icon value="Images/lineas.png"/>
+                      <text value=""/>
+                      <verticalAlignment value="1"/>
+                      <verticalTextPosition value="3"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <component id="559e7" class="javax.swing.JButton" binding="eliminarEstacionButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="100"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-13024377"/>
+                  <font name="Roboto Light" size="24"/>
+                  <foreground color="-852481"/>
+                  <icon value="Images/icons8_delete_30px.png"/>
+                  <label value="Eliminar Estacion"/>
+                  <text value="Eliminar Estacion"/>
+                </properties>
+              </component>
+              <component id="84b42" class="javax.swing.JButton" binding="añadirEstacionButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="100"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-13024377"/>
+                  <font name="Roboto Light" size="24"/>
+                  <foreground color="-852481"/>
+                  <icon value="Images/icons8_add_32px.png"/>
+                  <label value="Añadir Estacion"/>
+                  <text value="Añadir Estacion"/>
+                </properties>
+              </component>
+              <component id="a782e" class="javax.swing.JButton" binding="buscarEstacionButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="100"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-13024377"/>
+                  <font name="Roboto Light" size="24"/>
+                  <foreground color="-852481"/>
+                  <icon value="Images/icons8_search_24px.png"/>
+                  <label value="Buscar Estacion"/>
+                  <text value="Buscar Estacion"/>
+                </properties>
+              </component>
+              <component id="6e443" class="javax.swing.JButton" binding="modificarEstacionButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="200" height="100"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <background color="-13024377"/>
+                  <font name="Roboto Light" size="24"/>
+                  <foreground color="-852481"/>
+                  <icon value="Images/icons8_edit_file_32px.png"/>
+                  <text value="Modificar Estacion"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

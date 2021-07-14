@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vista.TransportGUI">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.java.Vista.TransportGUI">
   <grid id="27dc6" binding="panel1" custom-create="true" default-binding="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
@@ -40,7 +40,7 @@
                 </constraints>
                 <properties>
                   <foreground color="-14470036"/>
-                  <icon value="Images/lineas.png"/>
+                  <icon value="main/resources/lineas.png"/>
                   <text value=""/>
                   <verticalAlignment value="1"/>
                   <verticalTextPosition value="3"/>
@@ -58,7 +58,7 @@
               <background color="-13024377"/>
               <font name="Roboto Light" size="24"/>
               <foreground color="-852481"/>
-              <icon value="Images/icons8_delete_30px.png"/>
+              <icon value="main/resources/icons8_delete_30px.png"/>
               <label value="Eliminar Transporte"/>
               <text value="Eliminar Transporte"/>
             </properties>
@@ -73,7 +73,7 @@
               <background color="-13024377"/>
               <font name="Roboto Light" size="24"/>
               <foreground color="-852481"/>
-              <icon value="Images/icons8_add_32px.png"/>
+              <icon value="main/resources/icons8_add_32px.png"/>
               <label value="Añadir Transporte"/>
               <text value="Añadir Transporte"/>
             </properties>
@@ -88,7 +88,7 @@
               <background color="-13024377"/>
               <font name="Roboto Light" size="24"/>
               <foreground color="-852481"/>
-              <icon value="Images/icons8_search_24px.png"/>
+              <icon value="main/resources/icons8_search_24px.png"/>
               <label value="Buscar Transporte"/>
               <text value="Buscar Transporte"/>
             </properties>
@@ -103,7 +103,7 @@
               <background color="-13024377"/>
               <font name="Roboto Light" size="24"/>
               <foreground color="-852481"/>
-              <icon value="Images/icons8_edit_file_32px.png"/>
+              <icon value="main/resources/icons8_edit_file_32px.png"/>
               <text value="Modificar Transporte"/>
             </properties>
           </component>

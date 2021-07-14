@@ -13,16 +13,32 @@ public class StationGUI extends JPanel{
     private JLabel LabelBack;
 
 
-    public void StationGUI(){
+    public JFrame frameStation;
+
+    private JFrame anterior;
+
+
+    public StationGUI() {
+        this.initialize();
 
     }
 
 
-    private void volver(){
+    private void initialize(){
+        this.frameStation = new JFrame();
+
+        this.frameStation.setContentPane(panel1);
+        this.frameStation.setBounds(100, 100, 1200, 720);
+        this.frameStation.setResizable(false);
 
     }
 
 
+
+
+    public void setAnterior(JFrame a) {
+        this.anterior = a;
+    }
 
 
 

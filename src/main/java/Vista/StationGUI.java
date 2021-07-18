@@ -1,16 +1,21 @@
 package main.java.Vista;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class StationGUI extends JPanel{
     private JPanel panel1;
-    private JPanel panel22;
-    private JButton eliminarEstacionButton;
-    private JButton añadirEstacionButton;
-    private JButton buscarEstacionButton;
-    private JButton modificarEstacionButton;
-    private JButton button1;
-    private JLabel LabelBack;
+    private JLabel exitButton;
+    private JButton buscarButton;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JComboBox comboBox1;
+    private JTextField textField3;
+    private JButton añadirTransporteButton;
+    private JTable Transportes;
+    private JButton modificarButton;
+    private JButton eliminarButton;
 
 
     public JFrame frameStation;
@@ -30,6 +35,17 @@ public class StationGUI extends JPanel{
         this.frameStation.setContentPane(panel1);
         this.frameStation.setBounds(100, 100, 1200, 720);
         this.frameStation.setResizable(false);
+
+
+
+        exitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                StationGUI.this.anterior.setVisible(true);
+                StationGUI.this.frameStation.dispose();
+            }
+
+        });
 
     }
 

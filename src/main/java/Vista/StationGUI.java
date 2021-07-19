@@ -16,16 +16,13 @@ import java.awt.event.MouseEvent;
 public class StationGUI extends JPanel{
     private JPanel panel1;
     private JLabel exitButton;
-    private JButton buscarButton;
-    private JTextField nameStation;
-    private JTextField textField2;
-    private JComboBox comboBox1;
-    private JTextField textField3;
+    private JComboBox<String> CBsearch;
+    private JTable table;
+    private JButton searchButton;
     private JButton addStationButton;
     private JTable tableT;
     private JButton editStationButton;
     private JButton deleteStationButton;
-    private JScrollPane table;
 
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
@@ -103,6 +100,43 @@ public class StationGUI extends JPanel{
 
 
         });
+
+        //busqueda de estaciones
+
+
+       String[] items = {"Nombre", "Id", "Estado", "Hora Apertura", "Hora Clausura"};
+
+       CBsearch.setModel(new DefaultComboBoxModel<String>(items));
+       searchButton.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+
+
+
+               switch (CBsearch.getSelectedIndex()){
+                   case 0:{
+                       //se buscar por nombre
+
+                   }
+                   case 1: {
+                       // por id
+
+                   }
+                   case 2: {
+                       //por estado
+
+                   }
+                   case 3: {
+                       // por hora de apertura
+                   }
+                   case 4:{
+                       // y aca de clausura
+
+                   }
+
+               }
+
+           }
+       });
 
     }
 

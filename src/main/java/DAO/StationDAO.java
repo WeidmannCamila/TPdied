@@ -2,6 +2,7 @@ package main.java.DAO;
 
 import main.java.DTOs.DTOStation;
 import main.java.DTOs.DTOTransport;
+import main.structures.BinarySearchTree;
 
 import java.util.ArrayList;
 
@@ -26,5 +27,13 @@ public class StationDAO {
         ArrayList l = new ArrayList();
         return l;
     }
+
+
+    /*public BinarySearchTree<> getStation4name() {
+
+
+    }
+*/
+
 
 }

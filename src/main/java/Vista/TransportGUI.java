@@ -21,10 +21,7 @@ public class TransportGUI {
     private JButton editButton;
     private JButton deleteButton;
     private JButton buscarButton;
-    private JTextField textField1;
-    private JTextField textField2;
     private JComboBox comboBox1;
-    private JTextField transportId;
     private JTable table;
     private TransportDAO transportDAO = new TransportDAO();
     public JFrame frameTransport;

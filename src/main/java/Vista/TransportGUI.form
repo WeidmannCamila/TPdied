@@ -18,7 +18,7 @@
     <children>
       <grid id="99486" layout-manager="GridBagLayout">
         <constraints>
-          <grid row="0" column="0" row-span="9" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="8" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="1200" height="720"/>
           </grid>
           <gridbag weightx="1.0" weighty="1.0"/>
@@ -46,7 +46,7 @@
       </grid>
       <component id="e740f" class="javax.swing.JLabel" binding="exitButton">
         <constraints>
-          <grid row="2" column="9" row-span="7" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="7" row-span="6" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
@@ -54,104 +54,29 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="88cf9" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="100"/>
-          </grid>
-          <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <background color="-13024377"/>
-          <font name="Roboto Light" size="24"/>
-          <foreground color="-852481"/>
-          <icon value="main/resources/icons8_search_24px.png"/>
-          <label value="Buscar "/>
-          <text value="Buscar "/>
-        </properties>
-      </component>
-      <component id="8f654" class="javax.swing.JTextField" binding="textField1" default-binding="true">
-        <constraints>
-          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="31489" class="javax.swing.JTextField" binding="textField2" default-binding="true">
-        <constraints>
-          <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="358bf" class="javax.swing.JLabel">
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
           <font size="24"/>
           <foreground color="-852481"/>
-          <text value="Nombre"/>
-        </properties>
-      </component>
-      <component id="2c2df" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <font size="24"/>
-          <foreground color="-852481"/>
-          <text value="Color"/>
-        </properties>
-      </component>
-      <component id="48da9" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties>
-          <font size="24"/>
-          <foreground color="-852481"/>
-          <requestFocusEnabled value="false"/>
-          <text value="Estado"/>
+          <text value="BUSCAR POR"/>
         </properties>
       </component>
       <component id="1ca66" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
         <constraints>
-          <grid row="2" column="7" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="e90d7" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <font size="24"/>
-          <foreground color="-852481"/>
-          <text value="Id"/>
+          <model/>
         </properties>
-      </component>
-      <component id="95d3b" class="javax.swing.JTextField" binding="transportId">
-        <constraints>
-          <grid row="5" column="7" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
       </component>
       <component id="84cd7" class="javax.swing.JLabel">
         <constraints>
-          <grid row="0" column="4" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
@@ -163,7 +88,7 @@
       </component>
       <component id="2b1ba" class="javax.swing.JButton" binding="addTransportButton">
         <constraints>
-          <grid row="1" column="7" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
+          <grid row="1" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="100"/>
           </grid>
           <gridbag weightx="1.0" weighty="0.0"/>
@@ -179,7 +104,7 @@
       </component>
       <hspacer id="74061">
         <constraints>
-          <grid row="6" column="1" row-span="3" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="1" row-span="3" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </hspacer>
@@ -192,14 +117,14 @@
       </component>
       <component id="c35c2" class="javax.swing.JSeparator">
         <constraints>
-          <grid row="3" column="8" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties/>
       </component>
       <component id="c62bd" class="javax.swing.JButton" binding="deleteButton">
         <constraints>
-          <grid row="7" column="8" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="6" column="6" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="100"/>
           </grid>
           <gridbag top="100" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
@@ -215,7 +140,7 @@
       </component>
       <scrollpane id="d6d3">
         <constraints>
-          <grid row="7" column="3" row-span="1" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="3" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
@@ -237,7 +162,7 @@
       </scrollpane>
       <component id="addea" class="javax.swing.JButton" binding="editButton">
         <constraints>
-          <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+          <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="100"/>
           </grid>
           <gridbag top="20" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
@@ -248,6 +173,22 @@
           <foreground color="-852481"/>
           <icon value="main/resources/icons8_edit_file_32px.png"/>
           <text value="Editar"/>
+        </properties>
+      </component>
+      <component id="88cf9" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="100"/>
+          </grid>
+          <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-13024377"/>
+          <font name="Roboto Light" size="24"/>
+          <foreground color="-852481"/>
+          <icon value="main/resources/icons8_search_24px.png"/>
+          <label value="Buscar "/>
+          <text value="Buscar "/>
         </properties>
       </component>
     </children>

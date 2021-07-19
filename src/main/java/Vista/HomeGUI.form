@@ -36,11 +36,6 @@
             </properties>
             <border type="none"/>
             <children>
-              <vspacer id="5287c">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-                </constraints>
-              </vspacer>
               <component id="a6388" class="javax.swing.JLabel" binding="JLabelinfo">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
@@ -51,6 +46,15 @@
                   <icon value="main/resources/icons8_info_26px.png"/>
                   <text value=""/>
                   <verticalAlignment value="0"/>
+                </properties>
+              </component>
+              <component id="a7303" class="javax.swing.JLabel" binding="exitButton">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <icon value="main/resources/icons8_exit_32px.png"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>
@@ -103,31 +107,6 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="84172" class="javax.swing.JButton" binding="transporteButton" default-binding="true">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="50" height="250"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <autoscrolls value="false"/>
-                  <background color="-15066559"/>
-                  <font name="Roboto Light" size="24"/>
-                  <foreground color="-852481"/>
-                  <hideActionText value="false"/>
-                  <horizontalAlignment value="0"/>
-                  <horizontalTextPosition value="0"/>
-                  <icon value="main/resources/icons8_public_transportation_50px.png"/>
-                  <iconTextGap value="2"/>
-                  <inheritsPopupMenu value="false"/>
-                  <requestFocusEnabled value="false"/>
-                  <selected value="false"/>
-                  <text value="Transporte"/>
-                  <verticalAlignment value="0"/>
-                  <verticalTextPosition value="3"/>
-                  <visible value="true"/>
-                </properties>
-              </component>
               <component id="2aa7d" class="javax.swing.JButton" binding="recorridosButton" default-binding="true">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
@@ -146,7 +125,7 @@
                   <verticalTextPosition value="3"/>
                 </properties>
               </component>
-              <component id="d96ab" class="javax.swing.JButton" binding="button3" default-binding="true">
+              <component id="d96ab" class="javax.swing.JButton" binding="estacionButton">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="-1" height="250"/>
@@ -162,6 +141,32 @@
                   <text value="Estaciones"/>
                   <verticalAlignment value="0"/>
                   <verticalTextPosition value="3"/>
+                </properties>
+              </component>
+              <component id="84172" class="javax.swing.JButton" binding="transporteButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="50" height="250"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <actionCommand value="Transport"/>
+                  <autoscrolls value="false"/>
+                  <background color="-15066559"/>
+                  <font name="Roboto Light" size="24"/>
+                  <foreground color="-852481"/>
+                  <hideActionText value="false"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
+                  <icon value="main/resources/icons8_public_transportation_50px.png"/>
+                  <iconTextGap value="2"/>
+                  <inheritsPopupMenu value="false"/>
+                  <requestFocusEnabled value="false"/>
+                  <selected value="false"/>
+                  <text value="Transporte"/>
+                  <verticalAlignment value="0"/>
+                  <verticalTextPosition value="3"/>
+                  <visible value="true"/>
                 </properties>
               </component>
             </children>

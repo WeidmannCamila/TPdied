@@ -3,141 +3,202 @@
   <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1175" height="734"/>
+      <xy x="20" y="20" width="1204" height="737"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="d48b7" binding="panel1" default-binding="true" layout-manager="GridBagLayout">
+      <grid id="ab6a8" binding="panel1" default-binding="true" layout-manager="GridBagLayout">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="1200" height="720"/>
-          </grid>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <alignmentX value="0.5"/>
           <background color="-14869163"/>
+          <enabled value="true"/>
+          <foreground color="-852481"/>
+          <minimumSize width="1200" height="720"/>
+          <preferredSize width="1200" height="720"/>
+          <verifyInputWhenFocusTarget value="true"/>
+          <visible value="true"/>
         </properties>
         <border type="none"/>
         <children>
-          <grid id="e2238" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="6bd8e" layout-manager="GridBagLayout">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="8" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="1200" height="720"/>
               </grid>
               <gridbag weightx="1.0" weighty="1.0"/>
             </constraints>
             <properties>
-              <background color="-14869163"/>
+              <background color="-16776905"/>
+              <visible value="true"/>
             </properties>
             <border type="none"/>
             <children>
-              <grid id="3b67f" binding="panel22" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              <component id="34166" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="0" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false">
-                    <preferred-size width="250" height="542"/>
-                  </grid>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="1.0" weighty="1.0"/>
                 </constraints>
                 <properties>
-                  <background color="-15066559"/>
-                </properties>
-                <border type="none"/>
-                <children>
-                  <component id="14bd5" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <foreground color="-14470036"/>
-                      <icon value="main/resources/lineas.png"/>
-                      <text value=""/>
-                      <verticalAlignment value="1"/>
-                      <verticalTextPosition value="3"/>
-                    </properties>
-                  </component>
-                </children>
-              </grid>
-              <component id="559e7" class="javax.swing.JButton" binding="eliminarEstacionButton" default-binding="true">
-                <constraints>
-                  <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="200" height="100"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <background color="-13024377"/>
-                  <font name="Roboto Light" size="24"/>
-                  <foreground color="-852481"/>
-                  <icon value="main/resources/icons8_delete_30px.png"/>
-                  <label value="Eliminar Estacion"/>
-                  <text value="Eliminar Estacion"/>
-                </properties>
-              </component>
-              <component id="84b42" class="javax.swing.JButton" binding="añadirEstacionButton" default-binding="true">
-                <constraints>
-                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="200" height="100"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <background color="-13024377"/>
-                  <font name="Roboto Light" size="24"/>
-                  <foreground color="-852481"/>
-                  <icon value="main/resources/icons8_add_32px.png"/>
-                  <label value="Añadir Estacion"/>
-                  <text value="Añadir Estacion"/>
-                </properties>
-              </component>
-              <component id="a782e" class="javax.swing.JButton" binding="buscarEstacionButton" default-binding="true">
-                <constraints>
-                  <grid row="1" column="1" row-span="2" col-span="2" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="200" height="100"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <background color="-13024377"/>
-                  <font name="Roboto Light" size="24"/>
-                  <foreground color="-852481"/>
-                  <icon value="main/resources/icons8_search_24px.png"/>
-                  <label value="Buscar Estacion"/>
-                  <text value="Buscar Estacion"/>
-                </properties>
-              </component>
-              <component id="6e443" class="javax.swing.JButton" binding="modificarEstacionButton" default-binding="true">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="200" height="100"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <background color="-13024377"/>
-                  <font name="Roboto Light" size="24"/>
-                  <foreground color="-852481"/>
-                  <icon value="main/resources/icons8_edit_file_32px.png"/>
-                  <text value="Modificar Estacion"/>
-                </properties>
-              </component>
-              <component id="a6feb" class="javax.swing.JLabel" binding="LabelBack">
-                <constraints>
-                  <grid row="2" column="3" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <icon value="main/resources/icons8_undo_32px.png"/>
+                  <foreground color="-14470036"/>
+                  <icon value="main/resources/localstation.png"/>
                   <text value=""/>
-                </properties>
-              </component>
-              <component id="c4980" class="javax.swing.JButton" binding="button1" default-binding="true">
-                <constraints>
-                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="200" height="100"/>
-                  </grid>
-                </constraints>
-                <properties>
-                  <text value="Button"/>
+                  <verticalAlignment value="1"/>
+                  <verticalTextPosition value="3"/>
                 </properties>
               </component>
             </children>
           </grid>
+          <component id="2d5c5" class="javax.swing.JLabel" binding="exitButton">
+            <constraints>
+              <grid row="2" column="7" row-span="6" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <icon value="main/resources/icons8_undo_32px.png"/>
+              <text value=""/>
+            </properties>
+          </component>
+          <component id="e48a6" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <font size="24"/>
+              <foreground color="-852481"/>
+              <text value="BUSCAR POR"/>
+            </properties>
+          </component>
+          <component id="58a30" class="javax.swing.JComboBox" binding="CBsearch">
+            <constraints>
+              <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <model/>
+            </properties>
+          </component>
+          <component id="44418" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <font name="Roboto Light" size="24"/>
+              <foreground color="-852481"/>
+              <text value="ESTACIONES"/>
+              <visible value="true"/>
+            </properties>
+          </component>
+          <component id="7cdfd" class="javax.swing.JButton" binding="addStationButton">
+            <constraints>
+              <grid row="1" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="100"/>
+              </grid>
+              <gridbag weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="24"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/icons8_add_32px.png"/>
+              <label value="Añadir"/>
+              <text value="Añadir"/>
+            </properties>
+          </component>
+          <hspacer id="d1924">
+            <constraints>
+              <grid row="5" column="1" row-span="3" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+          </hspacer>
+          <component id="a1c56" class="javax.swing.JSeparator">
+            <constraints>
+              <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="1c211" class="javax.swing.JSeparator">
+            <constraints>
+              <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="d22a1" class="javax.swing.JButton" binding="deleteStationButton">
+            <constraints>
+              <grid row="6" column="6" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="100"/>
+              </grid>
+              <gridbag top="100" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="24"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/icons8_delete_30px.png"/>
+              <label value="Eliminar "/>
+              <text value="Eliminar "/>
+            </properties>
+          </component>
+          <scrollpane id="9e276">
+            <constraints>
+              <grid row="6" column="3" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <minimumSize width="17" height="160"/>
+              <preferredSize width="453" height="800"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="50838" class="javax.swing.JTable" binding="table">
+                <constraints/>
+                <properties>
+                  <autoCreateRowSorter value="false"/>
+                  <maximumSize width="2147483647" height="100"/>
+                  <minimumSize width="30" height="100"/>
+                  <preferredSize width="110" height="150"/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="8575e" class="javax.swing.JButton" binding="editStationButton">
+            <constraints>
+              <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="100"/>
+              </grid>
+              <gridbag top="20" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="24"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/icons8_edit_file_32px.png"/>
+              <text value="Editar"/>
+            </properties>
+          </component>
+          <component id="cbd3" class="javax.swing.JButton" binding="searchButton">
+            <constraints>
+              <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="100"/>
+              </grid>
+              <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="24"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/icons8_search_24px.png"/>
+              <label value="Buscar "/>
+              <text value="Buscar "/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

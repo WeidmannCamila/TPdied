@@ -78,7 +78,7 @@
               <text value="Buscar "/>
             </properties>
           </component>
-          <component id="41095" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+          <component id="41095" class="javax.swing.JTextField" binding="nameStation">
             <constraints>
               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -169,7 +169,7 @@
               <visible value="true"/>
             </properties>
           </component>
-          <component id="2c40" class="javax.swing.JButton" binding="añadirTransporteButton" default-binding="true">
+          <component id="2c40" class="javax.swing.JButton" binding="addStationButton">
             <constraints>
               <grid row="1" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="200" height="100"/>
@@ -205,7 +205,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="d40ee" class="javax.swing.JButton" binding="modificarButton" default-binding="true">
+          <component id="d40ee" class="javax.swing.JButton" binding="editStationButton">
             <constraints>
               <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="200" height="100"/>
@@ -220,7 +220,7 @@
               <text value="Modificar "/>
             </properties>
           </component>
-          <component id="5073c" class="javax.swing.JButton" binding="eliminarButton" default-binding="true">
+          <component id="5073c" class="javax.swing.JButton" binding="deleteStationButton">
             <constraints>
               <grid row="9" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="200" height="100"/>
@@ -236,7 +236,7 @@
               <text value="Eliminar "/>
             </properties>
           </component>
-          <scrollpane id="e9817">
+          <scrollpane id="e9817" binding="table">
             <constraints>
               <grid row="7" column="3" row-span="2" col-span="5" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
@@ -247,7 +247,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="b0b32" class="javax.swing.JTable" binding="Transportes">
+              <component id="b0b32" class="javax.swing.JTable" binding="tableT">
                 <constraints/>
                 <properties>
                   <autoCreateRowSorter value="false"/>

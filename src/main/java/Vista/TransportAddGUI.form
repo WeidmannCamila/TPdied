@@ -87,7 +87,7 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="b3b38" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+              <component id="b3b38" class="javax.swing.JTextField" binding="transportColour">
                 <constraints>
                   <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -134,7 +134,7 @@
                   <text value="Estado"/>
                 </properties>
               </component>
-              <component id="125b8" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+              <component id="125b8" class="javax.swing.JComboBox" binding="statusCB">
                 <constraints>
                   <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
@@ -144,7 +144,7 @@
                   <preferredSize width="78" height="40"/>
                 </properties>
               </component>
-              <component id="3b708" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+              <component id="3b708" class="javax.swing.JTextField" binding="transportId">
                 <constraints>
                   <grid row="8" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -175,7 +175,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="223f0" class="javax.swing.JButton" binding="AÑADIRButton" default-binding="true">
+              <component id="223f0" class="javax.swing.JButton" binding="addButton">
                 <constraints>
                   <grid row="10" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="200" height="100"/>
@@ -220,7 +220,7 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
               </vspacer>
-              <component id="3cb09" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+              <component id="3cb09" class="javax.swing.JTextField" binding="transportName">
                 <constraints>
                   <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>

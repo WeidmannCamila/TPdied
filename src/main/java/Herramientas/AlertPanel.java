@@ -1,72 +1,62 @@
 package main.java.Herramientas;
 
+import main.java.Enumeration.EnumTipoAlerta;
+
 import javax.swing.*;
+import java.awt.*;
 import java.util.Optional;
 
 public class AlertPanel {
 
-    /** Muestra un panel que muestra error/información/confirmación/excepción de acuerdo a tipoAlerta.
-     @param tipoAlerta EnumTipoAlerat para indicar que se está informando. Tematiza la ventana.
-     @param tituloVentana titulo de la ventana del panel.
-     @param contenidoTitulo titulo dentro del panel. Suele ser "Error!", "Confirmación.", etc.
-     @param contenidoMensaje descripción de la información que brinda el panel.
-     @param excepcion este campo se completa con la excepción obtenida de un "catch", si no es null.
-     @return retorna Optional<ButtonType> que en caso de que se necesite una acción ante una confirmación, se podrá usar result.orElse(null) == ButtonType.OK. */
-    public static Optional<JButton> get(EnumTipoAlerta tipoAlerta, String tituloVentana, String contenidoTitulo, String contenidoMensaje, Exception excepcion){
-        JDialog alert = null;
+    public JFrame frame;
+
+    public AlertPanel(EnumTipoAlerta tipoAlerta, String tituloVentana, String contenidoTitulo, String contenidoMensaje, Exception excepcion){ this.initializate(tipoAlerta, tituloVentana, contenidoTitulo, contenidoMensaje, excepcion);}
+
+
+    private void initializate(EnumTipoAlerta tipoAlerta, String tituloVentana, String contenidoTitulo, String contenidoMensaje, Exception excepcion){
+        this.frame =new JFrame();
+        this.frame.setType(Window.Type.POPUP);
+        this.frame.setResizable(false);
+        this.frame.setBounds(100, 100, 405, 197);
+        this.frame.setDefaultCloseOperation(3);
+        this.frame.getContentPane().setLayout((LayoutManager)null);
+        this.frame.setBackground(Color.blue);
+
         switch (tipoAlerta){
             case ERROR:
-                alert = new Alert(AlertType.ERROR);
+                JLabel lblError = new JLabel("ERROR!");
+                lblError.setBackground(Color.cyan);
+                lblError.setFont(new Font("Tahoma", 1, 31));
+                lblError.setBounds(130, 11, 204, 53);
+                this.frame.getContentPane().add(lblError);
+                JLabel lblMensaje = new JLabel(contenidoMensaje);
+                lblMensaje.setBackground(Color.red);
+                lblMensaje.setBounds(21, 86, 368, 28);
+                this.frame.getContentPane().add(lblMensaje);
+                JButton btnAceptar = new JButton("Aceptar");
+                this.frame.getContentPane().add(btnAceptar);
+
                 break;
 
             case EXCEPCION:
-                alert = new Alert(AlertType.ERROR);
+                JOptionPane.showMessageDialog(frame,"EXCEPTION" , "Failure",  JOptionPane.INFORMATION_MESSAGE);
                 tituloVentana = "Excepción!";
                 contenidoTitulo = null;
                 break;
 
             case INFORMACION:
-                alert = new Alert(AlertType.INFORMATION);
+                JOptionPane.showMessageDialog(frame,"iNFORMACION" , "Failure", JOptionPane.INFORMATION_MESSAGE);
                 break;
 
             case CONFIRMACION:
-                alert = new Alert(AlertType.CONFIRMATION);
+                JOptionPane.showMessageDialog(frame,"Error" , "Failure", JOptionPane.YES_NO_CANCEL_OPTION);
                 break;
         }
 
-        alert.setTitle(tituloVentana);
-        alert.setHeaderText(contenidoTitulo);
-        alert.setContentText(contenidoMensaje);
+        frame.setTitle(tituloVentana);
 
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image("imagenes/icon-license-1.png"));
-        stage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
-            if (KeyCode.ESCAPE == event.getCode()) {
-                stage.close();
-            }
-        });
 
-        if(tipoAlerta.equals(EnumTipoAlerta.EXCEPCION)){
-            String exceptionText = excepcion.toString();
 
-            Label label = new Label("La excepción fue:");
 
-            TextArea textArea = new TextArea(exceptionText);
-            textArea.setEditable(false);
-            textArea.setWrapText(true);
-
-            textArea.setMaxWidth(Double.MAX_VALUE);
-            textArea.setMaxHeight(Double.MAX_VALUE);
-            GridPane.setVgrow(textArea, Priority.ALWAYS);
-            GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-            GridPane expContent = new GridPane();
-            expContent.setMaxWidth(Double.MAX_VALUE);
-            expContent.add(label, 0, 0);
-            expContent.add(textArea, 0, 1);
-            alert.getDialogPane().setExpandableContent(expContent);
-        }
-
-        return alert.showAndWait();
     }
 }

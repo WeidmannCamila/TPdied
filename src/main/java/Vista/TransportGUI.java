@@ -1,5 +1,10 @@
 package main.java.Vista;
 
+import main.java.DAO.TransportDAO;
+import main.java.DTOs.DTOTransport;
+import main.java.Enumeration.EnumTipoAlerta;
+import main.java.Herramientas.AlertPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,9 +24,9 @@ public class TransportGUI {
     private JTextField textField1;
     private JTextField textField2;
     private JComboBox comboBox1;
-    private JTextField textField3;
+    private JTextField transportId;
     private JTable table;
-
+    private TransportDAO transportDAO = new TransportDAO();
     public JFrame frameTransport;
 
     private JFrame anterior;
@@ -76,38 +81,46 @@ public class TransportGUI {
             }
         });
 
-        // Eliminar insumo
+        // Eliminar transporte
        deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int indice = TransportGUI.this.table.getSelectedRow();
                 if (indice == -1) {
-                    Aviso_ERROR error = new Aviso_ERROR("Seleccionar un camino.");
+                    AlertPanel a= new AlertPanel(EnumTipoAlerta.ERROR, "error", "eerror con", "eeee", null );
+                    a.frame.setVisible(true);
+                  //  JOptionPane.showMessageDialog(frameTransport,"Error" , "Failure", JOptionPane.ERROR_MESSAGE);
+                   /* Aviso_ERROR error = new Aviso_ERROR("Seleccionar un camino.");
                     error.frameTransport.setLocationRelativeTo((Component)null);
-                    error.frameTransport.setVisible(true);
+                    error.frameTransport.setVisible(true);*/
                 } else {
+                    JOptionPane.showMessageDialog(frameTransport,"Error" , "Failure", JOptionPane.INFORMATION_MESSAGE);
+                    deleteTransport();
+                }
+
+                    /*
                     Aviso_Confirmacion msj = new Aviso_Confirmacion("Esta seguro de eliminar el camino?");
                     msj.setAnterior(TransportGUI.this.a);
                     msj.frameTransport.setLocationRelativeTo((Component)null);
-                    msj.frameTransport.setVisible(true);
+                    msj.frameTransport.setVisible(true);*/
                 }
 
-            }
+
         });
 
 
 
     }
 
-    public void CreateInsumoDialog() {
-        JDialog jdialog = new JDialog(frameTransport, "Crear insumo", Dialog.ModalityType.DOCUMENT_MODAL);
-        JPanel contentPane;
+    private void deleteTransport() {
+        int selected = table.getSelectedRow();
+        int id = Integer.parseInt(this.table.getModel().getValueAt(selected, 0).toString());
+        DTOTransport deleteT = new DTOTransport();
+        deleteT.setIdTransport(id);
+        transportDAO.deleteTransport(deleteT);
 
-        JTextField txtDescripcion = new JTextField();
-        JTextField txtCosto = new JTextField();
-        JTextField txtPeso = new JTextField();
-        // JComboBox<> comboUnidades = new JComboBox<UnidadDeMedida>();
-        JCheckBox chckbxS = new JCheckBox("Insumo refrigerado");
-        JButton btnGuardar = new JButton("Guardar");}
+    }
+
+
 
 
     public void setAnterior(JFrame a) {

@@ -3,6 +3,7 @@ package main.structures;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class EmptyTree <E extends Comparable<E>> extends Tree<E> {
 
     public EmptyTree() {

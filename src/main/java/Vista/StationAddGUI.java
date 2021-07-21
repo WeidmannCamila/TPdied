@@ -1,9 +1,7 @@
 package main.java.Vista;
 
 import main.java.DAO.StationDAO;
-import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOStation;
-import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
 
@@ -40,14 +38,6 @@ public class StationAddGUI {
         this.frameStationAdd.setResizable(false);
 
         final ArrayList<DTOStation> listStation = sDAO.getStations();
-
-
-
-
-    }
-
-    public void onRegisterTransport(){
-        final ArrayList<DTOStation> listStation = sDAO.getStations();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(StationAddGUI.this.stationId.getText().length() <= 0 || StationAddGUI.this.stationName.getText().length() <= 0 ){
@@ -57,7 +47,7 @@ public class StationAddGUI {
                     boolean encontrado = false;
                     while(v.hasNext()) {
                         dto = (DTOStation) v.next();
-                        if (dto.getIdTransport() == (Integer.parseInt(StationAddGUI.this.stationId.getText()))) {
+                        if (dto.getIdStation() == (Integer.parseInt(StationAddGUI.this.stationId.getText()))) {
                             encontrado = true;
                         }
                     }
@@ -71,13 +61,20 @@ public class StationAddGUI {
                         dto.setName(stationName.getText().substring(0,1).toUpperCase() + stationName.getText().substring(1).toLowerCase());
 
                         //  dto.setStatus(statusCB.getSelectedItem()); ver forma de decir en mantenimiento o no
-                        dto.setIdTransport(Integer.parseInt(stationId.getText()));
+                        dto.setIdStation(Integer.parseInt(stationId.getText()));
                         sDAO.addStation(dto);
 
                     }
                 }
             }
         });
+
+
+
+    }
+
+    public void onRegisterTransport(){
+
     }
 
 

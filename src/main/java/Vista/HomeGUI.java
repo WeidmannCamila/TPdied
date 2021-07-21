@@ -1,11 +1,11 @@
 package main.java.Vista;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 
 public class HomeGUI{
 
@@ -22,7 +22,7 @@ public class HomeGUI{
     private JLabel JLabelinfo;
     private JLabel exitButton;
 
-    private JFrame framePrincipal;
+    public JFrame framePrincipal;
 
     public HomeGUI(){
         this.initialize();}
@@ -88,21 +88,7 @@ public class HomeGUI{
     }
 
 
-    public static void main(String[] args){
 
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    HomeGUI win = new HomeGUI();
-                    win.framePrincipal.setLocationRelativeTo((Component)null);
-                    win.framePrincipal.setVisible(true);
-                } catch (Exception var2){
-                        var2.printStackTrace();
-                }
-            }
-        });
-
-    }
 
 
 

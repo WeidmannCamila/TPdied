@@ -1,9 +1,7 @@
 package main.java.Vista;
 
 import main.java.DAO.StationDAO;
-import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOStation;
-import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
 
@@ -16,9 +14,9 @@ public class StationEditGUI {
     private JLabel exitButton;
     private JTextField transportColour;
     private JComboBox statusCB;
-    private JTextField transportId;
+    private JTextField stationId;
     private JButton editButton;
-    private JTextField transportName;
+    private JTextField stationName;
     private JTextField textField1;
     private DTOStation dto;
     private StationDAO sDAO = new StationDAO();
@@ -41,12 +39,11 @@ public class StationEditGUI {
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if(StationEditGUI.this.transportId.getText().length() <= 0 || StationEditGUI.this.transportName.getText().length() <= 0){
+                if(StationEditGUI.this.stationId.getText().length() <= 0 || StationEditGUI.this.stationName.getText().length() <= 0){
                     AlertPanel a = new AlertPanel(EnumTipoAlerta.INFORMACION, "Valores incompletos", "error" , "Verifique valores", null );
                 }else {
-                    dto.setIdTransport(Integer.parseInt(transportId.getText()));
-
-                    dto.setName(transportName.getText());
+                    dto.setIdStation(Integer.parseInt(stationId.getText()));
+                    dto.setName(stationName.getText());
                     sDAO.updateStation(dto);
                 }
 

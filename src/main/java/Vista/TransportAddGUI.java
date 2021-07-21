@@ -4,7 +4,6 @@ import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
-import main.java.Managers.TransportManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -40,9 +39,6 @@ public class TransportAddGUI {
 
         final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
 
-
-
-
     }
 
     public void onRegisterTransport(){
@@ -64,6 +60,7 @@ public class TransportAddGUI {
 
                     if(encontrado) {
                         System.out.println("error ya existe");
+                        // crear ventana emergente
                     }
                     else {
                         dto = new DTOTransport();

@@ -1,5 +1,6 @@
 package main.java.classes;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -7,10 +8,22 @@ public class Station {
 
     private Integer idStation;
     private String name;
-    private Date openingTime;
-    private Date closingTime;
+    private Timestamp openingTime;
+    private Timestamp closingTime;
     private boolean status;
     private List<Maintenance> maintenanceHistory;
+
+    //constructor
+
+    public Station(Integer idStation, String name, Date openingTime, Date closingTime, boolean status, List<Maintenance> maintenanceHistory) {
+        this.idStation = idStation;
+        this.name = name;
+        this.openingTime = (Timestamp) openingTime;
+        this.closingTime = (Timestamp) closingTime;
+        this.status = status;
+        this.maintenanceHistory = maintenanceHistory;
+    }
+
 
     //getters and setters
 
@@ -35,7 +48,7 @@ public class Station {
     }
 
     public void setOpeningTime(Date openingTime) {
-        this.openingTime = openingTime;
+        this.openingTime = (Timestamp) openingTime;
     }
 
     public Date getClosingTime() {
@@ -43,7 +56,7 @@ public class Station {
     }
 
     public void setClosingTime(Date closingTime) {
-        this.closingTime = closingTime;
+        this.closingTime = (Timestamp) closingTime;
     }
 
     public boolean isStatus() {

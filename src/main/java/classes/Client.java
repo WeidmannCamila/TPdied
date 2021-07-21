@@ -6,6 +6,14 @@ public class Client {
     private String email;
     private String name;
 
+    //constructores
+
+    public Client(Integer idCliente, String email, String name) {
+        this.idCliente = idCliente;
+        this.email = email;
+        this.name = name;
+    }
+
 
     //getters and setters
 

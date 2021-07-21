@@ -7,6 +7,15 @@ public class TransportRoute {
     private String colour;
     private boolean status;
 
+    //constructor
+
+    public TransportRoute(Integer idTransport, String name, String colour, boolean status) {
+        this.idTransport = idTransport;
+        this.name = name;
+        this.colour = colour;
+        this.status = status;
+    }
+
 
     //getters and setters
 

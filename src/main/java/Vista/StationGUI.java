@@ -1,9 +1,7 @@
 package main.java.Vista;
 
 import main.java.DAO.StationDAO;
-import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOStation;
-import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
 
@@ -144,7 +142,7 @@ public class StationGUI extends JPanel{
         int selected = tableT.getSelectedRow();
         int id = Integer.parseInt(this.tableT.getModel().getValueAt(selected, 0).toString());
         DTOStation deleteS = new DTOStation();
-        deleteS.setIdTransport(id);
+        deleteS.setIdStation(id);
         stationDAO.deleteStation(deleteS);
     }
 

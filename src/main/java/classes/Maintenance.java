@@ -5,6 +5,13 @@ public class Maintenance {
     private Integer idMaintenance;
     private String description;
 
+    //constructor
+
+    public Maintenance(Integer idMaintenance, String description) {
+        this.idMaintenance = idMaintenance;
+        this.description = description;
+    }
+
     //getters and setters
     public Integer getIdMaintenance() {
         return idMaintenance;

@@ -4,15 +4,15 @@ import java.sql.Time;
 
 public class DTOStation {
 
-    private Integer idTransport;
+    private Integer idStation;
     private String name;
     private Time open; // VER TIPO
     private Time clouse;
     private Boolean status;
 
 
-    public DTOStation(Integer idTransport, String name, Time open, Time clouse, Boolean status) {
-        this.idTransport = idTransport;
+    public DTOStation(Integer idStation, String name, Time open, Time clouse, Boolean status) {
+        this.idStation = idStation;
         this.name = name;
         this.open = open;
         this.clouse = clouse;
@@ -23,12 +23,12 @@ public class DTOStation {
 
     }
 
-    public Integer getIdTransport() {
-        return idTransport;
+    public Integer getIdStation() {
+        return idStation;
     }
 
-    public void setIdTransport(Integer idTransport) {
-        this.idTransport = idTransport;
+    public void setIdStation(Integer idStation) {
+        this.idStation = idStation;
     }
 
     public String getName() {

@@ -1,14 +1,26 @@
 package main.java.classes;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Ticket {
     private Integer idTicket;
-    private Date dateTicket;
+    private Timestamp dateTicket;
     private String nameOriginStation;
     private String nameDestionationStation;
     private Route route;
     private float cost;
+
+    //constructor
+
+    public Ticket(Integer idTicket, Timestamp dateTicket, String nameOriginStation, String nameDestionationStation, Route route, float cost) {
+        this.idTicket = idTicket;
+        this.dateTicket =  dateTicket;
+        this.nameOriginStation = nameOriginStation;
+        this.nameDestionationStation = nameDestionationStation;
+        this.route = route;
+        this.cost = cost;
+    }
 
 
     //getters and setters
@@ -25,8 +37,8 @@ public class Ticket {
         return dateTicket;
     }
 
-    public void setDateTicket(Date dateTicket) {
-        this.dateTicket = dateTicket;
+    public void setDateTicket (Timestamp dateTicket) {
+        this.dateTicket =  dateTicket;
     }
 
     public String getNameOriginStation() {

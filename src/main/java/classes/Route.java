@@ -15,6 +15,20 @@ public class Route {
     private List<Station> listStation;
 
 
+    //constructor
+
+    public Route(Integer idRoute, Station origin, Station destination, long distance, Time duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation) {
+        this.idRoute = idRoute;
+        this.origin = origin;
+        this.destination = destination;
+        this.distance = distance;
+        this.duration = duration;
+        this.maxPassagers = maxPassagers;
+        this.status = status;
+        this.cost = cost;
+        this.listStation = listStation;
+    }
+
 
     //getters and setters
 

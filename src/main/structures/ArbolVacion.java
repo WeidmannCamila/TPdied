@@ -3,91 +3,71 @@ package main.structures;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class EmptyTree <E extends Comparable<E>> extends Tree<E> {
-
-    public EmptyTree() {
+class ArbolVacio<E extends Comparable<E>> extends Arbol<E> {
+    public ArbolVacio() {
         this.valor = null;
     }
 
-    @Override
     public List<E> preOrden() {
-        return new ArrayList<E>();
+        return new ArrayList();
     }
 
-    @Override
+    public List<E> rango(E a, E b) {
+        return new ArrayList();
+    }
+
     public List<E> inOrden() {
-        return new ArrayList<E>();
+        return new ArrayList();
     }
 
-    @Override
     public List<E> posOrden() {
-        return new ArrayList<E>();
+        return new ArrayList();
     }
 
-    @Override
     public boolean esVacio() {
         return true;
     }
 
-    @Override
     public E valor() {
         return null;
     }
 
-    @Override
-    public Tree<E> izquierdo() {
+    public Arbol<E> izquierdo() {
         return null;
     }
 
-    @Override
-    public Tree<E> derecho() {
+    public Arbol<E> derecho() {
         return null;
     }
 
-    @Override
     public boolean contiene(E unValor) {
         return false;
     }
 
-    @Override
-    public boolean equals(Tree<E> unArbol) {
+    public boolean equals(Arbol<E> unArbol) {
         return unArbol.esVacio();
     }
 
-    @Override
     public void agregar(E a) {
-
     }
 
-    @Override
     public int profundidad() {
         return 0;
     }
 
-    @Override
     public int cuentaNodosDeNivel(int nivel) {
         return 0;
     }
 
-    @Override
+    public int cuentaNodosDeNivel2(int nivel, int contador) {
+        return 0;
+    }
+
     public boolean esCompleto() {
         return false;
     }
 
-    @Override
     public boolean esLleno() {
         return false;
     }
-
-    @Override
-    public int cuentaNodosDeNivelAux(int nivel, int nivelActual) {
-        return 0;
-    }
-
-    public List<E> buscar (E busqueda){
-        List<E> list = new ArrayList<E>();
-        return list;
-    }
-
 }

@@ -67,7 +67,7 @@ public class StationAddGUI {
                         dto = new DTOStation();
                         dto.setName(stationName.getText().substring(0,1).toUpperCase() + stationName.getText().substring(1).toLowerCase());
 
-                        dto.setStatus((EnumStatus) statusCB.getSelectedItem());
+                        dto.setStatus( statusCB.getSelectedItem().toString());
                         dto.setIdStation(Integer.parseInt(stationId.getText()));
                         sDAO.addStation(dto);
 

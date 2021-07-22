@@ -10,10 +10,10 @@ public class DTOStation {
     private String name;
     private Time open; // VER TIPO
     private Time clouse;
-    private EnumStatus status;
+    private String status;
 
 
-    public DTOStation(Integer idStation, String name, Time open, Time clouse, EnumStatus status) {
+    public DTOStation(Integer idStation, String name, Time open, Time clouse, String status) {
         this.idStation = idStation;
         this.name = name;
         this.open = open;
@@ -57,11 +57,11 @@ public class DTOStation {
         this.clouse = clouse;
     }
 
-    public EnumStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(EnumStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

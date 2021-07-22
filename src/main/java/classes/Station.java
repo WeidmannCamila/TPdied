@@ -61,7 +61,7 @@ public class Station {
         this.closingTime = (Timestamp) closingTime;
     }
 
-    public EnumStatus isStatus() {
+    public EnumStatus getStatus() {
         return status;
     }
 
@@ -76,4 +76,6 @@ public class Station {
     public void setMaintenanceHistory(List<Maintenance> maintenanceHistory) {
         this.maintenanceHistory = maintenanceHistory;
     }
+
+
 }

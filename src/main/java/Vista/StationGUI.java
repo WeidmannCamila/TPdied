@@ -9,6 +9,7 @@ import main.java.Managers.StationManager;
 import main.java.classes.Station;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -111,16 +112,18 @@ public class StationGUI extends JPanel{
        String[] items = {"Nombre", "Id", "Estado", "Hora Apertura", "Hora Clausura"};
 
        CBsearch.setModel(new DefaultComboBoxModel<String>(items));
+
        searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                String param = textStation.getText();
 
-
+               System.out.println("entro a buscar");
 
                switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        //se buscar por nombre
-                       ArrayList<Station> result = StationManager.search4name(param);
+                       System.out.println("entro a buscar por nombre");
+                       ArrayList<DTOStation> result = StationManager.search4name(param);
                        updateTable(result);
                        break;
 
@@ -134,7 +137,7 @@ public class StationGUI extends JPanel{
                           System.out.println("tiene que ser un id");
                           return;
                        }
-                       ArrayList<Station> result = StationManager.search4id(param);
+                       ArrayList<DTOStation> result = StationManager.search4id(param);
                        updateTable(result);
                         
                    }
@@ -142,7 +145,7 @@ public class StationGUI extends JPanel{
                        //por estado
                        CBstatus.setVisible(true);
                        CBstatus.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
-                       ArrayList<Station> result = StationManager.search4status(CBstatus.getSelectedItem().toString());
+                       ArrayList<DTOStation> result = StationManager.search4status(CBstatus.getSelectedItem().toString());
                        updateTable(result);
 
                    }
@@ -161,7 +164,27 @@ public class StationGUI extends JPanel{
 
     }
 
-    private void updateTable(ArrayList<Station> result) {
+    private void updateTable(ArrayList<DTOStation> result) {
+
+        String column[] = {"Nombre", "ID", "Estado" , "Hora a", "Hora c"};
+        DefaultTableModel tm = new DefaultTableModel(column, 0);
+
+        ArrayList<DTOStation> listStations = result;
+
+        for (DTOStation station : listStations) {
+            Integer id = station.getIdStation();
+            String name = station.getName();
+           String status = station.getStatus().toString();
+           String ha = "hora";//station.getOpen().toString();
+            String hc ="hora"; //station.getClouse().toString();
+
+            Object[] data = {id, name, status, ha, hc};
+            tm.addRow(data);
+
+        }
+        table.setModel(tm);
+
+
     }
 
     private void deleteStation() {

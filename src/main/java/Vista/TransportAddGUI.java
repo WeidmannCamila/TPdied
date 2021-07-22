@@ -37,28 +37,29 @@ public class TransportAddGUI {
         this.frameTransportAdd.setBounds(10, 10, 1200, 720);
         this.frameTransportAdd.setResizable(false);
 
-        final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
+    //    final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
 
     }
 
     public void onRegisterTransport(){
-        final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
+       // final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(TransportAddGUI.this.transportId.getText().length() <= 0 || TransportAddGUI.this.transportName.getText().length() <= 0 || TransportAddGUI.this.transportColour.getText().length() <= 0){
                     AlertPanel a = new AlertPanel(EnumTipoAlerta.INFORMACION, "Valores incompletos", "error" , "Verifique valores", null );
                 }else {
-                    Iterator v = listTransport.iterator();
+
+                   /* Iterator v = listTransport.iterator();
                     boolean encontrado = false;
                     while(v.hasNext()) {
                         dto = (DTOTransport) v.next();
                         if (dto.getIdTransport() == (Integer.parseInt(TransportAddGUI.this.transportId.getText()))) {
                             encontrado = true;
                         }
-                    }
+                    }*/
 
 
-                    if(encontrado) {
+                    if(true) {
                         System.out.println("error ya existe");
                         // crear ventana emergente
                     }

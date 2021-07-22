@@ -2,14 +2,19 @@ package main.java.Vista;
 
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
+import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
+import main.java.Managers.StationManager;
+import main.java.classes.Station;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class StationGUI extends JPanel{
     private JPanel panel1;
@@ -21,6 +26,8 @@ public class StationGUI extends JPanel{
     private JTable tableT;
     private JButton editStationButton;
     private JButton deleteStationButton;
+    private JTextField textStation;
+    private JComboBox CBstatus;
 
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
@@ -105,22 +112,41 @@ public class StationGUI extends JPanel{
        String[] items = {"Nombre", "Id", "Estado", "Hora Apertura", "Hora Clausura"};
 
        CBsearch.setModel(new DefaultComboBoxModel<String>(items));
+
        searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
+               String param = textStation.getText();
 
-
+               System.out.println("entro a buscar");
 
                switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        //se buscar por nombre
+                       System.out.println("entro a buscar por nombre");
+                       ArrayList<DTOStation> result = StationManager.search4name(param);
+                       updateTable(result);
+                       break;
 
                    }
                    case 1: {
                        // por id
-
+                       Integer id;
+                       try{
+                           id = Integer.parseInt(param);
+                       } catch(NumberFormatException i){
+                          System.out.println("tiene que ser un id");
+                          return;
+                       }
+                       ArrayList<DTOStation> result = StationManager.search4id(param);
+                       updateTable(result);
+                        
                    }
                    case 2: {
                        //por estado
+                       CBstatus.setVisible(true);
+                       CBstatus.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
+                       ArrayList<DTOStation> result = StationManager.search4status(CBstatus.getSelectedItem().toString());
+                       updateTable(result);
 
                    }
                    case 3: {
@@ -135,6 +161,29 @@ public class StationGUI extends JPanel{
 
            }
        });
+
+    }
+
+    private void updateTable(ArrayList<DTOStation> result) {
+
+        String column[] = {"Nombre", "ID", "Estado" , "Hora a", "Hora c"};
+        DefaultTableModel tm = new DefaultTableModel(column, 0);
+
+        ArrayList<DTOStation> listStations = result;
+
+        for (DTOStation station : listStations) {
+            Integer id = station.getIdStation();
+            String name = station.getName();
+           String status = station.getStatus().toString();
+           String ha = "hora";//station.getOpen().toString();
+            String hc ="hora"; //station.getClouse().toString();
+
+            Object[] data = {id, name, status, ha, hc};
+            tm.addRow(data);
+
+        }
+        table.setModel(tm);
+
 
     }
 

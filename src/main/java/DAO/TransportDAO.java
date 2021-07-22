@@ -21,7 +21,7 @@ public class TransportDAO {
         System.out.println("actualizar. holi");
     }
 
-    public ArrayList<DTOTransport> getTransports(){
+    public static ArrayList<DTOTransport> getTransports(DTOTransport t){
         ArrayList l = new ArrayList();
         return l;
     }

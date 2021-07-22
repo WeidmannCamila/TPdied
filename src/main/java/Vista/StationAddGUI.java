@@ -2,6 +2,7 @@ package main.java.Vista;
 
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
+import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
 
@@ -37,6 +38,12 @@ public class StationAddGUI {
         this.frameStationAdd.setBounds(10, 10, 1200, 720);
         this.frameStationAdd.setResizable(false);
 
+
+
+        statusCB.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
+
+
+        // añadir
         final ArrayList<DTOStation> listStation = sDAO.getStations();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,7 +67,7 @@ public class StationAddGUI {
                         dto = new DTOStation();
                         dto.setName(stationName.getText().substring(0,1).toUpperCase() + stationName.getText().substring(1).toLowerCase());
 
-                        //  dto.setStatus(statusCB.getSelectedItem()); ver forma de decir en mantenimiento o no
+                        dto.setStatus( statusCB.getSelectedItem().toString());
                         dto.setIdStation(Integer.parseInt(stationId.getText()));
                         sDAO.addStation(dto);
 
@@ -73,9 +80,7 @@ public class StationAddGUI {
 
     }
 
-    public void onRegisterTransport(){
 
-    }
 
 
     public void setAnterior(JFrame a) {

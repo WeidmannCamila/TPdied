@@ -1,5 +1,7 @@
 package main.java.DTOs;
 
+import main.java.Enumeration.EnumStatus;
+
 import java.sql.Time;
 
 public class DTOStation {
@@ -8,10 +10,10 @@ public class DTOStation {
     private String name;
     private Time open; // VER TIPO
     private Time clouse;
-    private Boolean status;
+    private EnumStatus status;
 
 
-    public DTOStation(Integer idStation, String name, Time open, Time clouse, Boolean status) {
+    public DTOStation(Integer idStation, String name, Time open, Time clouse, EnumStatus status) {
         this.idStation = idStation;
         this.name = name;
         this.open = open;
@@ -55,11 +57,11 @@ public class DTOStation {
         this.clouse = clouse;
     }
 
-    public Boolean getStatus() {
+    public EnumStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(EnumStatus status) {
         this.status = status;
     }
 }

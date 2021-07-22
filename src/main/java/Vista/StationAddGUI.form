@@ -261,6 +261,8 @@
                       <gridbag weightx="0.0" weighty="0.0"/>
                     </constraints>
                     <properties>
+                      <font name="Roboto Light" size="24"/>
+                      <foreground color="-852481"/>
                       <text value="Hs. Clau"/>
                     </properties>
                   </component>

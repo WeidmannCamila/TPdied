@@ -2,14 +2,18 @@ package main.java.Vista;
 
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
+import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
+import main.java.Managers.StationManager;
+import main.java.classes.Station;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class StationGUI extends JPanel{
     private JPanel panel1;
@@ -21,6 +25,8 @@ public class StationGUI extends JPanel{
     private JTable tableT;
     private JButton editStationButton;
     private JButton deleteStationButton;
+    private JTextField textStation;
+    private JComboBox CBstatus;
 
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
@@ -107,20 +113,37 @@ public class StationGUI extends JPanel{
        CBsearch.setModel(new DefaultComboBoxModel<String>(items));
        searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
+               String param = textStation.getText();
 
 
 
                switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        //se buscar por nombre
+                       ArrayList<Station> result = StationManager.search4name(param);
+                       updateTable(result);
+                       break;
 
                    }
                    case 1: {
                        // por id
-
+                       Integer id;
+                       try{
+                           id = Integer.parseInt(param);
+                       } catch(NumberFormatException i){
+                          System.out.println("tiene que ser un id");
+                          return;
+                       }
+                       ArrayList<Station> result = StationManager.search4id(param);
+                       updateTable(result);
+                        
                    }
                    case 2: {
                        //por estado
+                       CBstatus.setVisible(true);
+                       CBstatus.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
+                       ArrayList<Station> result = StationManager.search4status(CBstatus.getSelectedItem().toString());
+                       updateTable(result);
 
                    }
                    case 3: {
@@ -136,6 +159,9 @@ public class StationGUI extends JPanel{
            }
        });
 
+    }
+
+    private void updateTable(ArrayList<Station> result) {
     }
 
     private void deleteStation() {

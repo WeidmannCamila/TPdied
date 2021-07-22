@@ -1,5 +1,7 @@
 package main.java.classes;
 
+import main.java.Enumeration.EnumStatus;
+
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -10,12 +12,12 @@ public class Station {
     private String name;
     private Timestamp openingTime;
     private Timestamp closingTime;
-    private boolean status;
+    private EnumStatus status;
     private List<Maintenance> maintenanceHistory;
 
     //constructor
 
-    public Station(Integer idStation, String name, Date openingTime, Date closingTime, boolean status, List<Maintenance> maintenanceHistory) {
+    public Station(Integer idStation, String name, Date openingTime, Date closingTime, EnumStatus status, List<Maintenance> maintenanceHistory) {
         this.idStation = idStation;
         this.name = name;
         this.openingTime = (Timestamp) openingTime;
@@ -59,11 +61,11 @@ public class Station {
         this.closingTime = (Timestamp) closingTime;
     }
 
-    public boolean isStatus() {
+    public EnumStatus isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(EnumStatus status) {
         this.status = status;
     }
 

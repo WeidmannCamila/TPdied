@@ -28,7 +28,6 @@ public class StationDAO {
             while(rs.next()) {
 
                 DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getTime(3), rs.getTime(4), rs.getString(5));
-
                 stations.add(station1);
 
             }
@@ -40,6 +39,53 @@ public class StationDAO {
 
         return stations;
     }
+
+    public static ArrayList<DTOStation> searchStationWithAtribute (DTOStation station){
+        ArrayList<DTOStation> estaciones = new ArrayList<>();
+        Connection conexion = null;
+        ResultSet rs = null;
+
+        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
+        final String user = "hshhreor";
+        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
+        try {
+            conexion = DriverManager.getConnection( url, user, pass);
+            //pregunto si el filtro es por id
+            if(station.getIdStation()!=null) {
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE idStation= ?;");
+                st.setInt(1,station.getIdStation());
+                System.out.println("Entro al if del getId");
+                rs = st.executeQuery();
+            }
+            //pregunto si el filtro es por nombre
+            if(station.getName()!=null) {
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE name= ?;");
+                st.setString(1,station.getName());
+                System.out.println("Entro al if del getName");
+                rs = st.executeQuery();
+            }
+            //pregunto si el filtro es por status
+            if(station.getStatus()!=null) {
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE status= ?;");
+                st.setString(1,station.getStatus());
+                System.out.println("Entro al if del getStatus");
+                rs = st.executeQuery();
+            }
+
+            while(rs.next()){
+               DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getTime(3), rs.getTime(4), rs.getString(5));
+                estaciones.add(station1);
+            }
+            rs.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return estaciones;
+
+    }
+
 
 
     public void deleteStation(DTOStation deleteS){

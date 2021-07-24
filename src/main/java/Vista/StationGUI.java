@@ -6,7 +6,6 @@ import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
 import main.java.Managers.StationManager;
-import main.java.classes.Station;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -116,28 +115,33 @@ public class StationGUI extends JPanel{
        searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                String param = textStation.getText();
+                DTOStation estacionParametro = new DTOStation();
 
                System.out.println("entro a buscar");
 
                switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        //se buscar por nombre
+                       estacionParametro.setName(param);
                        System.out.println("entro a buscar por nombre");
-                       ArrayList<DTOStation> result = StationManager.search4name(param);
+                       ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
                        updateTable(result);
                        break;
 
                    }
                    case 1: {
+                       System.out.println("El parametro tiene : " + param);
+
                        // por id
                        Integer id;
                        try{
                            id = Integer.parseInt(param);
                        } catch(NumberFormatException i){
-                          System.out.println("tiene que ser un id");
+                           System.out.println("tiene que ser un id");
                           return;
                        }
-                       ArrayList<DTOStation> result = StationManager.search4id(param);
+                       estacionParametro.setIdStation(id);
+                       ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
                        updateTable(result);
                         
                    }
@@ -145,7 +149,8 @@ public class StationGUI extends JPanel{
                        //por estado
                        CBstatus.setVisible(true);
                        CBstatus.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
-                       ArrayList<DTOStation> result = StationManager.search4status(CBstatus.getSelectedItem().toString());
+                       estacionParametro.setStatus(EnumStatus.values().toString());
+                       ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
                        updateTable(result);
 
                    }
@@ -174,7 +179,7 @@ public class StationGUI extends JPanel{
         for (DTOStation station : listStations) {
             Integer id = station.getIdStation();
             String name = station.getName();
-           String status = station.getStatus().toString();
+           String status = "MANTENIMIENTO" ;//station.getStatus().toString();
            String ha = "hora";//station.getOpen().toString();
             String hc ="hora"; //station.getClouse().toString();
 

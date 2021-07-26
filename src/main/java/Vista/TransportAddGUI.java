@@ -8,20 +8,21 @@ import main.java.Herramientas.AlertPanel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TransportAddGUI {
     private JPanel panel1;
     private JLabel exitButton;
     private JTextField transportName;
     private JTextField transportColour;
-    private JComboBox statusCB;
     private JTextField transportId;
     private JButton addButton;
+    private JRadioButton noActivaRadioButton;
+    private JRadioButton activaRadioButton;
     private DTOTransport dto;
     private TransportDAO tDAO = new TransportDAO();
     public JFrame frameTransportAdd;
+    private ButtonGroup statusBotton;
+
 
     private JFrame anterior;
 
@@ -36,13 +37,11 @@ public class TransportAddGUI {
         this.frameTransportAdd.setContentPane(panel1);
         this.frameTransportAdd.setBounds(10, 10, 1200, 720);
         this.frameTransportAdd.setResizable(false);
+        this.statusBotton = new ButtonGroup();
+        statusBotton.add(noActivaRadioButton);
+        statusBotton.add(activaRadioButton);
 
-    //    final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
-
-    }
-
-    public void onRegisterTransport(){
-       // final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
+        // final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(TransportAddGUI.this.transportId.getText().length() <= 0 || TransportAddGUI.this.transportName.getText().length() <= 0 || TransportAddGUI.this.transportColour.getText().length() <= 0){
@@ -58,8 +57,7 @@ public class TransportAddGUI {
                         }
                     }*/
 
-
-                    if(true) {
+                    if(false) {
                         System.out.println("error ya existe");
                         // crear ventana emergente
                     }
@@ -67,18 +65,25 @@ public class TransportAddGUI {
                         dto = new DTOTransport();
                         dto.setName(transportName.getText().substring(0,1).toUpperCase() + transportName.getText().substring(1).toLowerCase());
                         dto.setColour(transportColour.getText().substring(0,1).toUpperCase() + transportColour.getText().substring(1).toLowerCase());
-                      //  dto.setStatus(statusCB.getSelectedItem()); ver forma de decir en mantenimiento o no
+                        dto.setStatus(activaRadioButton.isSelected());
                         dto.setIdTransport(Integer.parseInt(transportId.getText()));
                         tDAO.addTransport(dto);
-
+                        System.out.println("llego antes del DAO");
                     }
                 }
             }
         });
+
+    }
+
+    public void onRegisterTransport(){
+
     }
 
 
     public void setAnterior(JFrame a) {
         this.anterior = a;
     }
+
+
 }

@@ -6,7 +6,6 @@ import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +22,7 @@ public class TransportGUI {
     private JButton buscarButton;
     private JComboBox comboBox1;
     private JTable table;
+    private JTextField textTransport;
     private TransportDAO transportDAO = new TransportDAO();
     public JFrame frameTransport;
 

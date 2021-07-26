@@ -89,6 +89,10 @@ public class StationDAO {
 
 
     public void deleteStation(DTOStation deleteS){
+        /*
+            buscar la estacion con el id en la BD
+
+         */
         System.out.println("eliminar. holi");
     }
 

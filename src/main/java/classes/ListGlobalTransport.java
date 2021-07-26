@@ -11,7 +11,7 @@ public class ListGlobalTransport {
     public static ListGlobalTransport getInstance() {
         if (listT==null) {
             TransportManager tm = new TransportManager();
-            listT = new ListGlobalTransport(tm.searchTransport(null, "", "", ""));
+            listT = new ListGlobalTransport(tm.searchTransport(null, "", "", false));
         }
         return listT;
     }

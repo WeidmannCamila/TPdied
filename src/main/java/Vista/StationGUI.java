@@ -117,20 +117,16 @@ public class StationGUI extends JPanel{
                String param = textStation.getText();
                 DTOStation estacionParametro = new DTOStation();
 
-               System.out.println("entro a buscar");
-
-               switch (CBsearch.getSelectedIndex()){
+              switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        //se buscar por nombre
                        estacionParametro.setName(param);
-                       System.out.println("entro a buscar por nombre");
                        ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
                        updateTable(result);
                        break;
 
                    }
                    case 1: {
-                       System.out.println("El parametro tiene : " + param);
 
                        // por id
                        Integer id;
@@ -143,7 +139,7 @@ public class StationGUI extends JPanel{
                        estacionParametro.setIdStation(id);
                        ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
                        updateTable(result);
-                        
+                       break;
                    }
                    case 2: {
                        //por estado
@@ -152,7 +148,7 @@ public class StationGUI extends JPanel{
                        estacionParametro.setStatus(EnumStatus.values().toString());
                        ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
                        updateTable(result);
-
+                    break;
                    }
                    case 3: {
                        // por hora de apertura
@@ -161,6 +157,7 @@ public class StationGUI extends JPanel{
                        // y aca de clausura
 
                    }
+                   default:
 
                }
 
@@ -179,8 +176,8 @@ public class StationGUI extends JPanel{
         for (DTOStation station : listStations) {
             Integer id = station.getIdStation();
             String name = station.getName();
-           String status = "MANTENIMIENTO" ;//station.getStatus().toString();
-           String ha = "hora";//station.getOpen().toString();
+            String status = "MANTENIMIENTO" ;//station.getStatus().toString();
+            String ha = "hora";//station.getOpen().toString();
             String hc ="hora"; //station.getClouse().toString();
 
             Object[] data = {id, name, status, ha, hc};
@@ -198,6 +195,10 @@ public class StationGUI extends JPanel{
         DTOStation deleteS = new DTOStation();
         deleteS.setIdStation(id);
         stationDAO.deleteStation(deleteS);
+
+        /*
+       TODO una vez borrada la estacion hacer una funcion que limpie/actualice la tabla
+        */
     }
 
 
@@ -206,6 +207,10 @@ public class StationGUI extends JPanel{
     }
 
 
-
+/*
+* Falta agregar un boton que permita seleccionar una estacion y al presionarlo muestre una lista de los mantenimientos que tuvo
+* la lista tiene que mostrar el id, fechas de inicio y fin, y descripcion
+*
+* */
 
 }

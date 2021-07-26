@@ -2,9 +2,7 @@ package main.java.Managers;
 
 import com.sun.jdi.connect.Transport;
 import main.java.DAO.TransportDAO;
-import main.java.DTOs.DTOStation;
 import main.java.DTOs.DTOTransport;
-import main.java.classes.ListGlobalTransport;
 
 import java.util.ArrayList;
 
@@ -15,7 +13,7 @@ public class TransportManager {
     public TransportManager(){}
 
 
-    public ArrayList<Transport> searchTransport(Integer s, String s1, String s2, String s3) {
+    public ArrayList<Transport> searchTransport(Integer s, String s1, String s2, Boolean s3) {
 
         DTOTransport t = new DTOTransport(s,s1,s2,s3);
 

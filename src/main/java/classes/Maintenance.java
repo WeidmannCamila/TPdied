@@ -1,9 +1,13 @@
 package main.java.classes;
 
+import java.sql.Timestamp;
+
 public class Maintenance {
 
     private Integer idMaintenance;
     private String description;
+    private Timestamp startDate;
+    private Timestamp endDate;
 
     //constructor
 
@@ -27,5 +31,21 @@ public class Maintenance {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
     }
 }

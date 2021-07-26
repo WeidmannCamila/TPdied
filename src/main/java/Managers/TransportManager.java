@@ -21,4 +21,9 @@ public class TransportManager {
 
         return list;
     }
+
+    public static void deleteTransportRoute(DTOTransport t){
+        TransportDAO.deleteTransport(t);
+    }
+
 }

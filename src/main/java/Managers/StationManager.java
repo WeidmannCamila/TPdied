@@ -35,6 +35,9 @@ public class StationManager {
         return listas;
     }
 
+    public static void deleteStationObject (DTOStation s){
+        StationDAO.deleteStation(s);
+    }
 
 
 

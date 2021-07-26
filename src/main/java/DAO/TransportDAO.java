@@ -44,8 +44,33 @@ public class TransportDAO {
 
     }
 
-    public void deleteTransport(DTOTransport deleteT){
-        System.out.println("eliminar. holi");
+    public static void deleteTransport(DTOTransport deleteT){
+        Connection conexion = null;
+        ResultSet rs = null;
+        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
+        final String user = "hshhreor";
+        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+        
+        try{
+            conexion = DriverManager.getConnection(url, user, pass);
+            PreparedStatement st = conexion.prepareStatement("DELETE FROM tp_died.transport_route WHERE idTransport = ? ;");
+            st.setInt(1, deleteT.getIdTransport());
+            st.executeUpdate();
+            st.close();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally{
+            if(conexion!= null){
+                try{
+                    conexion.close();
+                }catch(Exception e1){
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
+        
+        
     }
 
     public void updateTransport(DTOTransport dto){

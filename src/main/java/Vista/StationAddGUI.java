@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class StationAddGUI {
     private JPanel panel1;
@@ -42,25 +41,28 @@ public class StationAddGUI {
 
         statusCB.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
 
+/*
+    TODO aca no conviene hacer una consulta a la BD preguntando si ya existe la estacion que se quiere agregar?
+    agregar una funcion para buscar si existe una estacion
+ */
 
-        // añadir
+
         final ArrayList<DTOStation> listStation = sDAO.getStations();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(StationAddGUI.this.stationId.getText().length() <= 0 || StationAddGUI.this.stationName.getText().length() <= 0 ){
                     AlertPanel a = new AlertPanel(EnumTipoAlerta.INFORMACION, "Valores incompletos", "error" , "Verifique valores", null );
                 }else {
-                    Iterator v = listStation.iterator();
+                   /* Iterator v = listStation.iterator();
                     boolean encontrado = false;
                     while(v.hasNext()) {
-                        dto = (DTOStation) v.next();
+                        dto =  (DTOStation) v.next();
                         if (dto.getIdStation() == (Integer.parseInt(StationAddGUI.this.stationId.getText()))) {
                             encontrado = true;
                         }
                     }
-
-
-                    if(encontrado) {
+*/
+                    if(false) {
                         System.out.println("error ya existe");
                     }
                     else {

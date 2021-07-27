@@ -36,6 +36,9 @@ public class StationManager {
         return listas;
     }
 
+    public static void deleteStationObject (DTOStation s){
+        StationDAO.deleteStation(s);
+    }
 
     public ArrayList<> searchStation1() {
         System.out.println("entro a seach station");

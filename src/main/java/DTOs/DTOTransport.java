@@ -7,13 +7,13 @@ public class DTOTransport {
     private Integer idTransport;
     private String name;
     private String colour;
-    private String status;
+    private Boolean status;
 
     public DTOTransport() {
 
     }
 
-    public DTOTransport(Integer idTransport, String name, String colour, String status) {
+    public DTOTransport(Integer idTransport, String name, String colour, Boolean status) {
         this.idTransport = idTransport;
         this.name = name;
         this.colour = colour;
@@ -46,11 +46,11 @@ public class DTOTransport {
         this.colour = colour;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }

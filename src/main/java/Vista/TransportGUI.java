@@ -4,9 +4,9 @@ import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
+import main.java.Managers.TransportManager;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +23,7 @@ public class TransportGUI {
     private JButton buscarButton;
     private JComboBox comboBox1;
     private JTable table;
+    private JTextField textTransport;
     private TransportDAO transportDAO = new TransportDAO();
     public JFrame frameTransport;
 
@@ -90,8 +91,8 @@ public class TransportGUI {
                     error.frameTransport.setLocationRelativeTo((Component)null);
                     error.frameTransport.setVisible(true);*/
                 } else {
-                    JOptionPane.showMessageDialog(frameTransport,"Error" , "Failure", JOptionPane.INFORMATION_MESSAGE);
                     deleteTransport();
+                    JOptionPane.showMessageDialog(frameTransport,"Estacion eliminada" , "Failure", JOptionPane.INFORMATION_MESSAGE);
                 }
 
                     /*
@@ -113,7 +114,7 @@ public class TransportGUI {
         int id = Integer.parseInt(this.table.getModel().getValueAt(selected, 0).toString());
         DTOTransport deleteT = new DTOTransport();
         deleteT.setIdTransport(id);
-        transportDAO.deleteTransport(deleteT);
+        TransportManager.deleteTransportRoute(deleteT);
 
     }
 

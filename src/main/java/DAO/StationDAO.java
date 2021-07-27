@@ -88,8 +88,31 @@ public class StationDAO {
 
 
 
-    public void deleteStation(DTOStation deleteS){
-        System.out.println("eliminar. holi");
+    public static void deleteStation(DTOStation deleteS){
+        Connection con = null;
+        ResultSet rs = null;
+        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
+        final String user = "hshhreor";
+        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
+        try{
+            con = DriverManager.getConnection(url, user, pass);
+            PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.station WHERE idStation = ? ;");
+            st.setInt(1, deleteS.getIdStation());
+            st.executeUpdate();
+            st.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally{
+            if(con!= null){
+                try{
+                    con.close();
+                }catch(Exception e1){
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
     }
 
     public void updateStation(DTOStation dto){

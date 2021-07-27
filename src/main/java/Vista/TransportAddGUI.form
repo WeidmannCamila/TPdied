@@ -79,7 +79,7 @@
               </grid>
               <component id="4c59b" class="javax.swing.JLabel" binding="exitButton">
                 <constraints>
-                  <grid row="2" column="8" row-span="9" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="10" row-span="9" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
@@ -134,19 +134,9 @@
                   <text value="Estado"/>
                 </properties>
               </component>
-              <component id="125b8" class="javax.swing.JComboBox" binding="statusCB">
-                <constraints>
-                  <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <minimumSize width="84" height="40"/>
-                  <preferredSize width="78" height="40"/>
-                </properties>
-              </component>
               <component id="3b708" class="javax.swing.JTextField" binding="transportId">
                 <constraints>
-                  <grid row="8" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                  <grid row="8" column="7" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                   <gridbag weightx="0.0" weighty="0.0"/>
@@ -170,14 +160,14 @@
               </component>
               <component id="b46e7" class="javax.swing.JSeparator">
                 <constraints>
-                  <grid row="5" column="7" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="7" row-span="1" col-span="3" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties/>
               </component>
               <component id="223f0" class="javax.swing.JButton" binding="addButton">
                 <constraints>
-                  <grid row="10" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="10" column="7" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="200" height="100"/>
                   </grid>
                   <gridbag top="100" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
@@ -247,6 +237,34 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
               </hspacer>
+              <component id="b2f03" class="javax.swing.JRadioButton" binding="noActivaRadioButton">
+                <constraints>
+                  <grid row="2" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <foreground color="-16250872"/>
+                  <text value="No Activa"/>
+                </properties>
+              </component>
+              <hspacer id="6b21d">
+                <constraints>
+                  <grid row="2" column="8" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+              </hspacer>
+              <component id="e0a8c" class="javax.swing.JRadioButton" binding="activaRadioButton">
+                <constraints>
+                  <grid row="2" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16250872"/>
+                  <text value="Activa"/>
+                  <verticalAlignment value="0"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

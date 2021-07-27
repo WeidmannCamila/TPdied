@@ -67,8 +67,6 @@ public class StationGUI extends JPanel{
                 sadd.setAnterior(StationGUI.this.anterior);
                 sadd.frameStationAdd.setVisible(true);
 
-
-
             }
         });
 
@@ -81,22 +79,20 @@ public class StationGUI extends JPanel{
                 te.setAnterior(StationGUI.this.anterior);
                 te.frameStationEdit.setVisible(true);
 
-
-
             }
         });
 
         // Eliminar estacion
         deleteStationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int indice = StationGUI.this.tableT.getSelectedRow();
+                int indice = StationGUI.this.table.getSelectedRow();
                 if (indice == -1) {
                     AlertPanel a= new AlertPanel(EnumTipoAlerta.ERROR, "error", "eerror con", "eeee", null );
                     a.frame.setVisible(true);
-
                 } else {
-                    JOptionPane.showMessageDialog(frameStation,"Error" , "Failure", JOptionPane.INFORMATION_MESSAGE);
                     deleteStation();
+                    JOptionPane.showMessageDialog(frameStation,"La estacion seleccionada fue eliminada. Por favor regrese al menu anterior para ver los cambios" , "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
                 }
 
 
@@ -108,7 +104,7 @@ public class StationGUI extends JPanel{
         //busqueda de estaciones
 
 
-       String[] items = {"Nombre", "Id", "Estado", "Hora Apertura", "Hora Clausura"};
+       String[] items = {"Id", "Nombre", "Estado", "Hora Apertura", "Hora Clausura"};
 
        CBsearch.setModel(new DefaultComboBoxModel<String>(items));
 
@@ -117,33 +113,29 @@ public class StationGUI extends JPanel{
                String param = textStation.getText();
                 DTOStation estacionParametro = new DTOStation();
 
-               System.out.println("entro a buscar");
-
-               switch (CBsearch.getSelectedIndex()){
+              switch (CBsearch.getSelectedIndex()){
                    case 0:{
-                       //se buscar por nombre
-                       estacionParametro.setName(param);
-                       System.out.println("entro a buscar por nombre");
-                       ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
-                       updateTable(result);
-                       break;
-
-                   }
-                   case 1: {
-                       System.out.println("El parametro tiene : " + param);
-
                        // por id
                        Integer id;
                        try{
                            id = Integer.parseInt(param);
                        } catch(NumberFormatException i){
                            System.out.println("tiene que ser un id");
-                          return;
+                           return;
                        }
                        estacionParametro.setIdStation(id);
                        ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
                        updateTable(result);
-                        
+                       break;
+                   }
+                   case 1: {
+                       //se buscar por nombre
+                       estacionParametro.setName(param);
+                       ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
+                       updateTable(result);
+                       break;
+
+
                    }
                    case 2: {
                        //por estado
@@ -152,7 +144,7 @@ public class StationGUI extends JPanel{
                        estacionParametro.setStatus(EnumStatus.values().toString());
                        ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
                        updateTable(result);
-
+                    break;
                    }
                    case 3: {
                        // por hora de apertura
@@ -161,6 +153,7 @@ public class StationGUI extends JPanel{
                        // y aca de clausura
 
                    }
+                   default:
 
                }
 
@@ -171,7 +164,7 @@ public class StationGUI extends JPanel{
 
     private void updateTable(ArrayList<DTOStation> result) {
 
-        String column[] = {"Nombre", "ID", "Estado" , "Hora a", "Hora c"};
+        String column[] = {"ID", "Nombre",  "Estado" , "Hora a", "Hora c"};
         DefaultTableModel tm = new DefaultTableModel(column, 0);
 
         ArrayList<DTOStation> listStations = result;
@@ -179,8 +172,8 @@ public class StationGUI extends JPanel{
         for (DTOStation station : listStations) {
             Integer id = station.getIdStation();
             String name = station.getName();
-           String status = "MANTENIMIENTO" ;//station.getStatus().toString();
-           String ha = "hora";//station.getOpen().toString();
+            String status = "MANTENIMIENTO" ;//station.getStatus().toString();
+            String ha = "hora";//station.getOpen().toString();
             String hc ="hora"; //station.getClouse().toString();
 
             Object[] data = {id, name, status, ha, hc};
@@ -193,11 +186,17 @@ public class StationGUI extends JPanel{
     }
 
     private void deleteStation() {
-        int selected = tableT.getSelectedRow();
-        int id = Integer.parseInt(this.tableT.getModel().getValueAt(selected, 0).toString());
+        int selected = table.getSelectedRow();
+        //System.out.println("El indice de la tabla es " + selected );
+        int id = Integer.parseInt(this.table.getModel().getValueAt(selected, 0).toString());
         DTOStation deleteS = new DTOStation();
+        //System.out.println("El id de la estacion es " + id);
         deleteS.setIdStation(id);
-        stationDAO.deleteStation(deleteS);
+        StationManager.deleteStationObject(deleteS);
+
+        /*
+       TODO una vez borrada la estacion hacer una funcion que limpie/actualice la tabla
+        */
     }
 
 
@@ -206,6 +205,10 @@ public class StationGUI extends JPanel{
     }
 
 
-
+/*
+* Falta agregar un boton que permita seleccionar una estacion y al presionarlo muestre una lista de los mantenimientos que tuvo
+* la lista tiene que mostrar el id, fechas de inicio y fin, y descripcion
+*
+* */
 
 }

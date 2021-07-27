@@ -8,7 +8,7 @@ public class Route {
     private Station origin;
     private Station destination;
     private long distance;
-    private Time duration ;
+    private Integer duration ;
     private Integer maxPassagers;
     private boolean status;
     private Integer cost;
@@ -17,7 +17,7 @@ public class Route {
 
     //constructor
 
-    public Route(Integer idRoute, Station origin, Station destination, long distance, Time duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation) {
+    public Route(Integer idRoute, Station origin, Station destination, long distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation) {
         this.idRoute = idRoute;
         this.origin = origin;
         this.destination = destination;
@@ -27,6 +27,9 @@ public class Route {
         this.status = status;
         this.cost = cost;
         this.listStation = listStation;
+    }
+
+    public Route(Station start, Station end) {
     }
 
 
@@ -64,11 +67,11 @@ public class Route {
         this.distance = distance;
     }
 
-    public Time getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(Time duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 

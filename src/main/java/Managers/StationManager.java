@@ -2,6 +2,7 @@ package main.java.Managers;
 
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
+import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
 
 import java.sql.Time;
@@ -36,10 +37,7 @@ public class StationManager {
     }
 
 
-
-
-/*
-    public ArrayList<> searchStation() {
+    public ArrayList<> searchStation1() {
         System.out.println("entro a seach station");
         DTOStation st = new DTOStation();
 
@@ -48,7 +46,7 @@ public class StationManager {
 
 
         return l;
-    }*/
+    }
 
 
 

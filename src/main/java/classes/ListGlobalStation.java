@@ -1,5 +1,7 @@
 package main.java.classes;
 
+import main.java.Managers.StationManager;
+
 import java.util.ArrayList;
 
 public class ListGlobalStation implements Comparable<ListGlobalStation>{
@@ -14,7 +16,7 @@ public class ListGlobalStation implements Comparable<ListGlobalStation>{
         this.listss = listss;
     }
 
-/*
+
     public static ListGlobalStation getInstance() {
         if (listS==null) {
             StationManager sm = new StationManager();
@@ -22,7 +24,7 @@ public class ListGlobalStation implements Comparable<ListGlobalStation>{
         }
         return listS;
     }
-*/
+
     public ArrayList<Station> getList(){
 
         return listss;

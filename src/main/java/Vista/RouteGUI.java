@@ -98,6 +98,8 @@ public class RouteGUI {
 
                 ArrayList<Station> bestRoute = rm.bestRoute4crit(start, end, crit);
 
+                //mostrar en tabla y grafico
+
 
 
             }

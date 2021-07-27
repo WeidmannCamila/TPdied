@@ -4,6 +4,7 @@ import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
+import main.java.classes.Station;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class StationManager {
         StationDAO.deleteStation(s);
     }
 
-    public ArrayList<> searchStation1() {
+    public ArrayList<DTOStation> searchStation1() {
         System.out.println("entro a seach station");
         DTOStation st = new DTOStation();
 

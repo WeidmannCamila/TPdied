@@ -21,7 +21,7 @@ public class HomeGUI{
     private JButton estacionButton;
     private JLabel JLabelinfo;
     private JLabel exitButton;
-
+    private GrafoPanel grafoPanel = GrafoPanel.getInstance();;
     public JFrame framePrincipal;
 
     public HomeGUI(){
@@ -83,7 +83,16 @@ public class HomeGUI{
 
         });
 
+        JLabelinfo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                    grafoPanel.initVertex();
+                    grafoPanel.initArista();
 
+
+
+            }
+        });
 
     }
 

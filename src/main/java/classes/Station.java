@@ -26,6 +26,10 @@ public class Station {
         this.maintenanceHistory = maintenanceHistory;
     }
 
+    public Station() {
+
+    }
+
 
     //getters and setters
 

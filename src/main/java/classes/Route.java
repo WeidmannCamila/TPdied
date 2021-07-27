@@ -1,5 +1,7 @@
 package main.java.classes;
 
+import com.sun.jdi.connect.Transport;
+
 import java.sql.Time;
 import java.util.List;
 
@@ -7,17 +9,18 @@ public class Route {
     private Integer idRoute;
     private Station origin;
     private Station destination;
-    private long distance;
+    private Double distance;
     private Integer duration ;
     private Integer maxPassagers;
     private boolean status;
     private Integer cost;
     private List<Station> listStation;
+    private Transport transport;
 
 
     //constructor
 
-    public Route(Integer idRoute, Station origin, Station destination, long distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation) {
+    public Route(Integer idRoute, Station origin, Station destination, Double distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation, Transport transport) {
         this.idRoute = idRoute;
         this.origin = origin;
         this.destination = destination;
@@ -27,9 +30,15 @@ public class Route {
         this.status = status;
         this.cost = cost;
         this.listStation = listStation;
+        this.transport = transport;
+
     }
 
     public Route(Station start, Station end) {
+    }
+
+    public Route() {
+
     }
 
 
@@ -59,11 +68,11 @@ public class Route {
         this.destination = destination;
     }
 
-    public long getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(long distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
 
@@ -106,4 +115,13 @@ public class Route {
     public void setListStation(List<Station> listStation) {
         this.listStation = listStation;
     }
+
+    public Transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
+    }
+
 }

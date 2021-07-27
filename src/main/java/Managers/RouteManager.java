@@ -1,9 +1,13 @@
 package main.java.Managers;
 
+import main.java.DAO.RouteDAO;
+import main.java.DAO.StationDAO;
+import main.java.DTOs.DTORoute;
 import main.java.classes.Route;
 import main.java.classes.Station;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +24,7 @@ public class RouteManager {
     private ArrayList<Route> listRoutes = new ArrayList<>();
 
     private static final RouteManager INSTANCE = new RouteManager();
+    private RouteDAO rDAO = new RouteDAO();
 
     private static RouteManager getInstance() {
             return INSTANCE;
@@ -33,9 +38,13 @@ public class RouteManager {
 
 
 
-    public Route createRoute(Station start, Station end) {
+    public Route createRoute(DTORoute dto) {
+        //se agrega ruta a la bdd
+        rDAO.addRoute(dto);
+        //se lo crea para agregar a la lista de rutas
+        Route r = new Route(dto.getOrigin(), dto.getDestination());
 
-        Route r = new Route(start, end);
+
         listRoutes.add(r);
         return r;
 
@@ -49,6 +58,7 @@ public class RouteManager {
 
         RouteManager rm = RouteManager.getInstance();
 
+        // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
 
       /*  switch(crit){
@@ -71,35 +81,39 @@ public class RouteManager {
         return listpaths;
     }
 
-    /*
-    por cada lista de estaciones, tengo q obtener la ruta de ellas y calcular por atributo
 
-    private ArrayList<ArrayList<Station>> shortest(ArrayList<ArrayList<Station>> listpaths) {
-        Double duracionmin = Double.MAX_VALUE;
-        ArrayList<ArrayList<Station>> shortroute = new  ArrayList<>();
+   // por cada lista de estaciones, tengo q obtener la ruta de ellas y calcular por atributo
 
+    private ArrayList<Station> shortest(ArrayList<ArrayList<Station>> listpaths) {
+        Double distance = Double.MAX_VALUE;
+        ArrayList<Station> shortroute = new  ArrayList<>();
+        ArrayList<Double> minim = new ArrayList<>();
+
+        // [inic, estaciones, fin]
         for(ArrayList<Station> cs : listpaths) {
 
-            Double duraciontotal = 0.0;
-            //aca no tengo que agarrar una, sino la actual y la siguiente para sacar origen y destina y el atributo de la ruta entre los dos
-            for(Station c : cs) {
+            RouteDAO rdao= new RouteDAO();
+            Route ro = new Route();
+            Double distanceAux = 0.0;
+            //recorro la lista, y averiguo las rutas q hay entre cada estacion
 
-
-
-                duraciontotal += c.getDuration();
+            for (int i =0; i< cs.size() ; i++) {
+                ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
+                distanceAux += ro.getDistance();
             }
 
-            if(duraciontotal < duracionmin) {
+            minim.add(distanceAux);
 
-                duracionmin = duraciontotal;
-                shortroute = (ArrayList<ArrayList<Route>>) Collections.singletonList(cs);
-            }
         }
+
+        int i =  minim.indexOf(Collections.min(minim));
+
+        shortroute = listpaths.get(i);
 
         return shortroute;
 
 
-    }*/
+    }
 
     private void faster(List<List<Station>> listpaths) {
     }
@@ -111,6 +125,7 @@ public class RouteManager {
     /*
         Busca todos los caminos que existen desde inicio a fin. usando una lista que tiene uns lista de rutas
         usa la lsita de marcados para ir agregando y formando cada uno de los treyectos
+        no es lo mismo q el start y el end de route
      */
     public ArrayList<ArrayList<Station>> paths(Station start, Station end) {
         ArrayList<ArrayList<Station>> listpaths = new ArrayList<ArrayList<Station>>();

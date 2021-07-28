@@ -122,6 +122,7 @@ public class RouteManager {
 
     }
 
+    //para bucar por mas rapido
     private void faster(List<List<Station>> listpaths) {
     }
 

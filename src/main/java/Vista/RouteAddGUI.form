@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.java.Vista.RouteAddGUI">
+  <grid id="27dc6" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1216" height="736"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="fe5fd" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="f782b" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="9f0fa" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="f094d" binding="panel1" default-binding="true" layout-manager="GridBagLayout">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <alignmentX value="0.5"/>
+                      <background color="-14869163"/>
+                      <enabled value="true"/>
+                      <foreground color="-852481"/>
+                      <minimumSize width="1200" height="720"/>
+                      <preferredSize width="1200" height="720"/>
+                      <verifyInputWhenFocusTarget value="true"/>
+                      <visible value="true"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <grid id="5d8b4" layout-manager="GridBagLayout">
+                        <constraints>
+                          <grid row="0" column="0" row-span="14" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="1200" height="720"/>
+                          </grid>
+                          <gridbag weightx="1.0" weighty="1.0"/>
+                        </constraints>
+                        <properties>
+                          <background color="-16776905"/>
+                          <visible value="true"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <grid id="50c3" layout-manager="GridBagLayout">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                                <preferred-size width="1200" height="720"/>
+                              </grid>
+                              <gridbag weightx="1.0" weighty="1.0"/>
+                            </constraints>
+                            <properties>
+                              <background color="-16776905"/>
+                              <minimumSize width="100" height="538"/>
+                              <preferredSize width="30" height="538"/>
+                              <visible value="true"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="7ccc9" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                  <gridbag weightx="1.0" weighty="1.0"/>
+                                </constraints>
+                                <properties>
+                                  <foreground color="-14470036"/>
+                                  <icon value="main/resources/localstation.png"/>
+                                  <text value=""/>
+                                  <verticalAlignment value="1"/>
+                                  <verticalTextPosition value="3"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                        </children>
+                      </grid>
+                      <component id="a5198" class="javax.swing.JLabel" binding="exitButton">
+                        <constraints>
+                          <grid row="2" column="8" row-span="12" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <icon value="main/resources/icons8_undo_32px.png"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <component id="2e8ea" class="javax.swing.JTextField" binding="durRoute">
+                        <constraints>
+                          <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <minimumSize width="150" height="40"/>
+                          <preferredSize width="49" height="40"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <component id="d70b3" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <font size="24"/>
+                          <foreground color="-852481"/>
+                          <text value="Duracion"/>
+                        </properties>
+                      </component>
+                      <component id="c835e" class="javax.swing.JTextField" binding="costRoute">
+                        <constraints>
+                          <grid row="8" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <minimumSize width="49" height="40"/>
+                          <preferredSize width="49" height="40"/>
+                        </properties>
+                      </component>
+                      <component id="60383" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <font name="Roboto Light" size="24"/>
+                          <foreground color="-852481"/>
+                          <text value="AÑADIR RECORRIDO"/>
+                          <visible value="true"/>
+                        </properties>
+                      </component>
+                      <component id="7a21d" class="javax.swing.JSeparator">
+                        <constraints>
+                          <grid row="5" column="7" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="772cb" class="javax.swing.JButton" binding="addButton">
+                        <constraints>
+                          <grid row="13" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="200" height="100"/>
+                          </grid>
+                          <gridbag top="100" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <background color="-13024377"/>
+                          <font name="Roboto Light" size="24"/>
+                          <foreground color="-852481"/>
+                          <icon value="main/resources/icons8_add_32px.png"/>
+                          <label value="AÑADIR"/>
+                          <text value="AÑADIR"/>
+                        </properties>
+                      </component>
+                      <component id="225b6" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="8" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <font size="24"/>
+                          <foreground color="-852481"/>
+                          <text value="Costo"/>
+                        </properties>
+                      </component>
+                      <hspacer id="53595">
+                        <constraints>
+                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                      </hspacer>
+                      <component id="b5e64" class="javax.swing.JSeparator">
+                        <constraints>
+                          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <minimumSize width="5" height="5"/>
+                        </properties>
+                      </component>
+                      <hspacer id="2a046">
+                        <constraints>
+                          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                      </hspacer>
+                      <component id="54bc0" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <font name="Roboto Light" size="24"/>
+                          <foreground color="-852481"/>
+                          <text value="Distancia"/>
+                        </properties>
+                      </component>
+                      <component id="69789" class="javax.swing.JTextArea" binding="distanceRoute">
+                        <constraints>
+                          <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="50"/>
+                          </grid>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="ee7ac" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <font size="24"/>
+                          <foreground color="-852481"/>
+                          <text value="Nombre"/>
+                        </properties>
+                      </component>
+                      <component id="c50de" class="javax.swing.JComboBox" binding="CBStart">
+                        <constraints>
+                          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="e04f6" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <font size="24"/>
+                          <foreground color="-852481"/>
+                          <requestFocusEnabled value="false"/>
+                          <text value="Destino"/>
+                        </properties>
+                      </component>
+                      <component id="7d283" class="javax.swing.JComboBox" binding="CBEnd">
+                        <constraints>
+                          <grid row="3" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="b0fe2" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <text value="Linea"/>
+                        </properties>
+                      </component>
+                      <component id="cbdf2" class="javax.swing.JComboBox" binding="CBtransport">
+                        <constraints>
+                          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="268e" class="javax.swing.JTextField" binding="maxPRoute">
+                        <constraints>
+                          <grid row="10" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="98177" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="10" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <text value="Max Pasajeros"/>
+                        </properties>
+                      </component>
+                      <component id="9be59" class="javax.swing.JComboBox" binding="CBStatus">
+                        <constraints>
+                          <grid row="12" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="f3dee" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="0.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <text value="Estado"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>

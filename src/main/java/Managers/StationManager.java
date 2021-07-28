@@ -1,10 +1,12 @@
 package main.java.Managers;
 
+import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
 import main.java.classes.Station;
+import main.structures.Vertex;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -13,6 +15,16 @@ import java.util.List;
 public class StationManager {
 
     private static final StationManager INSTANCE = new StationManager();
+    private StationDAO sDAO = new StationDAO();
+    private ArrayList<Vertex<Station>> listStation= new ArrayList<>();
+
+    public static StationManager getInstance() {return INSTANCE;    }
+
+
+    public ArrayList<Vertex<Station>> getListStations() {
+        return this.listStation;
+    }
+
 
 
     public static ArrayList<DTOStation> search(Integer idStation, String name, Time openingTime, Time closingTime, String status, List<Maintenance> maintenanceHistory) {
@@ -43,7 +55,7 @@ public class StationManager {
         StationDAO.deleteStation(s);
     }
 
-    public static StationManager getInstance() {return INSTANCE;    }
+
 
     public ArrayList<DTOStation> searchStation1() {
         System.out.println("entro a seach station");
@@ -56,9 +68,16 @@ public class StationManager {
         return l;
     }
 
+    public void addStation(DTOStation dto){
+        sDAO.addStation(dto);
 
+        Station ss= new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
+        Vertex<Station> s = new Vertex<>();
+        s.setData(ss);
 
+        listStation.add(s);
 
+    }
 
 
 

@@ -81,9 +81,9 @@ public class TransportDAO {
         ArrayList l = new ArrayList();
         return l;
     }
-    public ArrayList<TransportRoute> getTranport() {
+    public ArrayList<DTOTransport> getTranport() {
         System.out.println("Entro al getTransport");
-        ArrayList<TransportRoute> transportes = new ArrayList<>();
+        ArrayList<DTOTransport> transportes = new ArrayList<>();
         Connection conexion = null;
         ResultSet resultado= null;
         final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
@@ -94,7 +94,7 @@ public class TransportDAO {
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport;");
             resultado = st.executeQuery();
             while(resultado.next()){
-                TransportRoute transport = new TransportRoute(resultado.getInt(1),resultado.getString(2),resultado.getString(3), resultado.getBoolean(4));
+                DTOTransport transport = new DTOTransport(resultado.getInt(1),resultado.getString(2),resultado.getString(3), resultado.getBoolean(4));
                 transportes.add(transport);
             }
             st.executeUpdate();

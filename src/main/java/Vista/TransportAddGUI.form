@@ -87,19 +87,6 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="b3b38" class="javax.swing.JTextField" binding="transportColour">
-                <constraints>
-                  <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                    <preferred-size width="150" height="-1"/>
-                  </grid>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <minimumSize width="150" height="40"/>
-                  <preferredSize width="49" height="40"/>
-                  <text value=""/>
-                </properties>
-              </component>
               <component id="826ae" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
@@ -264,6 +251,13 @@
                   <text value="Activa"/>
                   <verticalAlignment value="0"/>
                 </properties>
+              </component>
+              <component id="83a5a" class="javax.swing.JComboBox" binding="CBTransportColour">
+                <constraints>
+                  <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties/>
               </component>
             </children>
           </grid>

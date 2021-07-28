@@ -20,7 +20,7 @@ public class ListGlobalStation implements Comparable<ListGlobalStation>{
     public static ListGlobalStation getInstance() {
         if (listS==null) {
             StationManager sm = new StationManager();
-            listS = new ListGlobalStation(sm.searchStation());
+         //   listS = new ListGlobalStation(sm.searchStation1());
         }
         return listS;
     }

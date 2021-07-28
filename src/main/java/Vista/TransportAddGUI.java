@@ -2,12 +2,17 @@ package main.java.Vista;
 
 import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
+import main.java.Enumeration.EnumColour;
+import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
+import main.java.Managers.StationManager;
+import main.java.Managers.TransportManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Time;
 
 public class TransportAddGUI {
     private JPanel panel1;
@@ -18,12 +23,13 @@ public class TransportAddGUI {
     private JButton addButton;
     private JRadioButton noActivaRadioButton;
     private JRadioButton activaRadioButton;
+    private JComboBox CBTransportColour;
     private DTOTransport dto;
     private TransportDAO tDAO = new TransportDAO();
     public JFrame frameTransportAdd;
     private ButtonGroup statusBotton;
 
-
+    private TransportManager tm =new TransportManager();
     private JFrame anterior;
 
     public TransportAddGUI() {
@@ -40,6 +46,7 @@ public class TransportAddGUI {
         this.statusBotton = new ButtonGroup();
         statusBotton.add(noActivaRadioButton);
         statusBotton.add(activaRadioButton);
+        CBTransportColour.setModel(new DefaultComboBoxModel<EnumColour>(EnumColour.values()));
 
         // final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
         addButton.addActionListener(new ActionListener() {
@@ -64,10 +71,11 @@ public class TransportAddGUI {
                     else {
                         dto = new DTOTransport();
                         dto.setName(transportName.getText().substring(0,1).toUpperCase() + transportName.getText().substring(1).toLowerCase());
-                        dto.setColour(transportColour.getText().substring(0,1).toUpperCase() + transportColour.getText().substring(1).toLowerCase());
+                        dto.setColour(CBTransportColour.getSelectedItem().toString());
                         dto.setStatus(activaRadioButton.isSelected());
                         dto.setIdTransport(Integer.parseInt(transportId.getText()));
-                        tDAO.addTransport(dto);
+                        tm.addTransport(dto);
+
                         System.out.println("llego antes del DAO");
                     }
                 }

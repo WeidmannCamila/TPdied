@@ -93,6 +93,9 @@ public class HomeGUI{
                 // TODO obtener la lista de estaciones
                     grafoPanel.initVertex(sm.getListStations());
                     grafoPanel.initArista(rm.getListRoutes());
+                    GrafoGUI graf = new GrafoGUI();
+                    graf.frameGrafo.setVisible(true);
+                    graf.setAnterior(HomeGUI.this.framePrincipal);
 
 
 

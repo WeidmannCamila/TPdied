@@ -36,7 +36,14 @@ public class RouteManager {
         return this.listRoutes;
     }
 
-
+    public Route getRoute(Station start, Station end) {
+        for (Route r : this.getListRoutes()) {
+            if (r.getOrigin() == start && r.getDestination() == end) {
+                return r;
+            }
+        }
+        return null;
+    }
 
     public Route createRoute(DTORoute dto) {
         //se agrega ruta a la bdd

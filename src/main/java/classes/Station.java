@@ -2,6 +2,7 @@ package main.java.classes;
 
 import main.java.Enumeration.EnumStatus;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,9 @@ public class Station {
 
     public Station() {
 
+    }
+
+    public Station(Integer idStation, String name, Time open, Time clouse, String status) {
     }
 
 

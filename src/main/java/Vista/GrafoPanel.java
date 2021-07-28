@@ -1,22 +1,24 @@
 package main.java.Vista;
 
+import main.java.Managers.RouteManager;
+import main.java.Managers.StationManager;
 import main.java.classes.Route;
 import main.java.classes.Station;
+import main.structures.Edge;
 import main.structures.Vertex;
 
 import javax.swing.*;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Container;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.awt.Component;
 
 public class GrafoPanel extends JPanel {
 
     private ArrayList<ViewVertex> vertices = new ArrayList<>();
     private ArrayList<ViewEdges> edges = new ArrayList<>();
     private static final GrafoPanel INSTANCE = new GrafoPanel();
+    private StationManager sm =new StationManager();
+    private RouteManager rm = new RouteManager();
 
     public static GrafoPanel getInstance() {
         return INSTANCE;
@@ -84,6 +86,36 @@ public class GrafoPanel extends JPanel {
         }
     }
 
+
+    public void paintRoute(ArrayList<Station> bestRoute) {
+        this.updateEdge();
+        RouteManager rm = RouteManager.getInstance();
+        for (int i = 0; i < bestRoute.size() - 1; i++) {
+            Route r = rm.getRoute(bestRoute.get(i), bestRoute.get(i + 1));
+            this.updateColourE(this.getEdge(r), r.getTransport().getColour());
+        }
+    }
+
+    private void updateEdge() {
+        for(ViewEdges e : this.edges){
+            this.updateColourE(e, Color.PINK);
+        }
+    }
+
+    private void updateColourE(ViewEdges edge, Paint c) {
+        edge.setColour(c);
+        edge.update();
+
+    }
+
+    private ViewEdges getEdge(Route r) {
+        for(ViewEdges e: this.edges){
+            if(e.getRoutCon() == r){
+                return e;
+            }
+        }
+        return null;
+    }
 
 
 }

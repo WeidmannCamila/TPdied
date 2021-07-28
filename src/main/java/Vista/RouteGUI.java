@@ -24,7 +24,7 @@ public class RouteGUI {
     private JComboBox CBparamSearch;
     public JFrame frameRoute;
     private JFrame anterior;
-
+    private GrafoPanel grafoPanel = GrafoPanel.getInstance();;
     private StationManager sm =new StationManager();
     private RouteManager rm = new RouteManager();
 
@@ -97,8 +97,14 @@ public class RouteGUI {
 
 
                 ArrayList<Station> bestRoute = rm.bestRoute4crit(start, end, crit);
-
+                System.out.println("mejor trayecto" + bestRoute);
                 //mostrar en tabla y grafico
+                grafoPanel.paintRoute(bestRoute);
+                grafoPanel.repaint();
+
+                GrafoGUI graf = new GrafoGUI(bestRoute);
+                graf.frameGrafo.setVisible(true);
+                graf.setAnterior(RouteGUI.this.frameRoute);
 
 
 

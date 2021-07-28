@@ -26,13 +26,13 @@ public class RouteManager {
     private static final RouteManager INSTANCE = new RouteManager();
     private RouteDAO rDAO = new RouteDAO();
 
-    private static RouteManager getInstance() {
+    public static RouteManager getInstance() {
             return INSTANCE;
     }
 
 
 
-    public ArrayList<Route> getListPath() {
+    public ArrayList<Route> getListRoutes() {
         return this.listRoutes;
     }
 
@@ -167,7 +167,7 @@ public class RouteManager {
 
     private ArrayList<Station> getAdjacentStations(Station start) {
         ArrayList<Station> adjacents = new ArrayList<>();
-        for(Route r: this.getListPath() ){
+        for(Route r: this.getListRoutes() ){
             if(start == r.getOrigin()){
                 adjacents.add(r.getDestination());
             }

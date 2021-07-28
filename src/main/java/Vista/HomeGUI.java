@@ -1,5 +1,8 @@
 package main.java.Vista;
 
+import main.java.Managers.RouteManager;
+import main.java.Managers.StationManager;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +26,8 @@ public class HomeGUI{
     private JLabel exitButton;
     private GrafoPanel grafoPanel = GrafoPanel.getInstance();;
     public JFrame framePrincipal;
-
+    static StationManager sm = StationManager.getInstance();
+    static RouteManager rm = RouteManager.getInstance();
     public HomeGUI(){
         this.initialize();}
 
@@ -86,8 +90,10 @@ public class HomeGUI{
         JLabelinfo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                    grafoPanel.initVertex();
-                    grafoPanel.initArista();
+                // TODO obtener la lista de estaciones
+                    grafoPanel.initVertex(sm.getListStations());
+                    grafoPanel.initArista(rm.getListRoutes());
+
 
 
 

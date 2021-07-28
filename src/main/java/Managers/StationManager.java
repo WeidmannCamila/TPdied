@@ -12,6 +12,8 @@ import java.util.List;
 
 public class StationManager {
 
+    private static final StationManager INSTANCE = new StationManager();
+
 
     public static ArrayList<DTOStation> search(Integer idStation, String name, Time openingTime, Time closingTime, String status, List<Maintenance> maintenanceHistory) {
         DTOStation station = new DTOStation(idStation, name, openingTime,  closingTime,  status);
@@ -40,6 +42,8 @@ public class StationManager {
     public static void deleteStationObject (DTOStation s){
         StationDAO.deleteStation(s);
     }
+
+    public static StationManager getInstance() {return INSTANCE;    }
 
     public ArrayList<DTOStation> searchStation1() {
         System.out.println("entro a seach station");

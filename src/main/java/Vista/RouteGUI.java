@@ -74,7 +74,7 @@ public class RouteGUI {
 
         //buscar rutas
 
-        // TODO segun criterio de busqueda, se tiene q ahcer una funcion que compare cada unod de los caminos y elija depende del combobox
+        // segun criterio de busqueda, se tiene q ahcer una funcion que compare cada unod de los caminos y elija depende del combobox
 
         CBparamSearch.setVisible(true);
         CBparamSearch.setModel(new DefaultComboBoxModel<EnumBestRoute>(EnumBestRoute.values()));

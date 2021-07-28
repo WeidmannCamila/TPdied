@@ -1,6 +1,6 @@
 package main.java.classes;
 
-import com.sun.jdi.connect.Transport;
+
 
 import java.sql.Time;
 import java.util.List;
@@ -15,12 +15,12 @@ public class Route {
     private boolean status;
     private Integer cost;
     private List<Station> listStation;
-    private Transport transport;
+    private TransportRoute transport;
 
 
     //constructor
 
-    public Route(Integer idRoute, Station origin, Station destination, Double distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation, Transport transport) {
+    public Route(Integer idRoute, Station origin, Station destination, Double distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation, TransportRoute transport) {
         this.idRoute = idRoute;
         this.origin = origin;
         this.destination = destination;
@@ -116,11 +116,11 @@ public class Route {
         this.listStation = listStation;
     }
 
-    public Transport getTransport() {
+    public TransportRoute getTransport() {
         return transport;
     }
 
-    public void setTransport(Transport transport) {
+    public void setTransport(TransportRoute transport) {
         this.transport = transport;
     }
 

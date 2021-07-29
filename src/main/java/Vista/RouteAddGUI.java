@@ -54,10 +54,6 @@ public class RouteAddGUI {
         List<Station> ls = new ArrayList<Station>(sm.searchStation1());
 
 
-
-
-
-
         String[] array = new String[ls.size()];
         for(int i = 0; i < array.length; i++) {
             array[i] = ls.get(i).getName();

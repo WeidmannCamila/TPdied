@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RouteGUI {
     private JPanel panel1;
@@ -41,6 +42,25 @@ public class RouteGUI {
         this.frameRoute.setContentPane(panel1);
         this.frameRoute.setBounds(100, 100, 1200, 720);
         this.frameRoute.setResizable(false);
+
+        final ArrayList<Station> listStation = sm.searchStation1();
+
+        List<Station> ls = new ArrayList<Station>(sm.searchStation1());
+
+
+        String[] array = new String[ls.size()];
+        for(int i = 0; i < array.length; i++) {
+            array[i] = ls.get(i).getName();
+        }
+
+        CBStart.setModel(new DefaultComboBoxModel<>(array));
+
+        String[] arraydos = new String[ls.size()];
+        for(int i = 0; i < arraydos.length; i++) {
+            arraydos[i] = ls.get(i).getName();
+        }
+
+        CBEnd.setModel(new DefaultComboBoxModel<>(arraydos));
 
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -83,9 +103,15 @@ public class RouteGUI {
         searchButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Station end = new Station();
+                Station start = new Station();
+                String s = CBStart.getSelectedItem().toString();
+                start = sm.getStation(s);
+                String en = CBEnd.getSelectedItem().toString();
+                end =sm.getStation(en);
 
-                Station start = (Station) CBStart.getSelectedItem();
-                Station end = (Station) CBEnd.getSelectedItem();
+
+
 
                 if(start == null || end == null){
                     System.out.println("seleccione estaciones");
@@ -96,14 +122,16 @@ public class RouteGUI {
                 }
                 String crit = CBparamSearch.getSelectedItem().toString();
 
+                System.out.println("criterio" + crit);
 
                 ArrayList<Station> bestRoute = rm.bestRoute4crit(start, end, crit);
+
                 System.out.println("mejor trayecto" + bestRoute);
                 //mostrar en tabla y grafico
                 grafoPanel.paintRoute(bestRoute);
                 grafoPanel.repaint();
 
-                GrafoGUI graf = new GrafoGUI(bestRoute);
+                GrafoGUI graf = new GrafoGUI(grafoPanel);
                 graf.frameGrafo.setVisible(true);
                 graf.setAnterior(RouteGUI.this.frameRoute);
 

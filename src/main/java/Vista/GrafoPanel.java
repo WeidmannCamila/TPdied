@@ -4,18 +4,18 @@ import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
 import main.java.classes.Route;
 import main.java.classes.Station;
-import main.structures.Vertex;
 
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GrafoPanel extends JPanel {
 
-    private ArrayList<ViewVertex> vertices = new ArrayList<>();
+    private List<ViewVertex> vertices = new ArrayList<>();
     private ArrayList<ViewEdges> edges = new ArrayList<>();
     private static final GrafoPanel INSTANCE = new GrafoPanel();
     private StationManager sm =new StationManager();
@@ -24,6 +24,8 @@ public class GrafoPanel extends JPanel {
     public static GrafoPanel getInstance() {
         return INSTANCE;
     }
+
+ GrafoPanel(){}
 
     public void initVertex(HashMap<Integer, Station> list) {
         System.out.println("DENTRO DEL INIT VERTEX" + list.get(1));
@@ -36,14 +38,18 @@ public class GrafoPanel extends JPanel {
 
        for(Station s: list.values()){
 
-            ++aux;
-            posX +=60;
+            aux++;
+            posX +=90;
 
             if(aux % 2 == 0){
-                posY =100;
-            } else { posX=200;}
+                posY =300;
+            } else { posY=200;}
+
             ViewVertex vx = new ViewVertex(posX, posY, s);
+            vx.setId(s.getIdStation());
+            vx.setName(s.getName());
             vertices.add(vx);
+            System.out.println("vertices añadidos" + vertices.size());
         }
 
         getInstance().repaint();
@@ -51,14 +57,18 @@ public class GrafoPanel extends JPanel {
     }
 
     public void initArista(ArrayList<Route> listRoutes) {
-        System.out.println("entro a initArista grafo panel");
+
+        System.out.println("entro a initArista grafo panel" + listRoutes.get(1));
         edges.clear();
 
         for(Route r: listRoutes){
+            System.out.println("viewvertex init arista :"+ r.getOrigin().getName());
             ViewVertex VertexStart = this.getVertex(r.getOrigin());
             ViewVertex VertexEnd = this.getVertex(r.getDestination());
-
-            ViewEdges e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour());
+            System.out.println("viewvertex init arista :" + VertexEnd + VertexStart);
+            System.out.println("viewvertex init arista :" + r );
+       //     System.out.println("viewvertex init arista color de trasporte:" + r.getTransport() );
+            ViewEdges e = new ViewEdges(VertexStart, VertexEnd, r, Color.BLUE);
 
             edges.add(e);
 
@@ -67,10 +77,17 @@ public class GrafoPanel extends JPanel {
     }
 
     private ViewVertex getVertex(Station s) {
-        return vertices.stream().filter(v -> v.getStationV() == s).findFirst().get();
+        System.out.println("VERTICE TAMAÑO" + vertices.size());
+        System.out.println("VERTICE station" + s.getName());
+
+        ViewVertex l= this.vertices.stream().filter((v) ->
+            v.getStationV().getName().equals(s.getName())
+        ).findFirst().get();
+        System.out.println(l);
+        return l;
     }
 
-    public ArrayList<ViewVertex> getVertices() {
+    public List<ViewVertex> getVertices() {
         return vertices;
     }
 
@@ -78,17 +95,38 @@ public class GrafoPanel extends JPanel {
         return edges;
     }
 
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D)g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        this.dibujarAristas(g2d);
+        this.dibujarVertices(g2d);
+    }
 
 
     private void dibujarVertices(Graphics2D g2d) {
         for (ViewVertex v : this.getVertices()) {
             g2d.setPaint(v.getColour());
-            g2d.drawString(v.info(), v.getCoordX() + 25, v.getCoordY() + 25);
+            g2d.drawString(v.info(), v.getCoordX() + 65, v.getCoordY() + 65);
             g2d.setPaint(v.getColour());
             g2d.fill(v.getNode());
         }
     }
 
+    private void dibujarAristas(Graphics2D g2d) {
+        for (ViewEdges a : this.getEdges()) {
+            int puntoMedioX = (int) (a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
+            int puntoMedioY = (int) (a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
+            Route ruta = a.getRoutCon();
+
+            g2d.setPaint(a.getColour());
+            g2d.setStroke(a.getLineF());
+            g2d.drawString(ruta.getIdRoute() + " [km]", puntoMedioX + 20, puntoMedioY + 20);
+            g2d.drawString(ruta.getCost() + " [Tn]", puntoMedioX + 20, puntoMedioY + 33);
+            g2d.drawString(ruta.getDuration() + " [min]", puntoMedioX + 20, puntoMedioY + 46);
+            g2d.draw(a.getLin());
+        }
+    }
 
     public void paintRoute(ArrayList<Station> bestRoute) {
         this.updateEdge();

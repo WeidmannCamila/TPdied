@@ -1,12 +1,10 @@
 package main.java.Managers;
 
-import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
 import main.java.classes.Station;
-import main.structures.Vertex;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -76,13 +74,16 @@ public class StationManager {
         sDAO.addStation(dto);
 
         Station ss= new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
-        Vertex<Station> s = new Vertex<>();
-        s.setData(ss);
 
         listStation.put(ss.getIdStation(), ss);
 
     }
 
+    //buscar estacion por string
+    public Station getStation(String s) {
+        Station station = new Station();
+        station =sDAO.getStationString(s);
 
-
+        return station;
+    }
 }

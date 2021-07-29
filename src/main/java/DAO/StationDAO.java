@@ -2,13 +2,11 @@ package main.java.DAO;
 
 import main.java.DTOs.DTOStation;
 import main.java.classes.Station;
-import main.structures.Vertex;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class StationDAO {
 
@@ -252,14 +250,29 @@ public class StationDAO {
 
 
 
-    public Station getStation(String name) {
+    public Station getStation(int id) {
         ArrayList<Station> lista = this.getStations();
         Station resultado = null;
         Iterator var5 = lista.iterator();
 
         while(var5.hasNext()) {
             Station a = (Station) var5.next();
-            if (a.getName() == name) {
+            if (a.getIdStation() == id) {
+                resultado = a;
+            }
+        }
+
+        return resultado;
+    }
+
+    public Station getStationString(String s) {
+        ArrayList<Station> lista = this.getStations();
+        Station resultado = null;
+        Iterator var5 = lista.iterator();
+
+        while(var5.hasNext()) {
+            Station a = (Station) var5.next();
+            if (a.getName() == s) {
                 resultado = a;
             }
         }

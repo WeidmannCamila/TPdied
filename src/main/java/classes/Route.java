@@ -43,7 +43,10 @@ public class Route {
 
     }
 
-    public Route(int anInt, Station start, Station end) {
+    public Route(int idRoute, Station origin, Station destination) {
+        this.idRoute = idRoute;
+        this.origin = origin;
+        this.destination = destination;
     }
 
 

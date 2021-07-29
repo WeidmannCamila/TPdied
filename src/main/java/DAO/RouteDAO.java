@@ -58,14 +58,16 @@ public class RouteDAO {
             rs = st.executeQuery();
 
             while(rs.next()) {
+
+                System.out.println("entra a reoute dao ");
                 Station start = new Station();
                 Station end = new Station();
                 StationDAO daoS = new StationDAO();
-                start =  daoS.getStation(rs.getString(2));
+                start =  daoS.getStation(rs.getInt("idStationOrigin"));
 
-                end = daoS.getStation(rs.getString(3));
-                System.out.println("deberia ser nombre estacion inicio y fin: "+ rs.getInt(1) +rs.getString(2)+rs.getString(3));
-                Route route = new Route(rs.getInt(1), start, end);
+                end = daoS.getStation(rs.getInt("idStationDestination"));
+                System.out.println("deberia ser nombre estacion inicio y fin: "+ rs.getString("idStationDestination" )+ "nombre start" + start.getName());
+                Route route = new Route(rs.getInt("idRoute"), start, end);
                 routes.add(route);
             }
 

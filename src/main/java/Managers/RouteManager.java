@@ -35,7 +35,8 @@ public class RouteManager {
     public ArrayList<Route> getListRoutes() {
 
         this.listRoutes = rDAO.getRoutes();
-        System.out.println("route man getlist route llego" + listRoutes.get(1));
+     System.out.println("route man getlist route llego" + listRoutes.size());
+     System.out.println(listRoutes.get(1).getOrigin());
         return listRoutes;
     }
 
@@ -65,30 +66,30 @@ public class RouteManager {
 
      */
     public ArrayList bestRoute4crit(Station start, Station end, String crit) {
-
+        System.out.println("best rpute");
         RouteManager rm = RouteManager.getInstance();
 
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
-
-      /*  switch(crit){
+        ArrayList resultado = new ArrayList();
+         switch(crit){
             case "MAS_BARATO": {
-                cheaper(listpaths);
+                resultado =cheaper(listpaths);
 
             }
             case "MAS_RAPIDO" : {
-                faster(listpaths);
+                resultado= faster(listpaths);
             }
             case "MENOR_DISTANCIA": {
 
-                shortest(listpaths);
+                resultado =shortest(listpaths);
             }
 
 
-        }*/
+        }
 
 
-        return listpaths;
+        return resultado;
     }
 
 
@@ -126,10 +127,62 @@ public class RouteManager {
     }
 
     //para bucar por mas rapido
-    private void faster(List<List<Station>> listpaths) {
+    private ArrayList<Station> faster(ArrayList<ArrayList<Station>> listpaths) {
+        Double duration = Double.MAX_VALUE;
+        ArrayList<Station> shortroute = new  ArrayList<>();
+        ArrayList<Double> minim = new ArrayList<>();
+
+        // [inic, estaciones, fin]
+        for(ArrayList<Station> cs : listpaths) {
+
+            RouteDAO rdao= new RouteDAO();
+            Route ro = new Route();
+            Double durationAux = 0.0;
+            //recorro la lista, y averiguo las rutas q hay entre cada estacion
+
+            for (int i =0; i< cs.size() ; i++) {
+                ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
+                durationAux += ro.getDistance();
+            }
+
+            minim.add(durationAux);
+
+        }
+
+        int i =  minim.indexOf(Collections.min(minim));
+
+        shortroute = listpaths.get(i);
+
+        return shortroute;
     }
 
-    private void cheaper(List<List<Station>> listpaths) {
+    private ArrayList<Station> cheaper(ArrayList<ArrayList<Station>> listpaths) {
+        Double duration = Double.MAX_VALUE;
+        ArrayList<Station> shortroute = new  ArrayList<>();
+        ArrayList<Double> minim = new ArrayList<>();
+
+        // [inic, estaciones, fin]
+        for(ArrayList<Station> cs : listpaths) {
+
+            RouteDAO rdao= new RouteDAO();
+            Route ro = new Route();
+            Double costeAux = 0.0;
+            //recorro la lista, y averiguo las rutas q hay entre cada estacion
+
+            for (int i =0; i< cs.size() ; i++) {
+                ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
+                costeAux += ro.getDistance();
+            }
+
+            minim.add(costeAux);
+
+        }
+
+        int i =  minim.indexOf(Collections.min(minim));
+
+        shortroute = listpaths.get(i);
+
+        return shortroute;
     }
 
 

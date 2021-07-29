@@ -33,7 +33,10 @@ public class RouteManager {
 
 
     public ArrayList<Route> getListRoutes() {
-        return this.listRoutes;
+
+        this.listRoutes = rDAO.getRoutes();
+        System.out.println("route man getlist route llego" + listRoutes.get(1));
+        return listRoutes;
     }
 
     public Route getRoute(Station start, Station end) {

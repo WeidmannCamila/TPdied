@@ -2,8 +2,11 @@ package main.java.Vista;
 
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
+import main.java.classes.Station;
+import main.structures.Vertex;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -92,6 +95,7 @@ public class HomeGUI{
             public void mouseClicked(MouseEvent e) {
                 // TODO obtener la lista de estaciones
                     grafoPanel.initVertex(sm.getListStations());
+                    System.out.println("salio del vertex");
                     grafoPanel.initArista(rm.getListRoutes());
                     GrafoGUI graf = new GrafoGUI();
                     graf.frameGrafo.setVisible(true);

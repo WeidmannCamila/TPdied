@@ -6,10 +6,9 @@ public class Edge<T> {
     private EdgeData data;
 
 
-    public Edge(Vertex<T> start, Vertex<T> end, EdgeData data) {
-        this.start = start;
-        this.end = end;
-        this.data = data;
+    public Edge(Vertex<T> start, Vertex<T> end, EdgeData dat) {
+        this(start, end);
+        this.data = dat;
     }
 
     public Edge(Vertex<T> start, Vertex<T> end) {

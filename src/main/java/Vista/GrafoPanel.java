@@ -4,12 +4,13 @@ import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
 import main.java.classes.Route;
 import main.java.classes.Station;
-import main.structures.Edge;
 import main.structures.Vertex;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class GrafoPanel extends JPanel {
@@ -24,23 +25,24 @@ public class GrafoPanel extends JPanel {
         return INSTANCE;
     }
 
-    public void initVertex(ArrayList<Vertex<Station>> list) {
+    public void initVertex(HashMap<Integer, Station> list) {
+        System.out.println("DENTRO DEL INIT VERTEX" + list.get(1));
         this.vertices.clear();
         int posY = 100;
         int posX= 0;
 
         int aux = 0;
-        Iterator v = list.iterator();
 
-        while(v.hasNext()){
-            Vertex<Station> s = (Vertex<Station>) v.next();
+
+       for(Station s: list.values()){
+
             ++aux;
             posX +=60;
 
             if(aux % 2 == 0){
                 posY =100;
             } else { posX=200;}
-            ViewVertex vx = new ViewVertex(posX, posY, (Station) s.getData());
+            ViewVertex vx = new ViewVertex(posX, posY, s);
             vertices.add(vx);
         }
 
@@ -49,6 +51,7 @@ public class GrafoPanel extends JPanel {
     }
 
     public void initArista(ArrayList<Route> listRoutes) {
+        System.out.println("entro a initArista grafo panel");
         edges.clear();
 
         for(Route r: listRoutes){

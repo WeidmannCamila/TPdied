@@ -7,6 +7,7 @@ import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
+import main.java.classes.Station;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -51,7 +52,7 @@ public class StationAddGUI {
  */
 
 
-        final ArrayList<DTOStation> listStation = sDAO.getStations();
+        final ArrayList<Station> listStation = sDAO.getStations();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(StationAddGUI.this.stationId.getText().length() <= 0 || StationAddGUI.this.stationName.getText().length() <= 0 ){

@@ -10,19 +10,23 @@ import main.structures.Vertex;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class StationManager {
 
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
-    private ArrayList<Vertex<Station>> listStation= new ArrayList<>();
+    private HashMap<Integer, Station> listStation= new HashMap<Integer, Station>();
 
     public static StationManager getInstance() {return INSTANCE;    }
 
 
-    public ArrayList<Vertex<Station>> getListStations() {
-        return this.listStation;
+    public HashMap<Integer, Station> getListStations() {
+
+        this.listStation= sDAO.getStationsV();
+        System.out.println("LISTA DE ESTACIONES DE LA BDD" + listStation.get(1) + listStation.get(2));
+        return listStation;
     }
 
 
@@ -57,12 +61,12 @@ public class StationManager {
 
 
 
-    public ArrayList<DTOStation> searchStation1() {
+    public ArrayList<Station> searchStation1() {
         System.out.println("entro a seach station");
-        DTOStation st = new DTOStation();
+        Station st = new Station();
 
         ListGlobalStation lgs = ListGlobalStation.getInstance();
-        ArrayList<DTOStation> l = StationDAO.getStations();
+        ArrayList<Station> l = StationDAO.getStations();
 
 
         return l;
@@ -75,7 +79,7 @@ public class StationManager {
         Vertex<Station> s = new Vertex<>();
         s.setData(ss);
 
-        listStation.add(s);
+        listStation.put(ss.getIdStation(), ss);
 
     }
 

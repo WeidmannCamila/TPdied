@@ -51,7 +51,7 @@ public class RouteAddGUI {
 
 
         //buscar toda las estaciones para meter en el combobox
-        List<DTOStation> ls = new ArrayList<DTOStation>(sm.searchStation1());
+        List<Station> ls = new ArrayList<Station>(sm.searchStation1());
 
 
 

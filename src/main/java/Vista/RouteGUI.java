@@ -21,6 +21,7 @@ public class RouteGUI {
     private JButton addTransportButton;
     private JComboBox CBStart;
     private JComboBox CBEnd;
+    private JButton addButton;
     private JComboBox CBparamSearch;
     public JFrame frameRoute;
     private JFrame anterior;
@@ -61,7 +62,7 @@ public class RouteGUI {
         JButton btnEliminar = new JButton("Eliminar");
 
 
-        addRouteButton.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 RouteAddGUI sadd = new RouteAddGUI();
                 sadd.setAnterior(RouteGUI.this.anterior);

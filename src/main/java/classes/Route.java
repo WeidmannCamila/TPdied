@@ -2,6 +2,8 @@ package main.java.classes;
 
 
 
+import main.java.DTOs.DTOStation;
+
 import java.sql.Time;
 import java.util.List;
 
@@ -39,6 +41,9 @@ public class Route {
 
     public Route() {
 
+    }
+
+    public Route(int anInt, Station start, Station end) {
     }
 
 

@@ -1,24 +1,22 @@
-package main.java.classes;
+package main.java.DTOs;
 
 import java.sql.Timestamp;
 
-public class Maintenance {
-
+public class DTOMaintenance {
     private Integer idMaintenance;
     private String description;
     private Timestamp startDate;
     private Timestamp endDate;
 
-    //constructor
 
-    public Maintenance(Integer idMaintenance, String description, Timestamp startDate, Timestamp endDate) {
+    public DTOMaintenance(Integer idMaintenance, String description, Timestamp startDate, Timestamp endDate) {
         this.idMaintenance = idMaintenance;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    //getters and setters
+
     public Integer getIdMaintenance() {
         return idMaintenance;
     }

@@ -10,7 +10,7 @@
     <children>
       <grid id="ab6a8" binding="panel1" default-binding="true" layout-manager="GridBagLayout">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <alignmentX value="0.5"/>
@@ -26,7 +26,7 @@
         <children>
           <grid id="6bd8e" layout-manager="GridBagLayout">
             <constraints>
-              <grid row="0" column="0" row-span="11" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="24" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="1200" height="720"/>
               </grid>
               <gridbag weightx="1.0" weighty="1.0"/>
@@ -54,7 +54,7 @@
           </grid>
           <component id="2d5c5" class="javax.swing.JLabel" binding="exitButton">
             <constraints>
-              <grid row="2" column="7" row-span="9" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="10" row-span="22" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -96,7 +96,7 @@
           </component>
           <component id="7cdfd" class="javax.swing.JButton" binding="addStationButton">
             <constraints>
-              <grid row="1" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
+              <grid row="1" column="5" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="6" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="200" height="100"/>
               </grid>
               <gridbag weightx="1.0" weighty="0.0"/>
@@ -112,7 +112,7 @@
           </component>
           <hspacer id="d1924">
             <constraints>
-              <grid row="8" column="1" row-span="3" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="12" column="1" row-span="12" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
           </hspacer>
@@ -125,30 +125,14 @@
           </component>
           <component id="1c211" class="javax.swing.JSeparator">
             <constraints>
-              <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="6" row-span="1" col-span="4" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties/>
           </component>
-          <component id="d22a1" class="javax.swing.JButton" binding="deleteStationButton">
-            <constraints>
-              <grid row="9" column="6" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="200" height="100"/>
-              </grid>
-              <gridbag top="100" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <background color="-13024377"/>
-              <font name="Roboto Light" size="24"/>
-              <foreground color="-852481"/>
-              <icon value="main/resources/icons8_delete_30px.png"/>
-              <label value="Eliminar "/>
-              <text value="Eliminar "/>
-            </properties>
-          </component>
           <scrollpane id="9e276">
             <constraints>
-              <grid row="9" column="3" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="3" row-span="3" col-span="6" vsize-policy="7" hsize-policy="7" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
               <gridbag weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -168,24 +152,9 @@
               </component>
             </children>
           </scrollpane>
-          <component id="8575e" class="javax.swing.JButton" binding="editStationButton">
-            <constraints>
-              <grid row="10" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="200" height="100"/>
-              </grid>
-              <gridbag top="20" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
-            </constraints>
-            <properties>
-              <background color="-13024377"/>
-              <font name="Roboto Light" size="24"/>
-              <foreground color="-852481"/>
-              <icon value="main/resources/icons8_edit_file_32px.png"/>
-              <text value="Editar"/>
-            </properties>
-          </component>
           <component id="cbd3" class="javax.swing.JButton" binding="searchButton">
             <constraints>
-              <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+              <grid row="2" column="6" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="200" height="100"/>
               </grid>
               <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
@@ -199,6 +168,15 @@
               <text value="Buscar "/>
             </properties>
           </component>
+          <component id="a0382" class="javax.swing.JComboBox" binding="CBstatus">
+            <constraints>
+              <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <visible value="false"/>
+            </properties>
+          </component>
           <component id="c1be5" class="javax.swing.JTextField" binding="textStation">
             <constraints>
               <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -208,13 +186,64 @@
             </constraints>
             <properties/>
           </component>
-          <component id="a0382" class="javax.swing.JComboBox" binding="CBstatus">
+          <scrollpane id="9b25e">
             <constraints>
-              <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <grid row="14" column="3" row-span="8" col-span="7" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="25" left="0" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="326d8" class="javax.swing.JTable" binding="maintenanceTable">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
+          </scrollpane>
+          <component id="8575e" class="javax.swing.JButton" binding="editStationButton">
+            <constraints>
+              <grid row="8" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="100"/>
+              </grid>
+              <gridbag top="10" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <visible value="false"/>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="24"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/icons8_edit_file_32px.png"/>
+              <text value="Editar"/>
+            </properties>
+          </component>
+          <component id="d22a1" class="javax.swing.JButton" binding="deleteStationButton">
+            <constraints>
+              <grid row="9" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="100"/>
+              </grid>
+              <gridbag top="10" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="24"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/icons8_delete_30px.png"/>
+              <label value="Eliminar "/>
+              <text value="Eliminar "/>
+            </properties>
+          </component>
+          <component id="6ff68" class="javax.swing.JButton" binding="verHistorialDeMantenimientosButton" default-binding="true">
+            <constraints>
+              <grid row="11" column="9" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="200" height="100"/>
+              </grid>
+              <gridbag top="10" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="18"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/viewHistoryMaintenance.png"/>
+              <text value="Ver Historial de Mantenimientos"/>
             </properties>
           </component>
         </children>

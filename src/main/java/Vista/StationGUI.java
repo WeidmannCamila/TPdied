@@ -1,6 +1,7 @@
 package main.java.Vista;
 
 import main.java.DAO.StationDAO;
+import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
@@ -13,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class StationGUI extends JPanel{
@@ -27,6 +29,8 @@ public class StationGUI extends JPanel{
     private JButton deleteStationButton;
     private JTextField textStation;
     private JComboBox CBstatus;
+    private JTable maintenanceTable;
+    private JButton verHistorialDeMantenimientosButton;
 
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
@@ -160,6 +164,44 @@ public class StationGUI extends JPanel{
            }
        });
 
+       //mostrar tabla de lista de mantenimientos
+
+        String[] atributosMantenimiento = {"Fecha Inicio Mant", "Fecha Fin Mant", "Observaciones" };
+        verHistorialDeMantenimientosButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+
+                DTOStation estacionParametro = new DTOStation();
+                Integer id = estacionParametro.getIdStation();
+                ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(estacionParametro);
+                updateTableMaintenances(mantenimientos);
+                //buscar los mantenimientos que tiene esa estacion y mostrarlos
+
+            }
+        });
+
+
+
+
+
+    }
+
+    public void updateTableMaintenances(ArrayList<DTOMaintenance> m){
+        String atributes[] = {"Id" , "Descripcion" , "Hs Inicio",  "Hs Fin"};
+        DefaultTableModel tabla = new DefaultTableModel(atributes, 0 );
+        ArrayList<DTOMaintenance> listMaintenance = m;
+
+        for(DTOMaintenance maint: listMaintenance){
+            Integer id = maint.getIdMaintenance();
+            String desc = maint.getDescription();
+            Timestamp hsInicio = maint.getStartDate();
+            Timestamp hsFin = maint.getEndDate();
+
+            Object[] data = {id, desc, hsInicio, hsFin};
+            tabla.addRow(data);
+        }
+        maintenanceTable.setModel(tabla);
+
     }
 
     private void updateTable(ArrayList<DTOStation> result) {
@@ -204,8 +246,12 @@ public class StationGUI extends JPanel{
         this.anterior = a;
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 
-/*
+
+    /*
 * Falta agregar un boton que permita seleccionar una estacion y al presionarlo muestre una lista de los mantenimientos que tuvo
 * la lista tiene que mostrar el id, fechas de inicio y fin, y descripcion
 *

@@ -1,10 +1,11 @@
 package main.java.Managers;
 
+import main.java.DAO.MaintenanceDAO;
 import main.java.DAO.StationDAO;
+import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
-import main.java.classes.Station;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -44,6 +45,11 @@ public class StationManager {
     }
 
     public static StationManager getInstance() {return INSTANCE;    }
+
+    public static ArrayList<DTOMaintenance> searchMaintenance(DTOStation estacionParametro) {
+        ArrayList<DTOMaintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
+        return mantenimientos;
+    }
 
     public ArrayList<DTOStation> searchStation1() {
         System.out.println("entro a seach station");

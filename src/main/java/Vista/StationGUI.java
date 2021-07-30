@@ -180,10 +180,6 @@ public class StationGUI extends JPanel{
             }
         });
 
-
-
-
-
     }
 
     public void updateTableMaintenances(ArrayList<DTOMaintenance> m){

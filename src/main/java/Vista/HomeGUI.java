@@ -32,6 +32,10 @@ public class HomeGUI{
         this.initialize();}
 
     private void initialize(){
+        grafoPanel.initVertex(sm.getListStations());
+        System.out.println("salio del vertex");
+        grafoPanel.initArista(rm.getListRoutes());
+        System.out.println("salio del init arista");
         this.framePrincipal = new JFrame();
         this.framePrincipal.setContentPane(panel1);
         this.framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,8 +95,11 @@ public class HomeGUI{
             @Override
             public void mouseClicked(MouseEvent e) {
                 // TODO obtener la lista de estaciones
-                    grafoPanel.initVertex(sm.getListStations());
-                    grafoPanel.initArista(rm.getListRoutes());
+
+
+                    GrafoGUI graf = new GrafoGUI(grafoPanel);
+                    graf.frameGrafo.setVisible(true);
+                    graf.setAnterior(HomeGUI.this.framePrincipal);
 
 
 

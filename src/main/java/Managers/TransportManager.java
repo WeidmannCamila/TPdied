@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TransportManager {
     private static TransportManager instan = null;
-
+    private TransportDAO tDAO = new TransportDAO();
 
     public TransportManager(){}
 
@@ -26,4 +26,7 @@ public class TransportManager {
         TransportDAO.deleteTransport(t);
     }
 
+    public void addTransport(DTOTransport dto) {
+        tDAO.addTransport(dto);
+    }
 }

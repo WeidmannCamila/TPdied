@@ -5,6 +5,9 @@ import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
+import main.java.Managers.RouteManager;
+import main.java.Managers.StationManager;
+import main.java.classes.Station;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -24,6 +27,8 @@ public class StationAddGUI {
     private StationDAO sDAO = new StationDAO();
     public JFrame frameStationAdd;
     private JFrame anterior;
+    private StationManager sm =new StationManager();
+
 
     public StationAddGUI() {
         this.initialize();
@@ -47,7 +52,7 @@ public class StationAddGUI {
  */
 
 
-        final ArrayList<DTOStation> listStation = sDAO.getStations();
+        final ArrayList<Station> listStation = sDAO.getStations();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(StationAddGUI.this.stationId.getText().length() <= 0 || StationAddGUI.this.stationName.getText().length() <= 0 ){
@@ -71,7 +76,8 @@ public class StationAddGUI {
 
                         dto.setStatus( statusCB.getSelectedItem().toString());
                         dto.setIdStation(Integer.parseInt(stationId.getText()));
-                        sDAO.addStation(dto);
+                        sm.addStation(dto);
+                        //sDAO.addStation(dto);
 
                     }
                 }

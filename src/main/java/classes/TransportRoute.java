@@ -1,20 +1,27 @@
 package main.java.classes;
 
+import java.awt.*;
+
 public class TransportRoute {
 
     private Integer idTransport;
     private String name;
-    private String colour;
+    private Paint colour;
     private boolean status;
 
     //constructor
 
-    public TransportRoute(Integer idTransport, String name, String colour, boolean status) {
+    public TransportRoute(Integer idTransport, String name, Paint colour, boolean status) {
         this.idTransport = idTransport;
         this.name = name;
         this.colour = colour;
         this.status = status;
     }
+
+    public TransportRoute() {
+
+    }
+
 
 
     //getters and setters
@@ -35,11 +42,11 @@ public class TransportRoute {
         this.name = name;
     }
 
-    public String getColour() {
+    public Paint getColour() {
         return colour;
     }
 
-    public void setColour(String colour) {
+    public void setColour(Paint colour) {
         this.colour = colour;
     }
 

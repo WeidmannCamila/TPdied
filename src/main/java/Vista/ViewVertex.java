@@ -16,21 +16,19 @@ public class ViewVertex {
     private Paint baseColour;
     private Station stationV;
     private Shape node;
-    public final Integer RADIO = 10;
+    public final Integer RADIO = 60;
     Color myBlue = new Color(100,149,237);
 
-    public ViewVertex(int posX, int posY, Station data) {
-
-    }
 
 
-    public ViewVertex(String name, Integer id, Integer coordX, Integer coordY, Paint colour, Paint baseColour, Station stationV, Shape node) {
-        this.name = name;
-        this.id = id;
+
+
+    public ViewVertex(Integer coordX, Integer coordY, Station stationV) {
+
         this.coordX = coordX;
         this.coordY = coordY;
-        this.colour = myBlue;
-        this.baseColour = myBlue;
+        this.colour = Color.black;
+        this.baseColour = Color.black;
         this.stationV = stationV;
         this.node = new Ellipse2D.Double(coordX, coordY, RADIO, RADIO);
     }
@@ -109,6 +107,6 @@ public class ViewVertex {
     }
 
     public String info(){
-        return "[" + id + "] -" + this.name + "estacion: " + this.stationV.getName() + ".";}
+        return "[" + id + "] -" + this.name + ".";}
 
 }

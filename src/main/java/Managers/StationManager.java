@@ -6,14 +6,29 @@ import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
+import main.java.classes.Station;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class StationManager {
 
     private static final StationManager INSTANCE = new StationManager();
+    private StationDAO sDAO = new StationDAO();
+    private HashMap<Integer, Station> listStation= new HashMap<Integer, Station>();
+
+    public static StationManager getInstance() {return INSTANCE;    }
+
+
+    public HashMap<Integer, Station> getListStations() {
+
+        this.listStation= sDAO.getStationsV();
+        System.out.println("LISTA DE ESTACIONES DE LA BDD" + listStation.get(1) + listStation.get(2));
+        return listStation;
+    }
+
 
 
     public static ArrayList<DTOStation> search(Integer idStation, String name, Time openingTime, Time closingTime, String status, List<Maintenance> maintenanceHistory) {
@@ -44,7 +59,6 @@ public class StationManager {
         StationDAO.deleteStation(s);
     }
 
-    public static StationManager getInstance() {return INSTANCE;    }
 
     public static ArrayList<DTOMaintenance> searchMaintenance(DTOStation estacionParametro) {
         ArrayList<DTOMaintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
@@ -52,20 +66,33 @@ public class StationManager {
     }
 
     public ArrayList<DTOStation> searchStation1() {
+
+    public ArrayList<Station> searchStation1() {
         System.out.println("entro a seach station");
-        DTOStation st = new DTOStation();
+        Station st = new Station();
 
         ListGlobalStation lgs = ListGlobalStation.getInstance();
-        ArrayList<DTOStation> l = StationDAO.getStations();
+        ArrayList<Station> l = StationDAO.getStations();
 
 
         return l;
     }
 
+    public void addStation(DTOStation dto){
+        sDAO.addStation(dto);
 
+        Station ss= new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
 
+        listStation.put(ss.getIdStation(), ss);
 
+    }
 
+    //buscar estacion por string
+    public Station getStation(String s) {
+        System.out.println("nombre string estacion" + s);
+        Station station = new Station();
+        station =sDAO.getStationString(s);
 
-
+        return station;
+    }
 }

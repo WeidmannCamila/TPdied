@@ -5,6 +5,8 @@ import main.java.classes.Station;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class StationDAO {
 
@@ -122,8 +124,8 @@ public class StationDAO {
         System.out.println("actualizar. holi");
     }
     //obtiene todas las estaciones de la BD
-    public static ArrayList<DTOStation> getStations(){
-        System.out.println("llego a dao sataion");
+    public static ArrayList<Station> getStations(){
+        System.out.println("llego a dao station");
         ArrayList stations = new ArrayList();
 
         Connection conexion = null;
@@ -204,4 +206,79 @@ public class StationDAO {
         }
     }
 
+    //para traer las estaciones en forma de vertex
+    public static HashMap<Integer, Station> getStationsV(){
+
+        HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
+
+        Connection conexion = null;
+        ResultSet rs = null;
+        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
+        final String user = "hshhreor";
+        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
+        try {
+            conexion = DriverManager.getConnection(url, user, pass);
+            PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getDate(3), null, null, null);
+                stations.put(station.getIdStation(), station);
+            }
+
+
+            st.executeUpdate();
+            st.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            if(conexion != null){
+                try{
+                    conexion.close();
+                }
+                catch(Exception e1){
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
+        return stations;
+    }
+
+
+
+
+    public Station getStation(int id) {
+        ArrayList<Station> lista = this.getStations();
+        Station resultado = null;
+        Iterator var5 = lista.iterator();
+
+        while(var5.hasNext()) {
+            Station a = (Station) var5.next();
+            if (a.getIdStation() == id) {
+                resultado = a;
+            }
+        }
+
+        return resultado;
+    }
+
+    public Station getStationString(String s) {
+        ArrayList<Station> lista = this.getStations();
+        System.out.println("lista estaciones dao " + lista.size());
+        Station resultado = null;
+        Iterator var5 = lista.iterator();
+
+        while(var5.hasNext()) {
+            Station a = (Station) var5.next();
+
+            if (a.getName().equals(s)) {
+                resultado = a;
+            }
+        }
+        System.out.println("resultado" + resultado);
+        return resultado;
+    }
 }

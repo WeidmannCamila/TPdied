@@ -35,13 +35,11 @@ public class RouteDAO {
             st.setInt(2,station1.getIdStation());
 
             rs = st.executeQuery();
-
+            TransportRoute transport = new TransportRoute();
+            TransportDAO daoT = new TransportDAO();
             while(rs.next()){
-                TransportRoute transport = new TransportRoute();
-
-                TransportDAO daoT = new TransportDAO();
-                transport =  daoT.getTransport(rs.getInt("idTransport"));
-                System.out.println("Id del transporte de la ruta" +  rs.getInt("idTransport"));
+                transport =  daoT.getTransport1(rs.getInt("idTransport"));
+                System.out.println("Id del transporte de la ruta con el transport " + transport.getIdTransport() + "y valor de la consulta  "+  rs.getInt("idTransport"));
                 route = new Route(rs.getInt(1), station, station1, rs.getDouble("distance"), rs.getInt("duration"), rs.getInt("cost"), transport);
             //     rss.add(transport);
             }

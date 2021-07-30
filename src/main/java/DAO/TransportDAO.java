@@ -98,6 +98,7 @@ public class TransportDAO {
             conexion = DriverManager.getConnection(url, user, pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route;");
             resultado = st.executeQuery();
+            System.out.println(resultado.toString());
             while (resultado.next()) {
                 Paint c;
                 c = colourTransport(resultado.getString("colour"));
@@ -159,21 +160,43 @@ public class TransportDAO {
     }
 
 
-    public TransportRoute getTransport(int id){
-            ArrayList<TransportRoute> lista = this.getTranport();
-            TransportRoute resultado = null;
-            Iterator var5 = lista.iterator();
-        System.out.println("lista de transportes " + lista.size());
+    //yo llamaba la funcion lista transporte q devolvia toda la lista y desp comparaba
+    //es hacer llamadas alpedo, hacer para buscar un transporte en especifico.
+    public TransportRoute getTransport1(int id) {
+        TransportRoute transport = new TransportRoute();
+        Connection conexion = null;
+        ResultSet resultado = null;
+        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
+        final String user = "hshhreor";
+        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
 
-            while (var5.hasNext()) {
-                TransportRoute a = (TransportRoute) var5.next();
-                System.out.println("adentro while " + a.getIdTransport() + " " + id);
-                if (a.getIdTransport() == id) {
-                    resultado = a;
+        try {
+            conexion = DriverManager.getConnection(url, user, pass);
+            PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route where idTransport = ? ;");
+            st.setInt(1, id);
+            resultado = st.executeQuery();
+            while (resultado.next()) {
+                Paint c;
+                c = colourTransport(resultado.getString("colour"));
+
+                transport = new TransportRoute(resultado.getInt(1), resultado.getString(2), c, resultado.getBoolean(4));
+
+            }
+            st.close();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (Exception e1) {
+                    System.out.println(e1.getMessage());
                 }
             }
-            System.out.println("transporte encontrado para ruta en dao " + resultado.getIdTransport());
-            return resultado;
+            return transport;
         }
+    }
+
 
 }

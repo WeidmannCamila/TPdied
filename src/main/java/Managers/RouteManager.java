@@ -66,10 +66,7 @@ public class RouteManager {
 
      */
     public ArrayList bestRoute4crit(Station start, Station end, String crit) {
-
-      //  System.out.println("best route: " + start.getIdStation() + " " + end.getIdStation());
         RouteManager rm = RouteManager.getInstance();
-
 
         this.getListRoutes();
 
@@ -106,19 +103,18 @@ public class RouteManager {
         ArrayList<Station> shortroute = new  ArrayList<>();
         ArrayList<Double> minim = new ArrayList<>();
 
-      //  System.out.println("tamaño lista" + listpathss.size() );
         // [inic, estaciones, fin]
         for(ArrayList<Station> cs : listpathss) {
-         //   System.out.println("entra al for " + listpathss.toString());
+
             RouteDAO rdao= new RouteDAO();
             Route ro = new Route();
             Double distanceAux = 0.0;
 
             //recorro la lista, y averiguo las rutas q hay entre cada estacion
             for (int i =0; i< cs.size()-1 ; i++) {
-               // System.out.println( "estaciones para buscar ruta e i:" +i +  cs.get(i));
+
                 ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
-              //  System.out.println("for dentro for "+ ro.getIdRoute() + ro.getDistance());
+
                 distanceAux += ro.getDistance();
 
             }
@@ -230,8 +226,7 @@ public class RouteManager {
 
         for(Station s : adjacentStations){
             marked = (ArrayList<Station>) markedStations.stream().collect(Collectors.toList());
-         //   System.out.println("marked solo:" +marked.size());
-          //  System.out.println("SEARCHPATHS COMPARAR END CON S" + end + " " + s);
+
             if( end.getIdStation() == s.getIdStation()){
                 marked.add(s);
                 listpaths.add(new ArrayList<Station>(marked));

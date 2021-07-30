@@ -111,8 +111,6 @@ public class RouteGUI {
                 end =sm.getStation(en);
 
 
-                System.out.println("estaciones start end" + start.getIdStation() + " "+ end.getIdStation());
-
                 if(start == null || end == null){
                     System.out.println("seleccione estaciones");
                 }
@@ -121,8 +119,6 @@ public class RouteGUI {
                     System.out.println("son la misma estacion");
                 }
                 String crit = CBparamSearch.getSelectedItem().toString();
-
-                System.out.println("criterio" + crit);
 
                 ArrayList<Station> bestRoute = rm.bestRoute4crit(start, end, crit);
 

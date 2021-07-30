@@ -22,7 +22,7 @@ public class Route {
 
     //constructor
 
-    public Route(Integer idRoute, Station origin, Station destination, Double distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation, TransportRoute transport) {
+    public Route(Integer idRoute, Station origin, Station destination, Double distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, TransportRoute transport) {
         this.idRoute = idRoute;
         this.origin = origin;
         this.destination = destination;
@@ -48,6 +48,18 @@ public class Route {
         this.origin = origin;
         this.destination = destination;
     }
+
+    public Route(int idRoute, Station origin, Station destination, double distance, int duration, int cost, TransportRoute transport) {
+        this.idRoute = idRoute;
+        this.origin = origin;
+        this.destination = destination;
+        this.distance = distance;
+        this.duration = duration;
+        this.cost = cost;
+        this.transport =transport;
+    }
+
+
 
 
     //getters and setters

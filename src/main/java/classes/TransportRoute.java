@@ -18,6 +18,11 @@ public class TransportRoute {
         this.status = status;
     }
 
+    public TransportRoute() {
+
+    }
+
+
 
     //getters and setters
 

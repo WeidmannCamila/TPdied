@@ -125,7 +125,7 @@ public class StationDAO {
     }
     //obtiene todas las estaciones de la BD
     public static ArrayList<Station> getStations(){
-        System.out.println("llego a dao sataion");
+        System.out.println("llego a dao station");
         ArrayList stations = new ArrayList();
 
         Connection conexion = null;
@@ -208,7 +208,7 @@ public class StationDAO {
 
     //para traer las estaciones en forma de vertex
     public static HashMap<Integer, Station> getStationsV(){
-        System.out.println("llego a dao obtener estaciones");
+
         HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
 
         Connection conexion = null;
@@ -267,16 +267,18 @@ public class StationDAO {
 
     public Station getStationString(String s) {
         ArrayList<Station> lista = this.getStations();
+        System.out.println("lista estaciones dao " + lista.size());
         Station resultado = null;
         Iterator var5 = lista.iterator();
 
         while(var5.hasNext()) {
             Station a = (Station) var5.next();
-            if (a.getName() == s) {
+
+            if (a.getName().equals(s)) {
                 resultado = a;
             }
         }
-
+        System.out.println("resultado" + resultado);
         return resultado;
     }
 }

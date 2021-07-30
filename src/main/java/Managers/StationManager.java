@@ -81,6 +81,7 @@ public class StationManager {
 
     //buscar estacion por string
     public Station getStation(String s) {
+        System.out.println("nombre string estacion" + s);
         Station station = new Station();
         station =sDAO.getStationString(s);
 

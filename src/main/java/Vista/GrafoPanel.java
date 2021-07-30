@@ -1,5 +1,6 @@
 package main.java.Vista;
 
+import main.java.DAO.RouteDAO;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
 import main.java.classes.Route;
@@ -20,7 +21,7 @@ public class GrafoPanel extends JPanel {
     private static final GrafoPanel INSTANCE = new GrafoPanel();
     private StationManager sm =new StationManager();
     private RouteManager rm = new RouteManager();
-
+    private RouteDAO rDAO = new RouteDAO();
     public static GrafoPanel getInstance() {
         return INSTANCE;
     }
@@ -129,10 +130,14 @@ public class GrafoPanel extends JPanel {
     }
 
     public void paintRoute(ArrayList<Station> bestRoute) {
+        System.out.println("mejor rta dentro del paint " + bestRoute.size() + " " + bestRoute.toString());
         this.updateEdge();
         RouteManager rm = RouteManager.getInstance();
         for (int i = 0; i < bestRoute.size() - 1; i++) {
-            Route r = rm.getRoute(bestRoute.get(i), bestRoute.get(i + 1));
+            Route r = rDAO.searchRoute(bestRoute.get(i), bestRoute.get(i+1));
+
+            System.out.println("ruta q se encuentra en teoria" + this.getEdge(r).getRoutCon());
+            System.out.println("trasporrte de ruta" + r.getTransport());
             this.updateColourE(this.getEdge(r), r.getTransport().getColour());
         }
     }
@@ -150,8 +155,11 @@ public class GrafoPanel extends JPanel {
     }
 
     private ViewEdges getEdge(Route r) {
+        System.out.println("EDGES CARGADAS" + edges.size());
         for(ViewEdges e: this.edges){
-            if(e.getRoutCon() == r){
+           System.out.println("EDGES comparar ruta de la arista " + e.getRoutCon().getIdRoute() +" " + r.getIdRoute() );
+            if(e.getRoutCon().getIdRoute().equals(r.getIdRoute())){
+                System.out.println("entra el if");
                 return e;
             }
         }

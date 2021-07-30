@@ -111,7 +111,7 @@ public class RouteGUI {
                 end =sm.getStation(en);
 
 
-
+                System.out.println("estaciones start end" + start.getIdStation() + " "+ end.getIdStation());
 
                 if(start == null || end == null){
                     System.out.println("seleccione estaciones");
@@ -129,6 +129,7 @@ public class RouteGUI {
                 System.out.println("mejor trayecto" + bestRoute);
                 //mostrar en tabla y grafico
                 grafoPanel.paintRoute(bestRoute);
+
                 grafoPanel.repaint();
 
                 GrafoGUI graf = new GrafoGUI(grafoPanel);

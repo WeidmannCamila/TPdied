@@ -36,7 +36,9 @@ public class Route {
 
     }
 
-    public Route(Station start, Station end) {
+    public Route(Station origin, Station destination) {
+        this.origin = origin;
+        this.destination = destination;
     }
 
     public Route() {

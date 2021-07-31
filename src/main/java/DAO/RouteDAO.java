@@ -77,18 +77,19 @@ public class RouteDAO {
             conexion = DriverManager.getConnection(url, user, pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.route;" ) ;
             rs = st.executeQuery();
-
+            TransportRoute transport = new TransportRoute();
+            TransportDAO daoT = new TransportDAO();
             while(rs.next()) {
 
-                System.out.println("entra a getRoute dao ");
                 Station start = new Station();
                 Station end = new Station();
                 StationDAO daoS = new StationDAO();
+                transport =  daoT.getTransport1(rs.getInt("idTransport"));
                 start =  daoS.getStation(rs.getInt("idStationOrigin"));
 
                 end = daoS.getStation(rs.getInt("idStationDestination"));
 
-                Route route = new Route(rs.getInt("idRoute"), start, end);
+                Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getInt("duration"), rs.getInt("cost"), transport);
                 routes.add(route);
             }
 

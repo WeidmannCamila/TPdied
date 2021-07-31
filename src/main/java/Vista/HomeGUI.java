@@ -2,8 +2,11 @@ package main.java.Vista;
 
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
+import main.java.classes.ListGlobalRoute;
+import main.java.classes.ListGlobalStation;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -32,10 +35,14 @@ public class HomeGUI{
         this.initialize();}
 
     private void initialize(){
-        grafoPanel.initVertex(sm.getListStations());
+        grafoPanel.initVertex(ListGlobalStation.getInstance().getList());
         System.out.println("salio del vertex");
-        grafoPanel.initArista(rm.getListRoutes());
+        grafoPanel.initArista(ListGlobalRoute.getInstance().getList());
         System.out.println("salio del init arista");
+
+
+
+
         this.framePrincipal = new JFrame();
         this.framePrincipal.setContentPane(panel1);
         this.framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

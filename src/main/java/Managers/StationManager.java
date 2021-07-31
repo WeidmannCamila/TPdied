@@ -16,13 +16,16 @@ public class StationManager {
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
     private HashMap<Integer, Station> listStation= new HashMap<Integer, Station>();
-
+    public StationManager(){}
     public static StationManager getInstance() {return INSTANCE;    }
+
 
 
     public HashMap<Integer, Station> getListStations() {
 
-        this.listStation= sDAO.getStationsV();
+         this.listStation= sDAO.getStationsV();
+
+
         System.out.println("LISTA DE ESTACIONES DE LA BDD" + listStation.get(1) + listStation.get(2));
         return listStation;
     }

@@ -83,6 +83,14 @@ public class StationDAO {
         }
         catch (SQLException e) {
             e.printStackTrace();
+        }finally{
+            if(conexion!= null){
+                try{
+                    conexion.close();
+                }catch(Exception e1){
+                    System.out.println(e1.getMessage());
+                }
+            }
         }
         return estaciones;
 

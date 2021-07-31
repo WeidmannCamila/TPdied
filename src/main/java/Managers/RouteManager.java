@@ -3,6 +3,8 @@ package main.java.Managers;
 import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTORoute;
+import main.java.classes.ListGlobalRoute;
+import main.java.classes.ListGlobalStation;
 import main.java.classes.Route;
 import main.java.classes.Station;
 
@@ -20,11 +22,13 @@ public class RouteManager {
      * las estaciones adyacentes , si encuentra el destino guarda esa planta pero sigue buscando las siguientes adyacentes
      * la funcion para buscar los adyacentes va a agarrar la lista de rutas y agrega las q tengan origen y destino
      * */
-
-    private ArrayList<Route> listRoutes = new ArrayList<>();
-
     private static final RouteManager INSTANCE = new RouteManager();
+    private ArrayList<Route> listRoutes = new ArrayList<Route>();
+
+
     private RouteDAO rDAO = new RouteDAO();
+
+    public RouteManager(){}
 
     public static RouteManager getInstance() {
             return INSTANCE;
@@ -32,12 +36,24 @@ public class RouteManager {
 
 
 
-    public ArrayList<Route> getListRoutes() {
-
+    public ArrayList<Route> getListRoutesFromDao() {
         this.listRoutes = rDAO.getRoutes();
-     System.out.println("route man getlist route llego" + listRoutes.size());
-     System.out.println(listRoutes.get(1).getOrigin());
+        System.out.println("lista de RUTAS TRANSPORTE...");
+        System.out.println(listRoutes.get(1).getTransport());
+        System.out.println(listRoutes.get(1).getTransport().getColour());
         return listRoutes;
+    }
+
+    public ArrayList<Route> getListRoutes(){
+        ListGlobalRoute rl = ListGlobalRoute.getInstance();
+
+
+        ArrayList<Route> l = rl.getList();
+
+        System.out.println("get list rout CON LOCAL" + l.size());
+
+
+        return l;
     }
 
     public Route getRoute(Station start, Station end) {
@@ -68,8 +84,9 @@ public class RouteManager {
     public ArrayList bestRoute4crit(Station start, Station end, String crit) {
         RouteManager rm = RouteManager.getInstance();
 
-        this.getListRoutes();
 
+        System.out.println("lista rutas" + this.getListRoutes());
+        System.out.println("start de bestroute" + start + " "+ end);
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
 
@@ -77,14 +94,17 @@ public class RouteManager {
          switch(crit){
             case "MAS_BARATO": {
                 resultado =cheaper(listpaths);
+                break;
 
             }
             case "MAS_RAPIDO" : {
                 resultado= faster(listpaths);
+                break;
             }
             case "MENOR_DISTANCIA": {
 
                 resultado =shortest(listpaths);
+                break;
             }
 
 
@@ -112,13 +132,13 @@ public class RouteManager {
 
             //recorro la lista, y averiguo las rutas q hay entre cada estacion
             for (int i =0; i< cs.size()-1 ; i++) {
-
+                System.out.println("entro al for short");
                 ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
 
                 distanceAux += ro.getDistance();
 
             }
-           // System.out.println("se imprime discantia" + distanceAux + minim);
+           System.out.println("se imprime discantia" + distanceAux + minim.size());
             minim.add(distanceAux);
 
         }
@@ -209,7 +229,7 @@ public class RouteManager {
 
         searchPaths(start, end, markedStations, listpaths);
 
-       // System.out.println("listapaths" + listpaths.size());
+        System.out.println("listapaths" + listpaths.size());
         return listpaths;
 
     }
@@ -248,9 +268,9 @@ public class RouteManager {
     private ArrayList<Station> getAdjacentStations(Station start) {
         ArrayList<Station> adjacents = new ArrayList<>();
 
-      //  System.out.println("estamos en adyacentes " + listRoutes.size());
+    // System.out.println("estamos en adyacentes " + this.getListRoutes().size());
       //  System.out.println("start:" + start.getIdStation());
-        for(Route r: listRoutes ){
+        for(Route r: this.getListRoutes() ){
 
 
             if(start.getIdStation() == r.getOrigin().getIdStation()){

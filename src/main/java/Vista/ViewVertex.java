@@ -27,8 +27,8 @@ public class ViewVertex {
 
         this.coordX = coordX;
         this.coordY = coordY;
-        this.colour = Color.black;
-        this.baseColour = Color.black;
+        this.colour = myBlue;
+        this.baseColour = myBlue;
         this.stationV = stationV;
         this.node = new Ellipse2D.Double(coordX, coordY, RADIO, RADIO);
     }

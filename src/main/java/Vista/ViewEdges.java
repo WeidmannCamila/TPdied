@@ -17,12 +17,13 @@ public class ViewEdges {
         private Route routCon;
 
 
-    public ViewEdges(ViewVertex start, ViewVertex end, Route r, Color colour) {
-        System.out.println("coordenadas inicio"+ start.getCoordX() + start.getCoordY());
+    public ViewEdges(ViewVertex start, ViewVertex end, Route r, Paint colour) {
+
         this.offset = start.RADIO/2;
         this.start = start;
         this.end = end;
         this.lineF = new BasicStroke();
+        System.out.println("dentro del constructor jeje " + colour + " " + colour.toString());
         this.Colour = colour;
         this.lin = new Line2D.Double(start.getCoordX() + offset, start.getCoordY() + offset,
                 end.getCoordX() + offset, end.getCoordY() + offset);
@@ -31,7 +32,17 @@ public class ViewEdges {
 
     }
 
-    public ViewEdges(){
+    public ViewEdges(ViewVertex start, ViewVertex end, Route r, Paint colour, int offset){
+        this.offset = start.RADIO/4;
+        this.start = start;
+        this.end = end;
+        this.lineF = new BasicStroke();
+        System.out.println("dentro del constructor jeje " + colour + " " + colour.toString());
+        this.Colour = colour;
+        this.lin = new Line2D.Double(start.getCoordX() + offset, start.getCoordY() + offset,
+                end.getCoordX() + offset, end.getCoordY() + offset);
+
+        this.routCon = r;
 
     }
 

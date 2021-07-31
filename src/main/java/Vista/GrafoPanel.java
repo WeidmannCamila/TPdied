@@ -12,7 +12,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GrafoPanel extends JPanel {
 
@@ -29,7 +28,7 @@ public class GrafoPanel extends JPanel {
  GrafoPanel(){}
 
     public void initVertex(HashMap<Integer, Station> list) {
-        System.out.println("DENTRO DEL INIT VERTEX" + list.get(1));
+
         this.vertices.clear();
         int posY = 100;
         int posX= 0;
@@ -40,17 +39,33 @@ public class GrafoPanel extends JPanel {
        for(Station s: list.values()){
 
             aux++;
-            posX +=90;
+            posX +=80;
 
-            if(aux % 2 == 0){
-                posY =300;
-            } else { posY=200;}
+            switch (aux%4){
+                case 0: {
+                    posY =100;
+                    break;
+                }
+                case 1: {
+                    posY=200;
+                    break;
+                }
+                case 2:{
+                    posY=300;
+                    break;
+                }
+                case 3: {
+                    posY=370;
+                    break;
+                }
+            }
+
 
             ViewVertex vx = new ViewVertex(posX, posY, s);
             vx.setId(s.getIdStation());
             vx.setName(s.getName());
             vertices.add(vx);
-            System.out.println("vertices añadidos" + vertices.size());
+
         }
 
         getInstance().repaint();
@@ -61,15 +76,25 @@ public class GrafoPanel extends JPanel {
 
         System.out.println("entro a initArista grafo panel" + listRoutes.get(1));
         edges.clear();
+        ArrayList<Route> aux = new ArrayList<>() ;
+
 
         for(Route r: listRoutes){
-            System.out.println("viewvertex init arista :"+ r.getOrigin().getName());
             ViewVertex VertexStart = this.getVertex(r.getOrigin());
             ViewVertex VertexEnd = this.getVertex(r.getDestination());
-            System.out.println("viewvertex init arista :" + VertexEnd + VertexStart);
-            System.out.println("viewvertex init arista :" + r );
-       //     System.out.println("viewvertex init arista color de trasporte:" + r.getTransport() );
-            ViewEdges e = new ViewEdges(VertexStart, VertexEnd, r, Color.BLUE);
+            ViewEdges e;
+
+           if(!aux.isEmpty() && TwoRoutesSameStartEnd(r, aux)){
+               e = new ViewEdges(VertexStart, VertexEnd, r,  r.getTransport().getColour(), 40);
+           } else {
+               e = new ViewEdges(VertexStart, VertexEnd, r,  r.getTransport().getColour());
+               Route routeaux = new Route(r.getOrigin(), r.getDestination());
+               System.out.println("QUE MEIDA ES NULL??" + routeaux.toString());
+               aux.add(routeaux);
+           }
+
+
+
 
             edges.add(e);
 
@@ -77,9 +102,20 @@ public class GrafoPanel extends JPanel {
         getInstance().repaint();
     }
 
+    private boolean TwoRoutesSameStartEnd(Route r, ArrayList<Route> aux) {
+
+        for(Route ro: aux){
+            System.out.println("get origen" + ro.getOrigin().getIdStation());
+
+            if(ro.getOrigin().getIdStation() == r.getOrigin().getIdStation() && ro.getDestination().getIdStation() == r.getDestination().getIdStation()){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
     private ViewVertex getVertex(Station s) {
-        System.out.println("VERTICE TAMAÑO" + vertices.size());
-        System.out.println("VERTICE station" + s.getName());
 
         ViewVertex l= this.vertices.stream().filter((v) ->
             v.getStationV().getName().equals(s.getName())
@@ -109,6 +145,8 @@ public class GrafoPanel extends JPanel {
         for (ViewVertex v : this.getVertices()) {
             g2d.setPaint(v.getColour());
             g2d.drawString(v.info(), v.getCoordX() + 65, v.getCoordY() + 65);
+            System.out.println("COLOR DE DIBUJAR VERTICE" + v.getColour().toString());
+
             g2d.setPaint(v.getColour());
             g2d.fill(v.getNode());
         }
@@ -119,7 +157,7 @@ public class GrafoPanel extends JPanel {
             int puntoMedioX = (int) (a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
             int puntoMedioY = (int) (a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
             Route ruta = a.getRoutCon();
-
+            System.out.println("COLOR DE DIBUJAR arista" + a.getColour());
             g2d.setPaint(a.getColour());
             g2d.setStroke(a.getLineF());
             g2d.drawString(ruta.getIdRoute() + " [km]", puntoMedioX + 20, puntoMedioY + 20);
@@ -155,9 +193,9 @@ public class GrafoPanel extends JPanel {
     }
 
     private ViewEdges getEdge(Route r) {
-        System.out.println("EDGES CARGADAS" + edges.size());
+
         for(ViewEdges e: this.edges){
-           System.out.println("EDGES comparar ruta de la arista " + e.getRoutCon().getIdRoute() +" " + r.getIdRoute() );
+
             if(e.getRoutCon().getIdRoute().equals(r.getIdRoute())){
                 System.out.println("entra el if");
                 return e;

@@ -22,25 +22,25 @@ public class ViewEdges {
         this.offset = start.RADIO/2;
         this.start = start;
         this.end = end;
-        this.lineF = new BasicStroke();
-        System.out.println("dentro del constructor jeje " + colour + " " + colour.toString());
+        this.lineF = new BasicStroke(2);
         this.Colour = colour;
-        this.lin = new Line2D.Double(start.getCoordX() + offset, start.getCoordY() + offset,
-                end.getCoordX() + offset, end.getCoordY() + offset);
+        this.lin = new Line2D.Double(start.getCoordX() + this.offset, start.getCoordY() + this.offset,
+                end.getCoordX() + this.offset, end.getCoordY() + this.offset);
 
         this.routCon = r;
 
     }
 
     public ViewEdges(ViewVertex start, ViewVertex end, Route r, Paint colour, int offset){
-        this.offset = start.RADIO/4;
+        this.offset = start.RADIO/4;;
         this.start = start;
+
         this.end = end;
-        this.lineF = new BasicStroke();
+        this.lineF = new BasicStroke(2);
         System.out.println("dentro del constructor jeje " + colour + " " + colour.toString());
         this.Colour = colour;
-        this.lin = new Line2D.Double(start.getCoordX() + offset, start.getCoordY() + offset,
-                end.getCoordX() + offset, end.getCoordY() + offset);
+        this.lin = new Line2D.Double(start.getCoordX() + this.offset , start.getCoordY() + this.offset ,
+                end.getCoordX() + this.offset , end.getCoordY() + this.offset );
 
         this.routCon = r;
 
@@ -70,9 +70,7 @@ public class ViewEdges {
         this.lin = lin;
     }
 
-    public int getOffset() {
-        return offset;
-    }
+
 
     public void setOffset(int offset) {
         this.offset = offset;
@@ -112,5 +110,10 @@ public class ViewEdges {
                     (float) end.getCoordY() + 100, (Color) start.getBaseColour());
         return Colour;
     }
+
+    public int getoffset() {
+        return offset;
+    }
+
 
 }

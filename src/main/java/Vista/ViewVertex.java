@@ -16,7 +16,7 @@ public class ViewVertex {
     private Paint baseColour;
     private Station stationV;
     private Shape node;
-    public final Integer RADIO = 60;
+    public final Integer RADIO = 25;
     Color myBlue = new Color(100,149,237);
 
 
@@ -28,7 +28,7 @@ public class ViewVertex {
         this.coordX = coordX;
         this.coordY = coordY;
         this.colour = myBlue;
-        this.baseColour = myBlue;
+        this.baseColour = Color.black;
         this.stationV = stationV;
         this.node = new Ellipse2D.Double(coordX, coordY, RADIO, RADIO);
     }

@@ -124,11 +124,9 @@ public class RouteGUI {
 
                 System.out.println("mejor trayecto" + bestRoute);
                 //mostrar en tabla y grafico
-                grafoPanel.paintRoute(bestRoute);
 
-                grafoPanel.repaint();
 
-                GrafoGUI graf = new GrafoGUI(grafoPanel);
+                GrafoGUI graf = new GrafoGUI();
                 graf.frameGrafo.setVisible(true);
                 graf.setAnterior(RouteGUI.this.frameRoute);
 

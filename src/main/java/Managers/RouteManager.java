@@ -3,6 +3,7 @@ package main.java.Managers;
 import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTORoute;
+import main.java.Vista.GrafoPanel;
 import main.java.classes.ListGlobalRoute;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Route;
@@ -25,7 +26,7 @@ public class RouteManager {
     private static final RouteManager INSTANCE = new RouteManager();
     private ArrayList<Route> listRoutes = new ArrayList<Route>();
 
-
+    private GrafoPanel grafoPanel = GrafoPanel.getInstance();
     private RouteDAO rDAO = new RouteDAO();
 
     public RouteManager(){}
@@ -84,14 +85,12 @@ public class RouteManager {
     public ArrayList bestRoute4crit(Station start, Station end, String crit) {
         RouteManager rm = RouteManager.getInstance();
 
-
-        System.out.println("lista rutas" + this.getListRoutes());
-        System.out.println("start de bestroute" + start + " "+ end);
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
 
         ArrayList resultado = new ArrayList();
          switch(crit){
+
             case "MAS_BARATO": {
                 resultado =cheaper(listpaths);
                 break;
@@ -106,10 +105,18 @@ public class RouteManager {
                 resultado =shortest(listpaths);
                 break;
             }
+             default: {
+
+                 return null;
+
+             }
 
 
         }
+        System.out.println("SALIO DEL DEFAULT, NO HACE CASO AL RETURN");
 
+        grafoPanel.paintRoute(resultado);
+        grafoPanel.repaint();
 
         return resultado;
     }
@@ -132,13 +139,13 @@ public class RouteManager {
 
             //recorro la lista, y averiguo las rutas q hay entre cada estacion
             for (int i =0; i< cs.size()-1 ; i++) {
-                System.out.println("entro al for short");
+
                 ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
 
                 distanceAux += ro.getDistance();
 
             }
-           System.out.println("se imprime discantia" + distanceAux + minim.size());
+
             minim.add(distanceAux);
 
         }
@@ -229,7 +236,6 @@ public class RouteManager {
 
         searchPaths(start, end, markedStations, listpaths);
 
-        System.out.println("listapaths" + listpaths.size());
         return listpaths;
 
     }

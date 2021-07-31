@@ -9,6 +9,7 @@ import main.java.classes.Station;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,8 @@ public class GrafoPanel extends JPanel {
        for(Station s: list.values()){
 
             aux++;
-            posX +=80;
+
+           posX +=80;
 
             switch (aux%4){
                 case 0: {
@@ -47,15 +49,15 @@ public class GrafoPanel extends JPanel {
                     break;
                 }
                 case 1: {
-                    posY=200;
+                    posY=150;
                     break;
                 }
                 case 2:{
-                    posY=300;
+                    posY=350;
                     break;
                 }
                 case 3: {
-                    posY=370;
+                    posY=450;
                     break;
                 }
             }
@@ -74,28 +76,26 @@ public class GrafoPanel extends JPanel {
 
     public void initArista(ArrayList<Route> listRoutes) {
 
-        System.out.println("entro a initArista grafo panel" + listRoutes.get(1));
         edges.clear();
-        ArrayList<Route> aux = new ArrayList<>() ;
+        ArrayList<Route> aux = new ArrayList<>();
 
 
-        for(Route r: listRoutes){
+
+        for (Route r : listRoutes) {
             ViewVertex VertexStart = this.getVertex(r.getOrigin());
             ViewVertex VertexEnd = this.getVertex(r.getDestination());
             ViewEdges e;
 
-           if(!aux.isEmpty() && TwoRoutesSameStartEnd(r, aux)){
-               e = new ViewEdges(VertexStart, VertexEnd, r,  r.getTransport().getColour(), 40);
-           } else {
-               e = new ViewEdges(VertexStart, VertexEnd, r,  r.getTransport().getColour());
-               Route routeaux = new Route(r.getOrigin(), r.getDestination());
-               System.out.println("QUE MEIDA ES NULL??" + routeaux.toString());
-               aux.add(routeaux);
-           }
+            if (!aux.isEmpty() && TwoRoutesSameStartEnd(r, aux)) {
+                e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour(), 40);
+            } else {
+                e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour());
 
+            }
 
-
-
+            Route routeaux = new Route(r.getOrigin(), r.getDestination());
+            System.out.println("QUE MEIDA ES NULL??" + routeaux.toString());
+            aux.add(routeaux);
             edges.add(e);
 
         }
@@ -105,10 +105,9 @@ public class GrafoPanel extends JPanel {
     private boolean TwoRoutesSameStartEnd(Route r, ArrayList<Route> aux) {
 
         for(Route ro: aux){
-            System.out.println("get origen" + ro.getOrigin().getIdStation());
+             if(ro.getOrigin().getIdStation() == r.getOrigin().getIdStation() && ro.getDestination().getIdStation() == r.getDestination().getIdStation()){
 
-            if(ro.getOrigin().getIdStation() == r.getOrigin().getIdStation() && ro.getDestination().getIdStation() == r.getDestination().getIdStation()){
-                return true;
+                 return true;
             }
 
         }
@@ -144,9 +143,9 @@ public class GrafoPanel extends JPanel {
     private void dibujarVertices(Graphics2D g2d) {
         for (ViewVertex v : this.getVertices()) {
             g2d.setPaint(v.getColour());
-            g2d.drawString(v.info(), v.getCoordX() + 65, v.getCoordY() + 65);
-            System.out.println("COLOR DE DIBUJAR VERTICE" + v.getColour().toString());
 
+
+            g2d.drawString(v.info(), v.getCoordX() + 65, v.getCoordY() + 65);
             g2d.setPaint(v.getColour());
             g2d.fill(v.getNode());
         }
@@ -154,35 +153,36 @@ public class GrafoPanel extends JPanel {
 
     private void dibujarAristas(Graphics2D g2d) {
         for (ViewEdges a : this.getEdges()) {
-            int puntoMedioX = (int) (a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
-            int puntoMedioY = (int) (a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
+            int puntoMedioX = (a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
+            int puntoMedioY = (a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
             Route ruta = a.getRoutCon();
-            System.out.println("COLOR DE DIBUJAR arista" + a.getColour());
+
             g2d.setPaint(a.getColour());
             g2d.setStroke(a.getLineF());
             g2d.drawString(ruta.getIdRoute() + " [km]", puntoMedioX + 20, puntoMedioY + 20);
             g2d.drawString(ruta.getCost() + " [Tn]", puntoMedioX + 20, puntoMedioY + 33);
             g2d.drawString(ruta.getDuration() + " [min]", puntoMedioX + 20, puntoMedioY + 46);
             g2d.draw(a.getLin());
+            this.arrow(g2d, new Point(a.getEnd().getCoordX() + a.getoffset(), a.getEnd().getCoordY() + a.getoffset()), new Point(a.getStart().getCoordX() - a.getoffset(), a.getStart().getCoordY() - a.getoffset()), (Color) a.getColour());
         }
     }
 
     public void paintRoute(ArrayList<Station> bestRoute) {
-        System.out.println("mejor rta dentro del paint " + bestRoute.size() + " " + bestRoute.toString());
+
+
         this.updateEdge();
         RouteManager rm = RouteManager.getInstance();
         for (int i = 0; i < bestRoute.size() - 1; i++) {
             Route r = rDAO.searchRoute(bestRoute.get(i), bestRoute.get(i+1));
 
-            System.out.println("ruta q se encuentra en teoria" + this.getEdge(r).getRoutCon());
-            System.out.println("trasporrte de ruta" + r.getTransport());
+
             this.updateColourE(this.getEdge(r), r.getTransport().getColour());
         }
     }
 
     private void updateEdge() {
         for(ViewEdges e : this.edges){
-            this.updateColourE(e, Color.PINK);
+            this.updateColourE(e, Color.gray);
         }
     }
 
@@ -204,5 +204,21 @@ public class GrafoPanel extends JPanel {
         return null;
     }
 
+    private void arrow(Graphics2D g2, Point tip, Point tail, Color color) {
+        double phi = Math.toRadians(20.0D);
+        int barb = 20;
+        g2.setPaint(color);
+        double dy = (tip.y - tail.y);
+        double dx = (tip.x - tail.x);
+        double theta = Math.atan2(dy, dx);
+        double rho = theta + phi;
 
+        for(int j = 0; j < 2; ++j) {
+            double x = (double)tip.x - (double)barb * Math.cos(rho);
+            double y = (double)tip.y - (double)barb * Math.sin(rho);
+            g2.draw(new Line2D.Double(tip.x ,tip.y, x,y));
+            rho = theta - phi;
+        }
+
+    }
 }

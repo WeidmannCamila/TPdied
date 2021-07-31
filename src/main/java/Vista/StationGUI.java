@@ -10,10 +10,8 @@ import main.java.Managers.StationManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -31,9 +29,11 @@ public class StationGUI extends JPanel{
     private JComboBox CBstatus;
     private JTable maintenanceTable;
     private JButton verHistorialDeMantenimientosButton;
-
+    private JScrollPane maintenanceJPanel;
+    private Integer idStationSelected;
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
+
 
     private JFrame anterior;
 
@@ -50,8 +50,8 @@ public class StationGUI extends JPanel{
         this.frameStation.setContentPane(panel1);
         this.frameStation.setBounds(100, 100, 1200, 720);
         this.frameStation.setResizable(false);
-
-
+        this.maintenanceJPanel.setVisible(true);
+        this.maintenanceJPanel.setPreferredSize(new Dimension(450,800));
         // salir estacion
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -62,7 +62,6 @@ public class StationGUI extends JPanel{
 
         });
 
-
         // Añadir estacion
 
         addStationButton.addActionListener(new ActionListener() {
@@ -70,10 +69,8 @@ public class StationGUI extends JPanel{
                 StationAddGUI sadd = new StationAddGUI();
                 sadd.setAnterior(StationGUI.this.anterior);
                 sadd.frameStationAdd.setVisible(true);
-
             }
         });
-
 
         // Editar estacion
 
@@ -82,7 +79,6 @@ public class StationGUI extends JPanel{
                 StationEditGUI te = new StationEditGUI();
                 te.setAnterior(StationGUI.this.anterior);
                 te.frameStationEdit.setVisible(true);
-
             }
         });
 
@@ -96,12 +92,9 @@ public class StationGUI extends JPanel{
                 } else {
                     deleteStation();
                     JOptionPane.showMessageDialog(frameStation,"La estacion seleccionada fue eliminada. Por favor regrese al menu anterior para ver los cambios" , "Informacion", JOptionPane.INFORMATION_MESSAGE);
-
                 }
 
-
             }
-
 
         });
 
@@ -115,7 +108,7 @@ public class StationGUI extends JPanel{
        searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                String param = textStation.getText();
-                DTOStation estacionParametro = new DTOStation();
+               DTOStation estacionParametro = new DTOStation();
 
               switch (CBsearch.getSelectedIndex()){
                    case 0:{
@@ -123,32 +116,39 @@ public class StationGUI extends JPanel{
                        Integer id;
                        try{
                            id = Integer.parseInt(param);
-                       } catch(NumberFormatException i){
+                       }catch(NumberFormatException i){
                            System.out.println("tiene que ser un id");
                            return;
                        }
+
                        estacionParametro.setIdStation(id);
                        ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
                        updateTable(result);
+                       idStationSelected = result.get(0).getIdStation();
+                       System.out.println("El id de la estacion es" + idStationSelected);
                        break;
                    }
                    case 1: {
                        //se buscar por nombre
+
                        estacionParametro.setName(param);
                        ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
                        updateTable(result);
+                       idStationSelected = result.get(0).getIdStation();
+                       System.out.println("El id de la estacion es" + idStationSelected);
                        break;
-
-
                    }
                    case 2: {
                        //por estado
                        CBstatus.setVisible(true);
+
                        CBstatus.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
                        estacionParametro.setStatus(EnumStatus.values().toString());
                        ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
                        updateTable(result);
-                    break;
+                       idStationSelected = result.get(0).getIdStation();
+                       System.out.println("El id de la estacion es" + idStationSelected);
+                       break;
                    }
                    case 3: {
                        // por hora de apertura
@@ -165,15 +165,15 @@ public class StationGUI extends JPanel{
        });
 
        //mostrar tabla de lista de mantenimientos
-
-        String[] atributosMantenimiento = {"Fecha Inicio Mant", "Fecha Fin Mant", "Observaciones" };
+        String[] atributosMantenimiento = {"Id Mant, Fecha Inicio Mant", "Fecha Fin Mant", "Observaciones" };
         verHistorialDeMantenimientosButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
 
-                DTOStation estacionParametro = new DTOStation();
-                Integer id = estacionParametro.getIdStation();
-                ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(estacionParametro);
+
+                //llamar al dao para buscar la estacion y luego crear un mantenimiento y setearle la estacion
+
+                ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(idStationSelected);
                 updateTableMaintenances(mantenimientos);
                 //buscar los mantenimientos que tiene esa estacion y mostrarlos
 

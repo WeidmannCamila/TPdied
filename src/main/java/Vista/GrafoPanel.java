@@ -6,13 +6,11 @@ import main.java.Managers.StationManager;
 import main.java.classes.Route;
 import main.java.classes.Station;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GrafoPanel extends JPanel {
 
@@ -78,8 +76,8 @@ public class GrafoPanel extends JPanel {
     }
 
     private ViewVertex getVertex(Station s) {
-        System.out.println("VERTICE TAMAÑO" + vertices.size());
-        System.out.println("VERTICE station" + s.getName());
+        //System.out.println("VERTICE TAMAÑO" + vertices.size());
+        //System.out.println("VERTICE station" + s.getName());
 
         ViewVertex l= this.vertices.stream().filter((v) ->
             v.getStationV().getName().equals(s.getName())

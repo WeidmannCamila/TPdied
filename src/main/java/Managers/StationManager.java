@@ -60,14 +60,12 @@ public class StationManager {
     }
 
 
-    public static ArrayList<DTOMaintenance> searchMaintenance(DTOStation estacionParametro) {
+    public static ArrayList<DTOMaintenance> searchMaintenance(int estacionParametro) {
         ArrayList<DTOMaintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
         return mantenimientos;
     }
 
-    public ArrayList<DTOStation> searchStation1() {
-
-    public ArrayList<Station> searchStation1() {
+    public ArrayList<Station> searchStation1(){
         System.out.println("entro a seach station");
         Station st = new Station();
 

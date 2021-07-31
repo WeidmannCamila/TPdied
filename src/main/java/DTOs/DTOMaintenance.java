@@ -16,6 +16,10 @@ public class DTOMaintenance {
         this.endDate = endDate;
     }
 
+    public DTOMaintenance(Integer idMaintenance, String description){
+        this.idMaintenance= idMaintenance;
+        this.description=description;
+    }
 
     public Integer getIdMaintenance() {
         return idMaintenance;

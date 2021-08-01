@@ -120,7 +120,7 @@ public class RouteGUI {
                 }
                 String crit = CBparamSearch.getSelectedItem().toString();
 
-                ArrayList<Station> bestRoute = rm.bestRoute4crit(start, end, crit);
+                ArrayList<ArrayList<Station>> bestRoute = rm.bestRoute4crit(start, end, crit);
 
                 System.out.println("mejor trayecto" + bestRoute);
                 //mostrar en tabla y grafico

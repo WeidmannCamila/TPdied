@@ -9,6 +9,7 @@ import main.java.classes.Station;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +32,8 @@ public class GrafoPanel extends JPanel {
     public void initVertex(HashMap<Integer, Station> list) {
 
         this.vertices.clear();
-        int posY = 100;
-        int posX= 0;
+        int posY = 70;
+        int posX= 10;
 
         int aux = 0;
 
@@ -41,25 +42,32 @@ public class GrafoPanel extends JPanel {
 
             aux++;
 
-           posX +=80;
-
-            switch (aux%4){
+            switch (aux%6){
                 case 0: {
-                    posY =100;
+                    posX =150;
                     break;
                 }
                 case 1: {
-                    posY=350;
+                    posX=300;
                     break;
                 }
                 case 2:{
-                    posY=150;
+                    posX=200;
                     break;
                 }
                 case 3: {
-                    posY=450;
+                    posX=400;
                     break;
                 }
+                case 4: {
+                    posX=350;
+                    break;
+                }
+                case 5: {
+                    posX=250;
+                    break;
+                }
+
             }
 
 
@@ -67,6 +75,7 @@ public class GrafoPanel extends JPanel {
             vx.setId(s.getIdStation());
             vx.setName(s.getName());
             vertices.add(vx);
+           posY +=50;
 
         }
 
@@ -119,14 +128,12 @@ public class GrafoPanel extends JPanel {
             if (TwoRoutesSameStartEnd(r, listRoutes)) {
                 Route routeaux = new Route(r.getIdRoute(), r.getOrigin(), r.getDestination());
 
+                //si son dos caminos al mismo nodo, pongo una arista arriba del medio del nodo y por abajo del medio  ==O (RADIO +-3) --O (RADIO/2)
                if(TwoRoutesSameStartEnd(r, aux)){
-                   System.out.println("entro al esta en aux... ");
 
                    offset =VertexEnd.RADIO/3;
                } else {
-                   System.out.println("entro al esta en noo aux... ");
-
-                    offset = VertexEnd.RADIO/3+ (VertexEnd.RADIO/3);
+                  offset = VertexEnd.RADIO/3+ (VertexEnd.RADIO/3);
                 }
 
                 aux.add(routeaux);
@@ -179,24 +186,35 @@ public class GrafoPanel extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        this.dibujarAristas(g2d);
-        this.dibujarVertices(g2d);
+        this.drawEdges(g2d);
+        this.drawVertices(g2d);
     }
 
 
-    private void dibujarVertices(Graphics2D g2d) {
+    private void drawVertices(Graphics g2d) {
         for (ViewVertex v : this.getVertices()) {
-            g2d.setPaint(v.getColour());
 
 
-            g2d.drawString(v.info(), v.getCoordX() + 30, v.getCoordY() + 30);
 
-            g2d.setPaint(v.getColour());
-            g2d.fill(v.getNode());
+            g2d.setColor(v.myBlue);
+            g2d.fillOval(v.getCoordX(), v.getCoordY(), v.RADIO, v.RADIO);
+
+            g2d.setFont(new Font("Tahoma", Font.PLAIN, 10));
+            g2d.setColor(Color.BLACK);
+
+
+            g2d.drawString(v.info(), v.getCoordX()+5, v.getCoordY()-5);
+
+
+
+
+
+
         }
+
     }
 
-    private void dibujarAristas(Graphics2D g2d) {
+    private void drawEdges(Graphics2D g2d) {
         for (ViewEdges a : this.getEdges()) {
             int puntoMedioX = (a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
             int puntoMedioY = (a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
@@ -228,6 +246,7 @@ public class GrafoPanel extends JPanel {
     public void paintRoutes(ArrayList<ArrayList<Station>> bestRoutes){
         this.updateEdge();
         RouteManager rm = RouteManager.getInstance();
+        System.out.println("TAMAÑO MEJOR RUTA " + bestRoutes.size());
         for(ArrayList<Station> s : bestRoutes){
 
 

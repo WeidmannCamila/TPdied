@@ -40,7 +40,7 @@ public class RouteDAO {
             while(rs.next()){
                 transport =  daoT.getTransport1(rs.getInt("idTransport"));
                 System.out.println("Id del transporte de la ruta con el transport " + transport.getIdTransport() + "y valor de la consulta  "+  rs.getInt("idTransport"));
-                route = new Route(rs.getInt(1), station, station1, rs.getDouble("distance"), rs.getInt("duration"), rs.getInt("cost"), transport);
+                route = new Route(rs.getInt(1), station, station1, rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport);
             //     rss.add(transport);
             }
 
@@ -89,7 +89,7 @@ public class RouteDAO {
 
                 end = daoS.getStation(rs.getInt("idStationDestination"));
 
-                Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getInt("duration"), rs.getInt("cost"), transport);
+                Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport);
                 routes.add(route);
             }
 

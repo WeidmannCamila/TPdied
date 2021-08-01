@@ -104,7 +104,7 @@ public class HomeGUI{
                 // TODO obtener la lista de estaciones
 
 
-                    GrafoGUI graf = new GrafoGUI(grafoPanel);
+                    GrafoGUI graf = new GrafoGUI();
                     graf.frameGrafo.setVisible(true);
                     graf.setAnterior(HomeGUI.this.framePrincipal);
 

@@ -107,7 +107,7 @@ public class ViewVertex {
     }
 
     public String info() {
-        return "\033[31m[" + id + "] -" + this.name + ".\033[0m";
+       return this.name;
     }
 
 }

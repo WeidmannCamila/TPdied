@@ -49,11 +49,11 @@ public class GrafoPanel extends JPanel {
                     break;
                 }
                 case 1: {
-                    posY=150;
+                    posY=350;
                     break;
                 }
                 case 2:{
-                    posY=350;
+                    posY=150;
                     break;
                 }
                 case 3: {
@@ -74,7 +74,7 @@ public class GrafoPanel extends JPanel {
 
     }
 
-    public void initArista(ArrayList<Route> listRoutes) {
+    /*public void initArista(ArrayList<Route> listRoutes) {
 
         edges.clear();
         ArrayList<Route> aux = new ArrayList<>();
@@ -101,11 +101,55 @@ public class GrafoPanel extends JPanel {
         }
         getInstance().repaint();
     }
+*/
+
+    public void initArista(ArrayList<Route> listRoutes) {
+
+        edges.clear();
+        ArrayList<Route> aux = new ArrayList<>();
+
+
+
+        for (Route r : listRoutes) {
+            ViewVertex VertexStart = this.getVertex(r.getOrigin());
+            ViewVertex VertexEnd = this.getVertex(r.getDestination());
+            ViewEdges e;
+            int offset=0;
+            Paint c;
+            if (TwoRoutesSameStartEnd(r, listRoutes)) {
+                Route routeaux = new Route(r.getIdRoute(), r.getOrigin(), r.getDestination());
+
+               if(TwoRoutesSameStartEnd(r, aux)){
+                   System.out.println("entro al esta en aux... ");
+
+                   offset =VertexEnd.RADIO/3;
+               } else {
+                   System.out.println("entro al esta en noo aux... ");
+
+                    offset = VertexEnd.RADIO/3+ (VertexEnd.RADIO/3);
+                }
+
+                aux.add(routeaux);
+
+
+            } else {
+
+                offset = VertexEnd.RADIO/2;
+
+
+            }
+            e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour(), offset);
+
+            edges.add(e);
+
+        }
+        getInstance().repaint();
+    }
 
     private boolean TwoRoutesSameStartEnd(Route r, ArrayList<Route> aux) {
 
         for(Route ro: aux){
-             if(ro.getOrigin().getIdStation() == r.getOrigin().getIdStation() && ro.getDestination().getIdStation() == r.getDestination().getIdStation()){
+             if(ro.getIdRoute() != r.getIdRoute() && ro.getOrigin().getIdStation() == r.getOrigin().getIdStation() && ro.getDestination().getIdStation() == r.getDestination().getIdStation()){
 
                  return true;
             }
@@ -145,7 +189,8 @@ public class GrafoPanel extends JPanel {
             g2d.setPaint(v.getColour());
 
 
-            g2d.drawString(v.info(), v.getCoordX() + 65, v.getCoordY() + 65);
+            g2d.drawString(v.info(), v.getCoordX() + 30, v.getCoordY() + 30);
+
             g2d.setPaint(v.getColour());
             g2d.fill(v.getNode());
         }
@@ -167,7 +212,7 @@ public class GrafoPanel extends JPanel {
         }
     }
 
-    public void paintRoute(ArrayList<Station> bestRoute) {
+    /*public void paintRoute(ArrayList<Station> bestRoute) {
 
 
         this.updateEdge();
@@ -178,7 +223,25 @@ public class GrafoPanel extends JPanel {
 
             this.updateColourE(this.getEdge(r), r.getTransport().getColour());
         }
+    }*/
+
+    public void paintRoutes(ArrayList<ArrayList<Station>> bestRoutes){
+        this.updateEdge();
+        RouteManager rm = RouteManager.getInstance();
+        for(ArrayList<Station> s : bestRoutes){
+
+
+            for (int i = 0; i < s.size() - 1; i++) {
+                Route r = rDAO.searchRoute(s.get(i), s.get(i+1));
+
+
+                this.updateColourE(this.getEdge(r), r.getTransport().getColour());
+            }
+
+        }
+
     }
+
 
     private void updateEdge() {
         for(ViewEdges e : this.edges){

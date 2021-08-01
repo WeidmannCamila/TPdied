@@ -106,7 +106,8 @@ public class ViewVertex {
         this.node = new Ellipse2D.Double(coordX, coordY, RADIO, RADIO);
     }
 
-    public String info(){
-        return "[" + id + "] -" + this.name + ".";}
+    public String info() {
+        return "\033[31m[" + id + "] -" + this.name + ".\033[0m";
+    }
 
 }

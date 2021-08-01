@@ -126,7 +126,7 @@ public class RouteGUI {
                 //mostrar en tabla y grafico
 
 
-                GrafoGUI graf = new GrafoGUI();
+                GrafoGUI graf = new GrafoGUI(bestRoute);
                 graf.frameGrafo.setVisible(true);
                 graf.setAnterior(RouteGUI.this.frameRoute);
 

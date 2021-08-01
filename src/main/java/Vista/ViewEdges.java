@@ -32,7 +32,7 @@ public class ViewEdges {
     }
 
     public ViewEdges(ViewVertex start, ViewVertex end, Route r, Paint colour, int offset){
-        this.offset = start.RADIO/4;;
+        this.offset = offset;
         this.start = start;
 
         this.end = end;

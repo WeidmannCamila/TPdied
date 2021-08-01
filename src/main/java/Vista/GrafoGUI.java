@@ -19,9 +19,11 @@ public class GrafoGUI {
     private Boolean aux = false;
     static StationManager sm = StationManager.getInstance();
     static RouteManager rm = RouteManager.getInstance();
+    ArrayList<Station> bestRoute;
 
     public GrafoGUI(ArrayList<Station> bestRoute) {
         this.initialize();
+        this.bestRoute =bestRoute;
         this.aux = true;
 
     }
@@ -132,21 +134,23 @@ public class GrafoGUI {
         panel.add(panel_133, gbc_panel_1);*/
 
         //panel derecha
-        JPanel panel_1331 = new JPanel();
-        GridBagConstraints gbc_panel_1331 = new GridBagConstraints();
-        gbc_panel_1331.insets = new Insets(0, 15, 0, 5);
-        gbc_panel_1331.fill = GridBagConstraints.BOTH;
-        gbc_panel_1331.gridx = 8;
-        gbc_panel_1331.gridy = 6;
-        gbc_panel_1331.gridwidth = 3;
-        panel.add(panel_1331, gbc_panel_1331);
+        table = new JTable();
+        JScrollPane panel_scrlpn = new JScrollPane(table);
+        GridBagConstraints gbc_panel_12 = new GridBagConstraints();
+        gbc_panel_12.gridwidth = 3;
+        gbc_panel_12.insets = new Insets(0, 15, 0, 5);
+        gbc_panel_12.fill = GridBagConstraints.BOTH;
+        gbc_panel_12.gridx =8;
+        gbc_panel_12.gridy = 6;
+        panel.add(panel_scrlpn, gbc_panel_12);
 
-        GridBagLayout gbl_panel_1 = new GridBagLayout();
+
+      /*  GridBagLayout gbl_panel_1 = new GridBagLayout();
         gbl_panel_1.columnWidths = new int[] { 30, 0, 0 };
         gbl_panel_1.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         gbl_panel_1.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
         gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-        panel_1331.setLayout(gbl_panel_1);
+        panel_scrlpn.setLayout(gbl_panel_1);*/
         // ------------------------------------------------------------------------------------------------
         // Panel para visualización
         // ------------------------------------------------------------------------------------------------
@@ -169,4 +173,30 @@ public class GrafoGUI {
     public void setAnterior(JFrame a) {
         this.anterior = a;
     }
+
+
+   /* public static void refreshRutaTable() {
+        String col[] = { "Origen", "Destino", "Distancia", "Duración", "Peso máximo" };
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+
+        ArrayList<Ruta> listaRutas = gestorRuta.getListaRutas();
+
+        if (listaRutas.isEmpty()) {
+            tableRutas.setModel(tableModel);
+            return;
+        }
+
+        for (Ruta ruta : listaRutas) {
+            String origen = ruta.getOrigen().toString();
+            String destino = ruta.getDestino().toString();
+            String distancia = ruta.getDistancia() + " km";
+            String duracion = ruta.getDuracion() + " min";
+            String pesoMaximo = ruta.getPesoMaximo() + " Tn";
+
+            Object[] data = { origen, destino, distancia, duracion, pesoMaximo };
+            tableModel.addRow(data);
+        }
+
+        tableRutas.setModel(tableModel);
+    }*/
 }

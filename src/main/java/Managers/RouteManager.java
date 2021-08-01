@@ -105,9 +105,9 @@ public class RouteManager {
                 resultado =shortest(listpaths);
                 break;
             }
-             default: {
+             case "TODOS": {
 
-                 return null;
+                 resultado= listpaths;
 
              }
 
@@ -115,7 +115,7 @@ public class RouteManager {
         }
         System.out.println("SALIO DEL DEFAULT, NO HACE CASO AL RETURN");
 
-        grafoPanel.paintRoute(resultado);
+        grafoPanel.paintRoutes(resultado);
         grafoPanel.repaint();
 
         return resultado;

@@ -102,7 +102,7 @@ public class TransportDAO {
             while (resultado.next()) {
                 Paint c;
                 c = colourTransport(resultado.getString("colour"));
-                System.out.println("Color del trasporte" + c.toString());
+
                 TransportRoute transport = new TransportRoute(resultado.getInt(1), resultado.getString(2), c, resultado.getBoolean(4));
                 transportes.add(transport);
             }
@@ -126,7 +126,7 @@ public class TransportDAO {
 
     private Paint colourTransport(String colour) {
         Paint co;
-        System.out.println("ENTRO A COLOR " + colour);
+
         Color verde = new Color(100,149,237);
         Color verdecla = new Color(100,149,237);
 
@@ -181,7 +181,7 @@ public class TransportDAO {
             while (resultado.next()) {
                 Paint c;
                 c = colourTransport(resultado.getString("colour"));
-                System.out.println("ENTRO A COLOR gettrasport" + c);
+
                 transport = new TransportRoute(resultado.getInt(1), resultado.getString(2), c, resultado.getBoolean(4));
 
             }

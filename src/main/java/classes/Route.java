@@ -9,16 +9,16 @@ public class Route {
     private Station origin;
     private Station destination;
     private Double distance;
-    private Integer duration ;
+    private Double duration ;
     private Integer maxPassagers;
     private boolean status;
-    private Integer cost;
+    private Double cost;
     private List<Station> listStation;
     private TransportRoute transport;
 
     //constructor
 
-    public Route(Integer idRoute, Station origin, Station destination, Double distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, TransportRoute transport) {
+    public Route(Integer idRoute, Station origin, Station destination, Double distance, Double duration, Integer maxPassagers, boolean status, Double cost, TransportRoute transport) {
         this.idRoute = idRoute;
         this.origin = origin;
         this.destination = destination;
@@ -32,7 +32,9 @@ public class Route {
 
     }
 
-    public Route(Station start, Station end) {
+    public Route(Station origin, Station destination) {
+        this.origin = origin;
+        this.destination = destination;
     }
 
     public Route() {
@@ -45,7 +47,7 @@ public class Route {
         this.destination = destination;
     }
 
-    public Route(int idRoute, Station origin, Station destination, double distance, int duration, int cost, TransportRoute transport) {
+    public Route(int idRoute, Station origin, Station destination, Double distance, Double duration, Double cost, TransportRoute transport) {
         this.idRoute = idRoute;
         this.origin = origin;
         this.destination = destination;
@@ -92,11 +94,11 @@ public class Route {
         this.distance = distance;
     }
 
-    public Integer getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 
@@ -116,11 +118,11 @@ public class Route {
         this.status = status;
     }
 
-    public Integer getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 

@@ -12,7 +12,7 @@ public class App {
     public static void main(String[] args){
 
         ListGlobalTransport listT = ListGlobalTransport.getInstance();
-       // ListGlobalStation listS = ListGlobalStation.getInstance();
+        ListGlobalStation listS = ListGlobalStation.getInstance();
 
 
 

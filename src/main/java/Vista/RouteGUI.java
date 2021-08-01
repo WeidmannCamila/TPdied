@@ -119,15 +119,13 @@ public class RouteGUI {
                 }
                 String crit = CBparamSearch.getSelectedItem().toString();
 
-                ArrayList<Station> bestRoute = rm.bestRoute4crit(start, end, crit);
+                ArrayList<ArrayList<Station>> bestRoute = rm.bestRoute4crit(start, end, crit);
 
                 System.out.println("mejor trayecto" + bestRoute);
                 //mostrar en tabla y grafico
-                grafoPanel.paintRoute(bestRoute);
 
-                grafoPanel.repaint();
 
-                GrafoGUI graf = new GrafoGUI(grafoPanel);
+                GrafoGUI graf = new GrafoGUI(bestRoute);
                 graf.frameGrafo.setVisible(true);
                 graf.setAnterior(RouteGUI.this.frameRoute);
 

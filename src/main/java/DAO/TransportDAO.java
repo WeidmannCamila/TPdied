@@ -101,7 +101,7 @@ public class TransportDAO {
             while (resultado.next()) {
                 Paint c;
                 c = colourTransport(resultado.getString("colour"));
-                System.out.println("Color del trasporte" + c.toString());
+
                 TransportRoute transport = new TransportRoute(resultado.getInt(1), resultado.getString(2), c, resultado.getBoolean(4));
                 transportes.add(transport);
             }
@@ -118,8 +118,9 @@ public class TransportDAO {
                     System.out.println(e1.getMessage());
                 }
             }
-            return transportes;
+
         }
+        return transportes;
     }
 
     public static ArrayList<DTOTransport> searchTransportByAtributte(DTOTransport t) {
@@ -172,14 +173,16 @@ public class TransportDAO {
     private Paint colourTransport(String colour) {
         Paint co;
 
+        Color verde = new Color(100,149,237);
+        Color verdecla = new Color(100,149,237);
 
         switch (colour){
-            case "verteAR":{
-                co = Color.getHSBColor(184,218,186);
+            case "verdeAR":{
+                co = Color.GREEN;
                 break;
             }
             case "verdeAB" : {
-                co = Color.getHSBColor(22,70,32);
+                co = verdecla;
                 break;
             }
             case "amarillo" : {
@@ -240,8 +243,9 @@ public class TransportDAO {
                     System.out.println(e1.getMessage());
                 }
             }
-            return transport;
+
         }
+        return transport;
     }
 
 

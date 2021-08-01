@@ -2,17 +2,17 @@ package main.java.classes;
 
 import main.java.Managers.StationManager;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListGlobalStation implements Comparable<ListGlobalStation>{
 
 
 
-    private ArrayList<Station> listss;
+    private HashMap<Integer, Station> listss;
     private static ListGlobalStation listS;
 
 
-    public ListGlobalStation(ArrayList<Station> listss) {
+    public ListGlobalStation(HashMap<Integer, Station> listss) {
         this.listss = listss;
     }
 
@@ -20,12 +20,12 @@ public class ListGlobalStation implements Comparable<ListGlobalStation>{
     public static ListGlobalStation getInstance() {
         if (listS==null) {
             StationManager sm = new StationManager();
-         //   listS = new ListGlobalStation(sm.searchStation1());
+            listS = new ListGlobalStation(sm.getListStations());
         }
         return listS;
     }
 
-    public ArrayList<Station> getList(){
+    public HashMap<Integer, Station> getList(){
 
         return listss;
 

@@ -8,7 +8,6 @@ public class Maintenance {
     private String description;
     private Timestamp startDate;
     private Timestamp endDate;
-
     //constructor
 
     public Maintenance(Integer idMaintenance, String description, Timestamp startDate, Timestamp endDate) {

@@ -125,17 +125,16 @@ public class StationGUI extends JPanel{
                        ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
                        updateTable(result);
                        idStationSelected = result.get(0).getIdStation();
-                       System.out.println("El id de la estacion es" + idStationSelected);
+                       //System.out.println("El id de la estacion es" + idStationSelected);
                        break;
                    }
                    case 1: {
                        //se buscar por nombre
-
                        estacionParametro.setName(param);
                        ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
                        updateTable(result);
                        idStationSelected = result.get(0).getIdStation();
-                       System.out.println("El id de la estacion es" + idStationSelected);
+                       //System.out.println("El id de la estacion es" + idStationSelected);
                        break;
                    }
                    case 2: {
@@ -241,11 +240,6 @@ public class StationGUI extends JPanel{
     public void setAnterior(JFrame a) {
         this.anterior = a;
     }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
-
 
     /*
 * Falta agregar un boton que permita seleccionar una estacion y al presionarlo muestre una lista de los mantenimientos que tuvo

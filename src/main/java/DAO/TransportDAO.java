@@ -2,13 +2,11 @@ package main.java.DAO;
 
 
 import main.java.DTOs.DTOTransport;
-import main.java.classes.Station;
 import main.java.classes.TransportRoute;
 
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TransportDAO {
     public Color greenplus = new Color(22,70,32);
@@ -81,6 +79,7 @@ public class TransportDAO {
         System.out.println("actualizar. holi");
     }
 
+
     public static ArrayList<DTOTransport> getTransports(DTOTransport t) {
         ArrayList l = new ArrayList();
         return l;
@@ -122,6 +121,53 @@ public class TransportDAO {
             return transportes;
         }
     }
+
+    public static ArrayList<DTOTransport> searchTransportByAtributte(DTOTransport t) {
+        ArrayList<DTOTransport> transportes = new ArrayList<>();
+        Connection conexion = null;
+        ResultSet rs = null;
+
+        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
+        final String user = "hshhreor";
+        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
+        try {
+            conexion = DriverManager.getConnection( url, user, pass);
+            //pregunto si el filtro es por id
+            if(t.getIdTransport()!=null) {
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE idTransport= ?;");
+                st.setInt(1,t.getIdTransport());
+                rs = st.executeQuery();
+            }
+            //pregunto si el filtro es por nombre
+            if(t.getName()!=null) {
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE name LIKE '%" + t.getName() + "%';");
+                rs = st.executeQuery();
+            }
+            //pregunto si el filtro es por color
+            if(t.getColour()!=null) {
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE colour LIKE '%\" + t.getName() + \"%';");
+                rs = st.executeQuery();
+            }
+            //pregunto si el filtro es por status
+            if(t.getColour()!=null) {
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE status= ?;");
+                st.setString(1,t.getColour());
+                rs = st.executeQuery();
+            }
+
+            while(rs.next()){
+                DTOTransport trans1 = new DTOTransport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4));
+                transportes.add(trans1);
+            }
+            rs.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return transportes;
+    }
+
 
     private Paint colourTransport(String colour) {
         Paint co;

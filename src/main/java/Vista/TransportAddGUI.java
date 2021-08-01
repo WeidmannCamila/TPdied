@@ -3,16 +3,15 @@ package main.java.Vista;
 import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumColour;
-import main.java.Enumeration.EnumStatus;
 import main.java.Enumeration.EnumTipoAlerta;
 import main.java.Herramientas.AlertPanel;
-import main.java.Managers.StationManager;
 import main.java.Managers.TransportManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Time;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TransportAddGUI {
     private JPanel panel1;
@@ -37,6 +36,7 @@ public class TransportAddGUI {
 
     }
 
+
     private void initialize() {
         this.frameTransportAdd = new JFrame();
 
@@ -47,6 +47,15 @@ public class TransportAddGUI {
         statusBotton.add(noActivaRadioButton);
         statusBotton.add(activaRadioButton);
         CBTransportColour.setModel(new DefaultComboBoxModel<EnumColour>(EnumColour.values()));
+
+        //salir a la pantalla anterior
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                TransportAddGUI.this.anterior.setVisible(true);
+                TransportAddGUI.this.frameTransportAdd.dispose();
+            }
+
+        });
 
         // final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
         addButton.addActionListener(new ActionListener() {

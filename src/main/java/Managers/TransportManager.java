@@ -29,4 +29,14 @@ public class TransportManager {
     public void addTransport(DTOTransport dto) {
         tDAO.addTransport(dto);
     }
+
+    //buscar transportes solo para DTOTransport
+    public ArrayList<DTOTransport> searchDTOTransport(DTOTransport t) {
+
+        ArrayList<DTOTransport> list = new ArrayList(TransportDAO.searchTransportByAtributte(t));
+
+        return list;
+    }
+
+
 }

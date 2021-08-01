@@ -2,9 +2,6 @@ package main.java.classes;
 
 
 
-import main.java.DTOs.DTOStation;
-
-import java.sql.Time;
 import java.util.List;
 
 public class Route {
@@ -18,7 +15,6 @@ public class Route {
     private Integer cost;
     private List<Station> listStation;
     private TransportRoute transport;
-
 
     //constructor
 

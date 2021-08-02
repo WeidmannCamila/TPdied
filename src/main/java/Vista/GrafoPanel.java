@@ -9,30 +9,105 @@ import main.java.classes.Station;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class GrafoPanel extends JPanel {
 
     private List<ViewVertex> vertices = new ArrayList<>();
     private ArrayList<ViewEdges> edges = new ArrayList<>();
-    private static final GrafoPanel INSTANCE = new GrafoPanel();
+
     private StationManager sm =new StationManager();
     private RouteManager rm = new RouteManager();
     private RouteDAO rDAO = new RouteDAO();
+
+    private ViewVertex nodeClicked = null;
+    private static final GrafoPanel INSTANCE = new GrafoPanel();
     public static GrafoPanel getInstance() {
         return INSTANCE;
     }
 
- GrafoPanel(){}
+ GrafoPanel(){this.initialize();}
+
+    private void initialize() {
+        this.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                ViewVertex v = nodePressed(e.getPoint());
+                if (v != null) {
+                    nodeClicked = v;
+                   updateVertex(nodeClicked, e.getPoint());
+                }
+
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                if (nodeClicked != null) {
+
+                    updateVertex(nodeClicked, e.getPoint());
+                   updateRoutes();
+                }
+
+                nodeClicked = null;
+            }
+        });
+        this.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                if (nodeClicked != null) {
+                    updateVertex(nodeClicked, e.getPoint());
+                    updateRoutes();
+                }
+
+            }
+        });
+    }
+
+    private ViewVertex nodePressed(Point p) {
+        for (ViewVertex v : this.getVertices()) {
+            if (v.getNode().contains(p)) {
+                return v;
+            }
+        }
+
+        return null;
+    }
+
+
+
+    private void updateVertex(ViewVertex v, Point nuevo) {
+
+        v.setCoordX(nuevo.x);
+        v.setCoordY(nuevo.y);
+        v.update();
+        repaint();
+    }
+    public void updateRoutes() {
+        Iterator var2 = this.edges.iterator();
+
+        while(var2.hasNext()) {
+            ViewEdges a = (ViewEdges)var2.next();
+            a.update();
+        }
+
+        repaint();
+    }
+
+
+
+
+
+
+
 
     public void initVertex(HashMap<Integer, Station> list) {
 
         this.vertices.clear();
-        int posY = 70;
+        int posY = 10;
         int posX= 10;
 
         int aux = 0;
@@ -75,7 +150,7 @@ public class GrafoPanel extends JPanel {
             vx.setId(s.getIdStation());
             vx.setName(s.getName());
             vertices.add(vx);
-           posY +=50;
+           posY +=55;
 
         }
 
@@ -196,14 +271,14 @@ public class GrafoPanel extends JPanel {
 
 
 
-            g2d.setColor(v.myBlue);
+            g2d.setColor((Color) v.getColour());
             g2d.fillOval(v.getCoordX(), v.getCoordY(), v.RADIO, v.RADIO);
 
-            g2d.setFont(new Font("Tahoma", Font.PLAIN, 10));
-            g2d.setColor(Color.BLACK);
+            g2d.setFont(new Font("Serif", Font.BOLD, 15));
+            g2d.setColor(Color.WHITE);
 
 
-            g2d.drawString(v.info(), v.getCoordX()+5, v.getCoordY()-5);
+            g2d.drawString(v.info(), v.getCoordX()+8, v.getCoordY()+15);
 
 
 
@@ -225,6 +300,7 @@ public class GrafoPanel extends JPanel {
             g2d.drawString(ruta.getIdRoute() + " [km]", puntoMedioX + 20, puntoMedioY + 20);
             g2d.drawString(ruta.getCost() + " [Tn]", puntoMedioX + 20, puntoMedioY + 33);
             g2d.drawString(ruta.getDuration() + " [min]", puntoMedioX + 20, puntoMedioY + 46);
+            g2d.setPaint(a.getColour());
             g2d.draw(a.getLin());
             this.arrow(g2d, new Point(a.getEnd().getCoordX() + a.getoffset(), a.getEnd().getCoordY() + a.getoffset()), new Point(a.getStart().getCoordX() - a.getoffset(), a.getStart().getCoordY() - a.getoffset()), (Color) a.getColour());
         }

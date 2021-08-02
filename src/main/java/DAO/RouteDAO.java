@@ -90,6 +90,7 @@ public class RouteDAO {
                 end = daoS.getStation(rs.getInt("idStationDestination"));
 
                 Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport);
+                System.out.println("EN BASE DE DATOOOO LA DISTANCIA ES" + route.getDistance());
                 routes.add(route);
             }
 

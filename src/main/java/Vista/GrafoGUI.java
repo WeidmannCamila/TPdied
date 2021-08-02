@@ -345,7 +345,7 @@ public class GrafoGUI {
 
         JList<String> insumoList = new JList<String>(dataList);
         GridBagConstraints gbc_InsumoList = new GridBagConstraints();
-        gbc_InsumoList.anchor = GridBagConstraints.CENTER;
+        gbc_InsumoList.anchor = GridBagConstraints.BOTH;
         gbc_InsumoList.insets = new Insets(0, 0, 0, 0);
         gbc_InsumoList.gridx = 0;
         gbc_InsumoList.gridy = 1;

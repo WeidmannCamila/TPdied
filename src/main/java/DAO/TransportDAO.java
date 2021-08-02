@@ -147,16 +147,17 @@ public class TransportDAO {
             }
             //pregunto si el filtro es por color
             if(t.getColour()!=null) {
-                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE colour LIKE '%\" + t.getName() + \"%';");
+                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE colour LIKE '%" + t.getColour() + "%';");
                 rs = st.executeQuery();
             }
+            /*
             //pregunto si el filtro es por status
-            if(t.getColour()!=null) {
+            if(t.getStatus()!=null) {
                 PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE status= ?;");
                 st.setString(1,t.getColour());
                 rs = st.executeQuery();
             }
-
+*/
             while(rs.next()){
                 DTOTransport trans1 = new DTOTransport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4));
                 transportes.add(trans1);
@@ -165,6 +166,14 @@ public class TransportDAO {
         }
         catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (Exception e1) {
+                    System.out.println(e1.getMessage());
+                }
+            }
         }
         return transportes;
     }

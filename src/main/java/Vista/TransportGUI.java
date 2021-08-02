@@ -3,15 +3,13 @@ package main.java.Vista;
 import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumTipoAlerta;
+import main.java.Enumeration.EnumTransportStatus;
 import main.java.Herramientas.AlertPanel;
 import main.java.Managers.TransportManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class TransportGUI {
@@ -26,6 +24,7 @@ public class TransportGUI {
     private JComboBox CBsearchTransport;
     private JTable table;
     private JTextField textTransport;
+    private JComboBox CBStatus;
     private JScrollPane tableTransporte;
     private TransportDAO transportDAO = new TransportDAO();
     public JFrame frameTransport;
@@ -45,6 +44,7 @@ public class TransportGUI {
         this.frameTransport.setContentPane(panel1);
         this.frameTransport.setBounds(10, 10, 1200, 720);
         this.frameTransport.setResizable(false);
+        this.CBStatus.setVisible(false);
 
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -108,7 +108,7 @@ public class TransportGUI {
 
         });
         //busqueda de transportes
-        String[] atributosTransporte = {"Id", "nombre", "Color", "Estado"};
+        String[] atributosTransporte = {"Id", "Nombre", "Color", "Estado"};
         CBsearchTransport.setModel(new DefaultComboBoxModel<String>(atributosTransporte));
 
         buscarButton.addActionListener(new ActionListener() {
@@ -140,23 +140,27 @@ public class TransportGUI {
                         break;
                     }
                     case 3:{
-                        System.out.println("Selecciono la busqueda por estado");
-                        /*
                         //busca por estado de linea
+                        String[] estado = {"Activa" , "No activa"};
 
-                        transportParam.setStatus(param);
+                        CBStatus.setModel(new DefaultComboBoxModel<EnumTransportStatus>(EnumTransportStatus.values()));
+                        transportParam.setStatus(asignarValor(CBsearchTransport.getSelectedItem().toString()));
+                        System.out.println("EL valor del CB es " + CBsearchTransport.getSelectedItem().toString());
                         ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
                         updateTabla(result);
-                        break;*/
+                        break;
                     }
                     default:
                 }
 
             }
         });
-
-
-
+        CBsearchTransport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CBStatus.setVisible(true);
+            }
+        });
 
     }
 
@@ -193,7 +197,15 @@ public class TransportGUI {
         table.setModel(t);
 
     }
+    public boolean asignarValor(String e ){
+        if(e.equals("ACTIVA")){
+            return true;
+        }
+        else
+            System.out.println("Retorna falso" );
+            return false;
 
+    }
 
     public void setAnterior(JFrame a) {
         this.anterior = a;

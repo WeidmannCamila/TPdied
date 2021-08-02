@@ -8,6 +8,7 @@ import main.java.classes.ListRoute;
 import main.java.classes.Station;
 import main.java.classes.Ticket;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 
 public class TicketManager {
@@ -22,12 +23,11 @@ public class TicketManager {
     public static TicketManager getInstance() {return INSTANCE;    }
 
 
-    public DTOTicket createTicket(ListRoute listRoute){
+    public void createTicket(ListRoute listRoute, String name, String email, Timestamp date){
+        tDAO.addTicket(listRoute, name, email, date);
 
-        DTOTicket t = tDAO.addTicket(listRoute);
 
 
-        return t;
     }
 
 

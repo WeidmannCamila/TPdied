@@ -18,6 +18,7 @@ import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
@@ -249,9 +250,8 @@ public class GrafoGUI {
                 System.out.println("LISTA COMPLETA DE ESTACIONES : " + aux.size() + " este es el tamaño del la lista completa " + bestRoute.size());
 
                 listRoute = new ListRoute(s.get(0),s.get(s.size()-1), distance, duration, cost, aux);
-                DTOTicket newTicket = tm.createTicket(listRoute);
 
-                listPaths.add(listRoute);
+                 listPaths.add(listRoute);
             }
             refreshRutaTable(listPaths);
             buyTicketbutton.setVisible(true);
@@ -298,6 +298,11 @@ public class GrafoGUI {
     }
 
     private void RefreshBuyTicket(ListRoute routes, String name, String email) {
+
+        //TODO guardar fecha del ticket!!
+        Date t = new Date();
+      //  tm.createTicket(listRoute, name, email, t.setDate());
+
         JDialog jDialog =new JDialog(frameGrafo, "Mostrando la solución generada",
                 Dialog.ModalityType.DOCUMENT_MODAL);
         JPanel contentPane;

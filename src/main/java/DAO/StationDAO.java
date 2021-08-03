@@ -1,6 +1,7 @@
 package main.java.DAO;
 
 import main.java.DTOs.DTOStation;
+import main.java.Enumeration.EnumStatus;
 import main.java.classes.Station;
 
 import java.sql.*;
@@ -133,7 +134,7 @@ public class StationDAO {
     }
     //obtiene todas las estaciones de la BD
     public static ArrayList<Station> getStations(){
-        System.out.println("llego a dao station");
+       // System.out.println("llego a dao station");
         ArrayList stations = new ArrayList();
 
         Connection conexion = null;
@@ -147,8 +148,12 @@ public class StationDAO {
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
             rs = st.executeQuery();
 
+
+
             while(rs.next()) {
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getDate(3), null, null, null);
+                EnumStatus e = EnumStatus.valueOf(rs.getString("status"));
+
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getDate(3), null, e, null);
                 stations.add(station);
             }
 
@@ -275,7 +280,7 @@ public class StationDAO {
 
     public Station getStationString(String s) {
         ArrayList<Station> lista = this.getStations();
-        System.out.println("lista estaciones dao " + lista.size());
+
         Station resultado = null;
         Iterator var5 = lista.iterator();
 
@@ -286,7 +291,7 @@ public class StationDAO {
                 resultado = a;
             }
         }
-        System.out.println("resultado" + resultado);
+
         return resultado;
     }
 }

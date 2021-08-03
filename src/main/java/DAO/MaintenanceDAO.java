@@ -9,7 +9,7 @@ public class MaintenanceDAO {
 
 
     public static ArrayList<DTOMaintenance> getMaintenanceById(int estacionParametro) {
-        System.out.println("llego al dao de maintenance");
+      //  System.out.println("llego al dao de maintenance");
         ArrayList<DTOMaintenance> maintenances = new ArrayList();
         Connection con = null;
         ResultSet resultado = null;

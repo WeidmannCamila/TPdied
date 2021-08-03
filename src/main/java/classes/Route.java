@@ -47,7 +47,7 @@ public class Route {
         this.destination = destination;
     }
 
-    public Route(int idRoute, Station origin, Station destination, Double distance, Double duration, Double cost, TransportRoute transport) {
+    public Route(int idRoute, Station origin, Station destination, Double distance, Double duration, Double cost, TransportRoute transport, int maxPassagers, Boolean status) {
         this.idRoute = idRoute;
         this.origin = origin;
         this.destination = destination;
@@ -55,12 +55,16 @@ public class Route {
         this.duration = duration;
         this.cost = cost;
         this.transport =transport;
+        this.maxPassagers = maxPassagers;
+        this.status= status;
     }
 
 
 
 
     //getters and setters
+
+
 
     public Integer getIdRoute() {
         return idRoute;
@@ -110,7 +114,7 @@ public class Route {
         this.maxPassagers = maxPassagers;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

@@ -4,6 +4,7 @@ import main.java.classes.Station;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import main.java.classes.Constants;
 
 public class ViewVertex {
 
@@ -16,8 +17,8 @@ public class ViewVertex {
     private Paint baseColour;
     private Station stationV;
     private Shape node;
-    public final Integer RADIO = 25;
-    Color myBlue = new Color(100,149,237);
+    public final Integer RADIO = 30;
+
 
 
 
@@ -27,8 +28,8 @@ public class ViewVertex {
 
         this.coordX = coordX;
         this.coordY = coordY;
-        this.colour = myBlue;
-        this.baseColour = Color.black;
+        this.colour = Constants.myBlue;
+        this.baseColour = Constants.myBlue;
         this.stationV = stationV;
         this.node = new Ellipse2D.Double(coordX, coordY, RADIO, RADIO);
     }

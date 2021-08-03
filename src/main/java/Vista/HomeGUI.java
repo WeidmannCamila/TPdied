@@ -53,8 +53,8 @@ public class HomeGUI{
         transporteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TransportGUI t = new TransportGUI();
-                t.frameTransport.setVisible(true);
+                MenuRoute t = new MenuRoute();
+                t.frameMenuRoute.setVisible(true);
                 t.setAnterior(HomeGUI.this.framePrincipal);
 
 

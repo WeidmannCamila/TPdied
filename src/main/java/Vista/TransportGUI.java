@@ -161,7 +161,7 @@ public class TransportGUI {
         CBsearchTransport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] estado = {"Activa" , "No activa"};
+                String[] estado = {"--seleccionar--", "Activa" , "No activa"};
                 CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
                 //si el filtro por estado es seleecionado mostrar el CB del filtro por estado, sino ocultarlo
                 if(CBsearchTransport.getSelectedIndex()==3){
@@ -170,10 +170,10 @@ public class TransportGUI {
                 if(CBsearchTransport.getSelectedIndex()!=3){
                     CBStatus.setVisible(false);
                 }
-                if(CBStatus.getSelectedIndex()==0){
+                if(CBStatus.getSelectedIndex()==1){
                     transportParam.setStatus(true);
                 }
-                if(CBStatus.getSelectedIndex()==1){
+                if(CBStatus.getSelectedIndex()==2){
                     transportParam.setStatus(false);
                 }
             }

@@ -29,7 +29,7 @@ public class StationDAO {
 
             while(rs.next()) {
 
-                DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getTime(3), rs.getTime(4), rs.getString(5));
+                DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                 stations.add(station1);
 
             }
@@ -37,6 +37,14 @@ public class StationDAO {
             st.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
+        }finally{
+            if(conexion!= null){
+                try{
+                    conexion.close();
+                }catch(Exception e1){
+                    System.out.println(e1.getMessage());
+                }
+            }
         }
 
         return stations;
@@ -59,27 +67,30 @@ public class StationDAO {
                 st.setInt(1,station.getIdStation());
                 System.out.println("Entro al if del getId");
                 rs = st.executeQuery();
-            }
-            //pregunto si el filtro es por nombre
-            if(station.getName()!=null) {
-                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE name= ?;");
-                st.setString(1,station.getName());
-                System.out.println("Entro al if del getName");
-                rs = st.executeQuery();
-            }
-            //pregunto si el filtro es por status
-            if(station.getStatus()!=null) {
-                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE status= ?;");
-                st.setString(1,station.getStatus());
-                System.out.println("Entro al if del getStatus");
-                rs = st.executeQuery();
-            }
+            }else
+                //pregunto si el filtro es por nombre
+                if(station.getName()!=null) {
+                    PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE nameStation LIKE '%" + station.getName() +"%';");
+                    System.out.println("Entro al if del getName");
+                    rs = st.executeQuery();
+                }else
+                    //pregunto si el filtro es por status
+                    if(station.getStatus()!=null) {
+                        PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE status LIKE '%" + station.getStatus() +"%';");
+                        System.out.println("Entro al if del getStatus");
+                        rs = st.executeQuery();
+                    }
+
 
             while(rs.next()){
-               DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getTime(3), rs.getTime(4), rs.getString(5));
+               DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                 estaciones.add(station1);
             }
             rs.close();
+            System.out.println("La longitud de estaciones es: "+ estaciones.size());
+
+            //no trae ninguna estacion ver esto
+
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -148,7 +159,7 @@ public class StationDAO {
             rs = st.executeQuery();
 
             while(rs.next()) {
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getDate(3), null, null, null);
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, null, null);
                 stations.add(station);
             }
 
@@ -193,8 +204,8 @@ public class StationDAO {
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.station (idStation, name, openingTime, closingTime, status ) VALUES (?, ?, ?, ?, ?);" ) ;
             st.setInt(1, s.getIdStation());
             st.setString(2, s.getName());
-            st.setTime(3, s.getOpen());
-            st.setTime(4, s.getClouse());
+            st.setString(3, s.getOpen());
+            st.setString(4, s.getClouse());
             st.setBoolean(5, false /*s.getStatus()*/);
             st.executeUpdate();
             st.close();
@@ -231,7 +242,7 @@ public class StationDAO {
             rs = st.executeQuery();
 
             while(rs.next()) {
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getDate(3), null, null, null);
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, null, null);
                 stations.put(station.getIdStation(), station);
             }
 

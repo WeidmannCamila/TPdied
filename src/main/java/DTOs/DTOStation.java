@@ -1,19 +1,15 @@
 package main.java.DTOs;
 
-import main.java.Enumeration.EnumStatus;
-
-import java.sql.Time;
-
 public class DTOStation {
 
     private Integer idStation;
     private String name;
-    private Time open; // VER TIPO
-    private Time clouse;
+    private String open; // VER TIPO
+    private String clouse;
     private String status;
 
 
-    public DTOStation(Integer idStation, String name, Time open, Time clouse, String status) {
+    public DTOStation(Integer idStation, String name, String open, String clouse, String status) {
         this.idStation = idStation;
         this.name = name;
         this.open = open;
@@ -41,19 +37,19 @@ public class DTOStation {
         this.name = name;
     }
 
-    public Time getOpen() {
+    public String getOpen() {
         return open;
     }
 
-    public void setOpen(Time open) {
+    public void setOpen(String open) {
         this.open = open;
     }
 
-    public Time getClouse() {
+    public String getClouse() {
         return clouse;
     }
 
-    public void setClouse(Time clouse) {
+    public void setClouse(String clouse) {
         this.clouse = clouse;
     }
 

@@ -11,7 +11,10 @@ import main.java.Managers.StationManager;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -30,6 +33,11 @@ public class StationGUI extends JPanel{
     private JTable maintenanceTable;
     private JButton verHistorialDeMantenimientosButton;
     private JScrollPane maintenanceJPanel;
+    private JTextField HourOpenTField;
+    private JTextField HourClosedTField;
+    private JTextField MinuteClosedTField;
+    private JTextField MinuteOpenTField;
+    private JComboBox CBtime;
     private Integer idStationSelected;
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
@@ -105,14 +113,19 @@ public class StationGUI extends JPanel{
 
        CBsearch.setModel(new DefaultComboBoxModel<String>(items));
 
-       searchButton.addActionListener(new ActionListener() {
+       DTOStation estacionParametro = new DTOStation();
+
+        searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                String param = textStation.getText();
-               DTOStation estacionParametro = new DTOStation();
+               estacionParametro.setStatus(null);
+               estacionParametro.setName(null);
+               estacionParametro.setIdStation(null);
 
               switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        // por id
+                       CBtime.setVisible(false);
                        Integer id;
                        try{
                            id = Integer.parseInt(param);
@@ -125,36 +138,55 @@ public class StationGUI extends JPanel{
                        ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
                        updateTable(result);
                        idStationSelected = result.get(0).getIdStation();
-                       //System.out.println("El id de la estacion es" + idStationSelected);
+                       System.out.println("El id de la estacion es" + idStationSelected);
                        break;
                    }
                    case 1: {
                        //se buscar por nombre
+                       CBtime.setVisible(false);
                        estacionParametro.setName(param);
                        ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
-                       updateTable(result);
-                       idStationSelected = result.get(0).getIdStation();
-                       //System.out.println("El id de la estacion es" + idStationSelected);
-                       break;
-                   }
-                   case 2: {
-                       //por estado
-                       CBstatus.setVisible(true);
-
-                       CBstatus.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
-                       estacionParametro.setStatus(EnumStatus.values().toString());
-                       ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
                        updateTable(result);
                        idStationSelected = result.get(0).getIdStation();
                        System.out.println("El id de la estacion es" + idStationSelected);
                        break;
                    }
+                   case 2: {
+                       //por estado
+                       //avisar que no se encontraron estaciones
+                       CBtime.setVisible(false);
+                       if(CBstatus.getSelectedIndex()==1){
+                           estacionParametro.setStatus("OPERATIVA");
+                       }
+                       if(CBstatus.getSelectedIndex()==2){
+                           estacionParametro.setStatus("MANTENIMIENTO");
+                       }
+                       ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
+                       updateTable(result);
+
+                       if(result != null){
+                           idStationSelected = result.get(0).getIdStation();
+                           System.out.println("El id de la estacion es" + idStationSelected);
+                       }else {
+                           //lanzar una excepcion, mensaje o pantalla
+                           System.out.println("Lista de estaciones vacia");
+                       }
+
+                       break;
+                   }
                    case 3: {
-                       // por hora de apertura
+                       HourOpenTField.setEnabled(true);
+                       MinuteOpenTField.setEnabled(true);
+                       //Timestamp horarioApertura = new Timestamp();
+                       System.out.println("mostrando el horario" + HourOpenTField.toString());
+                       estacionParametro.setOpen(HourOpenTField.getText()+":"+MinuteOpenTField.getText());
+                       ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
                    }
                    case 4:{
-                       // y aca de clausura
+                       HourClosedTField.setEnabled(true);
+                       MinuteClosedTField.setEnabled(true);
 
+                       estacionParametro.setOpen(HourClosedTField.getText()+":"+MinuteClosedTField.getText());
                    }
                    default:
 
@@ -169,13 +201,58 @@ public class StationGUI extends JPanel{
 
             public void actionPerformed(ActionEvent e) {
 
-
                 //llamar al dao para buscar la estacion y luego crear un mantenimiento y setearle la estacion
-
                 ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(idStationSelected);
                 updateTableMaintenances(mantenimientos);
                 //buscar los mantenimientos que tiene esa estacion y mostrarlos
 
+            }
+        });
+
+        CBsearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] estado = {"--seleccionar--","OPERATIVA", "MANTENIMIENTO"} ;
+                CBstatus.setModel(new DefaultComboBoxModel<String>(estado));
+                estacionParametro.setStatus(EnumStatus.values().toString());
+                if(CBsearch.getSelectedIndex()==2){
+                    CBstatus.setVisible(true);
+                }
+                else if(CBsearch.getSelectedIndex()!=2){
+                    CBstatus.setVisible(false);
+                }
+                if(CBsearch.getSelectedIndex()==3){
+                    HourOpenTField.setVisible(true);
+                    MinuteOpenTField.setVisible(true);
+                }/*
+                else if(CBsearch.getSelectedIndex()!=3){
+                    HourOpenTField.setVisible(false);
+                    MinuteOpenTField.setVisible(false);
+                }*/
+                if(CBsearch.getSelectedIndex()==4){
+                    HourClosedTField.setVisible(true);
+                    MinuteClosedTField.setVisible(true);
+                }/*
+                else if(CBsearch.getSelectedIndex()!=4){
+                    HourClosedTField.setVisible(false);
+                    MinuteClosedTField.setVisible(false);
+                }*/
+
+
+            }
+        });
+
+        CBstatus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(CBstatus.getSelectedIndex()==1){
+                    estacionParametro.setStatus("OPERATIVA");
+                }
+                if(CBstatus.getSelectedIndex()==2){
+                    estacionParametro.setStatus("MANTENIMIENTO");
+                }
+                ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
+                updateTable(result);
             }
         });
 
@@ -209,13 +286,12 @@ public class StationGUI extends JPanel{
         for (DTOStation station : listStations) {
             Integer id = station.getIdStation();
             String name = station.getName();
-            String status = "MANTENIMIENTO" ;//station.getStatus().toString();
+            String status = station.getStatus().toString();
             String ha = "hora";//station.getOpen().toString();
             String hc ="hora"; //station.getClouse().toString();
 
             Object[] data = {id, name, status, ha, hc};
             tm.addRow(data);
-
         }
         table.setModel(tm);
 

@@ -3,13 +3,15 @@ package main.java.Vista;
 import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumTipoAlerta;
-import main.java.Enumeration.EnumTransportStatus;
 import main.java.Herramientas.AlertPanel;
 import main.java.Managers.TransportManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class TransportGUI {
@@ -110,11 +112,11 @@ public class TransportGUI {
         //busqueda de transportes
         String[] atributosTransporte = {"Id", "Nombre", "Color", "Estado"};
         CBsearchTransport.setModel(new DefaultComboBoxModel<String>(atributosTransporte));
-
+        DTOTransport transportParam = new DTOTransport();
         buscarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String param = textTransport.getText();
-                DTOTransport transportParam = new DTOTransport();
+
                 TransportManager tm = new TransportManager();
                 switch (CBsearchTransport.getSelectedIndex()){
                     case 0: {
@@ -141,11 +143,12 @@ public class TransportGUI {
                     }
                     case 3:{
                         //busca por estado de linea
-                        String[] estado = {"Activa" , "No activa"};
-
-                        CBStatus.setModel(new DefaultComboBoxModel<EnumTransportStatus>(EnumTransportStatus.values()));
-                        transportParam.setStatus(asignarValor(CBsearchTransport.getSelectedItem().toString()));
-                        System.out.println("EL valor del CB es " + CBsearchTransport.getSelectedItem().toString());
+                        if(CBStatus.getSelectedIndex()==0){
+                            transportParam.setStatus(true);
+                        }
+                        if(CBStatus.getSelectedIndex()==1){
+                            transportParam.setStatus(false);
+                        }
                         ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
                         updateTabla(result);
                         break;
@@ -158,9 +161,25 @@ public class TransportGUI {
         CBsearchTransport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CBStatus.setVisible(true);
+                String[] estado = {"Activa" , "No activa"};
+                CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
+                //si el filtro por estado es seleecionado mostrar el CB del filtro por estado, sino ocultarlo
+                if(CBsearchTransport.getSelectedIndex()==3){
+                    CBStatus.setVisible(true);
+                }else
+                if(CBsearchTransport.getSelectedIndex()!=3){
+                    CBStatus.setVisible(false);
+                }
+                if(CBStatus.getSelectedIndex()==0){
+                    transportParam.setStatus(true);
+                }
+                if(CBStatus.getSelectedIndex()==1){
+                    transportParam.setStatus(false);
+                }
             }
         });
+
+
 
     }
 
@@ -177,33 +196,21 @@ public class TransportGUI {
         String [] atributos = {"ID", "Nombre", "Color", "Estado"};
         DefaultTableModel t = new DefaultTableModel(atributos, 0);
 
-        /*table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumnModel c = table.getColumnModel();
-        c.getColumn(0).setPreferredWidth(15);
-        c.getColumn(1).setPreferredWidth(35);
-        c.getColumn(2).setPreferredWidth(35);
-        c.getColumn(3).setPreferredWidth(25);*/
-
         ArrayList<DTOTransport> transpList = result;
         for(DTOTransport transportes : transpList){
             Integer id = transportes.getIdTransport();
             String name= transportes.getName();
             String color = transportes.getColour();
-            Boolean estado = transportes.getStatus();
-
+            String estado =null;
+            if(transportes.getStatus()){
+                estado= "Activa";
+            }else{
+                estado= "No Activa";
+            }
             Object[] datos = {id, name, color, estado};
             t.addRow(datos);
         }
         table.setModel(t);
-
-    }
-    public boolean asignarValor(String e ){
-        if(e.equals("ACTIVA")){
-            return true;
-        }
-        else
-            System.out.println("Retorna falso" );
-            return false;
 
     }
 

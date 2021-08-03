@@ -8,7 +8,6 @@ import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
 import main.java.classes.Station;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +33,7 @@ public class StationManager {
 
 
 
-    public static ArrayList<DTOStation> search(Integer idStation, String name, Time openingTime, Time closingTime, String status, List<Maintenance> maintenanceHistory) {
+    public static ArrayList<DTOStation> search(Integer idStation, String name, String openingTime, String closingTime, String status, List<Maintenance> maintenanceHistory) {
         DTOStation station = new DTOStation(idStation, name, openingTime,  closingTime,  status);
 
         ArrayList<DTOStation> listas = StationDAO.searchStation(station);

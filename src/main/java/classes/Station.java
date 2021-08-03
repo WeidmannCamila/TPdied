@@ -2,27 +2,24 @@ package main.java.classes;
 
 import main.java.Enumeration.EnumStatus;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 public class Station {
 
     private Integer idStation;
     private String name;
-    private Timestamp openingTime;
-    private Timestamp closingTime;
+    private String openingTime;
+    private String closingTime;
     private EnumStatus status;
     private List<Maintenance> maintenanceHistory;
 
     //constructor
 
-    public Station(Integer idStation, String name, Date openingTime, Date closingTime, EnumStatus status, List<Maintenance> maintenanceHistory) {
+    public Station(Integer idStation, String name, String openingTime, String closingTime, EnumStatus status, List<Maintenance> maintenanceHistory) {
         this.idStation = idStation;
         this.name = name;
-        this.openingTime = (Timestamp) openingTime;
-        this.closingTime = (Timestamp) closingTime;
+        this.openingTime =  openingTime;
+        this.closingTime = closingTime;
         this.status = status;
         this.maintenanceHistory = maintenanceHistory;
     }
@@ -31,7 +28,7 @@ public class Station {
 
     }
 
-    public Station(Integer idStation, String name, Time open, Time clouse, String status) {
+    public Station(Integer idStation, String name, String open, String clouse, String status) {
     }
 
 
@@ -53,20 +50,20 @@ public class Station {
         this.name = name;
     }
 
-    public Date getOpeningTime() {
+    public String getOpeningTime() {
         return openingTime;
     }
 
-    public void setOpeningTime(Date openingTime) {
-        this.openingTime = (Timestamp) openingTime;
+    public void setOpeningTime(String openingTime) {
+        this.openingTime =  openingTime;
     }
 
-    public Date getClosingTime() {
+    public String getClosingTime() {
         return closingTime;
     }
 
-    public void setClosingTime(Date closingTime) {
-        this.closingTime = (Timestamp) closingTime;
+    public void setClosingTime(String closingTime) {
+        this.closingTime =  closingTime;
     }
 
     public EnumStatus getStatus() {

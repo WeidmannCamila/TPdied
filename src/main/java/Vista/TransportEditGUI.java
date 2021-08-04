@@ -2,8 +2,7 @@ package main.java.Vista;
 
 import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
-import main.java.Enumeration.EnumTipoAlerta;
-import main.java.Herramientas.AlertPanel;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +39,8 @@ public class TransportEditGUI {
             public void actionPerformed(ActionEvent e) {
 
                 if(TransportEditGUI.this.transportId.getText().length() <= 0 || TransportEditGUI.this.transportName.getText().length() <= 0 || TransportEditGUI.this.transportColour.getText().length() <= 0){
-                    AlertPanel a = new AlertPanel(EnumTipoAlerta.INFORMACION, "Valores incompletos", "error" , "Verifique valores", null );
+                    JOptionPane.showMessageDialog(null, "Campos vacios.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
                         dto.setIdTransport(Integer.parseInt(transportId.getText()));
                     dto.setColour(transportColour.getText());

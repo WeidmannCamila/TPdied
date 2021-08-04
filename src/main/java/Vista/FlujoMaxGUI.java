@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +29,6 @@ public class FlujoMaxGUI {
 
     ListGlobalStation ls = ListGlobalStation.getInstance();
 
-
-
-
     public FlujoMaxGUI() {
         this.initialize();
 
@@ -38,16 +37,14 @@ public class FlujoMaxGUI {
 
     private void initialize() {
         this.frameFluj = new JFrame();
-
         this.frameFluj.setContentPane(panel1);
         this.frameFluj.setBounds(100, 100, 1200, 720);
         this.frameFluj.setResizable(false);
 
+        // Cargar combo
         HashMap<Integer, Station> lists =new HashMap<Integer, Station>(ls.getList());
-
-
         String[] array = new String[lists.size()];
-       int i=0;
+        int i=0;
         for(Station s : lists.values()){
             array[i] = s.getName();
             i++;
@@ -55,13 +52,9 @@ public class FlujoMaxGUI {
 
 
         CBStart.setModel(new DefaultComboBoxModel<>(array));
-
-
         CBEnd.setModel(new DefaultComboBoxModel<>(array));
 
-
-
-
+        //accion buscar y carga tabla
         buscarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -69,28 +62,17 @@ public class FlujoMaxGUI {
 
                 DefaultTableModel tableModel = new DefaultTableModel(row, 0);
                 if(CBStart.getSelectedItem().toString().equals(CBEnd.getSelectedItem().toString())) {
-                    JOptionPane.showMessageDialog(null, "Los nombres de las estaciones Origen y Final no pueden ser iguales.",
+                    JOptionPane.showMessageDialog(null, "Las estaciones no pueden ser las mismas.",
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
-
-
-                    Station end = new Station();
-                    Station start = new Station();
+                    Station end;
+                    Station start;
                     String s = CBStart.getSelectedItem().toString();
                     start = sm.getStation(s);
                     String en = CBEnd.getSelectedItem().toString();
                     end =sm.getStation(en);
 
-
-                    if(start == null || end == null){
-                        System.out.println("seleccione estaciones");
-                    }
-
-                    if (start == end){
-                        System.out.println("son la misma estacion");
-                    }
                     List<String> listToTable = rm.flujoMax(start,end);
-
 
                     String fluj = listToTable.get(listToTable.size()-1);
                     Object[] data = { start.getName(), end.getName(), fluj};
@@ -101,6 +83,16 @@ public class FlujoMaxGUI {
                 table.setModel(tableModel);
 
             }
+        });
+
+        // salir estacion
+        exitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                FlujoMaxGUI.this.anterior.setVisible(true);
+                FlujoMaxGUI.this.frameFluj.dispose();
+            }
+
         });
 
 

@@ -34,13 +34,14 @@
             <children>
               <grid id="a9830" layout-manager="GridBagLayout">
                 <constraints>
-                  <grid row="0" column="0" row-span="7" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                  <grid row="0" column="0" row-span="6" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
                     <preferred-size width="1200" height="720"/>
                   </grid>
-                  <gridbag weightx="1.0" weighty="1.0"/>
+                  <gridbag weightx="0.0" weighty="1.0"/>
                 </constraints>
                 <properties>
                   <background color="-16776905"/>
+                  <minimumSize width="330" height="600"/>
                   <visible value="true"/>
                 </properties>
                 <border type="none"/>
@@ -52,7 +53,7 @@
                     </constraints>
                     <properties>
                       <foreground color="-14470036"/>
-                      <icon value="main/resources/lineas.png"/>
+                      <icon value="main/resources/pagerank.png"/>
                       <text value=""/>
                       <verticalAlignment value="1"/>
                       <verticalTextPosition value="3"/>
@@ -62,7 +63,7 @@
               </grid>
               <component id="ada56" class="javax.swing.JLabel" binding="exitButton">
                 <constraints>
-                  <grid row="2" column="6" row-span="5" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="5" row-span="4" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
@@ -81,22 +82,13 @@
                   <text value="Estacion "/>
                 </properties>
               </component>
-              <component id="c83a5" class="javax.swing.JComboBox" binding="CBStart">
-                <constraints>
-                  <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties>
-                  <model/>
-                </properties>
-              </component>
               <component id="ef21" class="javax.swing.JLabel">
                 <constraints>
-                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <font name="Roboto Light" size="24"/>
+                  <font name="Roboto Light" size="30" style="1"/>
                   <foreground color="-852481"/>
                   <text value="Page Rank"/>
                   <visible value="true"/>
@@ -104,32 +96,34 @@
               </component>
               <hspacer id="f14fe">
                 <constraints>
-                  <grid row="5" column="1" row-span="2" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
               </hspacer>
               <component id="afafd" class="javax.swing.JSeparator">
                 <constraints>
-                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                  <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties/>
               </component>
-              <component id="eb54a" class="javax.swing.JSeparator">
+              <component id="c83a5" class="javax.swing.JComboBox" binding="CBStart">
                 <constraints>
-                  <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                  <gridbag weightx="0.0" weighty="0.0"/>
-                </constraints>
-                <properties/>
-              </component>
-              <scrollpane id="14453">
-                <constraints>
-                  <grid row="6" column="3" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
+                  <model/>
+                </properties>
+              </component>
+              <scrollpane id="14453">
+                <constraints>
+                  <grid row="5" column="3" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag top="50" left="0" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
                   <minimumSize width="17" height="160"/>
-                  <preferredSize width="453" height="800"/>
+                  <preferredSize width="453" height="900"/>
                 </properties>
                 <border type="none"/>
                 <children>
@@ -137,8 +131,8 @@
                     <constraints/>
                     <properties>
                       <autoCreateRowSorter value="false"/>
-                      <maximumSize width="2147483647" height="100"/>
-                      <minimumSize width="30" height="100"/>
+                      <maximumSize width="2147483647" height="300"/>
+                      <minimumSize width="30" height="300"/>
                       <preferredSize width="110" height="150"/>
                     </properties>
                   </component>
@@ -146,7 +140,7 @@
               </scrollpane>
               <component id="bb8d4" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
                 <constraints>
-                  <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                  <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
                     <preferred-size width="200" height="100"/>
                   </grid>
                   <gridbag top="50" left="0" bottom="0" right="0" weightx="1.0" weighty="0.0"/>

@@ -4,8 +4,8 @@ import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
-import main.java.Enumeration.EnumTipoAlerta;
-import main.java.Herramientas.AlertPanel;
+
+
 import main.java.Managers.StationManager;
 
 import javax.swing.*;
@@ -41,9 +41,6 @@ public class StationGUI extends JPanel{
     private Integer idStationSelected;
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
-
-
-
     private JFrame anterior;
 
 
@@ -55,21 +52,11 @@ public class StationGUI extends JPanel{
 
     private void initialize(){
         this.frameStation = new JFrame();
-
         this.frameStation.setContentPane(panel1);
         this.frameStation.setBounds(100, 100, 1200, 720);
         this.frameStation.setResizable(false);
         this.maintenanceJPanel.setVisible(true);
         this.maintenanceJPanel.setPreferredSize(new Dimension(450,800));
-        // salir estacion
-        exitButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                StationGUI.this.anterior.setVisible(true);
-                StationGUI.this.frameStation.dispose();
-            }
-
-        });
         this.HourOpenTField.setEditable(false);
         this.MinuteOpenTField.setEditable(false);
         this.HourClosedTField.setEditable(false);
@@ -85,13 +72,22 @@ public class StationGUI extends JPanel{
             }
         });
 
-        // Editar estacion
-
+        // Editar estacion, se selecciona un elemento de la tabla y continua en la pantalla de editStation
         editStationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                StationEditGUI te = new StationEditGUI();
-                te.setAnterior(StationGUI.this.anterior);
-                te.frameStationEdit.setVisible(true);
+                int indice = StationGUI.this.table.getSelectedRow();
+                if (indice == -1) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una estacion para editar.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+
+                    StationEditGUI te = new StationEditGUI(Integer.parseInt(StationGUI.this.table.getModel().getValueAt(indice, 0).toString()));
+                    te.setAnterior(StationGUI.this.anterior);
+                    te.frameStationEdit.setLocationRelativeTo(null);
+                    te.frameStationEdit.setVisible(true);
+                }
+
             }
         });
 
@@ -100,13 +96,25 @@ public class StationGUI extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 int indice = StationGUI.this.table.getSelectedRow();
                 if (indice == -1) {
-                    AlertPanel a= new AlertPanel(EnumTipoAlerta.ERROR, "error", "eerror con", "eeee", null );
-                    a.frame.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Seleccione una estacion para eliminar.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+
                 } else {
                     deleteStation();
-                    JOptionPane.showMessageDialog(frameStation,"La estacion seleccionada fue eliminada. Por favor regrese al menu anterior para ver los cambios" , "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
                 }
 
+            }
+
+        });
+
+
+        // salir estacion
+        exitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                StationGUI.this.anterior.setVisible(true);
+                StationGUI.this.frameStation.dispose();
             }
 
         });

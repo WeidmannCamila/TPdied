@@ -22,16 +22,19 @@ public class StationManager {
     private RouteDAO rDAO = new RouteDAO();
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
-    private HashMap<Integer, Station> listStation= new HashMap<Integer, Station>();
-    public StationManager(){}
+    private HashMap<Integer, Station> listStation = new HashMap<Integer, Station>();
 
-    public static StationManager getInstance() {return INSTANCE;    }
+    public StationManager() {
+    }
 
+    public static StationManager getInstance() {
+        return INSTANCE;
+    }
 
 
     public HashMap<Integer, Station> getListStations() {
 
-         this.listStation= sDAO.getStationsV();
+        this.listStation = sDAO.getStationsV();
 
 
         System.out.println("LISTA DE ESTACIONES DE LA BDD" + listStation.get(1) + listStation.get(2));
@@ -39,9 +42,8 @@ public class StationManager {
     }
 
 
-
     public static ArrayList<DTOStation> search(Integer idStation, String name, String openingTime, String closingTime, String status, List<Maintenance> maintenanceHistory) {
-        DTOStation station = new DTOStation(idStation, name, openingTime,  closingTime,  status);
+        DTOStation station = new DTOStation(idStation, name, openingTime, closingTime, status);
 
         ArrayList<DTOStation> listas = StationDAO.searchStation(station);
 
@@ -63,12 +65,13 @@ public class StationManager {
         ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
         return listas;
     }
+
     public static ArrayList<DTOStation> search4hours(DTOStation s) {
         ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
         return listas;
     }
 
-    public static void deleteStationObject (DTOStation s){
+    public static void deleteStationObject(DTOStation s) {
         StationDAO.deleteStation(s);
     }
 
@@ -78,7 +81,7 @@ public class StationManager {
         return mantenimientos;
     }
 
-    public ArrayList<Station> searchStation1(){
+    public ArrayList<Station> searchStation1() {
         System.out.println("entro a seach station");
         Station st = new Station();
 
@@ -89,23 +92,39 @@ public class StationManager {
         return l;
     }
 
-    public void addStation(DTOStation dto){
+    public void addStation(DTOStation dto) {
         sDAO.addStation(dto);
 
-        Station ss= new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
+        Station ss = new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
 
         listStation.put(ss.getIdStation(), ss);
 
     }
 
-    //buscar estacion por string
+    //buscar estacion por nombre o id
     public Station getStation(String s) {
-        System.out.println("nombre string estacion" + s);
-        Station station = new Station();
-        station =sDAO.getStationString(s);
+        for (Station s1 : this.getListStations().values()) {
+            if (s1.getName().equals(s)) {
+                return s1;
+            }
 
-        return station;
+        }
+        return null;
     }
 
+    public Station getStation(int s) {
+        for (Station s1 : this.getListStations().values()) {
+            if (s1.getIdStation().equals(s)) {
+                return s1;
+            }
 
+        }
+        return null;
+
+
+    }
+
+    public void updateStation(DTOStation dto) {
+        sDAO.updateStation(dto);
+    }
 }

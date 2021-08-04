@@ -58,9 +58,9 @@ public class RouteManager {
 
     public Route getRoute(Station start, Station end) {
         for (Route r : this.getListRoutes()) {
-           // System.out.println("ROUTEEEE en gettt"+ r.getStatus());
+
             if(!r.getStatus()){
-               // System.out.println("ESTADO DE LA RUTAAA" + r.getDistance() + " Y DE LAS ESTACOINES" + start.getStatus() + " " + end.getStatus());
+
             if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
 
                 return r;

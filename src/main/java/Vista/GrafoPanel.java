@@ -98,10 +98,6 @@ public class GrafoPanel extends JPanel {
 
 
 
-
-
-
-
     public void initVertex(HashMap<Integer, Station> list) {
 
         this.vertices.clear();
@@ -341,12 +337,11 @@ public class GrafoPanel extends JPanel {
     }
 
     public ArrayList<ViewPageRank> getPageRank() {
-
         ArrayList<ViewPageRank> result = new ArrayList<>();
         List<ViewVertex> listRoute = this.vertices;
-
+        ViewPageRank e;
         for (ViewVertex s : listRoute) {
-            ViewPageRank e = new ViewPageRank();
+            e = new ViewPageRank();
             e.setVertice(s);
             e.setNodesIn(s.getNodeIn(this.edges));
             e.setNodesOut(s.getNodesOut(this.edges));
@@ -354,34 +349,51 @@ public class GrafoPanel extends JPanel {
             result.add(e);
         }
 
-        int i=0;
-        for(ViewPageRank v: result){
-            Double PRA = 0.0;
-            for(ViewVertex v2: v.getNodesIn()){
-                Double PRi= 0.0;
-                Double C = 0.0;
-                Iterator aux = result.iterator();
+        int j = 0;
+        for (int i = 0; i < result.size(); i++) {
+            ArrayList<ViewPageRank> aux = new ArrayList<>();
 
-                while(aux.hasNext()){
-                    ViewPageRank v1 = (ViewPageRank) aux.next();
-                    if(v2.equals(v1.getVertice())){
-                        PRi= v1.getPageRank();
-                        C= v1.getNodesOut();
-                        PRA += PRi/C;
 
-                    }
-                }
-
+            for (ViewPageRank s : result) {
+                ViewPageRank set = new ViewPageRank();
+                set.setVertice(s.getVertice());
+                set.setNodesIn(s.getNodesIn());
+                set.setNodesOut(s.getNodesOut());
+                set.setPageRank(s.getPageRank());
+                aux.add(set);
             }
-            // PR(A) = (1-D)+D * (PRi/C)
-            Double TotalPageR = 0.5 + 0.5 * PRA;
-            result.get(i).setPageRank(TotalPageR);
+
+
+
+            for(j = 0; j < result.size(); ++j) {
+                Double PRA = 0.0D;
+                for (ViewVertex v2 : result.get(j).getNodesIn()) {
+                    Double PRi = 0.0D;
+                    Double C = 0.0D;
+
+                    Iterator aux1 = aux.iterator();
+
+                    while (aux1.hasNext()) {
+                        ViewPageRank v1 = (ViewPageRank) aux1.next();
+                        if (v2.equals(v1.getVertice())) {
+                            PRi = v1.getPageRank();
+                            C = v1.getNodesOut();
+                            PRA= PRA + PRi / C;
+
+                        }
+                    }
+
+                }
+                // PR(A) = (1-D)+D * (PRi/C)
+                Double TotalPageR = 0.5 + 0.5 * PRA;
+                System.out.println("imprimir page ra" + TotalPageR);
+                result.get(j).setPageRank(TotalPageR);
+            }
         }
 
-
-        result.sort((ViewPageRank v, ViewPageRank v2) -> v.getPageRank().compareTo(v2.getPageRank()));
-        return result;
-    }
+            result.sort((ViewPageRank v, ViewPageRank v2) -> v.getPageRank().compareTo(v2.getPageRank()));
+            return result;
+        }
 
 
 }

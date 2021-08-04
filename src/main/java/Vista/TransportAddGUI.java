@@ -3,8 +3,7 @@ package main.java.Vista;
 import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumColour;
-import main.java.Enumeration.EnumTipoAlerta;
-import main.java.Herramientas.AlertPanel;
+
 import main.java.Managers.TransportManager;
 
 import javax.swing.*;
@@ -61,7 +60,7 @@ public class TransportAddGUI {
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(TransportAddGUI.this.transportId.getText().length() <= 0 || TransportAddGUI.this.transportName.getText().length() <= 0 || TransportAddGUI.this.transportColour.getText().length() <= 0){
-                    AlertPanel a = new AlertPanel(EnumTipoAlerta.INFORMACION, "Valores incompletos", "error" , "Verifique valores", null );
+                   // AlertPanel a = new AlertPanel(EnumTipoAlerta.INFORMACION, "Valores incompletos", "error" , "Verifique valores", null );
                 }else {
 
                    /* Iterator v = listTransport.iterator();

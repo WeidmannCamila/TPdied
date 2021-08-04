@@ -2,8 +2,7 @@ package main.java.Vista;
 
 import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
-import main.java.Enumeration.EnumTipoAlerta;
-import main.java.Herramientas.AlertPanel;
+
 import main.java.Managers.TransportManager;
 
 import javax.swing.*;
@@ -89,8 +88,8 @@ public class TransportGUI {
             public void actionPerformed(ActionEvent e) {
                 int indice = TransportGUI.this.table.getSelectedRow();
                 if (indice == -1) {
-                    AlertPanel a= new AlertPanel(EnumTipoAlerta.ERROR, "error", "eerror con", "eeee", null );
-                    a.frame.setVisible(true);
+                   // AlertPanel a= new AlertPanel(EnumTipoAlerta.ERROR, "error", "eerror con", "eeee", null );
+                  //  a.frame.setVisible(true);
                   //  JOptionPane.showMessageDialog(frameTransport,"Error" , "Failure", JOptionPane.ERROR_MESSAGE);
                    /* Aviso_ERROR error = new Aviso_ERROR("Seleccionar un camino.");
                     error.frameTransport.setLocationRelativeTo((Component)null);

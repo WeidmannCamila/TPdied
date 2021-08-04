@@ -3,6 +3,8 @@ package main.java.Vista;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MenuRoute {
     private JPanel panel1;
@@ -18,16 +20,13 @@ public class MenuRoute {
         this.initialize();}
 
     private void initialize() {
-
-
-
         this.frameMenuRoute = new JFrame();
         this.frameMenuRoute.setContentPane(panel1);
         this.frameMenuRoute.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameMenuRoute.setBounds(10, 10, 1200, 720);
         this.frameMenuRoute.setResizable(false);
 
-        // boton para ir a la seccion de transporte
+        // Rutas, trayectos posibles
         queTrayectoPuedoTomarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -40,7 +39,7 @@ public class MenuRoute {
             }
         });
 
-        // para la seccion de estaciones
+        // FLUJO MAXIMO
         flujoMax.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,6 +53,7 @@ public class MenuRoute {
             }
         });
 
+        // gui para el Page Rank
         queRecorridosLleganButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,7 +65,15 @@ public class MenuRoute {
                 frameMenuRoute.dispose();
             }
         });
+        // salir menu
+        exitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                MenuRoute.this.anterior.setVisible(true);
+                MenuRoute.this.frameMenuRoute.dispose();
+            }
 
+        });
 
     }
 

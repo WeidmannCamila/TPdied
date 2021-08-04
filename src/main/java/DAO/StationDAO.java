@@ -1,6 +1,7 @@
 package main.java.DAO;
 
 import main.java.DTOs.DTOStation;
+import main.java.Enumeration.EnumStatus;
 import main.java.classes.Station;
 
 import java.sql.*;
@@ -169,8 +170,8 @@ public class StationDAO {
             while(rs.next()) {
                 EnumStatus e = EnumStatus.valueOf(rs.getString("status"));
 
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getDate(3), null, e, null);
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, null, null);
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, e, null);
+
                 stations.add(station);
             }
 

@@ -3,6 +3,7 @@ package main.java.Vista;
 import main.java.Enumeration.EnumBestRoute;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
+import main.java.classes.ListGlobalStation;
 import main.java.classes.Station;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class RouteGUI {
@@ -42,24 +44,18 @@ public class RouteGUI {
         this.frameRoute.setBounds(100, 100, 1200, 720);
         this.frameRoute.setResizable(false);
 
-        final ArrayList<Station> listStation = sm.searchStation1();
+        ListGlobalStation ls = ListGlobalStation.getInstance();
 
-        List<Station> ls = new ArrayList<Station>(sm.searchStation1());
-
-
-        String[] array = new String[ls.size()];
-        for(int i = 0; i < array.length; i++) {
-            array[i] = ls.get(i).getName();
+        HashMap<Integer, Station> lists =new HashMap<Integer, Station>(ls.getList());
+        String[] array = new String[lists.size()];
+        int i=0;
+        for(Station s : lists.values()){
+            array[i] = s.getName();
+            i++;
         }
+
 
         CBStart.setModel(new DefaultComboBoxModel<>(array));
-
-        String[] arraydos = new String[ls.size()];
-        for(int i = 0; i < arraydos.length; i++) {
-            arraydos[i] = ls.get(i).getName();
-        }
-
-        CBEnd.setModel(new DefaultComboBoxModel<>(arraydos));
 
         exitButton.addMouseListener(new MouseAdapter() {
             @Override

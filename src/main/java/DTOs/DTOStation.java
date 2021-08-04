@@ -9,7 +9,7 @@ public class DTOStation {
     private String status;
 
 
-    public DTOStation(Integer idStation, String name, String open, String clouse, String status) {
+    public DTOStation(Integer idStation, String name, String status, String open, String clouse ) {
         this.idStation = idStation;
         this.name = name;
         this.open = open;

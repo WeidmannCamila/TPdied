@@ -2,9 +2,6 @@ package main.java.Vista;
 
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOStation;
-
-
-import main.java.Enumeration.EnumColour;
 import main.java.Enumeration.EnumStatus;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
@@ -15,8 +12,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
 
 public class StationEditGUI {
     private JPanel panel1;
@@ -92,6 +87,8 @@ public class StationEditGUI {
     public void setAnterior(JFrame a) {
         this.anterior = a;
     }
+
+
 
 
 

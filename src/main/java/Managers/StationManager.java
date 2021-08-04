@@ -5,11 +5,8 @@ import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
-import main.java.Vista.ViewPageRank;
-import main.java.Vista.ViewVertex;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
-import main.java.classes.Route;
 import main.java.classes.Station;
 
 import java.util.ArrayList;
@@ -99,6 +96,9 @@ public class StationManager {
 
         listStation.put(ss.getIdStation(), ss);
 
+    }
+    public void deleteStation(DTOStation s ){
+        StationDAO.deleteStation(s);
     }
 
     //buscar estacion por nombre o id

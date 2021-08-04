@@ -98,16 +98,14 @@ public class StationGUI extends JPanel{
                 if (indice == -1) {
                     JOptionPane.showMessageDialog(null, "Seleccione una estacion para eliminar.",
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
-
                 } else {
-                    deleteStation();
-
+                    int id = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
+                    deleteStation(id);
                 }
 
             }
 
         });
-
 
         // salir estacion
         exitButton.addMouseListener(new MouseAdapter() {
@@ -120,8 +118,6 @@ public class StationGUI extends JPanel{
         });
 
         //busqueda de estaciones
-
-
        String[] items = {"Id", "Nombre", "Estado", "Hora Apertura", "Hora Clausura"};
 
        CBsearch.setModel(new DefaultComboBoxModel<String>(items));
@@ -148,25 +144,28 @@ public class StationGUI extends JPanel{
                        }
                        estacionParametro.setIdStation(id);
                        ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
-                       updateTable(result);
-                       idStationSelected = result.get(0).getIdStation();
-                       System.out.println("El id de la estacion es" + idStationSelected);
+                       if(result.size()>0){
+                           updateTable(result);
+                       }else{
+                           showStationListEmpty();
+                       }
                        break;
                    }
                    case 1: {
                        //se buscar por nombre
-                       CBtime.setVisible(false);
                        estacionParametro.setName(param);
                        ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
-                       updateTable(result);
-                       idStationSelected = result.get(0).getIdStation();
-                       System.out.println("El id de la estacion es" + idStationSelected);
+                       if(result.size()>0){
+                           updateTable(result);
+                       }else{
+                           showStationListEmpty();
+                       }
+                       int id = table.getSelectedRow();
                        break;
                    }
                    case 2: {
                        //por estado
                        //avisar que no se encontraron estaciones
-                       CBtime.setVisible(false);
                        if(CBstatus.getSelectedIndex()==1){
                            estacionParametro.setStatus("OPERATIVA");
                        }
@@ -174,14 +173,10 @@ public class StationGUI extends JPanel{
                            estacionParametro.setStatus("MANTENIMIENTO");
                        }
                        ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
-                       updateTable(result);
-
-                       if(result != null){
-                           idStationSelected = result.get(0).getIdStation();
-                           System.out.println("El id de la estacion es" + idStationSelected);
-                       }else {
-                           //lanzar una excepcion, mensaje o pantalla
-                           System.out.println("Lista de estaciones vacia");
+                       if(result.size()>0){
+                           updateTable(result);
+                       }else{
+                           showStationListEmpty();
                        }
                        break;
                    }
@@ -189,14 +184,22 @@ public class StationGUI extends JPanel{
                        String fechaApertura = HourOpenTField.getText()+ ":" + MinuteOpenTField.getText();
                        estacionParametro.setOpen(fechaApertura);
                        ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
-                       updateTable(result);
+                       if(result.size()>0){
+                           updateTable(result);
+                       }else{
+                           showStationListEmpty();
+                       }
                        break;
                    }
                    case 4:{
                        String fechaCierre = HourClosedTField.getText()+ ":" + MinuteClosedTField.getText();
                        estacionParametro.setOpen(fechaCierre);
                        ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
-                       updateTable(result);
+                       if(result.size()>0){
+                           updateTable(result);
+                       }else{
+                        showStationListEmpty();
+                       }
                        break;
                     }
                    default:
@@ -207,14 +210,18 @@ public class StationGUI extends JPanel{
 
        //mostrar tabla de lista de mantenimientos
         String[] atributosMantenimiento = {"Id Mant, Fecha Inicio Mant", "Fecha Fin Mant", "Observaciones" };
+
         verHistorialDeMantenimientosButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
+                int id= (int) table.getModel().getValueAt(table.getSelectedRow(),0);
+                //System.out.println("EL id de la estacion es : "+ id);
                 //llamar al dao para buscar la estacion y luego crear un mantenimiento y setearle la estacion
-                ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(idStationSelected);
-                updateTableMaintenances(mantenimientos);
-                //buscar los mantenimientos que tiene esa estacion y mostrarlos
-
+                ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(id);
+                if(mantenimientos.size()>0){
+                    updateTableMaintenances(mantenimientos);
+                }else{
+                    showMaintenanceListEmpty();
+                }
             }
         });
 
@@ -266,6 +273,7 @@ public class StationGUI extends JPanel{
             }
         });
 
+
     }
 
     public void updateTableMaintenances(ArrayList<DTOMaintenance> m){
@@ -306,12 +314,12 @@ public class StationGUI extends JPanel{
         table.setModel(tm);
     }
 
-    private void deleteStation() {
+    private void deleteStation(int id) {
+
         int selected = table.getSelectedRow();
-        //System.out.println("El indice de la tabla es " + selected );
-        int id = Integer.parseInt(this.table.getModel().getValueAt(selected, 0).toString());
+        System.out.println("El indice de la tabla es " +selected );
         DTOStation deleteS = new DTOStation();
-        //System.out.println("El id de la estacion es " + id);
+        System.out.println("El id de la estacion es " + id);
         deleteS.setIdStation(id);
         StationManager.deleteStationObject(deleteS);
 
@@ -335,6 +343,18 @@ public class StationGUI extends JPanel{
         this.anterior = a;
     }
 
+    public void showStationListEmpty(){
+
+            JOptionPane.showMessageDialog(null, "No se encuentran estaciones con los atributos seleccionados.",
+                    "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+
+    }
+    public void showMaintenanceListEmpty(){
+
+        JOptionPane.showMessageDialog(null, "No se encuentran Mantenimientos de la estacion seleccionada.",
+                "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+
+    }
 
 
 

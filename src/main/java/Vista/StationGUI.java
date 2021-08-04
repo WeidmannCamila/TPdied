@@ -123,6 +123,7 @@ public class StationGUI extends JPanel{
         searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
                String param = textStation.getText();
+
                estacionParametro.setStatus(null);
                estacionParametro.setName(null);
                estacionParametro.setIdStation(null);
@@ -157,7 +158,6 @@ public class StationGUI extends JPanel{
                    case 2: {
                        //por estado
                        //avisar que no se encontraron estaciones
-
                        CBtime.setVisible(false);
                        if(CBstatus.getSelectedIndex()==1){
                            estacionParametro.setStatus("OPERATIVA");
@@ -175,27 +175,23 @@ public class StationGUI extends JPanel{
                            //lanzar una excepcion, mensaje o pantalla
                            System.out.println("Lista de estaciones vacia");
                        }
-
                        break;
                    }
                    case 3: {
-                       HourOpenTField.setEditable(true);
-                       MinuteOpenTField.setEditable(true);
-                       System.out.println("mostrando el horario apertura" + HourOpenTField.toString());
-                       estacionParametro.setOpen(HourOpenTField.getText()+":"+MinuteOpenTField.getText());
+                       String fechaApertura = HourOpenTField.getText()+ ":" + MinuteOpenTField.getText();
+                       estacionParametro.setOpen(fechaApertura);
                        ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
                        updateTable(result);
+                       break;
                    }
                    case 4:{
-                       HourClosedTField.setEditable(true);
-                       MinuteClosedTField.setEditable(true);
-                       System.out.println("mostrando el horario cierre" + HourClosedTField.toString());
-                       estacionParametro.setOpen(HourClosedTField.getText()+":"+MinuteClosedTField.getText());
+                       String fechaCierre = HourClosedTField.getText()+ ":" + MinuteClosedTField.getText();
+                       estacionParametro.setOpen(fechaCierre);
                        ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
                        updateTable(result);
-                   }
+                       break;
+                    }
                    default:
-
                }
 
            }
@@ -206,7 +202,6 @@ public class StationGUI extends JPanel{
         verHistorialDeMantenimientosButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-
                 //llamar al dao para buscar la estacion y luego crear un mantenimiento y setearle la estacion
                 ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(idStationSelected);
                 updateTableMaintenances(mantenimientos);
@@ -295,7 +290,7 @@ public class StationGUI extends JPanel{
             String name = station.getName();
             String status = station.getStatus();
             String ha = station.getOpen();
-            String hc ="hora"; //station.getClouse().toString();
+            String hc = station.getClouse();
 
             Object[] data = {id, name, status, ha, hc};
             tm.addRow(data);
@@ -317,10 +312,23 @@ public class StationGUI extends JPanel{
         */
     }
 
+    public String crearFecha(String hora, String minuto){
+
+        String fecha = "2021-03-01 ";
+        fecha+= hora;
+        fecha+=":";
+        fecha+= minuto;
+        fecha+= ":00";
+
+        return fecha;
+    }
 
     public void setAnterior(JFrame a) {
         this.anterior = a;
     }
+
+
+
 
     /*
 * Falta agregar un boton que permita seleccionar una estacion y al presionarlo muestre una lista de los mantenimientos que tuvo

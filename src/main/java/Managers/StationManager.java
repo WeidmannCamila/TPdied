@@ -63,6 +63,10 @@ public class StationManager {
         ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
         return listas;
     }
+    public static ArrayList<DTOStation> search4hours(DTOStation s) {
+        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
+        return listas;
+    }
 
     public static void deleteStationObject (DTOStation s){
         StationDAO.deleteStation(s);

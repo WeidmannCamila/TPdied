@@ -2,12 +2,14 @@ package main.java.Managers;
 
 import main.java.DAO.RouteDAO;
 import main.java.DTOs.DTORoute;
+import main.java.Enumeration.EnumStatus;
 import main.java.Vista.GrafoPanel;
 import main.java.classes.ListGlobalRoute;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Route;
 import main.java.classes.Station;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +29,8 @@ public class RouteManager {
     private GrafoPanel grafoPanel = GrafoPanel.getInstance();
     private RouteDAO rDAO = new RouteDAO();
 
+
+
     public RouteManager(){}
 
     public static RouteManager getInstance() {
@@ -37,7 +41,7 @@ public class RouteManager {
 
     public ArrayList<Route> getListRoutesFromDao() {
         this.listRoutes = rDAO.getRoutes();
-        System.out.println("EN list route DAOO" + listRoutes.get(1).getDistance());
+     //   System.out.println("EN list route DAOO" + listRoutes.get(1).getDistance());
         return listRoutes;
     }
 
@@ -49,19 +53,19 @@ public class RouteManager {
 
         ArrayList<Route> l = rl.getList();
 
-        System.out.println("EN GET LIIIIIIIIIIST ROUTE" + l.get(1).getDistance());
-
-
         return l;
     }
 
     public Route getRoute(Station start, Station end) {
         for (Route r : this.getListRoutes()) {
-
+           // System.out.println("ROUTEEEE en gettt"+ r.getStatus());
+            if(!r.getStatus()){
+               // System.out.println("ESTADO DE LA RUTAAA" + r.getDistance() + " Y DE LAS ESTACOINES" + start.getStatus() + " " + end.getStatus());
             if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
-                System.out.println("EN geeeeeeeeeeet ROUTE" + r.getDistance());
+
                 return r;
-            }
+            }}
+
         }
         return null;
     }
@@ -114,7 +118,7 @@ public class RouteManager {
         }
         System.out.println("tamaño en  menor distancia" + resultado.size());
 
-        grafoPanel.paintRoutes(resultado);
+        grafoPanel.paintRoutes(resultadoaux);
         grafoPanel.repaint();
 
         return resultadoaux;
@@ -128,22 +132,12 @@ public class RouteManager {
         Double distance = Double.MAX_VALUE;
         ArrayList<ArrayList<Station>> shortroute = new  ArrayList<>();
         ArrayList<Double> minim = new ArrayList<>();
-        System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa " + listpathss.size());
+       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa " + listpathss.size());
         // [inic, estaciones, fin]
         for(ArrayList<Station> cs : listpathss) {
 
-            /*RouteDAO rdao= new RouteDAO();
-            Route ro = new Route();*/
             Double distanceAux = distanceTotalRoute(cs);
 
-            //recorro la lista, y averiguo las rutas q hay entre cada estacion
-          /*  for (int i =0; i< cs.size()-1 ; i++) {
-
-                ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
-
-                distanceAux += ro.getDistance();
-
-            }*/
 
             minim.add(distanceAux);
 
@@ -153,10 +147,10 @@ public class RouteManager {
 
         resultado.add(listpathss.get(i));
         listpathss.remove(listpathss.get(i));
-        System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa 2 " + listpathss.size());
-        if(!listpathss.isEmpty()){    System.out.println("ENTRA AL IF " + listpathss.size()); shortest(listpathss, resultado);}
+       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa 2 " + listpathss.size());
+        if(!listpathss.isEmpty()){    shortest(listpathss, resultado);}
 
-        System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + shortroute.size());
+       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + shortroute.size());
         return resultado;
 
 
@@ -171,7 +165,8 @@ public class RouteManager {
         for (int i =0; i< cs.size()-1 ; i++) {
 
             ro = getRoute(cs.get(i), cs.get(i+1));
-
+           // System.out.println("ROUTEEEE"+ ro.getIdRoute());
+         //   System.out.println("ROUTEEEE"+ ro.getDistance());
             distanceAux += ro.getDistance();
 
         }
@@ -191,13 +186,8 @@ public class RouteManager {
             RouteDAO rdao= new RouteDAO();
             Route ro = new Route();
             Double durationAux = durationTotalRoute(cs);
-            //recorro la lista, y averiguo las rutas q hay entre cada estacion
 
-           /* for (int i =0; i< cs.size() ; i++) {
-                ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
-                durationAux += ro.getDistance();
-            }
-*/
+
             minim.add(durationAux);
 
         }
@@ -207,7 +197,7 @@ public class RouteManager {
         resultado.add(listpaths.get(i));
         listpaths.remove(listpaths.get(i));
 
-        if(!listpaths.isEmpty()){    System.out.println("ENTRA AL IF " + listpaths.size()); shortest(listpaths, resultado);}
+        if(!listpaths.isEmpty()){  faster(listpaths, resultado);}
 
 
         return resultado;
@@ -218,15 +208,15 @@ public class RouteManager {
         Route ro = new Route();
         Double durationAux = 0.0;
         for (int i =0; i< cs.size()-1 ; i++) {
-            ro = rDAO.searchRoute(cs.get(i), cs.get(i+1));
+            ro = getRoute(cs.get(i), cs.get(i+1));
             durationAux += ro.getDuration();
         }
         return durationAux;
     }
 
     private  ArrayList<ArrayList<Station>> cheaper(ArrayList<ArrayList<Station>> listpaths, ArrayList<ArrayList<Station>> resultado) {
-       // System.out.println("entra a cheaper");
-        Double duration = Double.MAX_VALUE;
+
+
         ArrayList<ArrayList<Station>> shortroute = new  ArrayList<>();
         ArrayList<Double> minim = new ArrayList<>();
 
@@ -235,12 +225,6 @@ public class RouteManager {
 
             Route ro = new Route();
             Double costeAux = costTotalRoute(cs);
-            //recorro la lista, y averiguo las rutas q hay entre cada estacion
-
-            /*for (int i =0; i< cs.size() ; i++) {
-                ro = rdao.searchRoute(cs.get(i), cs.get(i+1));
-                costeAux += ro.getDistance();
-            }*/
 
             minim.add(costeAux);
 
@@ -251,7 +235,7 @@ public class RouteManager {
         resultado.add(listpaths.get(i));
         listpaths.remove(listpaths.get(i));
 
-        if(!listpaths.isEmpty()){    System.out.println("ENTRA AL IF " + listpaths.size()); shortest(listpaths, resultado);}
+        if(!listpaths.isEmpty()){  cheaper(listpaths, resultado);}
 
 
         return resultado;
@@ -261,11 +245,57 @@ public class RouteManager {
         Route ro = new Route();
         Double costeAux = 0.0;
         for (int i =0; i< cs.size()-1 ; i++) {
-            ro = rDAO.searchRoute(cs.get(i), cs.get(i+1));
+            ro = getRoute(cs.get(i), cs.get(i+1));
             costeAux += ro.getCost();
         }
 
         return costeAux;
+    }
+
+
+
+
+
+    public List<String> flujoMax(Station start, Station end){
+
+        ArrayList<ArrayList<Station>> listRoutesFlujo = this.paths(start, end);
+        List<String> returnString =new ArrayList<>();
+        Integer TotalFlujoMax = 0;
+
+        for(ArrayList<Station> cs : listRoutesFlujo) {
+
+            Route ro = new Route();
+            Integer flujRoute = flowPerPart(cs);
+            TotalFlujoMax += flujRoute;
+
+            // Se le setea los valores nuevos a la cap max (Pesos)
+            for (int i = 0; i < cs.size() - 1; i++) {
+                ro = getRoute(cs.get(i), cs.get(i+1));
+                ro.setMaxPassagers(ro.getMaxPassagers() - flujRoute);
+            }
+
+        }
+
+        returnString.add(start.getName());
+        returnString.add(end.getName());
+        returnString.add(TotalFlujoMax.toString());
+
+        return returnString;
+    }
+
+    private Integer flowPerPart(ArrayList<Station> cs) {
+        Route ro = new Route();
+        Integer flujAux = 0;
+        for (int i =0; i< cs.size()-1 ; i++) {
+            ro = getRoute(cs.get(i), cs.get(i+1));
+          if(ro.getMaxPassagers() < flujAux || flujAux ==0){
+                flujAux = ro.getIdRoute();
+            }
+           }
+
+
+        return flujAux;
+
     }
 
 
@@ -293,7 +323,7 @@ public class RouteManager {
         si encuentra agrega esa lista a la lista de caminos y continua con su busqueda.
      */
     private void searchPaths(Station start, Station end, ArrayList markedStations, ArrayList<ArrayList<Station>> listpaths) {
-       // System.out.println("searchPaths start:" + start.getIdStation() + " " + end.getIdStation() + " marked :" + markedStations.size() );
+      // System.out.println("ESTADO DE LA ESTACIOOOOOOON" + start.getStatus() );
         ArrayList<Station> adjacentStations = this.getAdjacentStations(start);
        // System.out.println("adyacentes:" + adjacentStations.size());
         ArrayList<Station> marked = null;
@@ -301,17 +331,21 @@ public class RouteManager {
         for(Station s : adjacentStations){
             marked = (ArrayList<Station>) markedStations.stream().collect(Collectors.toList());
 
-            if( end.getIdStation() == s.getIdStation()){
-                marked.add(s);
-                listpaths.add(new ArrayList<Station>(marked));
-                System.out.println("ENCONTRO CAMINO " + listpaths.toString());
-
+            if(s.getStatus() == EnumStatus.MANTENIMIENTO){
+                break;
             } else {
-                if(!marked.contains(s)){
+                if (end.getIdStation() == s.getIdStation()) {
                     marked.add(s);
-                    this.searchPaths(s, end, marked, listpaths);
-                }
+                    listpaths.add(new ArrayList<Station>(marked));
+                    System.out.println("ENCONTRO CAMINO " + listpaths.toString());
 
+                } else {
+                    if (!marked.contains(s)) {
+                        marked.add(s);
+                        this.searchPaths(s, end, marked, listpaths);
+                    }
+
+                }
             }
 
         }

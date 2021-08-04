@@ -8,7 +8,7 @@ public class MenuRoute {
     private JPanel panel1;
     private JLabel exitButton;
     private JButton queTrayectoPuedoTomarButton;
-    private JButton aQueEstacionesPuedoButton;
+    private JButton flujoMax;
     private JButton queRecorridosLleganButton;
     public JFrame frameMenuRoute;
     private JFrame anterior;
@@ -31,8 +31,8 @@ public class MenuRoute {
         queTrayectoPuedoTomarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TransportGUI t = new TransportGUI();
-                t.frameTransport.setVisible(true);
+                RouteGUI t = new RouteGUI();
+                t.frameRoute.setVisible(true);
                 t.setAnterior(MenuRoute.this.frameMenuRoute);
 
 
@@ -41,12 +41,13 @@ public class MenuRoute {
         });
 
         // para la seccion de estaciones
-        aQueEstacionesPuedoButton.addActionListener(new ActionListener() {
+        flujoMax.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FlujoMaxGUI s = new FlujoMaxGUI();
+                s.setAnterior(MenuRoute.this.anterior);
                 s.frameFluj.setVisible(true);
-                s.setAnterior(MenuRoute.this.frameMenuRoute);
+
 
 
                 frameMenuRoute.dispose();
@@ -67,9 +68,6 @@ public class MenuRoute {
 
 
     }
-
-
-
 
 
 

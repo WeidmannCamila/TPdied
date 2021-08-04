@@ -14,12 +14,15 @@ import java.util.ArrayList;
 
 //agregar ruta con todos los valores
 public class RouteDAO {
+
+    StationDAO daoS = new StationDAO();
+
     public void addRoute(DTORoute dto) {
     }
 
     //busca ruta
     public Route searchRoute(Station station, Station station1) {
-        System.out.println("rutas start end search" + station.getIdStation() + " " + station1.getIdStation());
+
 
         Route route= new Route();
         Connection conexion = null;
@@ -39,12 +42,11 @@ public class RouteDAO {
             TransportDAO daoT = new TransportDAO();
             while(rs.next()){
                 transport =  daoT.getTransport1(rs.getInt("idTransport"));
-                System.out.println("Id del transporte de la ruta con el transport " + transport.getIdTransport() + "y valor de la consulta  "+  rs.getInt("idTransport"));
-                route = new Route(rs.getInt(1), station, station1, rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport);
+
+                route = new Route(rs.getInt(1), station, station1, rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport, rs.getInt("maxPassagers"), rs.getBoolean("status"));
             //     rss.add(transport);
             }
 
-            System.out.println("Encontro ruta" + route.getIdRoute());
 
             st.close();
 
@@ -83,14 +85,14 @@ public class RouteDAO {
 
                 Station start = new Station();
                 Station end = new Station();
-                StationDAO daoS = new StationDAO();
+
                 transport =  daoT.getTransport1(rs.getInt("idTransport"));
                 start =  daoS.getStation(rs.getInt("idStationOrigin"));
 
                 end = daoS.getStation(rs.getInt("idStationDestination"));
 
-                Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport);
-                System.out.println("EN BASE DE DATOOOO LA DISTANCIA ES" + route.getDistance());
+                Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport, rs.getInt("maxPassagers"), rs.getBoolean("status"));
+
                 routes.add(route);
             }
 

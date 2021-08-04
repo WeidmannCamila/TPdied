@@ -13,9 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
 public class GrafoPanel extends JPanel {
@@ -158,35 +156,6 @@ public class GrafoPanel extends JPanel {
 
     }
 
-    /*public void initArista(ArrayList<Route> listRoutes) {
-
-        edges.clear();
-        ArrayList<Route> aux = new ArrayList<>();
-
-
-
-        for (Route r : listRoutes) {
-            ViewVertex VertexStart = this.getVertex(r.getOrigin());
-            ViewVertex VertexEnd = this.getVertex(r.getDestination());
-            ViewEdges e;
-
-            if (!aux.isEmpty() && TwoRoutesSameStartEnd(r, aux)) {
-                e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour(), 40);
-            } else {
-                e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour());
-
-            }
-
-            Route routeaux = new Route(r.getOrigin(), r.getDestination());
-            System.out.println("QUE MEIDA ES NULL??" + routeaux.toString());
-            aux.add(routeaux);
-            edges.add(e);
-
-        }
-        getInstance().repaint();
-    }
-*/
-
     public void initArista(ArrayList<Route> listRoutes) {
 
         edges.clear();
@@ -220,8 +189,9 @@ public class GrafoPanel extends JPanel {
 
 
             }
-            e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour(), offset);
 
+            e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour(), offset);
+            System.out.println("COLOOOR GRAFO PANL" + e.getColour());
             edges.add(e);
 
         }
@@ -301,34 +271,24 @@ public class GrafoPanel extends JPanel {
             g2d.drawString(ruta.getCost() + " [Tn]", puntoMedioX + 20, puntoMedioY + 33);
             g2d.drawString(ruta.getDuration() + " [min]", puntoMedioX + 20, puntoMedioY + 46);
             g2d.setPaint(a.getColour());
+
             g2d.draw(a.getLin());
             this.arrow(g2d, new Point(a.getEnd().getCoordX() + a.getoffset(), a.getEnd().getCoordY() + a.getoffset()), new Point(a.getStart().getCoordX() - a.getoffset(), a.getStart().getCoordY() - a.getoffset()), (Color) a.getColour());
         }
     }
 
-    /*public void paintRoute(ArrayList<Station> bestRoute) {
 
-
-        this.updateEdge();
-        RouteManager rm = RouteManager.getInstance();
-        for (int i = 0; i < bestRoute.size() - 1; i++) {
-            Route r = rDAO.searchRoute(bestRoute.get(i), bestRoute.get(i+1));
-
-
-            this.updateColourE(this.getEdge(r), r.getTransport().getColour());
-        }
-    }*/
 
     public void paintRoutes(ArrayList<ArrayList<Station>> bestRoutes){
         this.updateEdge();
         RouteManager rm = RouteManager.getInstance();
-        System.out.println("TAMAÑO MEJOR RUTA " + bestRoutes.size());
+
         for(ArrayList<Station> s : bestRoutes){
+
 
 
             for (int i = 0; i < s.size() - 1; i++) {
                 Route r = rDAO.searchRoute(s.get(i), s.get(i+1));
-
 
                 this.updateColourE(this.getEdge(r), r.getTransport().getColour());
             }
@@ -340,7 +300,7 @@ public class GrafoPanel extends JPanel {
 
     private void updateEdge() {
         for(ViewEdges e : this.edges){
-            this.updateColourE(e, Color.gray);
+            this.updateColourE(e, Color.GRAY);
         }
     }
 
@@ -355,7 +315,7 @@ public class GrafoPanel extends JPanel {
         for(ViewEdges e: this.edges){
 
             if(e.getRoutCon().getIdRoute().equals(r.getIdRoute())){
-                System.out.println("entra el if");
+              //  System.out.println("entra el if");
                 return e;
             }
         }
@@ -379,4 +339,49 @@ public class GrafoPanel extends JPanel {
         }
 
     }
+
+    public ArrayList<ViewPageRank> getPageRank() {
+
+        ArrayList<ViewPageRank> result = new ArrayList<>();
+        List<ViewVertex> listRoute = this.vertices;
+
+        for (ViewVertex s : listRoute) {
+            ViewPageRank e = new ViewPageRank();
+            e.setVertice(s);
+            e.setNodesIn(s.getNodeIn(this.edges));
+            e.setNodesOut(s.getNodesOut(this.edges));
+            e.setPageRank(1.0);
+            result.add(e);
+        }
+
+        int i=0;
+        for(ViewPageRank v: result){
+            Double PRA = 0.0;
+            for(ViewVertex v2: v.getNodesIn()){
+                Double PRi= 0.0;
+                Double C = 0.0;
+                Iterator aux = result.iterator();
+
+                while(aux.hasNext()){
+                    ViewPageRank v1 = (ViewPageRank) aux.next();
+                    if(v2.equals(v1.getVertice())){
+                        PRi= v1.getPageRank();
+                        C= v1.getNodesOut();
+                        PRA += PRi/C;
+
+                    }
+                }
+
+            }
+            // PR(A) = (1-D)+D * (PRi/C)
+            Double TotalPageR = 0.5 + 0.5 * PRA;
+            result.get(i).setPageRank(TotalPageR);
+        }
+
+
+        result.sort((ViewPageRank v, ViewPageRank v2) -> v.getPageRank().compareTo(v2.getPageRank()));
+        return result;
+    }
+
+
 }

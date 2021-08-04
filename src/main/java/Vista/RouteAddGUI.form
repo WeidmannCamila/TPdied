@@ -234,7 +234,7 @@
                         <properties>
                           <font size="24"/>
                           <foreground color="-852481"/>
-                          <text value="Nombre"/>
+                          <text value="Origen"/>
                         </properties>
                       </component>
                       <component id="c50de" class="javax.swing.JComboBox" binding="CBStart">

@@ -57,7 +57,11 @@ public class StationEditGUI {
     public void setAnterior(JFrame a) {
         this.anterior = a;
     }
-        /*
+
+
+
+
+    /*
             CUANDO apretas el boton editar tenes que preguntar si se modifico el estado de la estacion
             si pasa de operativa a en mantenimiento crear una nuevo obj manteminiento y agregarlo a la lista de la estacion
 

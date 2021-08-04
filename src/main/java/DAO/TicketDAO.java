@@ -22,7 +22,7 @@ public class TicketDAO {
             st.setString(2, email);
             st.setTimestamp(3, date);
             st.setString(4, listRoute.getOrigin().getIdStation().toString());
-            st.setString(4, listRoute.getDestination().getIdStation().toString());
+            st.setString(5, listRoute.getDestination().getIdStation().toString());
             st.executeUpdate();
             st.close();
 

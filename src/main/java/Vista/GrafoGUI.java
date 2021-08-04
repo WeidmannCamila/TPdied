@@ -237,7 +237,7 @@ public class GrafoGUI {
         gbc_panel_12.gridy =1;
 
         if(bestRoute != null){
-            System.out.println("ENTRA AL ID DE BEST ROUTE");
+
 
             for(ArrayList<Station> s : bestRoute){
                 Double distance = rm.distanceTotalRoute(s);
@@ -246,8 +246,6 @@ public class GrafoGUI {
 
                 ArrayList<Station> aux = new ArrayList<>(s.subList(1, s.size()-1));
 
-                System.out.println("DURACION: " + duration + "  dostance:" + distance + "  costo;" + cost);
-                System.out.println("LISTA COMPLETA DE ESTACIONES : " + aux.size() + " este es el tamaño del la lista completa " + bestRoute.size());
 
                 listRoute = new ListRoute(s.get(0),s.get(s.size()-1), distance, duration, cost, aux);
 
@@ -303,25 +301,27 @@ public class GrafoGUI {
         Date t = new Date();
       //  tm.createTicket(listRoute, name, email, t.setDate());
 
-        JDialog jDialog =new JDialog(frameGrafo, "Mostrando la solución generada",
+        JDialog jDialog =new JDialog(frameGrafo, "TICKET DE SU RECORRIDO",
                 Dialog.ModalityType.DOCUMENT_MODAL);
+
         JPanel contentPane;
         jDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jDialog.setResizable(false);
-        jDialog.setMinimumSize(new Dimension(200, 200));
-        jDialog.setBounds(100, 100, 450, 475);
+        jDialog.setMinimumSize(new Dimension(400, 300));
+        jDialog.setBounds(10, 10, 450, 475);
+
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBorder(new EmptyBorder(2, 2, 2, 2));
         jDialog.setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
-        contentPane.add(panel, BorderLayout.CENTER);
+
         GridBagLayout gbl_panel = new GridBagLayout();
-        gbl_panel.columnWidths = new int[] { 200 };
-        gbl_panel.rowHeights = new int[] { 10};
-        gbl_panel.columnWeights = new double[] { 1.0 };
-        gbl_panel.rowWeights = new double[] { 0.0 };
+        gbl_panel.columnWidths = new int[] { 300 };
+        gbl_panel.rowHeights = new int[] { 400};
+        gbl_panel.columnWeights = new double[] { 0 };
+        gbl_panel.rowWeights = new double[] { 0 };
         panel.setLayout(gbl_panel);
 
         DefaultListModel<String> dataList = new DefaultListModel<String>();
@@ -343,14 +343,17 @@ public class GrafoGUI {
         dataList.addElement("DURACION DEL RECORRIDO: " + routes.getTotalDuration());
 
 
-        JList<String> insumoList = new JList<String>(dataList);
-        GridBagConstraints gbc_InsumoList = new GridBagConstraints();
-        gbc_InsumoList.anchor = GridBagConstraints.BOTH;
-        gbc_InsumoList.insets = new Insets(0, 0, 0, 0);
-        gbc_InsumoList.gridx = 0;
-        gbc_InsumoList.gridy = 1;
-        insumoList.setFixedCellWidth(200);
-        panel.add(new JScrollPane(insumoList), gbc_InsumoList);
+        JList<String> infoTicket = new JList<String>(dataList);
+        GridBagConstraints GBCInfo = new GridBagConstraints();
+        GBCInfo.fill= GridBagConstraints.RELATIVE;
+        GBCInfo.insets = new Insets(0, 0, 0, 0);
+        GBCInfo.gridwidth = 2;
+
+        GBCInfo.gridx = 0;
+        GBCInfo.gridy = 0;
+        infoTicket.setFixedCellWidth(400);
+        infoTicket.setFixedCellHeight(10);
+        panel.add(new JScrollPane(infoTicket), GBCInfo);
 
         jDialog.setVisible(true);
 

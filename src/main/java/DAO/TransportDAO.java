@@ -19,7 +19,7 @@ public class TransportDAO {
         final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
         final String user = "hshhreor";
         final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
-        System.out.println("entro a dao pero no al try");
+
         try {
             conexion = DriverManager.getConnection(url, user, pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.transport_route (idTransport, name, colour, status) VALUES (? , ?, ?,?);");
@@ -29,7 +29,7 @@ public class TransportDAO {
             st.setBoolean(4, T.getStatus());
             st.executeUpdate();
             st.close();
-            System.out.println("paso el close");
+
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -86,7 +86,7 @@ public class TransportDAO {
     }
 
     public ArrayList<TransportRoute> getTranport() {
-        System.out.println("Entro al getTransport");
+
         ArrayList<TransportRoute> transportes = new ArrayList<>();
         Connection conexion = null;
         ResultSet resultado = null;
@@ -182,7 +182,7 @@ public class TransportDAO {
         Paint co;
 
         Color verde = new Color(100,149,237);
-        Color verdecla = new Color(100,149,237);
+        Color verdecla = new Color(173, 237, 100);
 
         switch (colour){
             case "verdeAR":{

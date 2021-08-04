@@ -85,7 +85,7 @@ public class TransportAddGUI {
                         dto.setIdTransport(Integer.parseInt(transportId.getText()));
                         tm.addTransport(dto);
 
-                        System.out.println("llego antes del DAO");
+                   //     System.out.println("llego antes del DAO");
                     }
                 }
             }

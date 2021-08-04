@@ -1,11 +1,15 @@
 package main.java.Managers;
 
 import main.java.DAO.MaintenanceDAO;
+import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
+import main.java.Vista.ViewPageRank;
+import main.java.Vista.ViewVertex;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
+import main.java.classes.Route;
 import main.java.classes.Station;
 
 import java.util.ArrayList;
@@ -14,10 +18,13 @@ import java.util.List;
 
 public class StationManager {
 
+    private RouteManager rm = new RouteManager();
+    private RouteDAO rDAO = new RouteDAO();
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
     private HashMap<Integer, Station> listStation= new HashMap<Integer, Station>();
     public StationManager(){}
+
     public static StationManager getInstance() {return INSTANCE;    }
 
 
@@ -95,4 +102,6 @@ public class StationManager {
 
         return station;
     }
+
+
 }

@@ -29,6 +29,8 @@ public class RouteManager {
     private GrafoPanel grafoPanel = GrafoPanel.getInstance();
     private RouteDAO rDAO = new RouteDAO();
 
+
+
     public RouteManager(){}
 
     public static RouteManager getInstance() {

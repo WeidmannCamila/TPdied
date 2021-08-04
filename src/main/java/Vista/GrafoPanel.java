@@ -13,9 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
 public class GrafoPanel extends JPanel {
@@ -341,4 +339,49 @@ public class GrafoPanel extends JPanel {
         }
 
     }
+
+    public ArrayList<ViewPageRank> getPageRank() {
+
+        ArrayList<ViewPageRank> result = new ArrayList<>();
+        List<ViewVertex> listRoute = this.vertices;
+
+        for (ViewVertex s : listRoute) {
+            ViewPageRank e = new ViewPageRank();
+            e.setVertice(s);
+            e.setNodesIn(s.getNodeIn(this.edges));
+            e.setNodesOut(s.getNodesOut(this.edges));
+            e.setPageRank(1.0);
+            result.add(e);
+        }
+
+        int i=0;
+        for(ViewPageRank v: result){
+            Double PRA = 0.0;
+            for(ViewVertex v2: v.getNodesIn()){
+                Double PRi= 0.0;
+                Double C = 0.0;
+                Iterator aux = result.iterator();
+
+                while(aux.hasNext()){
+                    ViewPageRank v1 = (ViewPageRank) aux.next();
+                    if(v2.equals(v1.getVertice())){
+                        PRi= v1.getPageRank();
+                        C= v1.getNodesOut();
+                        PRA += PRi/C;
+
+                    }
+                }
+
+            }
+            // PR(A) = (1-D)+D * (PRi/C)
+            Double TotalPageR = 0.5 + 0.5 * PRA;
+            result.get(i).setPageRank(TotalPageR);
+        }
+
+
+        result.sort((ViewPageRank v, ViewPageRank v2) -> v.getPageRank().compareTo(v2.getPageRank()));
+        return result;
+    }
+
+
 }

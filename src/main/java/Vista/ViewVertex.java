@@ -4,6 +4,9 @@ import main.java.classes.Station;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+import java.util.List;
+
 import main.java.classes.Constants;
 
 public class ViewVertex {
@@ -111,4 +114,24 @@ public class ViewVertex {
        return this.name;
     }
 
+    public List<ViewVertex> getNodeIn(ArrayList<ViewEdges> edges) {
+        ArrayList<ViewVertex> inV = new ArrayList<>();
+        for(ViewEdges v : edges){
+            if(this.getId().equals(v.getEnd().id)){
+                inV.add(v.getStart());
+            }
+        }
+        return inV;
+    }
+
+    public Double getNodesOut(ArrayList<ViewEdges> edges) {
+        Double outV = 0.0;
+
+        for(ViewEdges v: edges){
+            if(this.getId().equals(v.getStart().id)){
+                outV += 1.0;
+            }
+        }
+        return outV;
+    }
 }

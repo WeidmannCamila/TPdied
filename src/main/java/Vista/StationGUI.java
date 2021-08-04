@@ -43,6 +43,7 @@ public class StationGUI extends JPanel{
     public JFrame frameStation;
 
 
+
     private JFrame anterior;
 
 
@@ -69,8 +70,10 @@ public class StationGUI extends JPanel{
             }
 
         });
-        HourClosedTField.setEditable(false);
-        MinuteClosedTField.setEditable(false);
+        this.HourOpenTField.setEditable(false);
+        this.MinuteOpenTField.setEditable(false);
+        this.HourClosedTField.setEditable(false);
+        this.MinuteClosedTField.setEditable(false);
 
         // Añadir estacion
 
@@ -127,7 +130,6 @@ public class StationGUI extends JPanel{
               switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        // por id
-
                        Integer id;
                        try{
                            id = Integer.parseInt(param);
@@ -135,7 +137,6 @@ public class StationGUI extends JPanel{
                            System.out.println("tiene que ser un id");
                            return;
                        }
-
                        estacionParametro.setIdStation(id);
                        ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
                        updateTable(result);
@@ -178,18 +179,20 @@ public class StationGUI extends JPanel{
                        break;
                    }
                    case 3: {
-                       HourOpenTField.setEnabled(true);
-                       MinuteOpenTField.setEnabled(true);
-                       //Timestamp horarioApertura = new Timestamp();
-                       System.out.println("mostrando el horario" + HourOpenTField.toString());
+                       HourOpenTField.setEditable(true);
+                       MinuteOpenTField.setEditable(true);
+                       System.out.println("mostrando el horario apertura" + HourOpenTField.toString());
                        estacionParametro.setOpen(HourOpenTField.getText()+":"+MinuteOpenTField.getText());
-                       ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
+                       ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
+                       updateTable(result);
                    }
                    case 4:{
-                       HourClosedTField.setEnabled(true);
-                       MinuteClosedTField.setEnabled(true);
-
+                       HourClosedTField.setEditable(true);
+                       MinuteClosedTField.setEditable(true);
+                       System.out.println("mostrando el horario cierre" + HourClosedTField.toString());
                        estacionParametro.setOpen(HourClosedTField.getText()+":"+MinuteClosedTField.getText());
+                       ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
+                       updateTable(result);
                    }
                    default:
 
@@ -215,7 +218,6 @@ public class StationGUI extends JPanel{
         CBsearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 String[] estado = {"--seleccionar--","OPERATIVA", "MANTENIMIENTO"} ;
                 CBstatus.setModel(new DefaultComboBoxModel<String>(estado));
                 estacionParametro.setStatus(EnumStatus.values().toString());
@@ -226,16 +228,16 @@ public class StationGUI extends JPanel{
                     CBstatus.setVisible(false);
                 }
                 if(CBsearch.getSelectedIndex()==3){
-                    HourOpenTField.setVisible(true);
-                    MinuteOpenTField.setVisible(true);
+                    HourOpenTField.setEditable(true);
+                    MinuteOpenTField.setEditable(true);
                 }
                 else if(CBsearch.getSelectedIndex()!=3){
                     HourOpenTField.setEditable(false);
                     MinuteOpenTField.setEditable(false);
                 }
                 if(CBsearch.getSelectedIndex()==4){
-                    HourClosedTField.setVisible(true);
-                    MinuteClosedTField.setVisible(true);
+                    HourClosedTField.setEditable(true);
+                    MinuteClosedTField.setEditable(true);
                 }
                 else if(CBsearch.getSelectedIndex()!=4){
                     HourClosedTField.setEditable(false);
@@ -246,6 +248,7 @@ public class StationGUI extends JPanel{
             }
         });
 
+        //combo box del status
         CBstatus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -291,7 +294,7 @@ public class StationGUI extends JPanel{
             Integer id = station.getIdStation();
             String name = station.getName();
             String status = station.getStatus();
-            String ha = "hora";//station.getOpen().toString();
+            String ha = station.getOpen();
             String hc ="hora"; //station.getClouse().toString();
 
             Object[] data = {id, name, status, ha, hc};

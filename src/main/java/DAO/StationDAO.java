@@ -63,23 +63,29 @@ public class StationDAO {
             conexion = DriverManager.getConnection( url, user, pass);
             //pregunto si el filtro es por id
             if(station.getIdStation()!=null) {
-                PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE idStation= ?;");
+                PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, station, openingTime, closingTime FROM tp_died.station WHERE idStation= ?;");
                 st.setInt(1,station.getIdStation());
                 System.out.println("Entro al if del getId");
                 rs = st.executeQuery();
             }else
                 //pregunto si el filtro es por nombre
                 if(station.getName()!=null) {
-                    PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE nameStation LIKE '%" + station.getName() +"%';");
+                    PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, station, openingTime, closingTime FROM tp_died.station WHERE nameStation LIKE '%" + station.getName() +"%';");
                     System.out.println("Entro al if del getName");
                     rs = st.executeQuery();
                 }else
                     //pregunto si el filtro es por status
                     if(station.getStatus()!=null) {
-                        PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station WHERE status LIKE '%" + station.getStatus() +"%';");
+                        PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, station, openingTime, closingTime FROM tp_died.station WHERE status LIKE '%" + station.getStatus() +"%';");
                         System.out.println("Entro al if del getStatus");
                         rs = st.executeQuery();
-                    }
+                    }else
+                        if(station.getOpen()!= null){
+                            PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, station, openingTime, closingTime FROM tp_died.station WHERE openingTime LIKE '%" +station.getOpen()+"';");
+                            System.out.println("Entro al if del getOpen");
+                            rs = st.executeQuery();
+                        }
+
 
 
             while(rs.next()){

@@ -22,7 +22,7 @@ public class StationEditGUI {
     private JTextField stationName;
     private JComboBox CBhscla;
     private JComboBox CBhsAper;
-    private DTOStation dto;
+    private DTOStation dto = new DTOStation();
     private StationDAO sDAO = new StationDAO();
     public JFrame frameStationEdit;
     private JFrame anterior;
@@ -53,7 +53,7 @@ public class StationEditGUI {
             public void actionPerformed(ActionEvent e) {
 
                     if(stationName.getText() != null && stationId.getText() != null){
-
+                        System.out.println("ESTACION VACIOAAA?" + Integer.parseInt(stationId.getText()));
                         dto.setIdStation(Integer.parseInt(stationId.getText()));
                         dto.setName(stationName.getText());
                         dto.setStatus(statusCB.getSelectedItem().toString());

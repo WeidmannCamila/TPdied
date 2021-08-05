@@ -56,6 +56,7 @@ public class RouteGUI {
 
 
         CBStart.setModel(new DefaultComboBoxModel<>(array));
+        CBEnd.setModel(new DefaultComboBoxModel(array));
 
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -66,15 +67,6 @@ public class RouteGUI {
 
         });
 
-
-
-        // Editar insumo
-        JButton btnEditar_1 = new JButton("Editar");
-
-
-
-        // Eliminar insumo
-        JButton btnEliminar = new JButton("Eliminar");
 
 
         addButton.addActionListener(new ActionListener() {

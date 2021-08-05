@@ -10,6 +10,7 @@ public class ListRoute {
     private Double totalCost;
     public ArrayList<Station> listStation;
     private Integer maxPassagers;
+    private TransportRoute transport;
 
     public ListRoute(Station origin, Station destination, Double totalDistance, Double totalDuration, Double totalCost, ArrayList<Station> listStation) {
         this.origin = origin;
@@ -18,6 +19,7 @@ public class ListRoute {
         this.totalDuration = totalDuration;
         this.totalCost = totalCost;
         this.listStation = listStation;
+
     }
 
     public ListRoute(Station origin, Station destination, Double totalDistance, Double totalDuration, Integer maxPassagers, Double totalCost, ArrayList<Station> listStation) {

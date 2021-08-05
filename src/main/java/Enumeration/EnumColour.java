@@ -1,10 +1,12 @@
 package main.java.Enumeration;
 
+import main.java.classes.Constants;
+
 import java.awt.*;
 
 public enum EnumColour {
 
-    RED(Color.RED, "rojo"), YELLOW(Color.YELLOW, "amarillo"), CYAN(Color.CYAN, "cyan"), GREEN(Color.GREEN, "verde"), ORANGE(Color.orange, "naranja"); //each is an instance of Color
+    RED(Color.RED, "rojo"), YELLOW(Color.YELLOW, "amarillo"), CYAN(Color.CYAN, "cyan"), GREEN(Color.GREEN, "verdeAR"), ORANGE(Color.orange, "naranja"), VERDECLA(Constants.verdecla, "verdeAB"); //each is an instance of Color
 
     private Color vColor;
     private String vString;
@@ -20,5 +22,21 @@ public enum EnumColour {
         this.vString= s;
     }
 
+
+    public Color getvColor() {
+        return vColor;
+    }
+
+    public void setvColor(Color vColor) {
+        this.vColor = vColor;
+    }
+
+    public String getvString() {
+        return vString;
+    }
+
+    public void setvString(String vString) {
+        this.vString = vString;
+    }
 
 }

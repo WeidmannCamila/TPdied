@@ -1,5 +1,7 @@
 package main.java.classes;
 
+import main.java.DTOs.DTORoute;
+import main.java.DTOs.DTOTransport;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
 
@@ -30,6 +32,16 @@ public class ListGlobalRoute implements Comparable<ListGlobalRoute> {
 
         return listsR;
 
+    }
+
+
+    public void deleteRoute(Route deleteT) {
+        this.listsR.removeIf(t -> t.getIdRoute().equals(deleteT.getIdRoute()));
+
+    }
+
+    public void addTransport(Route t){
+        this.listsR.add(t);
     }
 
 

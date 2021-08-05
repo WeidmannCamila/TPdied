@@ -6,6 +6,7 @@ import main.java.DTOs.DTOStation;
 import main.java.DTOs.DTOTransport;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
+import main.java.Managers.TransportManager;
 import main.java.classes.Route;
 import main.java.classes.Station;
 
@@ -27,13 +28,15 @@ public class RouteAddGUI {
     private JTextField durRoute;
     private JTextField maxPRoute;
     private JComboBox CBStatus;
+    private JTextField distRoute;
 
     private DTORoute dto;
     private RouteDAO rDAO = new RouteDAO();
     public JFrame frameRouteAdd;
     private JFrame anterior;
-    private StationManager sm =new StationManager();
-    private RouteManager rm = new RouteManager();
+    private StationManager sm = StationManager.getInstance();
+    private RouteManager rm = RouteManager.getInstance();
+    private TransportManager tm = TransportManager.getInstance();
 
 
 
@@ -55,21 +58,18 @@ public class RouteAddGUI {
 
 
         String[] array = new String[ls.size()];
-        for(int i = 0; i < array.length; i++) {
+        int i =0;
+        array[0] = "--Seleccione";
+        for(i = 1; i < array.length; i++) {
             array[i] = ls.get(i).getName();
         }
 
         CBStart.setModel(new DefaultComboBoxModel<>(array));
 
-        String[] arraydos = new String[ls.size()];
-        for(int i = 0; i < arraydos.length; i++) {
-            arraydos[i] = ls.get(i).getName();
-        }
-
-        CBEnd.setModel(new DefaultComboBoxModel<>(arraydos));
+        CBEnd.setModel(new DefaultComboBoxModel<>(array));
 
 
-        String[] items = {"Activa", "Inactiva"};
+        String[] items = {"--Selecione--", "Activa", "Inactiva"};
 
         CBStatus.setModel(new DefaultComboBoxModel<String>(items));
 
@@ -77,48 +77,45 @@ public class RouteAddGUI {
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (CBStart.getSelectedIndex() == 0 || CBEnd.getSelectedIndex() == 0 || CBStatus.getSelectedIndex() == 0 || costRoute.getText().length() <= 0 || distanceRoute.getText().length() <= 0 || durRoute.getText().length() <= 0 || maxPRoute.getText().length() <= 0) {
+                    JOptionPane.showMessageDialog(null, "Campos vacios.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    Station end = new Station();
+                    Station start = new Station();
+                    String s = CBStart.getSelectedItem().toString();
+                    start = sm.getStation(s);
+                    String en = CBEnd.getSelectedItem().toString();
+                    end = sm.getStation(en);
 
-                addNewRoute();
+                    if (rm.getRoute(start, end) != null && tm.getTransport(CBtransport.getSelectedItem().toString()) != null) {
+                        JOptionPane.showMessageDialog(null, "La ruta con ese transporte ya existe",
+                                "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                    } else {
 
+                        dto = new DTORoute();
+                        dto.setCost(Integer.parseInt(costRoute.getText()));
+                        dto.setDestination((Station) CBEnd.getSelectedItem());
+                        dto.setDistance(Integer.parseInt(distanceRoute.getText()));
+                        dto.setDuration(Integer.parseInt(durRoute.getText()));
+                        dto.setOrigin((Station) CBStart.getSelectedItem());
+
+                        boolean stat;
+                        if(CBStatus.getSelectedIndex() ==1){
+                            stat= true;
+                        } else { stat= false;}
+                        dto.setStatus(stat);
+                        rm.createRoute(dto);
+                    }
+
+                }
             }
         });
 
 
     }
 
-    private void addNewRoute() {
 
-        dto = new DTORoute();
-        dto.setCost(Integer.parseInt(costRoute.getText()));
-        dto.setDestination((Station) CBEnd.getSelectedItem());
-        dto.setDistance(Integer.parseInt(distanceRoute.getText()));
-        dto.setDuration(Integer.parseInt(durRoute.getText()));
-        dto.setOrigin((Station) CBStart.getSelectedItem());
-        dto.setStatus(true);
-
-/*
-
-        if(start == null || end == null){
-            System.out.println("seleccione estaciones");
-        }
-
-        if (start == end){
-            System.out.println("son la misma estacion");
-        }
-*/
-
-
-        Route newR = rm.createRoute(dto);
-
-        // oarsear costo duracion y demas, para ver si son datos numericos o no
-        /*newR.setCost(Integer.parseInt(costRoute.getText()));
-        newR.setDistance(Integer.parseInt(distanceRoute.getText()));
-        newR.setDuration(14);*/
-
-
-
-
-    }
 
     public void setAnterior(JFrame a) {
         this.anterior = a;

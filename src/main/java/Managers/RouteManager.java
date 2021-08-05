@@ -56,6 +56,24 @@ public class RouteManager {
         return l;
     }
 
+
+    public ArrayList<Route> getListRoutes(Station start, Station end){
+        ArrayList<Route> aux = new ArrayList<>();
+
+        for (Route r : this.getListRoutes()) {
+
+            if(!r.getStatus()){
+
+                if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
+                    aux.add(r);
+
+                }}
+
+        }
+        return aux;
+    }
+
+
     public Route getRoute(Station start, Station end) {
         for (Route r : this.getListRoutes()) {
 
@@ -91,8 +109,10 @@ public class RouteManager {
 
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
+
         ArrayList<ArrayList<Station>> resultadoaux = new  ArrayList<ArrayList<Station>>();
         ArrayList<ArrayList<Station>> resultado = new  ArrayList<ArrayList<Station>>();
+        if(listpaths.size() != 0){
          switch(crit){
 
             case "MAS_BARATO": {
@@ -113,13 +133,23 @@ public class RouteManager {
                  resultadoaux= listpaths;
                 break;
              }
+             default:{
+                 break;
+             }
 
+        }
+            System.out.println("TAMAÑO RESULTADOAUX " + resultadoaux.size());
 
+            grafoPanel.paintRoutes(resultadoaux);
+            grafoPanel.repaint();
+
+        }
+        else{
+            resultadoaux= null;
         }
 
 
-        grafoPanel.paintRoutes(resultadoaux);
-        grafoPanel.repaint();
+
 
         return resultadoaux;
     }
@@ -137,8 +167,6 @@ public class RouteManager {
         for(ArrayList<Station> cs : listpathss) {
 
             Double distanceAux = distanceTotalRoute(cs);
-
-
             minim.add(distanceAux);
 
         }
@@ -150,9 +178,8 @@ public class RouteManager {
 
         if(!listpathss.isEmpty()){    shortest(listpathss, resultado);}
 
+
         return resultado;
-
-
     }
 
     public Double distanceTotalRoute(ArrayList<Station> cs) {
@@ -250,10 +277,6 @@ public class RouteManager {
         return costeAux;
     }
 
-
-
-
-
     public List<String> flujoMax(Station start, Station end){
 
         ArrayList<ArrayList<Station>> listRoutesFlujo = this.paths(start, end);
@@ -297,11 +320,6 @@ public class RouteManager {
     }
 
 
-    /*
-        Busca todos los caminos que existen desde inicio a fin. usando una lista que tiene uns lista de rutas
-        usa la lsita de marcados para ir agregando y formando cada uno de los treyectos
-        no es lo mismo q el start y el end de route
-     */
     public ArrayList<ArrayList<Station>> paths(Station start, Station end) {
 
         ArrayList<ArrayList<Station>> listpaths = new ArrayList<ArrayList<Station>>();
@@ -311,27 +329,26 @@ public class RouteManager {
 
         searchPaths(start, end, markedStations, listpaths);
 
+
+
+
+
         return listpaths;
 
     }
 
-    /*
-        tina el nodo inical y va buscando sus adyacentes, agregandolo hasta encontrar el nodo final
-        si encuentra agrega esa lista a la lista de caminos y continua con su busqueda.
-        tambien se encarga de verficar si la estacion esta en mantenimiento o no
-     */
-    private void searchPaths(Station start, Station end, ArrayList markedStations, ArrayList<ArrayList<Station>> listpaths) {
-      // System.out.println("ESTADO DE LA ESTACIOOOOOOON" + start.getStatus() );
-        ArrayList<Station> adjacentStations = this.getAdjacentStations(start);
-       // System.out.println("adyacentes:" + adjacentStations.size());
-        ArrayList<Station> marked = null;
 
+    private void searchPaths(Station start, Station end, ArrayList markedStations, ArrayList<ArrayList<Station>> listpaths) {
+
+        ArrayList<Station> adjacentStations = this.getAdjacentStations(start);
+
+        ArrayList<Station> marked = null;
         for(Station s : adjacentStations){
             marked = (ArrayList<Station>) markedStations.stream().collect(Collectors.toList());
 
-            if(s.getStatus() == EnumStatus.MANTENIMIENTO){}
-            else {
-                if (end.getIdStation() == s.getIdStation()) {
+
+
+                if (end.getIdStation().equals(s.getIdStation())) {
                     marked.add(s);
                     listpaths.add(new ArrayList<Station>(marked));
 
@@ -342,8 +359,8 @@ public class RouteManager {
                         this.searchPaths(s, end, marked, listpaths);
                     }
 
+
                 }
-            }
 
         }
 
@@ -353,15 +370,16 @@ public class RouteManager {
     private ArrayList<Station> getAdjacentStations(Station start) {
         ArrayList<Station> adjacents = new ArrayList<>();
 
-    // System.out.println("estamos en adyacentes " + this.getListRoutes().size());
-      //  System.out.println("start:" + start.getIdStation());
         for(Route r: this.getListRoutes() ){
+            //aca verifico que el transporte este activo y la estacion en operativa
+            if(r.getTransport().isStatus() && r.getDestination().getStatus().equals("OPERATIVA")){
 
-
-            if(start.getIdStation() == r.getOrigin().getIdStation()){
-              //  System.out.println("agrego el " + r.getDestination().getIdStation());
-                adjacents.add(r.getDestination());
+                if(start.getIdStation().equals(r.getOrigin().getIdStation())){
+                    adjacents.add(r.getDestination());
+                }
             }
+
+
         }
 
         return adjacents;

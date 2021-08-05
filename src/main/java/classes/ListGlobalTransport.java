@@ -1,5 +1,7 @@
 package main.java.classes;
 
+import main.java.DTOs.DTOStation;
+import main.java.DTOs.DTOTransport;
 import main.java.Managers.TransportManager;
 
 import java.util.ArrayList;
@@ -28,9 +30,29 @@ public class ListGlobalTransport implements Comparable<ListGlobalTransport>{
 
     }
 
+    public void deleteTransport(DTOTransport deleteT) {
+        this.listsT.removeIf(t -> t.getIdTransport().equals(deleteT.getIdTransport()));
+
+    }
+
+    public void addTransport(TransportRoute t){
+        this.listsT.add(t);
+    }
+
+    public void editTransport(TransportRoute t){
+        for(TransportRoute t1 : this.listsT){
+            if(t1.getIdTransport().equals(t.getIdTransport())){
+                t1.setColour(t.getColour());
+                t1.setName(t.getName());
+                t1.setStatus(t.isStatus());
+            }
+        }
+    }
 
     @Override
     public int compareTo(ListGlobalTransport o) {
         return 0;
     }
+
+
 }

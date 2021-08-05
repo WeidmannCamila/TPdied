@@ -4,13 +4,11 @@ import com.sun.jdi.connect.Transport;
 import main.java.DTOs.DTORoute;
 import main.java.DTOs.DTOStation;
 import main.java.DTOs.DTOTransport;
-import main.java.classes.Constants;
-import main.java.classes.Route;
-import main.java.classes.Station;
-import main.java.classes.TransportRoute;
+import main.java.classes.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 //agregar ruta con todos los valores
@@ -33,6 +31,9 @@ public class RouteDAO {
             st.setInt(5, dto.getMaxPassagers());
             st.setBoolean(6, dto.isStatus());
             st.setDouble(7, dto.getCost());
+            ListGlobalRoute lgc = ListGlobalRoute.getInstance();
+            Route t = this.getRoute(dto.getIdRoute());
+            lgc.addTransport(t);
 
             st.close();
 
@@ -111,8 +112,7 @@ public class RouteDAO {
 
                 Station start = new Station();
                 Station end = new Station();
-
-                transport =  daoT.getTransport1(rs.getInt("idTransport"));
+                transport =  daoT.getTransport(rs.getInt("idTransport"));
                 start =  daoS.getStation(rs.getInt("idStationOrigin"));
 
                 end = daoS.getStation(rs.getInt("idStationDestination"));
@@ -139,4 +139,22 @@ public class RouteDAO {
         }
         return routes;
     }
+
+    public Route getRoute(int id) {
+        ListGlobalRoute lt = ListGlobalRoute.getInstance();
+        ArrayList<Route> lista = lt.getList();
+        Route resultado = null;
+        Iterator var5 = lista.iterator();
+
+        while(var5.hasNext()) {
+            Route a = (Route) var5.next();
+            if (a.getIdRoute() == id) {
+                resultado = a;
+            }
+        }
+
+        return resultado;
+    }
+
+
 }

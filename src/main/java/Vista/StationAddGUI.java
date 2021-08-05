@@ -60,6 +60,10 @@ public class StationAddGUI {
         }
 
 
+        String[] estado = {"--seleccionar--", "Activa" , "No activa"};
+        statusCB.setModel(new DefaultComboBoxModel<String>(estado));
+
+
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

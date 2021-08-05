@@ -37,7 +37,7 @@ public class TransportManager {
     //buscar transportes solo para DTOTransport
     public ArrayList<DTOTransport> searchDTOTransport(DTOTransport t) {
 
-        ArrayList<DTOTransport> list = new ArrayList(TransportDAO.searchTransportByAtributte(t));
+        ArrayList<DTOTransport> list = new ArrayList(tDAO.searchTransportByAtributte(t));
 
         return list;
     }

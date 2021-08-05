@@ -4,25 +4,28 @@ import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumColour;
 import main.java.Managers.TransportManager;
+import main.java.classes.Station;
 import main.java.classes.TransportRoute;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 public class TransportEditGUI {
     private JPanel panel1;
     private JLabel exitButton;
-
+    private EnumColour colours;
     private JComboBox statusCB;
     private JTextField transportId;
     private JButton editButton;
     private JTextField transportName;
     private JComboBox CBcolour;
-    private DTOTransport dto;
+    private DTOTransport dto = new DTOTransport();
     private TransportDAO tDAO = new TransportDAO();
     public JFrame frameTransportEdit;
     private TransportManager tm = TransportManager.getInstance();
@@ -49,17 +52,35 @@ public class TransportEditGUI {
         String[] estado = {"--seleccionar--", "Activa" , "No activa"};
         statusCB.setModel(new DefaultComboBoxModel<String>(estado));
 
-        CBcolour.setModel(new DefaultComboBoxModel<EnumColour>(EnumColour.values()));
+
+        String[] array = new String[7];
+        int i=0;
+
+
+        for(EnumColour s : colours.values()){
+            if(s.getvColor().toString().equals(transportToEdit.getColour().toString())){
+                array[0] = s.getvString();
+                System.out.println("COLOR TRANPORT "+ s.getvColor().toString() + "  " + transportToEdit.getColour().toString());
+            }
+
+            i++;
+            array[i] = s.getvString();
+
+
+        }
+        CBcolour.setModel(new DefaultComboBoxModel<>(array));
 
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if(TransportEditGUI.this.transportName.getText().length() <= 0 || CBcolour.getSelectedItem().toString().length() <= 0 || statusCB.getSelectedIndex() == 0){
+                if(TransportEditGUI.this.transportName.getText().length() <= 0 || statusCB.getSelectedIndex() == 0){
                     JOptionPane.showMessageDialog(null, "Campos vacios.",
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
                     //dto.setIdTransport(Integer.parseInt(transportId.getText()));
-                    dto.setColour(CBcolour.getSelectedItem().toString());
+                    System.out.println("COLOR TRANPORT "+ (String) CBcolour.getSelectedItem());
+                    dto.setIdTransport(transportToEdit.getIdTransport());
+                    dto.setColour((String) CBcolour.getSelectedItem());
                     dto.setName(transportName.getText());
                     boolean stat;
                     if(statusCB.getSelectedIndex() ==1){

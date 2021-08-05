@@ -47,11 +47,13 @@ public class RouteGUI {
         ListGlobalStation ls = ListGlobalStation.getInstance();
 
         HashMap<Integer, Station> lists =new HashMap<Integer, Station>(ls.getList());
-        String[] array = new String[lists.size()];
+        String[] array = new String[lists.size()+1];
         int i=0;
+        array[0] = "--Seleccione--";
         for(Station s : lists.values()){
-            array[i] = s.getName();
             i++;
+            array[i] = s.getName();
+
         }
 
 
@@ -90,32 +92,44 @@ public class RouteGUI {
         searchButton.addActionListener((new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Station end = new Station();
-                Station start = new Station();
-                String s = CBStart.getSelectedItem().toString();
-                start = sm.getStation(s);
-                String en = CBEnd.getSelectedItem().toString();
-                end =sm.getStation(en);
+
+                if(CBStart.getSelectedIndex()==0 || CBEnd.getSelectedIndex() == 0){
+                    JOptionPane.showMessageDialog(null, "Seleccione estaciones.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (CBStart.getSelectedIndex() == CBEnd.getSelectedIndex()) {
+                        JOptionPane.showMessageDialog(null, "Seleccione estaciones diferentes.",
+                                "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        Station end = new Station();
+                        Station start = new Station();
+                        String s = CBStart.getSelectedItem().toString();
+                        start = sm.getStation(s);
+                        String en = CBEnd.getSelectedItem().toString();
+                        end =sm.getStation(en);
 
 
-                if(start == null || end == null){
-                    System.out.println("seleccione estaciones");
+                        if(start.getStatus().equals("MANTENIMIENTO") || end.getStatus().equals("MANTENIMIENTO")){
+                            JOptionPane.showMessageDialog(null, "La estacion de la que quiere partir/llegar esta en mantenimiento.",
+                                    "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                        } else{
+                            String crit = CBparamSearch.getSelectedItem().toString();
+
+                            ArrayList<ArrayList<Station>> bestRoute = rm.bestRoute4crit(start, end, crit);
+                            System.out.println("TAMAÑO DE BESTROUTE" + bestRoute.size());
+                            if(bestRoute== null){
+                                JOptionPane.showMessageDialog(null, "No hay recorridos disponibles",
+                                        "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                GrafoGUI graf = new GrafoGUI(bestRoute);
+                                graf.frameGrafo.setVisible(true);
+                                graf.setAnterior(RouteGUI.this.frameRoute);
+                            }
+                        }
+                    }
+
                 }
 
-                if (start == end){
-                    System.out.println("son la misma estacion");
-                }
-                String crit = CBparamSearch.getSelectedItem().toString();
-
-                ArrayList<ArrayList<Station>> bestRoute = rm.bestRoute4crit(start, end, crit);
-
-                System.out.println("mejor trayecto" + bestRoute);
-                //mostrar en tabla y grafico
-
-
-                GrafoGUI graf = new GrafoGUI(bestRoute);
-                graf.frameGrafo.setVisible(true);
-                graf.setAnterior(RouteGUI.this.frameRoute);
 
 
 

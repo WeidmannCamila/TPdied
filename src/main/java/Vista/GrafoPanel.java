@@ -111,27 +111,27 @@ public class GrafoPanel extends JPanel {
 
             switch (aux%6){
                 case 0: {
-                    posX =150;
+                    posX =100;
                     break;
                 }
                 case 1: {
-                    posX=300;
-                    break;
-                }
-                case 2:{
-                    posX=200;
-                    break;
-                }
-                case 3: {
                     posX=400;
                     break;
                 }
+                case 2:{
+                    posX=210;
+                    break;
+                }
+                case 3: {
+                    posX=600;
+                    break;
+                }
                 case 4: {
-                    posX=350;
+                    posX=300;
                     break;
                 }
                 case 5: {
-                    posX=250;
+                    posX=500;
                     break;
                 }
 
@@ -141,7 +141,7 @@ public class GrafoPanel extends JPanel {
             vx.setId(s.getIdStation());
             vx.setName(s.getName());
             vertices.add(vx);
-           posY +=55;
+            posY +=55;
 
         }
 
@@ -175,7 +175,7 @@ public class GrafoPanel extends JPanel {
             } else {
 
                 offset = VertexEnd.RADIO/2;
-   }
+            }
 
             e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour(), offset);
 
@@ -242,12 +242,25 @@ public class GrafoPanel extends JPanel {
 
     private void drawEdges(Graphics2D g2d) {
         for (ViewEdges a : this.getEdges()) {
-            int puntoMedioX = (a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
-            int puntoMedioY = (a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
+            int puntx = (a.getoffset());
+            int punty = 0;
+            if(puntx == 20){
+                System.out.println("entro");
+                punty += 20;
+
+            } if(puntx == 10){
+                punty -= 30;
+            }
+
+
+
+            int puntoMedioX = punty +(a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
+            int puntoMedioY = punty +(a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
             Route ruta = a.getRoutCon();
 
             g2d.setPaint(a.getColour());
             g2d.setStroke(a.getLineF());
+            g2d.drawString(ruta.getTransport().getName() , puntoMedioX + 20, puntoMedioY + 10);
             g2d.drawString(ruta.getIdRoute() + " [km]", puntoMedioX + 20, puntoMedioY + 20);
             g2d.drawString(ruta.getCost() + " [Tn]", puntoMedioX + 20, puntoMedioY + 33);
             g2d.drawString(ruta.getDuration() + " [min]", puntoMedioX + 20, puntoMedioY + 46);
@@ -264,10 +277,18 @@ public class GrafoPanel extends JPanel {
         this.updateEdge();
         RouteManager rm = RouteManager.getInstance();
 
+        //creo una lista de rutas por si ya existe una entre las mismas estaciones, para poder visualizar ambas
+        ArrayList<Route> listRouteaux = new ArrayList<>();
         for(ArrayList<Station> s : bestRoutes){
+
             for (int i = 0; i < s.size() - 1; i++) {
-                Route r = rm.getRoute(s.get(i), s.get(i+1));
-                this.updateColourE(this.getEdge(r), r.getTransport().getColour());
+
+                listRouteaux = rm.getListRoutes(s.get(i), s.get(i+1));
+                 for(Route r : listRouteaux){
+                     System.out.println("COLORES RUTAS A PINTA de" + r.getOrigin().getName() + " a " + r.getDestination().getName() + " " + r.getTransport().getColour() + " id " + r.getIdRoute());
+                     this.updateColourE(this.getEdge(r), r.getTransport().getColour());
+                 }
+
             }
 
         }

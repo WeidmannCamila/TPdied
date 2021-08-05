@@ -3,6 +3,7 @@ package main.java.DAO;
 import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 import main.java.classes.Constants;
+import main.java.classes.ListGlobalStation;
 import main.java.classes.Station;
 
 import java.sql.*;
@@ -89,6 +90,10 @@ public class StationDAO {
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.station WHERE idStation = ? ;");
             st.setInt(1, deleteS.getIdStation());
 
+            ListGlobalStation lgc = ListGlobalStation.getInstance();
+            lgc.deleteStation(deleteS);
+
+
             st.close();
 
         } catch (SQLException e) {
@@ -147,9 +152,9 @@ public class StationDAO {
             rs = st.executeQuery();
 
             while(rs.next()) {
-                EnumStatus e = EnumStatus.valueOf(rs.getString("status"));
 
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, e, null);
+
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("closingTime"), rs.getString("status"), null);
 
                 stations.add(station);
             }
@@ -185,7 +190,12 @@ public class StationDAO {
             st.setString(2, s.getName());
             st.setString(3, s.getOpen());
             st.setString(4, s.getClouse());
-            st.setBoolean(5, false /*s.getStatus()*/);
+            st.setString(5, s.getStatus());
+
+            ListGlobalStation ls = ListGlobalStation.getInstance();
+            Station s1 = this.getStation(s.getIdStation());
+            ls.addStation(s1);
+
             st.executeUpdate();
             st.close();
 
@@ -219,7 +229,7 @@ public class StationDAO {
             rs = st.executeQuery();
 
             while(rs.next()) {
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, null, null);
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("closingTime"), rs.getString("status"), null);
                 stations.put(station.getIdStation(), station);
             }
 

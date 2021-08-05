@@ -4,9 +4,11 @@ import main.java.DTOs.DTOTicket;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
 import main.java.Managers.TicketManager;
+import main.java.Managers.TransportManager;
 import main.java.classes.ListRoute;
 import main.java.classes.Station;
 import main.java.classes.Ticket;
+import main.java.classes.TransportRoute;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -32,8 +34,9 @@ public class GrafoGUI {
     private GrafoPanel grafoPanel = GrafoPanel.getInstance();
     private Boolean aux = false;
     public ListRoute listRoute;
-    static TicketManager tm = TicketManager.getInstance();
-    static RouteManager rm = RouteManager.getInstance();
+    public TicketManager tm = TicketManager.getInstance();
+    public RouteManager rm = RouteManager.getInstance();
+    public TransportManager ttm = TransportManager.getInstance();
     ArrayList<ArrayList<Station>> bestRoute;
     public ArrayList<ListRoute> listPaths = new ArrayList<>();
 
@@ -260,18 +263,9 @@ public class GrafoGUI {
         panel.add(panel_scrlpn, gbc_panel_12);
 
 
-      /*  GridBagLayout gbl_panel_1 = new GridBagLayout();
-        gbl_panel_1.columnWidths = new int[] { 30, 0, 0 };
-        gbl_panel_1.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        gbl_panel_1.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-        gbl_panel_1.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-        panel_scrlpn.setLayout(gbl_panel_1);*/
 
+        // Panel para el grafo
 
-
-        // ------------------------------------------------------------------------------------------------
-        // Panel para visualización
-        // ------------------------------------------------------------------------------------------------
         GridBagConstraints gbc_panel_91 = new GridBagConstraints();
         gbc_panel_91.gridwidth = 3;
         gbc_panel_91.gridheight = 4;
@@ -297,6 +291,11 @@ public class GrafoGUI {
 
     private void RefreshBuyTicket(ListRoute routes, String name, String email) {
 
+        ticketGUI graf = new ticketGUI(routes, name, email);
+        graf.frameTicket.setVisible(true);
+        graf.setAnterior(GrafoGUI.this.frameGrafo);
+
+
         //TODO guardar fecha del ticket!!
         Date t = new Date();
       //  tm.createTicket(listRoute, name, email, t.setDate());
@@ -304,25 +303,13 @@ public class GrafoGUI {
         JDialog jDialog =new JDialog(frameGrafo, "TICKET DE SU RECORRIDO",
                 Dialog.ModalityType.DOCUMENT_MODAL);
 
-        JPanel contentPane;
+
+        JPanel contentPane= new JPanel();;
         jDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jDialog.setResizable(false);
         jDialog.setMinimumSize(new Dimension(400, 300));
-        jDialog.setBounds(10, 10, 450, 475);
+        jDialog.setBounds(100, 100, 450, 475);
 
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(2, 2, 2, 2));
-        jDialog.setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout(0, 0));
-
-        JPanel panel = new JPanel();
-
-        GridBagLayout gbl_panel = new GridBagLayout();
-        gbl_panel.columnWidths = new int[] { 300 };
-        gbl_panel.rowHeights = new int[] { 400};
-        gbl_panel.columnWeights = new double[] { 0 };
-        gbl_panel.rowWeights = new double[] { 0 };
-        panel.setLayout(gbl_panel);
 
         DefaultListModel<String> dataList = new DefaultListModel<String>();
 
@@ -343,18 +330,35 @@ public class GrafoGUI {
         dataList.addElement("DURACION DEL RECORRIDO: " + routes.getTotalDuration());
 
 
+
         JList<String> infoTicket = new JList<String>(dataList);
         GridBagConstraints GBCInfo = new GridBagConstraints();
-        GBCInfo.fill= GridBagConstraints.RELATIVE;
+
+        GBCInfo.anchor = GridBagConstraints.CENTER;
         GBCInfo.insets = new Insets(0, 0, 0, 0);
-        GBCInfo.gridwidth = 2;
-
         GBCInfo.gridx = 0;
-        GBCInfo.gridy = 0;
-        infoTicket.setFixedCellWidth(400);
-        infoTicket.setFixedCellHeight(10);
-        panel.add(new JScrollPane(infoTicket), GBCInfo);
+        GBCInfo.gridy = 1;
+        infoTicket.setFixedCellWidth(200);
 
+        contentPane.add(new JScrollPane(infoTicket), GBCInfo);
+
+       /* JPanel contentPane;
+        jDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jDialog.setResizable(false);
+        jDialog.setMinimumSize(new Dimension(400, 300));
+        jDialog.setBounds(100, 100, 450, 475);
+
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(2, 2, 2, 2));
+        jDialog.setContentPane(contentPane);
+        contentPane.setLayout(new BorderLayout(1, 1));
+
+        JPanel panel = new JPanel();
+
+
+
+        panel.add(new JScrollPane(infoTicket), GBCInfo);
+*/
         jDialog.setVisible(true);
 
     }

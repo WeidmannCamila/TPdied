@@ -144,10 +144,30 @@ public class StationDAO {
     }
 
     public void updateStation(DTOStation dto){
-        //buscar la estacion con id luego hacer un update
+        Connection con = null;
+        ResultSet rs = null;
+        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
+        final String user = "hshhreor";
+        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+        try {
+            con = DriverManager.getConnection(url, user, pass);
+            Statement updateId = con.createStatement();
 
+            updateId.executeUpdate("UPDATE tp_died.station SET nameStation = '" + dto.getName() + "' WHERE idStation = " + dto.getIdStation() + ";");
+            updateId.executeUpdate("UPDATE tp_died.station SET status = '" + dto.getStatus() + "' WHERE idStation = " + dto.getIdStation() + ";");
 
-        System.out.println("actualizar. holi");
+        } catch (Exception var12) {
+            System.out.println(var12.getMessage());
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception var11) {
+                    System.out.println(var11.getMessage());
+                }
+            }
+
+        }
     }
     //obtiene todas las estaciones de la BD
     public static ArrayList<Station> getStations(){
@@ -164,8 +184,6 @@ public class StationDAO {
             conexion = DriverManager.getConnection(url, user, pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
             rs = st.executeQuery();
-
-
 
             while(rs.next()) {
                 EnumStatus e = EnumStatus.valueOf(rs.getString("status"));
@@ -194,17 +212,8 @@ public class StationDAO {
         }
         return stations;
     }
-    //obtener una estacion por el id
-    /*
-    public ArrayList<DTOStation> getStationById(Integer id){
-        return ;
-    }
-    */
 
-    /*public BinarySearchTree<> getStation4name() {
 
-    }
-*/
     public void addStation (DTOStation s){
         Connection conexion = null;
         final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";

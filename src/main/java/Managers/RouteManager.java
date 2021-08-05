@@ -41,7 +41,7 @@ public class RouteManager {
 
     public ArrayList<Route> getListRoutesFromDao() {
         this.listRoutes = rDAO.getRoutes();
-     //   System.out.println("EN list route DAOO" + listRoutes.get(1).getDistance());
+        System.out.println("EN list route DAOO" + listRoutes.get(1).getStatus());
         return listRoutes;
     }
 
@@ -116,7 +116,7 @@ public class RouteManager {
 
 
         }
-        System.out.println("tamaño en  menor distancia" + resultado.size());
+
 
         grafoPanel.paintRoutes(resultadoaux);
         grafoPanel.repaint();
@@ -128,11 +128,11 @@ public class RouteManager {
    // por cada lista de estaciones, tengo q obtener la ruta de ellas y calcular por atributo
 
     private  ArrayList<ArrayList<Station>> shortest(ArrayList<ArrayList<Station>> listpathss, ArrayList<ArrayList<Station>> resultado) {
-       // System.out.println("entra a shortest");
+
         Double distance = Double.MAX_VALUE;
         ArrayList<ArrayList<Station>> shortroute = new  ArrayList<>();
         ArrayList<Double> minim = new ArrayList<>();
-       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa " + listpathss.size());
+
         // [inic, estaciones, fin]
         for(ArrayList<Station> cs : listpathss) {
 
@@ -147,10 +147,9 @@ public class RouteManager {
 
         resultado.add(listpathss.get(i));
         listpathss.remove(listpathss.get(i));
-       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa 2 " + listpathss.size());
+
         if(!listpathss.isEmpty()){    shortest(listpathss, resultado);}
 
-       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + shortroute.size());
         return resultado;
 
 
@@ -165,8 +164,7 @@ public class RouteManager {
         for (int i =0; i< cs.size()-1 ; i++) {
 
             ro = getRoute(cs.get(i), cs.get(i+1));
-           // System.out.println("ROUTEEEE"+ ro.getIdRoute());
-         //   System.out.println("ROUTEEEE"+ ro.getDistance());
+
             distanceAux += ro.getDistance();
 
         }
@@ -306,7 +304,6 @@ public class RouteManager {
      */
     public ArrayList<ArrayList<Station>> paths(Station start, Station end) {
 
-      //  System.out.println("start y en de paths " + start.getIdStation() + " " + end.getIdStation());
         ArrayList<ArrayList<Station>> listpaths = new ArrayList<ArrayList<Station>>();
         ArrayList markedStations = new ArrayList();
 
@@ -321,6 +318,7 @@ public class RouteManager {
     /*
         tina el nodo inical y va buscando sus adyacentes, agregandolo hasta encontrar el nodo final
         si encuentra agrega esa lista a la lista de caminos y continua con su busqueda.
+        tambien se encarga de verficar si la estacion esta en mantenimiento o no
      */
     private void searchPaths(Station start, Station end, ArrayList markedStations, ArrayList<ArrayList<Station>> listpaths) {
       // System.out.println("ESTADO DE LA ESTACIOOOOOOON" + start.getStatus() );
@@ -331,13 +329,12 @@ public class RouteManager {
         for(Station s : adjacentStations){
             marked = (ArrayList<Station>) markedStations.stream().collect(Collectors.toList());
 
-            if(s.getStatus() == EnumStatus.MANTENIMIENTO){
-                break;
-            } else {
+            if(s.getStatus() == EnumStatus.MANTENIMIENTO){}
+            else {
                 if (end.getIdStation() == s.getIdStation()) {
                     marked.add(s);
                     listpaths.add(new ArrayList<Station>(marked));
-                    System.out.println("ENCONTRO CAMINO " + listpaths.toString());
+
 
                 } else {
                     if (!marked.contains(s)) {

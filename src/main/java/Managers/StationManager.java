@@ -29,27 +29,18 @@ public class StationManager {
     }
 
 
+    //funciona para la lista global
     public HashMap<Integer, Station> getListStations() {
 
         this.listStation = sDAO.getStationsV();
 
-
-        System.out.println("LISTA DE ESTACIONES DE LA BDD" + listStation.get(1) + listStation.get(2));
         return listStation;
     }
 
 
-    public static ArrayList<DTOStation> search(Integer idStation, String name, String openingTime, String closingTime, String status, List<Maintenance> maintenanceHistory) {
-        DTOStation station = new DTOStation(idStation, name, openingTime, closingTime, status);
-
-        ArrayList<DTOStation> listas = StationDAO.searchStation(station);
-
-        return listas;
-    }
-
-    public static ArrayList<DTOStation> search4name(DTOStation s) {
+    public ArrayList<DTOStation> searchStation(DTOStation s) {
         System.out.println("entro a seacrh 4 name");
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
+        ArrayList<DTOStation> listas = sDAO.searchStationWithAtribute(s);
         return listas;
     }
 
@@ -98,7 +89,7 @@ public class StationManager {
 
     }
     public void deleteStation(DTOStation s ){
-        StationDAO.deleteStation(s);
+        sDAO.deleteStation(s);
     }
 
     //buscar estacion por nombre o id

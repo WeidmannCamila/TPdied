@@ -1,6 +1,7 @@
 package main.java.DAO;
 
 import main.java.DTOs.DTOMaintenance;
+import main.java.classes.Constants;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,13 +14,11 @@ public class MaintenanceDAO {
         ArrayList<DTOMaintenance> maintenances = new ArrayList();
         Connection con = null;
         ResultSet resultado = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            con = DriverManager.getConnection(url, user, pass);
-            System.out.println("El id de la estacion es : " + estacionParametro);
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+
 
             PreparedStatement st = con.prepareStatement("SELECT idMaintenance, description, startDate, endDate  FROM tp_died.maintenance WHERE idStation = ? ;");
             st.setInt(1, estacionParametro);

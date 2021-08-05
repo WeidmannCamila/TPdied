@@ -2,6 +2,7 @@ package main.java.DAO;
 
 import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
+import main.java.classes.Constants;
 import main.java.classes.Station;
 
 import java.sql.*;
@@ -14,54 +15,16 @@ public class StationDAO {
     public StationDAO() {
     }
 
-    public static ArrayList<DTOStation> searchStation(DTOStation station) {
-        ArrayList<DTOStation> stations = new ArrayList<>();
-        Connection conexion = null;
-        ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
 
-        try {
-            //String consulta = ArmarConsultaBuscar(station);
-            conexion = DriverManager.getConnection(url, user, pass);
-            PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;");
-            rs = st.executeQuery();
-
-            while(rs.next()) {
-
-                DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-                stations.add(station1);
-
-            }
-
-            st.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-        }finally{
-            if(conexion!= null){
-                try{
-                    conexion.close();
-                }catch(Exception e1){
-                    System.out.println(e1.getMessage());
-                }
-            }
-        }
-
-        return stations;
-    }
 
     public static ArrayList<DTOStation> searchStationWithAtribute (DTOStation station){
         ArrayList<DTOStation> estaciones = new ArrayList<>();
         Connection conexion = null;
         ResultSet rs = null;
 
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
 
         try {
-            conexion = DriverManager.getConnection( url, user, pass);
+            conexion = DriverManager.getConnection( Constants.url, Constants.user, Constants.pass);
             //pregunto si el filtro es por id
             if(station.getIdStation()!=null) {
                 PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, status, openingTime, closingTime FROM tp_died.station WHERE idStation= ?;");
@@ -119,12 +82,10 @@ public class StationDAO {
     public static void deleteStation(DTOStation deleteS){
         Connection con = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try{
-            con = DriverManager.getConnection(url, user, pass);
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.station WHERE idStation = ? ;");
             st.setInt(1, deleteS.getIdStation());
             st.executeUpdate();
@@ -150,11 +111,9 @@ public class StationDAO {
     public void updateStation(DTOStation dto){
         Connection con = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
         try {
-            con = DriverManager.getConnection(url, user, pass);
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             Statement updateId = con.createStatement();
 
             updateId.executeUpdate("UPDATE tp_died.station SET nameStation = '" + dto.getName() + "' WHERE idStation = " + dto.getIdStation() + ";");
@@ -180,12 +139,10 @@ public class StationDAO {
 
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
             rs = st.executeQuery();
 
@@ -220,12 +177,10 @@ public class StationDAO {
 
     public void addStation (DTOStation s){
         Connection conexion = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.station (idStation, name, openingTime, closingTime, status ) VALUES (?, ?, ?, ?, ?);" ) ;
             st.setInt(1, s.getIdStation());
             st.setString(2, s.getName());
@@ -250,19 +205,17 @@ public class StationDAO {
         }
     }
 
-    //para traer las estaciones en forma de vertex
+    //funciona para la lista global
     public static HashMap<Integer, Station> getStationsV(){
 
         HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
 
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
             rs = st.executeQuery();
 

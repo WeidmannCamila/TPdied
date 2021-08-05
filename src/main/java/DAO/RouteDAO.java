@@ -4,6 +4,7 @@ import com.sun.jdi.connect.Transport;
 import main.java.DTOs.DTORoute;
 import main.java.DTOs.DTOStation;
 import main.java.DTOs.DTOTransport;
+import main.java.classes.Constants;
 import main.java.classes.Route;
 import main.java.classes.Station;
 import main.java.classes.TransportRoute;
@@ -27,12 +28,10 @@ public class RouteDAO {
         Route route= new Route();
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection( url, user, pass);
+            conexion = DriverManager.getConnection( Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.route WHERE idStationOrigin= ? AND idStationDestination = ?;");
             st.setInt(1,station.getIdStation());
             st.setInt(2,station1.getIdStation());
@@ -71,12 +70,10 @@ public class RouteDAO {
 
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.route;" ) ;
             rs = st.executeQuery();
             TransportRoute transport = new TransportRoute();

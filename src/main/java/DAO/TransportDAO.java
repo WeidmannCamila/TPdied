@@ -2,6 +2,7 @@ package main.java.DAO;
 
 
 import main.java.DTOs.DTOTransport;
+import main.java.classes.Constants;
 import main.java.classes.TransportRoute;
 
 import java.awt.*;
@@ -16,12 +17,10 @@ public class TransportDAO {
 
     public void addTransport(DTOTransport T) {
         Connection conexion = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.transport_route (idTransport, name, colour, status) VALUES (? , ?, ?,?);");
             st.setInt(1, T.getIdTransport());
             st.setString(2, T.getName());
@@ -49,12 +48,10 @@ public class TransportDAO {
     public static void deleteTransport(DTOTransport deleteT) {
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("DELETE FROM tp_died.transport_route WHERE idTransport = ? ;");
             st.setInt(1, deleteT.getIdTransport());
             st.executeUpdate();
@@ -90,11 +87,9 @@ public class TransportDAO {
         ArrayList<TransportRoute> transportes = new ArrayList<>();
         Connection conexion = null;
         ResultSet resultado = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route;");
             resultado = st.executeQuery();
             System.out.println(resultado.toString());
@@ -128,12 +123,8 @@ public class TransportDAO {
         Connection conexion = null;
         ResultSet rs = null;
 
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
-
         try {
-            conexion = DriverManager.getConnection( url, user, pass);
+            conexion = DriverManager.getConnection( Constants.url, Constants.user, Constants.pass);
             //pregunto si el filtro es por id
             if(t.getIdTransport()!=null) {
                 PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE idTransport= ?;");
@@ -223,12 +214,10 @@ public class TransportDAO {
         TransportRoute transport = new TransportRoute();
         Connection conexion = null;
         ResultSet resultado = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route where idTransport = ? ;");
             st.setInt(1, id);
             resultado = st.executeQuery();

@@ -249,7 +249,7 @@ public class GrafoGUI {
 
                 listRoute = new ListRoute(s.get(0),s.get(s.size()-1), distance, duration, cost, aux);
 
-                 listPaths.add(listRoute);
+                listPaths.add(listRoute);
             }
             refreshRutaTable(listPaths);
             buyTicketbutton.setVisible(true);

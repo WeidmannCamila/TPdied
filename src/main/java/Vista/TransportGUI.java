@@ -4,9 +4,12 @@ import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 
 import main.java.Managers.TransportManager;
+import main.java.classes.ListGlobalTransport;
+import main.java.classes.TransportRoute;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -29,13 +32,14 @@ public class TransportGUI {
     private JScrollPane tableTransporte;
     private TransportDAO transportDAO = new TransportDAO();
     public JFrame frameTransport;
-
+    private TransportManager tm = TransportManager.getInstance();
     private JFrame anterior;
+    ListGlobalTransport lt = ListGlobalTransport.getInstance();
 
 
     public TransportGUI() {
         this.initialize();
-
+        this.tableInit();
     }
 
 
@@ -74,11 +78,19 @@ public class TransportGUI {
 
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                TransportEditGUI te = new TransportEditGUI();
-                te.setAnterior(TransportGUI.this.anterior);
-                te.frameTransportEdit.setVisible(true);
+                int indice = TransportGUI.this.table.getSelectedRow();
+                if (indice == -1) {
+                    JOptionPane.showMessageDialog(null, "Seleccione una transport para editar.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
 
+                } else {
 
+                    TransportEditGUI te = new TransportEditGUI(Integer.parseInt(TransportGUI.this.table.getModel().getValueAt(indice, 0).toString()));
+                    te.setAnterior(TransportGUI.this.anterior);
+                    te.frameTransportEdit.setLocationRelativeTo(null);
+                    te.frameTransportEdit.setVisible(true);
+
+                }
 
             }
         });
@@ -88,23 +100,14 @@ public class TransportGUI {
             public void actionPerformed(ActionEvent e) {
                 int indice = TransportGUI.this.table.getSelectedRow();
                 if (indice == -1) {
-                   // AlertPanel a= new AlertPanel(EnumTipoAlerta.ERROR, "error", "eerror con", "eeee", null );
-                  //  a.frame.setVisible(true);
-                  //  JOptionPane.showMessageDialog(frameTransport,"Error" , "Failure", JOptionPane.ERROR_MESSAGE);
-                   /* Aviso_ERROR error = new Aviso_ERROR("Seleccionar un camino.");
-                    error.frameTransport.setLocationRelativeTo((Component)null);
-                    error.frameTransport.setVisible(true);*/
+                    JOptionPane.showMessageDialog(null, "Seleccione una estacion para eliminar.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 } else {
                     deleteTransport();
                     JOptionPane.showMessageDialog(frameTransport,"Estacion eliminada" , "Failure", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-                    /*
-                    Aviso_Confirmacion msj = new Aviso_Confirmacion("Esta seguro de eliminar el camino?");
-                    msj.setAnterior(TransportGUI.this.a);
-                    msj.frameTransport.setLocationRelativeTo((Component)null);
-                    msj.frameTransport.setVisible(true);*/
-                }
+            }
 
 
         });
@@ -116,28 +119,27 @@ public class TransportGUI {
             public void actionPerformed(ActionEvent e) {
                 String param = textTransport.getText();
 
-                TransportManager tm = new TransportManager();
                 switch (CBsearchTransport.getSelectedIndex()){
                     case 0: {
                         //busqueda por id
                         Integer id = Integer.parseInt(param);
                         transportParam.setIdTransport(id);
-                        ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);
+                        /*ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
+                        updateTabla(result);*/
                         break;
                     }
                     case 1:{
                         //busca por nombre
                         transportParam.setName(param);
-                        ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);
+                      /*  ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
+                        updateTabla(result);*/
                         break;
                     }
                     case 2:{
                         //busca por color
                         transportParam.setColour(param);
-                        ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);
+                     /*   ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
+                        updateTabla(result);*/
                         break;
                     }
                     case 3:{
@@ -148,12 +150,14 @@ public class TransportGUI {
                         if(CBStatus.getSelectedIndex()==1){
                             transportParam.setStatus(false);
                         }
-                        ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);
+                      /*  ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
+                        updateTabla(result);*/
                         break;
                     }
                     default:
                 }
+                ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
+                updateTabla(result);
 
             }
         });
@@ -188,6 +192,7 @@ public class TransportGUI {
         DTOTransport deleteT = new DTOTransport();
         deleteT.setIdTransport(id);
         TransportManager.deleteTransportRoute(deleteT);
+        table.repaint();
 
     }
 
@@ -212,6 +217,29 @@ public class TransportGUI {
         table.setModel(t);
 
     }
+    public void tableInit(){
+        String [] atributos = {"ID", "Nombre", "Color", "Estado"};
+        DefaultTableModel model = (DefaultTableModel)this.table.getModel();
+        model.setRowCount(0);
+        ArrayList<TransportRoute> listT = this.lt.getList();
+        for(TransportRoute t: listT){
+            Integer id = t.getIdTransport();
+            String name= t.getName();
+            Paint color = t.getColour();
+            String estado = null;
+            if(t.isStatus()){
+                estado= "Activa";
+            }else{
+                estado= "No Activa";
+            }
+            Object[] datos = {id, name, color, estado};
+            model.addRow(datos);
+
+        }
+    }
+
+
+
 
     public void setAnterior(JFrame a) {
         this.anterior = a;

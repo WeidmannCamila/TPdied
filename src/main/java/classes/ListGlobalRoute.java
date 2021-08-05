@@ -9,12 +9,12 @@ import java.util.HashMap;
 public class ListGlobalRoute implements Comparable<ListGlobalRoute> {
 
 
-    private ArrayList<Route> listss;
+    private ArrayList<Route> listsR;
     private static ListGlobalRoute listS;
 
 
-    public ListGlobalRoute(ArrayList<Route> listss) {
-        this.listss = listss;
+    public ListGlobalRoute(ArrayList<Route> listsR) {
+        this.listsR= listsR;
     }
 
 
@@ -28,7 +28,7 @@ public class ListGlobalRoute implements Comparable<ListGlobalRoute> {
 
     public ArrayList<Route> getList() {
 
-        return listss;
+        return listsR;
 
     }
 

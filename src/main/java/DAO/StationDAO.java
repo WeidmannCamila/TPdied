@@ -88,7 +88,7 @@ public class StationDAO {
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.station WHERE idStation = ? ;");
             st.setInt(1, deleteS.getIdStation());
-            st.executeUpdate();
+
             st.close();
 
         } catch (SQLException e) {
@@ -155,7 +155,6 @@ public class StationDAO {
             }
 
 
-            st.executeUpdate();
             st.close();
 
         } catch (SQLException e) {
@@ -224,8 +223,6 @@ public class StationDAO {
                 stations.put(station.getIdStation(), station);
             }
 
-
-            st.executeUpdate();
             st.close();
 
         } catch (SQLException e) {

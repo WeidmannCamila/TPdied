@@ -68,7 +68,7 @@ public class StationAddGUI {
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
 
-                    if(sm.getStation(stationId.getText()) == null && sm.getStation(stationName.getText()) == null){
+                    if(sm.getStation(stationId.getText()) != null && sm.getStation(stationName.getText()) != null){
                         JOptionPane.showMessageDialog(null, "La estacion ya existe",
                                 "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                     }else {

@@ -145,23 +145,12 @@ public class StationGUI extends JPanel{
                        }
                        estacionParametro.setIdStation(id);
 
-                     /*  ArrayList<DTOStation> result = sm.searchStation(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }*/
                        break;
                    }
                    case 1: {
                        //se buscar por nombre
                        estacionParametro.setName(param);
-                      /* ArrayList<DTOStation> result = sm.searchStation(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }*/
+
                        int id = table.getSelectedRow();
                        break;
                    }
@@ -174,34 +163,19 @@ public class StationGUI extends JPanel{
                        if(CBstatus.getSelectedIndex()==2){
                            estacionParametro.setStatus("MANTENIMIENTO");
                        }
-                     /*  ArrayList<DTOStation> result = sm.searchStation(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }*/
+
                        break;
                    }
                    case 3: {
                        String fechaApertura = HourOpenTField.getText()+ ":" + MinuteOpenTField.getText();
                        estacionParametro.setOpen(fechaApertura);
-                      /* ArrayList<DTOStation> result = sm.searchStation(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }*/
+
                        break;
                    }
                    case 4:{
                        String fechaCierre = HourClosedTField.getText()+ ":" + MinuteClosedTField.getText();
                        estacionParametro.setOpen(fechaCierre);
-                      /* ArrayList<DTOStation> result = sm.searchStation(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                        showStationListEmpty();
-                       }*/
+
                        break;
                     }
                    default:

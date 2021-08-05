@@ -19,9 +19,38 @@ public class RouteDAO {
     StationDAO daoS = new StationDAO();
 
     public void addRoute(DTORoute dto) {
+        Connection conexion = null;
+
+
+        try {
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.route (origin, destination, distance, duration, maxPassagers, status, cost) VALUES (? , ?, ?,?,?,?,?);");
+
+            st.setString(1, dto.getOrigin().getName());
+            st.setString(2, dto.getDestination().getName());
+            st.setDouble(3, dto.getDistance());
+            st.setDouble(4, dto.getDuration());
+            st.setInt(5, dto.getMaxPassagers());
+            st.setBoolean(6, dto.isStatus());
+            st.setDouble(7, dto.getCost());
+
+            st.close();
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (Exception e1) {
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
     }
 
-    //busca ruta
+    /*busca ruta
     public Route searchRoute(Station station, Station station1) {
 
 
@@ -63,7 +92,7 @@ public class RouteDAO {
 
 
         return route;
-    }
+    }*/
 
     public ArrayList<Route> getRoutes() {
         ArrayList routes = new ArrayList();
@@ -93,8 +122,6 @@ public class RouteDAO {
                 routes.add(route);
             }
 
-
-            st.executeUpdate();
             st.close();
 
         } catch (SQLException e) {

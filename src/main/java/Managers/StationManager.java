@@ -5,10 +5,9 @@ import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
-import main.java.classes.ListGlobalStation;
-import main.java.classes.Maintenance;
-import main.java.classes.Station;
+import main.java.classes.*;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,22 +43,18 @@ public class StationManager {
         return listas;
     }
 
-    public static ArrayList<DTOStation> search4id(DTOStation s) {
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
-        return listas;
-    }
 
-    public static ArrayList<DTOStation> search4status(DTOStation s) {
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
-        return listas;
-    }
+    public void deleteStationObject(DTOStation s) {
+        // busco las rutas que tengan esta estacion y poder eliminarlas tambien
+        ArrayList<Route> aux = rm.getListRoutes();
+        for(Route r : aux){
+            if(r.getOrigin().getIdStation().equals(s.getIdStation()) || r.getDestination().getIdStation().equals(r.getIdRoute())){
+                rm.deleteRoute(r);
+                ListGlobalRoute lr= ListGlobalRoute.getInstance();
+                lr.deleteRoute(r);
+            }
+        }
 
-    public static ArrayList<DTOStation> search4hours(DTOStation s) {
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
-        return listas;
-    }
-
-    public static void deleteStationObject(DTOStation s) {
         StationDAO.deleteStation(s);
     }
 

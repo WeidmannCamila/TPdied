@@ -157,4 +157,31 @@ public class RouteDAO {
     }
 
 
+    public void deleteRoute(Route r) {
+        Connection con = null;
+        ResultSet rs = null;
+
+
+        try{
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.route WHERE idRoute = ? ;");
+            st.setInt(1, r.getIdRoute());
+
+
+
+
+            st.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally{
+            if(con!= null){
+                try{
+                    con.close();
+                }catch(Exception e1){
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
+    }
 }

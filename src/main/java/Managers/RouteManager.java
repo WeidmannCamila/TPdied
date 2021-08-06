@@ -384,4 +384,8 @@ public class RouteManager {
 
         return adjacents;
     }
+
+    public void deleteRoute(Route r) {
+        rDAO.deleteRoute(r);
+    }
 }

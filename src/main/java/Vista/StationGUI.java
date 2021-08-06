@@ -43,7 +43,7 @@ public class StationGUI extends JPanel{
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
     private JFrame anterior;
-
+    public StationManager sm = StationManager.getInstance();
 
     public StationGUI() {
         this.initialize();
@@ -62,7 +62,7 @@ public class StationGUI extends JPanel{
         this.MinuteOpenTField.setEditable(false);
         this.HourClosedTField.setEditable(false);
         this.MinuteClosedTField.setEditable(false);
-        StationManager sm = StationManager.getInstance();
+
         // Añadir estacion
 
         addStationButton.addActionListener(new ActionListener() {
@@ -101,7 +101,11 @@ public class StationGUI extends JPanel{
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 } else {
                     int id = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
-                    deleteStation(id);
+                    int resp=  JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar? Considere que se quitaran las rutas a dicha estacion");
+                    if(JOptionPane.OK_OPTION == resp){
+                        deleteStation(id);
+                    }
+
                 }
 
             }
@@ -302,7 +306,7 @@ public class StationGUI extends JPanel{
         DTOStation deleteS = new DTOStation();
 
         deleteS.setIdStation(id);
-        StationManager.deleteStationObject(deleteS);
+        sm.deleteStationObject(deleteS);
         JOptionPane.showMessageDialog(null, "Se ha eliminado la estacion",
                 "EXITO", JOptionPane.INFORMATION_MESSAGE);
         table.repaint();

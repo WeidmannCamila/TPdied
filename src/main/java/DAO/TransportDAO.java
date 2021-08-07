@@ -95,10 +95,7 @@ public class TransportDAO {
             updateId.executeUpdate("UPDATE tp_died.transport_route SET status = '" + dto.getStatus() + "' WHERE idTransport = " + dto.getIdTransport() + ";");
 
 
-            TransportRoute t = this.getTransport(dto.getIdTransport());
 
-            ListGlobalTransport lgc = ListGlobalTransport.getInstance();
-            lgc.editTransport(t);
 
         } catch (Exception var12) {
             System.out.println(var12.getMessage());

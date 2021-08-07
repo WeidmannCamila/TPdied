@@ -47,9 +47,15 @@ public class TransportGUI {
         this.frameTransport = new JFrame();
 
         this.frameTransport.setContentPane(panel1);
+        this.frameTransport.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameTransport.setBounds(10, 10, 1200, 720);
         this.frameTransport.setResizable(false);
+        this.frameTransport.setLocationRelativeTo(null);
+
         this.CBStatus.setVisible(false);
+        this.textTransport.setVisible(false);
+
+
 
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -65,7 +71,7 @@ public class TransportGUI {
         addTransportButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 TransportAddGUI tadd = new TransportAddGUI();
-                tadd.setAnterior(TransportGUI.this.anterior);
+                tadd.setAnterior(TransportGUI.this.frameTransport);
                 tadd.frameTransportAdd.setVisible(true);
 
 
@@ -86,9 +92,11 @@ public class TransportGUI {
                 } else {
 
                     TransportEditGUI te = new TransportEditGUI(Integer.parseInt(TransportGUI.this.table.getModel().getValueAt(indice, 0).toString()));
-                    te.setAnterior(TransportGUI.this.anterior);
+                    te.setAnterior(TransportGUI.this.frameTransport);
                     te.frameTransportEdit.setLocationRelativeTo(null);
                     te.frameTransportEdit.setVisible(true);
+
+                    frameTransport.dispose();
 
                 }
 
@@ -112,9 +120,14 @@ public class TransportGUI {
 
         });
         //busqueda de transportes
+
+        String[] estado = {"--seleccionar--", "Activa" , "No activa"};
+        CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
+
         String[] atributosTransporte = {"Id", "Nombre", "Color", "Estado"};
         CBsearchTransport.setModel(new DefaultComboBoxModel<String>(atributosTransporte));
         DTOTransport transportParam = new DTOTransport();
+
         buscarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String param = textTransport.getText();
@@ -124,34 +137,31 @@ public class TransportGUI {
                         //busqueda por id
                         Integer id = Integer.parseInt(param);
                         transportParam.setIdTransport(id);
-                        /*ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);*/
+
                         break;
                     }
                     case 1:{
                         //busca por nombre
                         transportParam.setName(param);
-                      /*  ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);*/
+
                         break;
                     }
                     case 2:{
                         //busca por color
                         transportParam.setColour(param);
-                     /*   ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);*/
+
                         break;
                     }
                     case 3:{
                         //busca por estado de linea
-                        if(CBStatus.getSelectedIndex()==0){
+
+                        if(CBStatus.getSelectedIndex()==1){
                             transportParam.setStatus(true);
                         }
-                        if(CBStatus.getSelectedIndex()==1){
+                        if(CBStatus.getSelectedIndex()==2){
                             transportParam.setStatus(false);
                         }
-                      /*  ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                        updateTabla(result);*/
+
                         break;
                     }
                     default:
@@ -166,19 +176,16 @@ public class TransportGUI {
             public void actionPerformed(ActionEvent e) {
                 String[] estado = {"--seleccionar--", "Activa" , "No activa"};
                 CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
-                //si el filtro por estado es seleecionado mostrar el CB del filtro por estado, sino ocultarlo
+
                 if(CBsearchTransport.getSelectedIndex()==3){
+                    textTransport.setVisible(false);
                     CBStatus.setVisible(true);
                 }else
                 if(CBsearchTransport.getSelectedIndex()!=3){
                     CBStatus.setVisible(false);
+                    textTransport.setVisible(true);
                 }
-                if(CBStatus.getSelectedIndex()==1){
-                    transportParam.setStatus(true);
-                }
-                if(CBStatus.getSelectedIndex()==2){
-                    transportParam.setStatus(false);
-                }
+
             }
         });
 

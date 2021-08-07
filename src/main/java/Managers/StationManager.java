@@ -5,6 +5,9 @@ import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
+import main.java.Vista.GrafoGUI;
+import main.java.Vista.GrafoPanel;
+import main.java.Vista.ViewVertex;
 import main.java.classes.*;
 
 import java.awt.image.AreaAveragingScaleFilter;
@@ -19,6 +22,7 @@ public class StationManager {
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
     private HashMap<Integer, Station> listStation = new HashMap<Integer, Station>();
+    private GrafoPanel grafopanel = GrafoPanel.getInstance();
 
     public StationManager() {
     }
@@ -111,6 +115,25 @@ public class StationManager {
     }
 
     public void updateStation(DTOStation dto) {
+
+        ListGlobalStation ls = ListGlobalStation.getInstance();
+
+        Station s = this.getStation(dto.getIdStation());
+
+        s.setName(dto.getName());
+
+        if(!dto.getStatus().equals(s.getStatus())){
+
+            if(dto.getStatus().equals("MANTENIMIENTO")){
+                rm.editRoute(false, s);
+
+            }else { rm.editRoute(true, s);}
+
+
+        }
+        ls.editStation(s);
+
+
         sDAO.updateStation(dto);
     }
 }

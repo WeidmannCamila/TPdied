@@ -46,7 +46,7 @@ public class HomeGUI{
         this.framePrincipal = new JFrame();
         this.framePrincipal.setContentPane(panel1);
         this.framePrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.framePrincipal.setBounds(10, 10, 1200, 720);
+        this.framePrincipal.setBounds(100, 100, 1200, 720);
         this.framePrincipal.setResizable(false);
 
         // boton para ir a la seccion de transporte

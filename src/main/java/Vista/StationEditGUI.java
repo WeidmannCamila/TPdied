@@ -8,6 +8,7 @@ import main.java.Managers.StationManager;
 import main.java.classes.Station;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -43,20 +44,25 @@ public class StationEditGUI {
         this.frameStationEdit.setContentPane(panel1);
         this.frameStationEdit.setBounds(10, 10, 1200, 720);
         this.frameStationEdit.setResizable(false);
+        this.frameStationEdit.setLocationRelativeTo(null);
 
-        this.stationId.setText(stationToEdit.getIdStation().toString());
+
         this.stationName.setText(stationToEdit.getName());
 
-        statusCB.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
+        String[] estado = {stationToEdit.getStatus() ,"--seleccionar--","OPERATIVA", "MANTENIMIENTO"} ;
+        statusCB.setModel(new DefaultComboBoxModel<String>(estado));
 
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                    if(stationName.getText() != null && stationId.getText() != null){
-                        System.out.println("ESTACION VACIOAAA?" + Integer.parseInt(stationId.getText()));
-                        dto.setIdStation(Integer.parseInt(stationId.getText()));
+                    if(stationName.getText() != null && statusCB.getSelectedIndex() !=0){
+
+                        dto.setIdStation(stationToEdit.getIdStation());
                         dto.setName(stationName.getText());
+
+
                         dto.setStatus(statusCB.getSelectedItem().toString());
+                        System.out.println("ESTADO 1: " + dto.getStatus());
                         sm.updateStation(dto);
                         JOptionPane.showMessageDialog(null, "Estacion  actualizada.",
                                 "EXITO", JOptionPane.INFORMATION_MESSAGE);

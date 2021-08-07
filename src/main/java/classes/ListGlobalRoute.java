@@ -44,10 +44,22 @@ public class ListGlobalRoute implements Comparable<ListGlobalRoute> {
         this.listsR.add(t);
     }
 
+    public void editRoute(Boolean status, Route r) {
 
+        for(Route r1 : this.listsR){
+            if(r1.getIdRoute().equals(r.getIdRoute())){
+                System.out.println("ESTADO EN LIST GLOBAR " + status + " estado antes de laruta " + r1.getStatus());
+                r1.setStatus(status);
+                System.out.println("ESTADO DESPUES E LA RUT " + r1.getStatus());
+            }
+        }
+
+    }
 
     @Override
     public int compareTo(ListGlobalRoute o) {
         return 0;
     }
+
+
 }

@@ -4,6 +4,7 @@ import main.java.DAO.TransportDAO;
 import main.java.DTOs.DTOTransport;
 import main.java.Enumeration.EnumColour;
 import main.java.Managers.TransportManager;
+import main.java.classes.ListGlobalTransport;
 import main.java.classes.Station;
 import main.java.classes.TransportRoute;
 
@@ -44,8 +45,10 @@ public class TransportEditGUI {
 
         this.frameTransportEdit = new JFrame();
         this.frameTransportEdit.setContentPane(panel1);
+        this.frameTransportEdit.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameTransportEdit.setBounds(10, 10, 1200, 720);
         this.frameTransportEdit.setResizable(false);
+        this.frameTransportEdit.setLocationRelativeTo(null);
 
         this.transportName.setText(transportToEdit.getName());
 
@@ -78,7 +81,7 @@ public class TransportEditGUI {
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
                     //dto.setIdTransport(Integer.parseInt(transportId.getText()));
-                    System.out.println("COLOR TRANPORT "+ (String) CBcolour.getSelectedItem());
+
                     dto.setIdTransport(transportToEdit.getIdTransport());
                     dto.setColour((String) CBcolour.getSelectedItem());
                     dto.setName(transportName.getText());
@@ -86,11 +89,13 @@ public class TransportEditGUI {
                     if(statusCB.getSelectedIndex() ==1){
                         stat= true;
                     } else { stat= false;}
+                    System.out.println("STATUS EDITAR "+ stat);
                     dto.setStatus(stat);
 
                     tm.updateTransport(dto);
                     JOptionPane.showMessageDialog(null, "Transporte actualizado.",
                             "EXITO", JOptionPane.INFORMATION_MESSAGE);
+
                     TransportEditGUI.this.anterior.setVisible(true);
                     TransportEditGUI.this.frameTransportEdit.dispose();
                 }

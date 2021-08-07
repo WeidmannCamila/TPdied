@@ -42,7 +42,10 @@ public class TransportAddGUI {
         this.frameTransportAdd = new JFrame();
 
         this.frameTransportAdd.setContentPane(panel1);
+        this.frameTransportAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameTransportAdd.setBounds(10, 10, 1200, 720);
+        this.frameTransportAdd.setLocationRelativeTo(null);
+
         this.frameTransportAdd.setResizable(false);
         this.statusBotton = new ButtonGroup();
         statusBotton.add(noActivaRadioButton);

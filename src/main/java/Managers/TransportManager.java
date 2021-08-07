@@ -43,6 +43,15 @@ public class TransportManager {
     }
 
     public void updateTransport(DTOTransport dto) {
+        TransportRoute t = this.getTransport(dto.getIdTransport());
+        t.setIdTransport(dto.getIdTransport());
+        t.setStatus(dto.getStatus());
+        t.setName(dto.getName());
+        t.setColour(t.getColour());
+
+        ListGlobalTransport lgc = ListGlobalTransport.getInstance();
+        lgc.editTransport(t);
+
         tDAO.updateTransport(dto);
     }
 

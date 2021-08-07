@@ -40,11 +40,14 @@ public class ListGlobalTransport implements Comparable<ListGlobalTransport>{
     }
 
     public void editTransport(TransportRoute t){
+
         for(TransportRoute t1 : this.listsT){
             if(t1.getIdTransport().equals(t.getIdTransport())){
                 t1.setColour(t.getColour());
                 t1.setName(t.getName());
+                System.out.println("ESTADO DEL TRASPORTE ANTESSS" + t1.isStatus());
                 t1.setStatus(t.isStatus());
+                System.out.println("ESTADO DEL TRASPORTE DESPUESSS" + t1.isStatus());
             }
         }
     }

@@ -42,8 +42,11 @@ public class StationAddGUI {
         this.frameStationAdd = new JFrame();
 
         this.frameStationAdd.setContentPane(panel1);
+        this.frameStationAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameStationAdd.setBounds(10, 10, 1200, 720);
         this.frameStationAdd.setResizable(false);
+        this.frameStationAdd.setLocationRelativeTo(null);
+
 
 
 

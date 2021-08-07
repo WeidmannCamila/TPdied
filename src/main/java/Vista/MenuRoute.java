@@ -25,6 +25,9 @@ public class MenuRoute {
         this.frameMenuRoute.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameMenuRoute.setBounds(10, 10, 1200, 720);
         this.frameMenuRoute.setResizable(false);
+        this.frameMenuRoute.setLocationRelativeTo(null);
+
+
 
         // Rutas, trayectos posibles
         queTrayectoPuedoTomarButton.addActionListener(new ActionListener() {

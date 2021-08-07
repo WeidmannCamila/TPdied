@@ -197,7 +197,7 @@ public class GrafoPanel extends JPanel {
         return false;
     }
 
-    private ViewVertex getVertex(Station s) {
+    public ViewVertex getVertex(Station s) {
 
         ViewVertex l= this.vertices.stream().filter((v) ->
             v.getStationV().getName().equals(s.getName())
@@ -225,9 +225,6 @@ public class GrafoPanel extends JPanel {
 
     private void drawVertices(Graphics g2d) {
         for (ViewVertex v : this.getVertices()) {
-
-
-
             g2d.setColor((Color) v.getColour());
             g2d.fillOval(v.getCoordX(), v.getCoordY(), v.RADIO, v.RADIO);
 
@@ -245,15 +242,12 @@ public class GrafoPanel extends JPanel {
             int puntx = (a.getoffset());
             int punty = 0;
             if(puntx == 20){
-                System.out.println("entro");
+
                 punty += 20;
 
             } if(puntx == 10){
                 punty -= 30;
             }
-
-
-
             int puntoMedioX = punty +(a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
             int puntoMedioY = punty +(a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
             Route ruta = a.getRoutCon();
@@ -285,7 +279,7 @@ public class GrafoPanel extends JPanel {
 
                 listRouteaux = rm.getListRoutes(s.get(i), s.get(i+1));
                  for(Route r : listRouteaux){
-                     System.out.println("COLORES RUTAS A PINTA de" + r.getOrigin().getName() + " a " + r.getDestination().getName() + " " + r.getTransport().getColour() + " id " + r.getIdRoute());
+
                      this.updateColourE(this.getEdge(r), r.getTransport().getColour());
                  }
 
@@ -305,6 +299,12 @@ public class GrafoPanel extends JPanel {
     private void updateColourE(ViewEdges edge, Paint c) {
         edge.setColour(c);
         edge.update();
+
+    }
+
+    public void updateColourV(ViewVertex vertex, Paint c) {
+        vertex.setColour(c);
+        vertex.update();
 
     }
 

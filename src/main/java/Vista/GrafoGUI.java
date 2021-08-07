@@ -38,7 +38,8 @@ public class GrafoGUI {
     public ArrayList<ListRoute> listPaths = new ArrayList<>();
 
     public GrafoGUI(ArrayList<ArrayList<Station>> bestRoute) {
-        System.out.println("ENTRA AL CONSTRUCTOR Y BEST ROUTE ES" + bestRoute.size());
+
+
         this.initialize(bestRoute);
         this.bestRoute =bestRoute;
         this.aux = true;
@@ -56,6 +57,8 @@ public class GrafoGUI {
         this.frameGrafo = new JFrame();
         this.frameGrafo.setBounds(100, 100, 1250, 720);
         this.frameGrafo.setResizable(false);
+        this.frameGrafo.setLocationRelativeTo(null);
+
 
         JPanel panelView = new JPanel();
         frameGrafo.getContentPane().add(panelView);
@@ -92,6 +95,7 @@ public class GrafoGUI {
 
 
             for(ArrayList<Station> s : bestRoute){
+
                 Double distance = rm.distanceTotalRoute(s);
                 Double duration = rm.durationTotalRoute(s);
                 Double cost = rm.costTotalRoute(s);

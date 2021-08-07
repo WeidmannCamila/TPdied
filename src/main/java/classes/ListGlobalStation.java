@@ -42,12 +42,24 @@ public class ListGlobalStation implements Comparable<ListGlobalStation>{
         this.listss.put(s.getIdStation(), s);
     }
 
+    public void editStation(Station s) {
+        for(Station s1: this.listss.values()){
+            if(s1.getIdStation().equals(s.getIdStation())){
+                s1.setName(s.getName());
+                s1.setStatus(s.getStatus());
 
+            }
+
+        }
+
+
+    }
 
     @Override
     public int compareTo(ListGlobalStation o) {
         return 0;
     }
+
 
 
 }

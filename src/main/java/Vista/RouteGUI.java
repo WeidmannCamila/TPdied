@@ -41,7 +41,8 @@ public class RouteGUI {
         this.frameRoute = new JFrame();
 
         this.frameRoute.setContentPane(panel1);
-        this.frameRoute.setBounds(100, 100, 1200, 720);
+        this.frameRoute.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frameRoute.setBounds(10, 10, 1200, 720);
         this.frameRoute.setResizable(false);
 
         ListGlobalStation ls = ListGlobalStation.getInstance();
@@ -116,7 +117,7 @@ public class RouteGUI {
                             String crit = CBparamSearch.getSelectedItem().toString();
 
                             ArrayList<ArrayList<Station>> bestRoute = rm.bestRoute4crit(start, end, crit);
-                            System.out.println("TAMAÑO DE BESTROUTE" + bestRoute.size());
+
                             if(bestRoute== null){
                                 JOptionPane.showMessageDialog(null, "No hay recorridos disponibles",
                                         "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);

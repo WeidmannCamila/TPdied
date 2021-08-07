@@ -54,8 +54,10 @@ public class StationGUI extends JPanel{
     private void initialize(){
         this.frameStation = new JFrame();
         this.frameStation.setContentPane(panel1);
-        this.frameStation.setBounds(100, 100, 1200, 720);
+        this.frameStation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frameStation.setBounds(10, 10, 1200, 720);
         this.frameStation.setResizable(false);
+
         this.maintenanceJPanel.setVisible(true);
         this.maintenanceJPanel.setPreferredSize(new Dimension(450,800));
         this.HourOpenTField.setEditable(false);
@@ -68,8 +70,10 @@ public class StationGUI extends JPanel{
         addStationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 StationAddGUI sadd = new StationAddGUI();
-                sadd.setAnterior(StationGUI.this.anterior);
+                sadd.setAnterior(StationGUI.this.frameStation);
                 sadd.frameStationAdd.setVisible(true);
+
+                frameStation.dispose();
             }
         });
 
@@ -84,9 +88,13 @@ public class StationGUI extends JPanel{
                 } else {
 
                     StationEditGUI te = new StationEditGUI(Integer.parseInt(StationGUI.this.table.getModel().getValueAt(indice, 0).toString()));
-                    te.setAnterior(StationGUI.this.anterior);
-                    te.frameStationEdit.setLocationRelativeTo(null);
                     te.frameStationEdit.setVisible(true);
+
+                    te.setAnterior(StationGUI.this.frameStation);
+                    te.frameStationEdit.setLocationRelativeTo(null);
+
+                    frameStation.dispose();
+
                 }
 
             }

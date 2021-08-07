@@ -49,8 +49,11 @@ public class RouteAddGUI {
         this.frameRouteAdd = new JFrame();
 
         this.frameRouteAdd.setContentPane(panel1);
+        this.frameRouteAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameRouteAdd.setBounds(10, 10, 1200, 720);
         this.frameRouteAdd.setResizable(false);
+        this.frameRouteAdd.setLocationRelativeTo(null);
+
 
 
         //buscar toda las estaciones para meter en el combobox

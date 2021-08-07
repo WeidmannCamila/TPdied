@@ -118,7 +118,7 @@ public class RouteDAO {
                 end = daoS.getStation(rs.getInt("idStationDestination"));
 
                 Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport, rs.getInt("maxPassagers"), rs.getBoolean("status"));
-
+                System.out.println("ROUTE DAAO DISTANCIA " + route.getIdRoute() + " " + route.getDistance());
                 routes.add(route);
             }
 
@@ -182,6 +182,31 @@ public class RouteDAO {
                     System.out.println(e1.getMessage());
                 }
             }
+        }
+    }
+
+    public void editRoute(Boolean estatus, Route r1) {
+        Connection con = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            Statement updateId = con.createStatement();
+
+            updateId.executeUpdate("UPDATE tp_died.route SET status = '" + estatus + "' WHERE idRoute = " + r1.getIdRoute() + ";");
+
+
+        } catch (Exception var12) {
+            System.out.println(var12.getMessage());
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception var11) {
+                    System.out.println(var11.getMessage());
+                }
+            }
+
         }
     }
 }

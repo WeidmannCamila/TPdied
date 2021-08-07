@@ -2,6 +2,7 @@ package main.java.classes;
 
 import main.java.Enumeration.EnumStatus;
 
+import java.awt.*;
 import java.util.List;
 
 public class Station {
@@ -12,6 +13,7 @@ public class Station {
     private String closingTime;
     private String status;
     private List<Maintenance> maintenanceHistory;
+    private Paint colour;
 
     //constructor
 
@@ -82,5 +84,11 @@ public class Station {
         this.maintenanceHistory = maintenanceHistory;
     }
 
+    public Paint getColour() {
+        return colour;
+    }
 
+    public void setColour(Paint colour) {
+        this.colour = colour;
+    }
 }

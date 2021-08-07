@@ -2,6 +2,7 @@ package main.java.Managers;
 
 import main.java.DAO.RouteDAO;
 import main.java.DTOs.DTORoute;
+import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 import main.java.Vista.GrafoPanel;
 import main.java.classes.ListGlobalRoute;
@@ -41,7 +42,7 @@ public class RouteManager {
 
     public ArrayList<Route> getListRoutesFromDao() {
         this.listRoutes = rDAO.getRoutes();
-        System.out.println("EN list route DAOO" + listRoutes.get(1).getStatus());
+        System.out.println("EN list route DAOO" + listRoutes.get(1).getStatus() + " nombre" + listRoutes.get(1).getIdRoute());
         return listRoutes;
     }
 
@@ -61,10 +62,13 @@ public class RouteManager {
         ArrayList<Route> aux = new ArrayList<>();
 
         for (Route r : this.getListRoutes()) {
+            System.out.println("GET LIST ROUTES" + start.getIdStation() + " " + end.getIdStation() + " estadp " + r.getStatus());
 
-            if(!r.getStatus()){
+
+            if(r.getStatus()){
 
                 if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
+                    System.out.println("ENTRA DENTRO DEL IF !RGETSTATUS " + r.getStatus() + " " + r.getIdRoute());
                     aux.add(r);
 
                 }}
@@ -77,7 +81,7 @@ public class RouteManager {
     public Route getRoute(Station start, Station end) {
         for (Route r : this.getListRoutes()) {
 
-            if(!r.getStatus()){
+            if(r.getStatus()){
 
             if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
 
@@ -183,15 +187,15 @@ public class RouteManager {
     }
 
     public Double distanceTotalRoute(ArrayList<Station> cs) {
-
+        System.out.println("DISTANCIA TAOTAL" + cs.size());
         Double distanceAux = 0.0;
 
         Route ro = new Route();
 
         for (int i =0; i< cs.size()-1 ; i++) {
-
+            System.out.println("ESTACIONES DE LA LISTA dentro for estacio una" + cs.get(i).getIdStation() + " estacon dos " + cs.get(i+1).getIdStation());
             ro = getRoute(cs.get(i), cs.get(i+1));
-
+            System.out.println("ESTACIONES DE LA LISTA encontro ruta?" + ro.getIdRoute());
             distanceAux += ro.getDistance();
 
         }
@@ -305,7 +309,7 @@ public class RouteManager {
     }
 
     private Integer flowPerPart(ArrayList<Station> cs) {
-        Route ro = new Route();
+        Route ro;
         Integer flujAux = 0;
         for (int i =0; i< cs.size()-1 ; i++) {
             ro = getRoute(cs.get(i), cs.get(i+1));
@@ -328,11 +332,6 @@ public class RouteManager {
         markedStations.add(start);
 
         searchPaths(start, end, markedStations, listpaths);
-
-
-
-
-
         return listpaths;
 
     }
@@ -345,9 +344,6 @@ public class RouteManager {
         ArrayList<Station> marked = null;
         for(Station s : adjacentStations){
             marked = (ArrayList<Station>) markedStations.stream().collect(Collectors.toList());
-
-
-
                 if (end.getIdStation().equals(s.getIdStation())) {
                     marked.add(s);
                     listpaths.add(new ArrayList<Station>(marked));
@@ -371,13 +367,16 @@ public class RouteManager {
         ArrayList<Station> adjacents = new ArrayList<>();
 
         for(Route r: this.getListRoutes() ){
-            //aca verifico que el transporte este activo y la estacion en operativa
-            if(r.getTransport().isStatus() && r.getDestination().getStatus().equals("OPERATIVA")){
+            //Se verifica que tanto la ruta como el transporte esten activo y la estacion en operativa
+
+            if(r.getStatus() && r.getTransport().isStatus() && r.getDestination().getStatus().equals("OPERATIVA")){
 
                 if(start.getIdStation().equals(r.getOrigin().getIdStation())){
+
                     adjacents.add(r.getDestination());
                 }
             }
+
 
 
         }
@@ -387,5 +386,19 @@ public class RouteManager {
 
     public void deleteRoute(Route r) {
         rDAO.deleteRoute(r);
+    }
+
+    public void editRoute(Boolean isStart, Station s) {
+
+        ListGlobalRoute lr= ListGlobalRoute.getInstance();
+        for(Route r1 : this.getListRoutes()){
+            if(r1.getOrigin().getIdStation().equals(s.getIdStation()) || r1.getDestination().getIdStation().equals(s.getIdStation())){
+                System.out.println("COMPARACION SOBRE LO Q TENGO Y LO Q QUIERO PONER ROUTEMAN" + isStart + " " + r1.getStatus());
+                rDAO.editRoute(isStart, r1);
+                lr.editRoute(isStart, r1);
+            }
+        }
+
+
     }
 }

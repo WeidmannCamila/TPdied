@@ -2,11 +2,13 @@ package main.java.DAO;
 
 
 import main.java.DTOs.DTOTransport;
-import main.java.classes.TransportRoute;
+import main.java.classes.*;
 
 import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class TransportDAO {
     public Color greenplus = new Color(22,70,32);
@@ -16,18 +18,21 @@ public class TransportDAO {
 
     public void addTransport(DTOTransport T) {
         Connection conexion = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.transport_route (idTransport, name, colour, status) VALUES (? , ?, ?,?);");
             st.setInt(1, T.getIdTransport());
             st.setString(2, T.getName());
-            st.setString(3, T.getColour());
+            st.setString(3, T.getColour().toString());
             st.setBoolean(4, T.getStatus());
             st.executeUpdate();
+
+            ListGlobalTransport lgc = ListGlobalTransport.getInstance();
+            TransportRoute t = this.getTransport(T.getIdTransport());
+            lgc.addTransport(t);
+
             st.close();
 
 
@@ -49,16 +54,18 @@ public class TransportDAO {
     public static void deleteTransport(DTOTransport deleteT) {
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("DELETE FROM tp_died.transport_route WHERE idTransport = ? ;");
             st.setInt(1, deleteT.getIdTransport());
             st.executeUpdate();
+
+            ListGlobalTransport lgc = ListGlobalTransport.getInstance();
+            lgc.deleteTransport(deleteT);
             st.close();
+
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -76,25 +83,45 @@ public class TransportDAO {
     }
 
     public void updateTransport(DTOTransport dto) {
-        System.out.println("actualizar. holi");
+        Connection con = null;
+        ResultSet rs = null;
+
+        try {
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            Statement updateId = con.createStatement();
+            System.out.println("ESTADO" + dto.getStatus());
+            updateId.executeUpdate("UPDATE tp_died.transport_route SET name = '" + dto.getName() + "' WHERE idTransport = " + dto.getIdTransport() + ";");
+            updateId.executeUpdate("UPDATE tp_died.transport_route SET colour = '" + dto.getColour() + "' WHERE idTransport = " + dto.getIdTransport() + ";");
+            updateId.executeUpdate("UPDATE tp_died.transport_route SET status = '" + dto.getStatus() + "' WHERE idTransport = " + dto.getIdTransport() + ";");
+
+
+
+
+        } catch (Exception var12) {
+            System.out.println(var12.getMessage());
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception var11) {
+                    System.out.println(var11.getMessage());
+                }
+            }
+
+        }
     }
 
 
-    public static ArrayList<DTOTransport> getTransports(DTOTransport t) {
-        ArrayList l = new ArrayList();
-        return l;
-    }
+
 
     public ArrayList<TransportRoute> getTranport() {
 
         ArrayList<TransportRoute> transportes = new ArrayList<>();
         Connection conexion = null;
         ResultSet resultado = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route;");
             resultado = st.executeQuery();
             System.out.println(resultado.toString());
@@ -123,17 +150,13 @@ public class TransportDAO {
         return transportes;
     }
 
-    public static ArrayList<DTOTransport> searchTransportByAtributte(DTOTransport t) {
+    public ArrayList<DTOTransport> searchTransportByAtributte(DTOTransport t) {
         ArrayList<DTOTransport> transportes = new ArrayList<>();
         Connection conexion = null;
         ResultSet rs = null;
 
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
-
         try {
-            conexion = DriverManager.getConnection( url, user, pass);
+            conexion = DriverManager.getConnection( Constants.url, Constants.user, Constants.pass);
             //pregunto si el filtro es por id
             if(t.getIdTransport()!=null) {
                 PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route WHERE idTransport= ?;");
@@ -158,7 +181,9 @@ public class TransportDAO {
             }
 
             while(rs.next()){
-                DTOTransport trans1 = new DTOTransport(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBoolean(4));
+                Paint c;
+                c = colourTransport(rs.getString("colour"));
+                DTOTransport trans1 = new DTOTransport(rs.getInt(1), rs.getString(2), rs.getString("colour"), rs.getBoolean(4));
                 transportes.add(trans1);
             }
             rs.close();
@@ -182,7 +207,7 @@ public class TransportDAO {
         Paint co;
 
         Color verde = new Color(100,149,237);
-        Color verdecla = new Color(173, 237, 100);
+       // Color verdecla = new Color(173, 237, 100);
 
         switch (colour){
             case "verdeAR":{
@@ -190,7 +215,7 @@ public class TransportDAO {
                 break;
             }
             case "verdeAB" : {
-                co = verdecla;
+                co = Constants.verdecla;
                 break;
             }
             case "amarillo" : {
@@ -217,44 +242,22 @@ public class TransportDAO {
     }
 
 
-    //yo llamaba la funcion lista transporte q devolvia toda la lista y desp comparaba
-    //es hacer llamadas alpedo, hacer para buscar un transporte en especifico.
-    public TransportRoute getTransport1(int id) {
-        TransportRoute transport = new TransportRoute();
-        Connection conexion = null;
-        ResultSet resultado = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
 
-        try {
-            conexion = DriverManager.getConnection(url, user, pass);
-            PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.transport_route where idTransport = ? ;");
-            st.setInt(1, id);
-            resultado = st.executeQuery();
-            while (resultado.next()) {
-                Paint c;
-                c = colourTransport(resultado.getString("colour"));
 
-                transport = new TransportRoute(resultado.getInt(1), resultado.getString(2), c, resultado.getBoolean(4));
+    public TransportRoute getTransport(int id) {
+        ListGlobalTransport lt = ListGlobalTransport.getInstance();
+        ArrayList<TransportRoute> lista = lt.getList();
+        TransportRoute resultado = null;
+        Iterator var5 = lista.iterator();
 
+        while(var5.hasNext()) {
+            TransportRoute a = (TransportRoute) var5.next();
+            if (a.getIdTransport() == id) {
+                resultado = a;
             }
-            st.close();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (Exception e1) {
-                    System.out.println(e1.getMessage());
-                }
-            }
-
         }
-        return transport;
-    }
 
+        return resultado;
+    }
 
 }

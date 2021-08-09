@@ -39,8 +39,12 @@ public class PageRankGUI {
         //Frame gui
         this.framePageRank = new JFrame();
         this.framePageRank.setContentPane(panel1);
-        this.framePageRank.setBounds(100, 100, 1200, 720);
+        this.framePageRank.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.framePageRank.setBounds(10, 10, 1200, 720);
         this.framePageRank.setResizable(false);
+        this.framePageRank.setLocationRelativeTo(null);
+
+
 
         //Carga del Combobox con la lista de estaciones
         HashMap<Integer, Station> lists =new HashMap<Integer, Station>(ls.getList());

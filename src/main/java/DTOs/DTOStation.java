@@ -1,5 +1,7 @@
 package main.java.DTOs;
 
+import java.awt.*;
+
 public class DTOStation {
 
     private Integer idStation;
@@ -7,6 +9,7 @@ public class DTOStation {
     private String open; // VER TIPO
     private String clouse;
     private String status;
+    private Paint colour;
 
 
     public DTOStation(Integer idStation, String name, String status, String open, String clouse ) {
@@ -59,5 +62,12 @@ public class DTOStation {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public Paint getColour() {
+        return colour;
+    }
+
+    public void setColour(Paint colour) {
+        this.colour = colour;
     }
 }

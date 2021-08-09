@@ -2,6 +2,7 @@ package main.java.classes;
 
 import main.java.Enumeration.EnumStatus;
 
+import java.awt.*;
 import java.util.List;
 
 public class Station {
@@ -10,12 +11,13 @@ public class Station {
     private String name;
     private String openingTime;
     private String closingTime;
-    private EnumStatus status;
+    private String status;
     private List<Maintenance> maintenanceHistory;
+    private Paint colour;
 
     //constructor
 
-    public Station(Integer idStation, String name, String openingTime, String closingTime, EnumStatus status, List<Maintenance> maintenanceHistory) {
+    public Station(Integer idStation, String name, String openingTime, String closingTime, String status, List<Maintenance> maintenanceHistory) {
         this.idStation = idStation;
         this.name = name;
         this.openingTime =  openingTime;
@@ -66,11 +68,11 @@ public class Station {
         this.closingTime =  closingTime;
     }
 
-    public EnumStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(EnumStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -82,5 +84,11 @@ public class Station {
         this.maintenanceHistory = maintenanceHistory;
     }
 
+    public Paint getColour() {
+        return colour;
+    }
 
+    public void setColour(Paint colour) {
+        this.colour = colour;
+    }
 }

@@ -1,5 +1,7 @@
 package main.java.DTOs;
 
+import java.awt.*;
+
 public class DTOTransport {
 
 

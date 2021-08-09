@@ -38,9 +38,10 @@ public class FlujoMaxGUI {
     private void initialize() {
         this.frameFluj = new JFrame();
         this.frameFluj.setContentPane(panel1);
-        this.frameFluj.setBounds(100, 100, 1200, 720);
-        this.frameFluj.setResizable(false);
 
+        this.frameFluj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frameFluj.setBounds(10, 10, 1200, 720);
+        this.frameFluj.setResizable(false);
         // Cargar combo
         HashMap<Integer, Station> lists =new HashMap<Integer, Station>(ls.getList());
         String[] array = new String[lists.size()];

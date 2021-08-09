@@ -139,18 +139,6 @@
                       <preferredSize width="78" height="40"/>
                     </properties>
                   </component>
-                  <component id="44450" class="javax.swing.JTextField" binding="stationId">
-                    <constraints>
-                      <grid row="8" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                      <gridbag top="30" left="20" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
-                    </constraints>
-                    <properties>
-                      <minimumSize width="49" height="40"/>
-                      <preferredSize width="49" height="40"/>
-                    </properties>
-                  </component>
                   <component id="57283" class="javax.swing.JLabel">
                     <constraints>
                       <grid row="0" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
@@ -179,17 +167,6 @@
                       <text value="AÑADIR"/>
                     </properties>
                   </component>
-                  <component id="34546" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-                      <gridbag top="30" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
-                    </constraints>
-                    <properties>
-                      <font size="24"/>
-                      <foreground color="-852481"/>
-                      <text value="Id"/>
-                    </properties>
-                  </component>
                   <component id="c851e" class="javax.swing.JTextField" binding="stationName">
                     <constraints>
                       <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -202,17 +179,6 @@
                       <preferredSize width="100" height="40"/>
                     </properties>
                   </component>
-                  <component id="b5b79" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                      <gridbag top="20" left="20" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
-                    </constraints>
-                    <properties>
-                      <font name="Roboto Light" size="24"/>
-                      <foreground color="-852481"/>
-                      <text value="Hs. Clau"/>
-                    </properties>
-                  </component>
                   <component id="4d036" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
                     <constraints>
                       <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="10" fill="1" indent="0" use-parent-layout="false"/>
@@ -222,10 +188,21 @@
                   </component>
                   <component id="2bd55" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
                     <constraints>
-                      <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="8" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
                       <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
                     </constraints>
                     <properties/>
+                  </component>
+                  <component id="b5b79" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <gridbag top="20" left="20" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <font name="Roboto Light" size="24"/>
+                      <foreground color="-852481"/>
+                      <text value="Hs. Clau"/>
+                    </properties>
                   </component>
                 </children>
               </grid>

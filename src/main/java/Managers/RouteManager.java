@@ -2,6 +2,7 @@ package main.java.Managers;
 
 import main.java.DAO.RouteDAO;
 import main.java.DTOs.DTORoute;
+import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 import main.java.Vista.GrafoPanel;
 import main.java.classes.ListGlobalRoute;
@@ -41,7 +42,7 @@ public class RouteManager {
 
     public ArrayList<Route> getListRoutesFromDao() {
         this.listRoutes = rDAO.getRoutes();
-     //   System.out.println("EN list route DAOO" + listRoutes.get(1).getDistance());
+        System.out.println("EN list route DAOO" + listRoutes.get(1).getStatus() + " nombre" + listRoutes.get(1).getIdRoute());
         return listRoutes;
     }
 
@@ -56,10 +57,31 @@ public class RouteManager {
         return l;
     }
 
+
+    public ArrayList<Route> getListRoutes(Station start, Station end){
+        ArrayList<Route> aux = new ArrayList<>();
+
+        for (Route r : this.getListRoutes()) {
+            System.out.println("GET LIST ROUTES" + start.getIdStation() + " " + end.getIdStation() + " estadp " + r.getStatus());
+
+
+            if(r.getStatus()){
+
+                if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
+                    System.out.println("ENTRA DENTRO DEL IF !RGETSTATUS " + r.getStatus() + " " + r.getIdRoute());
+                    aux.add(r);
+
+                }}
+
+        }
+        return aux;
+    }
+
+
     public Route getRoute(Station start, Station end) {
         for (Route r : this.getListRoutes()) {
 
-            if(!r.getStatus()){
+            if(r.getStatus()){
 
             if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
 
@@ -91,8 +113,10 @@ public class RouteManager {
 
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
+
         ArrayList<ArrayList<Station>> resultadoaux = new  ArrayList<ArrayList<Station>>();
         ArrayList<ArrayList<Station>> resultado = new  ArrayList<ArrayList<Station>>();
+        if(listpaths.size() != 0){
          switch(crit){
 
             case "MAS_BARATO": {
@@ -113,13 +137,23 @@ public class RouteManager {
                  resultadoaux= listpaths;
                 break;
              }
-
+             default:{
+                 break;
+             }
 
         }
-        System.out.println("tamaño en  menor distancia" + resultado.size());
+            System.out.println("TAMAÑO RESULTADOAUX " + resultadoaux.size());
 
-        grafoPanel.paintRoutes(resultadoaux);
-        grafoPanel.repaint();
+            grafoPanel.paintRoutes(resultadoaux);
+            grafoPanel.repaint();
+
+        }
+        else{
+            resultadoaux= null;
+        }
+
+
+
 
         return resultadoaux;
     }
@@ -128,17 +162,15 @@ public class RouteManager {
    // por cada lista de estaciones, tengo q obtener la ruta de ellas y calcular por atributo
 
     private  ArrayList<ArrayList<Station>> shortest(ArrayList<ArrayList<Station>> listpathss, ArrayList<ArrayList<Station>> resultado) {
-       // System.out.println("entra a shortest");
+
         Double distance = Double.MAX_VALUE;
         ArrayList<ArrayList<Station>> shortroute = new  ArrayList<>();
         ArrayList<Double> minim = new ArrayList<>();
-       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa " + listpathss.size());
+
         // [inic, estaciones, fin]
         for(ArrayList<Station> cs : listpathss) {
 
             Double distanceAux = distanceTotalRoute(cs);
-
-
             minim.add(distanceAux);
 
         }
@@ -147,26 +179,23 @@ public class RouteManager {
 
         resultado.add(listpathss.get(i));
         listpathss.remove(listpathss.get(i));
-       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO listpa 2 " + listpathss.size());
+
         if(!listpathss.isEmpty()){    shortest(listpathss, resultado);}
 
-       // System.out.println("TAMAÑOOOOOOOOOOOOOOOOOOOOOOOOOOOOO " + shortroute.size());
+
         return resultado;
-
-
     }
 
     public Double distanceTotalRoute(ArrayList<Station> cs) {
-
+        System.out.println("DISTANCIA TAOTAL" + cs.size());
         Double distanceAux = 0.0;
 
         Route ro = new Route();
 
         for (int i =0; i< cs.size()-1 ; i++) {
-
+            System.out.println("ESTACIONES DE LA LISTA dentro for estacio una" + cs.get(i).getIdStation() + " estacon dos " + cs.get(i+1).getIdStation());
             ro = getRoute(cs.get(i), cs.get(i+1));
-           // System.out.println("ROUTEEEE"+ ro.getIdRoute());
-         //   System.out.println("ROUTEEEE"+ ro.getDistance());
+            System.out.println("ESTACIONES DE LA LISTA encontro ruta?" + ro.getIdRoute());
             distanceAux += ro.getDistance();
 
         }
@@ -252,10 +281,6 @@ public class RouteManager {
         return costeAux;
     }
 
-
-
-
-
     public List<String> flujoMax(Station start, Station end){
 
         ArrayList<ArrayList<Station>> listRoutesFlujo = this.paths(start, end);
@@ -284,7 +309,7 @@ public class RouteManager {
     }
 
     private Integer flowPerPart(ArrayList<Station> cs) {
-        Route ro = new Route();
+        Route ro;
         Integer flujAux = 0;
         for (int i =0; i< cs.size()-1 ; i++) {
             ro = getRoute(cs.get(i), cs.get(i+1));
@@ -299,45 +324,30 @@ public class RouteManager {
     }
 
 
-    /*
-        Busca todos los caminos que existen desde inicio a fin. usando una lista que tiene uns lista de rutas
-        usa la lsita de marcados para ir agregando y formando cada uno de los treyectos
-        no es lo mismo q el start y el end de route
-     */
     public ArrayList<ArrayList<Station>> paths(Station start, Station end) {
 
-      //  System.out.println("start y en de paths " + start.getIdStation() + " " + end.getIdStation());
         ArrayList<ArrayList<Station>> listpaths = new ArrayList<ArrayList<Station>>();
         ArrayList markedStations = new ArrayList();
 
         markedStations.add(start);
 
         searchPaths(start, end, markedStations, listpaths);
-
         return listpaths;
 
     }
 
-    /*
-        tina el nodo inical y va buscando sus adyacentes, agregandolo hasta encontrar el nodo final
-        si encuentra agrega esa lista a la lista de caminos y continua con su busqueda.
-     */
-    private void searchPaths(Station start, Station end, ArrayList markedStations, ArrayList<ArrayList<Station>> listpaths) {
-      // System.out.println("ESTADO DE LA ESTACIOOOOOOON" + start.getStatus() );
-        ArrayList<Station> adjacentStations = this.getAdjacentStations(start);
-       // System.out.println("adyacentes:" + adjacentStations.size());
-        ArrayList<Station> marked = null;
 
+    private void searchPaths(Station start, Station end, ArrayList markedStations, ArrayList<ArrayList<Station>> listpaths) {
+
+        ArrayList<Station> adjacentStations = this.getAdjacentStations(start);
+
+        ArrayList<Station> marked = null;
         for(Station s : adjacentStations){
             marked = (ArrayList<Station>) markedStations.stream().collect(Collectors.toList());
-
-            if(s.getStatus() == EnumStatus.MANTENIMIENTO){
-                break;
-            } else {
-                if (end.getIdStation() == s.getIdStation()) {
+                if (end.getIdStation().equals(s.getIdStation())) {
                     marked.add(s);
                     listpaths.add(new ArrayList<Station>(marked));
-                    System.out.println("ENCONTRO CAMINO " + listpaths.toString());
+
 
                 } else {
                     if (!marked.contains(s)) {
@@ -345,8 +355,8 @@ public class RouteManager {
                         this.searchPaths(s, end, marked, listpaths);
                     }
 
+
                 }
-            }
 
         }
 
@@ -356,17 +366,39 @@ public class RouteManager {
     private ArrayList<Station> getAdjacentStations(Station start) {
         ArrayList<Station> adjacents = new ArrayList<>();
 
-    // System.out.println("estamos en adyacentes " + this.getListRoutes().size());
-      //  System.out.println("start:" + start.getIdStation());
         for(Route r: this.getListRoutes() ){
+            //Se verifica que tanto la ruta como el transporte esten activo y la estacion en operativa
 
+            if(r.getStatus() && r.getTransport().isStatus() && r.getDestination().getStatus().equals("OPERATIVA")){
 
-            if(start.getIdStation() == r.getOrigin().getIdStation()){
-              //  System.out.println("agrego el " + r.getDestination().getIdStation());
-                adjacents.add(r.getDestination());
+                if(start.getIdStation().equals(r.getOrigin().getIdStation())){
+
+                    adjacents.add(r.getDestination());
+                }
             }
+
+
+
         }
 
         return adjacents;
+    }
+
+    public void deleteRoute(Route r) {
+        rDAO.deleteRoute(r);
+    }
+
+    public void editRoute(Boolean isStart, Station s) {
+
+        ListGlobalRoute lr= ListGlobalRoute.getInstance();
+        for(Route r1 : this.getListRoutes()){
+            if(r1.getOrigin().getIdStation().equals(s.getIdStation()) || r1.getDestination().getIdStation().equals(s.getIdStation())){
+                System.out.println("COMPARACION SOBRE LO Q TENGO Y LO Q QUIERO PONER ROUTEMAN" + isStart + " " + r1.getStatus());
+                rDAO.editRoute(isStart, r1);
+                lr.editRoute(isStart, r1);
+            }
+        }
+
+
     }
 }

@@ -6,6 +6,7 @@ import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 
 
+import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
 
 import javax.swing.*;
@@ -42,7 +43,7 @@ public class StationGUI extends JPanel{
     private StationDAO stationDAO = new StationDAO();
     public JFrame frameStation;
     private JFrame anterior;
-
+    public StationManager sm = StationManager.getInstance();
 
     public StationGUI() {
         this.initialize();
@@ -53,8 +54,10 @@ public class StationGUI extends JPanel{
     private void initialize(){
         this.frameStation = new JFrame();
         this.frameStation.setContentPane(panel1);
-        this.frameStation.setBounds(100, 100, 1200, 720);
+        this.frameStation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frameStation.setBounds(10, 10, 1200, 720);
         this.frameStation.setResizable(false);
+
         this.maintenanceJPanel.setVisible(true);
         this.maintenanceJPanel.setPreferredSize(new Dimension(450,800));
         this.HourOpenTField.setEditable(false);
@@ -67,8 +70,10 @@ public class StationGUI extends JPanel{
         addStationButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 StationAddGUI sadd = new StationAddGUI();
-                sadd.setAnterior(StationGUI.this.anterior);
+                sadd.setAnterior(StationGUI.this.frameStation);
                 sadd.frameStationAdd.setVisible(true);
+
+                frameStation.dispose();
             }
         });
 
@@ -83,9 +88,13 @@ public class StationGUI extends JPanel{
                 } else {
 
                     StationEditGUI te = new StationEditGUI(Integer.parseInt(StationGUI.this.table.getModel().getValueAt(indice, 0).toString()));
-                    te.setAnterior(StationGUI.this.anterior);
-                    te.frameStationEdit.setLocationRelativeTo(null);
                     te.frameStationEdit.setVisible(true);
+
+                    te.setAnterior(StationGUI.this.frameStation);
+                    te.frameStationEdit.setLocationRelativeTo(null);
+
+                    frameStation.dispose();
+
                 }
 
             }
@@ -100,7 +109,11 @@ public class StationGUI extends JPanel{
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 } else {
                     int id = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
-                    deleteStation(id);
+                    int resp=  JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar? Considere que se quitaran las rutas a dicha estacion");
+                    if(JOptionPane.OK_OPTION == resp){
+                        deleteStation(id);
+                    }
+
                 }
 
             }
@@ -131,8 +144,8 @@ public class StationGUI extends JPanel{
                estacionParametro.setStatus(null);
                estacionParametro.setName(null);
                estacionParametro.setIdStation(null);
-
-              switch (CBsearch.getSelectedIndex()){
+               ArrayList<DTOStation> result = new ArrayList<>();
+               switch (CBsearch.getSelectedIndex()){
                    case 0:{
                        // por id
                        Integer id;
@@ -143,23 +156,13 @@ public class StationGUI extends JPanel{
                            return;
                        }
                        estacionParametro.setIdStation(id);
-                       ArrayList<DTOStation> result = StationManager.search4id(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }
+
                        break;
                    }
                    case 1: {
                        //se buscar por nombre
                        estacionParametro.setName(param);
-                       ArrayList<DTOStation> result = StationManager.search4name(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }
+
                        int id = table.getSelectedRow();
                        break;
                    }
@@ -172,39 +175,29 @@ public class StationGUI extends JPanel{
                        if(CBstatus.getSelectedIndex()==2){
                            estacionParametro.setStatus("MANTENIMIENTO");
                        }
-                       ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }
+
                        break;
                    }
                    case 3: {
                        String fechaApertura = HourOpenTField.getText()+ ":" + MinuteOpenTField.getText();
                        estacionParametro.setOpen(fechaApertura);
-                       ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                           showStationListEmpty();
-                       }
+
                        break;
                    }
                    case 4:{
                        String fechaCierre = HourClosedTField.getText()+ ":" + MinuteClosedTField.getText();
                        estacionParametro.setOpen(fechaCierre);
-                       ArrayList<DTOStation> result = StationManager.search4hours(estacionParametro);
-                       if(result.size()>0){
-                           updateTable(result);
-                       }else{
-                        showStationListEmpty();
-                       }
+
                        break;
                     }
                    default:
                }
-
+               result = sm.searchStation(estacionParametro);
+               if(result.size()>0){
+                   updateTable(result);
+               }else{
+                   showStationListEmpty();
+               }
            }
        });
 
@@ -214,7 +207,7 @@ public class StationGUI extends JPanel{
         verHistorialDeMantenimientosButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int id= (int) table.getModel().getValueAt(table.getSelectedRow(),0);
-                //System.out.println("EL id de la estacion es : "+ id);
+
                 //llamar al dao para buscar la estacion y luego crear un mantenimiento y setearle la estacion
                 ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(id);
                 if(mantenimientos.size()>0){
@@ -268,7 +261,7 @@ public class StationGUI extends JPanel{
                 if(CBstatus.getSelectedIndex()==2){
                     estacionParametro.setStatus("MANTENIMIENTO");
                 }
-                ArrayList<DTOStation> result = StationManager.search4status(estacionParametro);
+                ArrayList<DTOStation> result = sm.searchStation(estacionParametro);
                 updateTable(result);
             }
         });
@@ -317,15 +310,16 @@ public class StationGUI extends JPanel{
     private void deleteStation(int id) {
 
         int selected = table.getSelectedRow();
-        System.out.println("El indice de la tabla es " +selected );
-        DTOStation deleteS = new DTOStation();
-        System.out.println("El id de la estacion es " + id);
-        deleteS.setIdStation(id);
-        StationManager.deleteStationObject(deleteS);
 
-        /*
-       TODO una vez borrada la estacion hacer una funcion que limpie/actualice la tabla
-        */
+        DTOStation deleteS = new DTOStation();
+
+        deleteS.setIdStation(id);
+        sm.deleteStationObject(deleteS);
+        JOptionPane.showMessageDialog(null, "Se ha eliminado la estacion",
+                "EXITO", JOptionPane.INFORMATION_MESSAGE);
+        table.repaint();
+
+
     }
 
     public String crearFecha(String hora, String minuto){

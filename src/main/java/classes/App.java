@@ -15,6 +15,7 @@ public class App {
 
         ListGlobalTransport listT = ListGlobalTransport.getInstance();
         ListGlobalStation listS = ListGlobalStation.getInstance();
+        ListGlobalRoute listR = ListGlobalRoute.getInstance();
 
        // Color myBlue = new Color(25,25,112);
        // final Constant Color myBlue = new Color(25,25,112);

@@ -1,5 +1,6 @@
 package main.java.DAO;
 
+import main.java.classes.Constants;
 import main.java.classes.ListRoute;
 
 import java.sql.*;
@@ -11,12 +12,10 @@ public class TicketDAO {
 
     public void addTicket(ListRoute listRoute, String nameuser, String email, Timestamp date) {
         Connection conexion = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.ticket (name , emailClient , dateTicket, nameOriginStation, nameDestinationStation, cost ) VALUES (? , ?, ?,?);");
             st.setString(1, nameuser);
             st.setString(2, email);

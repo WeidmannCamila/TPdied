@@ -33,7 +33,9 @@ public class GrafoPanel extends JPanel {
 
  GrafoPanel(){this.initialize();}
 
+
     private void initialize() {
+        //permite mover el vertice
         this.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 ViewVertex v = nodePressed(e.getPoint());
@@ -76,14 +78,13 @@ public class GrafoPanel extends JPanel {
     }
 
 
-
     private void updateVertex(ViewVertex v, Point nuevo) {
-
         v.setCoordX(nuevo.x);
         v.setCoordY(nuevo.y);
         v.update();
         repaint();
     }
+
     public void updateRoutes() {
         Iterator var2 = this.edges.iterator();
 
@@ -96,14 +97,11 @@ public class GrafoPanel extends JPanel {
     }
 
 
-
-
     public void initVertex(HashMap<Integer, Station> list) {
 
         this.vertices.clear();
         int posY = 10;
         int posX= 10;
-
         int aux = 0;
 
 
@@ -113,38 +111,37 @@ public class GrafoPanel extends JPanel {
 
             switch (aux%6){
                 case 0: {
-                    posX =150;
+                    posX =100;
                     break;
                 }
                 case 1: {
-                    posX=300;
-                    break;
-                }
-                case 2:{
-                    posX=200;
-                    break;
-                }
-                case 3: {
                     posX=400;
                     break;
                 }
+                case 2:{
+                    posX=210;
+                    break;
+                }
+                case 3: {
+                    posX=600;
+                    break;
+                }
                 case 4: {
-                    posX=350;
+                    posX=300;
                     break;
                 }
                 case 5: {
-                    posX=250;
+                    posX=500;
                     break;
                 }
 
             }
 
-
             ViewVertex vx = new ViewVertex(posX, posY, s);
             vx.setId(s.getIdStation());
             vx.setName(s.getName());
             vertices.add(vx);
-           posY +=55;
+            posY +=55;
 
         }
 
@@ -156,15 +153,11 @@ public class GrafoPanel extends JPanel {
 
         edges.clear();
         ArrayList<Route> aux = new ArrayList<>();
-
-
-
         for (Route r : listRoutes) {
             ViewVertex VertexStart = this.getVertex(r.getOrigin());
             ViewVertex VertexEnd = this.getVertex(r.getDestination());
             ViewEdges e;
             int offset=0;
-            Paint c;
             if (TwoRoutesSameStartEnd(r, listRoutes)) {
                 Route routeaux = new Route(r.getIdRoute(), r.getOrigin(), r.getDestination());
 
@@ -182,12 +175,10 @@ public class GrafoPanel extends JPanel {
             } else {
 
                 offset = VertexEnd.RADIO/2;
-
-
             }
 
             e = new ViewEdges(VertexStart, VertexEnd, r, r.getTransport().getColour(), offset);
-            System.out.println("COLOOOR GRAFO PANL" + e.getColour());
+
             edges.add(e);
 
         }
@@ -206,7 +197,7 @@ public class GrafoPanel extends JPanel {
         return false;
     }
 
-    private ViewVertex getVertex(Station s) {
+    public ViewVertex getVertex(Station s) {
 
         ViewVertex l= this.vertices.stream().filter((v) ->
             v.getStationV().getName().equals(s.getName())
@@ -234,21 +225,12 @@ public class GrafoPanel extends JPanel {
 
     private void drawVertices(Graphics g2d) {
         for (ViewVertex v : this.getVertices()) {
-
-
-
             g2d.setColor((Color) v.getColour());
             g2d.fillOval(v.getCoordX(), v.getCoordY(), v.RADIO, v.RADIO);
 
             g2d.setFont(new Font("Serif", Font.BOLD, 15));
             g2d.setColor(Color.WHITE);
-
-
             g2d.drawString(v.info(), v.getCoordX()+8, v.getCoordY()+15);
-
-
-
-
 
 
         }
@@ -257,12 +239,22 @@ public class GrafoPanel extends JPanel {
 
     private void drawEdges(Graphics2D g2d) {
         for (ViewEdges a : this.getEdges()) {
-            int puntoMedioX = (a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
-            int puntoMedioY = (a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
+            int puntx = (a.getoffset());
+            int punty = 0;
+            if(puntx == 20){
+
+                punty += 20;
+
+            } if(puntx == 10){
+                punty -= 30;
+            }
+            int puntoMedioX = punty +(a.getStart().getCoordX() + a.getEnd().getCoordX()) / 2;
+            int puntoMedioY = punty +(a.getStart().getCoordY() + a.getEnd().getCoordY()) / 2;
             Route ruta = a.getRoutCon();
 
             g2d.setPaint(a.getColour());
             g2d.setStroke(a.getLineF());
+            g2d.drawString(ruta.getTransport().getName() , puntoMedioX + 20, puntoMedioY + 10);
             g2d.drawString(ruta.getIdRoute() + " [km]", puntoMedioX + 20, puntoMedioY + 20);
             g2d.drawString(ruta.getCost() + " [Tn]", puntoMedioX + 20, puntoMedioY + 33);
             g2d.drawString(ruta.getDuration() + " [min]", puntoMedioX + 20, puntoMedioY + 46);
@@ -279,14 +271,18 @@ public class GrafoPanel extends JPanel {
         this.updateEdge();
         RouteManager rm = RouteManager.getInstance();
 
+        //creo una lista de rutas por si ya existe una entre las mismas estaciones, para poder visualizar ambas
+        ArrayList<Route> listRouteaux = new ArrayList<>();
         for(ArrayList<Station> s : bestRoutes){
 
-
-
             for (int i = 0; i < s.size() - 1; i++) {
-                Route r = rDAO.searchRoute(s.get(i), s.get(i+1));
 
-                this.updateColourE(this.getEdge(r), r.getTransport().getColour());
+                listRouteaux = rm.getListRoutes(s.get(i), s.get(i+1));
+                 for(Route r : listRouteaux){
+
+                     this.updateColourE(this.getEdge(r), r.getTransport().getColour());
+                 }
+
             }
 
         }
@@ -306,12 +302,15 @@ public class GrafoPanel extends JPanel {
 
     }
 
+    public void updateColourV(ViewVertex vertex, Paint c) {
+        vertex.setColour(c);
+        vertex.update();
+
+    }
+
     private ViewEdges getEdge(Route r) {
-
         for(ViewEdges e: this.edges){
-
             if(e.getRoutCon().getIdRoute().equals(r.getIdRoute())){
-              //  System.out.println("entra el if");
                 return e;
             }
         }
@@ -386,7 +385,7 @@ public class GrafoPanel extends JPanel {
                 }
                 // PR(A) = (1-D)+D * (PRi/C)
                 Double TotalPageR = 0.5 + 0.5 * PRA;
-                System.out.println("imprimir page ra" + TotalPageR);
+
                 result.get(j).setPageRank(TotalPageR);
             }
         }

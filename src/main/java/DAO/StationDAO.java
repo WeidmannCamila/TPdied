@@ -2,6 +2,8 @@ package main.java.DAO;
 
 import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
+import main.java.classes.Constants;
+import main.java.classes.ListGlobalStation;
 import main.java.classes.Station;
 
 import java.sql.*;
@@ -14,54 +16,16 @@ public class StationDAO {
     public StationDAO() {
     }
 
-    public static ArrayList<DTOStation> searchStation(DTOStation station) {
-        ArrayList<DTOStation> stations = new ArrayList<>();
-        Connection conexion = null;
-        ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
 
-        try {
-            //String consulta = ArmarConsultaBuscar(station);
-            conexion = DriverManager.getConnection(url, user, pass);
-            PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;");
-            rs = st.executeQuery();
-
-            while(rs.next()) {
-
-                DTOStation station1 = new DTOStation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-                stations.add(station1);
-
-            }
-
-            st.close();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-        }finally{
-            if(conexion!= null){
-                try{
-                    conexion.close();
-                }catch(Exception e1){
-                    System.out.println(e1.getMessage());
-                }
-            }
-        }
-
-        return stations;
-    }
 
     public static ArrayList<DTOStation> searchStationWithAtribute (DTOStation station){
         ArrayList<DTOStation> estaciones = new ArrayList<>();
         Connection conexion = null;
         ResultSet rs = null;
 
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
 
         try {
-            conexion = DriverManager.getConnection( url, user, pass);
+            conexion = DriverManager.getConnection( Constants.url, Constants.user, Constants.pass);
             //pregunto si el filtro es por id
             if(station.getIdStation()!=null) {
                 PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, status, openingTime, closingTime FROM tp_died.station WHERE idStation= ?;");
@@ -119,15 +83,17 @@ public class StationDAO {
     public static void deleteStation(DTOStation deleteS){
         Connection con = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try{
-            con = DriverManager.getConnection(url, user, pass);
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.station WHERE idStation = ? ;");
             st.setInt(1, deleteS.getIdStation());
-            st.executeUpdate();
+
+            ListGlobalStation lgc = ListGlobalStation.getInstance();
+            lgc.deleteStation(deleteS);
+
+
             st.close();
 
         } catch (SQLException e) {
@@ -148,10 +114,28 @@ public class StationDAO {
     }
 */
     public void updateStation(DTOStation dto){
-        //buscar la estacion con id luego hacer un update
+        Connection con = null;
+        ResultSet rs = null;
 
+        try {
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            Statement updateId = con.createStatement();
 
-        System.out.println("actualizar. holi");
+            updateId.executeUpdate("UPDATE tp_died.station SET nameStation = '" + dto.getName() + "' WHERE idStation = " + dto.getIdStation() + ";");
+            updateId.executeUpdate("UPDATE tp_died.station SET status = '" + dto.getStatus() + "' WHERE idStation = " + dto.getIdStation() + ";");
+
+        } catch (Exception var12) {
+            System.out.println(var12.getMessage());
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception var11) {
+                    System.out.println(var11.getMessage());
+                }
+            }
+
+        }
     }
     //obtiene todas las estaciones de la BD
     public static ArrayList<Station> getStations(){
@@ -160,27 +144,22 @@ public class StationDAO {
 
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
             rs = st.executeQuery();
 
-
-
             while(rs.next()) {
-                EnumStatus e = EnumStatus.valueOf(rs.getString("status"));
 
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, e, null);
+
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("closingTime"), rs.getString("status"), null);
 
                 stations.add(station);
             }
 
 
-            st.executeUpdate();
             st.close();
 
         } catch (SQLException e) {
@@ -198,31 +177,25 @@ public class StationDAO {
         }
         return stations;
     }
-    //obtener una estacion por el id
-    /*
-    public ArrayList<DTOStation> getStationById(Integer id){
-        return ;
-    }
-    */
 
-    /*public BinarySearchTree<> getStation4name() {
 
-    }
-*/
     public void addStation (DTOStation s){
         Connection conexion = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.station (idStation, name, openingTime, closingTime, status ) VALUES (?, ?, ?, ?, ?);" ) ;
             st.setInt(1, s.getIdStation());
             st.setString(2, s.getName());
             st.setString(3, s.getOpen());
             st.setString(4, s.getClouse());
-            st.setBoolean(5, false /*s.getStatus()*/);
+            st.setString(5, s.getStatus());
+
+            ListGlobalStation ls = ListGlobalStation.getInstance();
+            Station s1 = this.getStation(s.getIdStation());
+            ls.addStation(s1);
+
             st.executeUpdate();
             st.close();
 
@@ -241,29 +214,25 @@ public class StationDAO {
         }
     }
 
-    //para traer las estaciones en forma de vertex
+    //funciona para la lista global
     public static HashMap<Integer, Station> getStationsV(){
 
         HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
 
         Connection conexion = null;
         ResultSet rs = null;
-        final String url = "jdbc:postgresql://tuffi.db.elephantsql.com:5432/hshhreor";
-        final String user = "hshhreor";
-        final String pass = "x1oNEbdlMN1CrjfidEjVPBuhK9kVEyE4";
+
 
         try {
-            conexion = DriverManager.getConnection(url, user, pass);
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
             rs = st.executeQuery();
 
             while(rs.next()) {
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), null, null, null);
+                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("closingTime"), rs.getString("status"), null);
                 stations.put(station.getIdStation(), station);
             }
 
-
-            st.executeUpdate();
             st.close();
 
         } catch (SQLException e) {

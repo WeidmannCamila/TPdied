@@ -7,6 +7,7 @@ import main.java.Enumeration.EnumColour;
 import main.java.Managers.TransportManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,6 +23,7 @@ public class TransportAddGUI {
     private JRadioButton noActivaRadioButton;
     private JRadioButton activaRadioButton;
     private JComboBox CBTransportColour;
+    private JComboBox CBstatus;
     private DTOTransport dto;
     private TransportDAO tDAO = new TransportDAO();
     public JFrame frameTransportAdd;
@@ -40,12 +42,19 @@ public class TransportAddGUI {
         this.frameTransportAdd = new JFrame();
 
         this.frameTransportAdd.setContentPane(panel1);
+        this.frameTransportAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameTransportAdd.setBounds(10, 10, 1200, 720);
+        this.frameTransportAdd.setLocationRelativeTo(null);
+
         this.frameTransportAdd.setResizable(false);
         this.statusBotton = new ButtonGroup();
         statusBotton.add(noActivaRadioButton);
         statusBotton.add(activaRadioButton);
         CBTransportColour.setModel(new DefaultComboBoxModel<EnumColour>(EnumColour.values()));
+
+        String[] estado = {"--seleccionar--", "Activa" , "No activa"};
+        CBstatus.setModel(new DefaultComboBoxModel<String>(estado));
+
 
         //salir a la pantalla anterior
         exitButton.addMouseListener(new MouseAdapter() {
@@ -59,32 +68,30 @@ public class TransportAddGUI {
         // final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(TransportAddGUI.this.transportId.getText().length() <= 0 || TransportAddGUI.this.transportName.getText().length() <= 0 || TransportAddGUI.this.transportColour.getText().length() <= 0){
-                   // AlertPanel a = new AlertPanel(EnumTipoAlerta.INFORMACION, "Valores incompletos", "error" , "Verifique valores", null );
+                if(transportName.getText().length() <= 0 || TransportAddGUI.this.transportColour.getText().length() <= 0 || CBstatus.getSelectedIndex() == 0){
+                    JOptionPane.showMessageDialog(null, "Campos vacios.",
+                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
 
-                   /* Iterator v = listTransport.iterator();
-                    boolean encontrado = false;
-                    while(v.hasNext()) {
-                        dto = (DTOTransport) v.next();
-                        if (dto.getIdTransport() == (Integer.parseInt(TransportAddGUI.this.transportId.getText()))) {
-                            encontrado = true;
-                        }
-                    }*/
-
-                    if(false) {
-                        System.out.println("error ya existe");
-                        // crear ventana emergente
-                    }
+                   if(tm.getTransport(transportName.getText()) !=null){
+                       JOptionPane.showMessageDialog(null, "El transporte ya existe",
+                               "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                   }
                     else {
                         dto = new DTOTransport();
                         dto.setName(transportName.getText().substring(0,1).toUpperCase() + transportName.getText().substring(1).toLowerCase());
                         dto.setColour(CBTransportColour.getSelectedItem().toString());
-                        dto.setStatus(activaRadioButton.isSelected());
-                        dto.setIdTransport(Integer.parseInt(transportId.getText()));
+                        boolean stat;
+                        if(CBstatus.getSelectedIndex() ==1){
+                            stat= true;
+                        } else { stat= false;}
+                        dto.setStatus(stat);
                         tm.addTransport(dto);
+                       JOptionPane.showMessageDialog(null, "Transporte cargada con Exito",
+                               "EXISTO", JOptionPane.ERROR_MESSAGE);
+                       TransportAddGUI.this.anterior.setVisible(true);
+                       TransportAddGUI.this.frameTransportAdd.dispose();
 
-                   //     System.out.println("llego antes del DAO");
                     }
                 }
             }
@@ -92,9 +99,6 @@ public class TransportAddGUI {
 
     }
 
-    public void onRegisterTransport(){
-
-    }
 
 
     public void setAnterior(JFrame a) {

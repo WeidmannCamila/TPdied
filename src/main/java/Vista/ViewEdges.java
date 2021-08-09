@@ -37,7 +37,6 @@ public class ViewEdges {
 
         this.end = end;
         this.lineF = new BasicStroke(2);
-        System.out.println("dentro del constructor jeje " + colour + " " + colour.toString());
         this.Colour = colour;
         this.lin = new Line2D.Double(start.getCoordX() + this.offset , start.getCoordY() + this.offset ,
                 end.getCoordX() + this.offset , end.getCoordY() + this.offset );

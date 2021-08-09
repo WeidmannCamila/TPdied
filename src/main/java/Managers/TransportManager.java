@@ -2,25 +2,59 @@ package main.java.Managers;
 
 import com.sun.jdi.connect.Transport;
 import main.java.DAO.TransportDAO;
+import main.java.DTOs.DTOStation;
 import main.java.DTOs.DTOTransport;
+import main.java.classes.*;
 
 import java.util.ArrayList;
 
 public class TransportManager {
     private static TransportManager instan = null;
     private TransportDAO tDAO = new TransportDAO();
+    private static final TransportManager INSTANCE = new TransportManager();
+    private ArrayList<TransportRoute> listTransport = new ArrayList<TransportRoute>();
 
     public TransportManager(){}
 
+    public static TransportManager getInstance(){ return INSTANCE;}
 
-    public ArrayList<Transport> searchTransport(Integer s, String s1, String s2, Boolean s3) {
+    // funciona para la lista global de trasportes
+    public ArrayList<TransportRoute> getListTransportFromDao() {
+        this.listTransport = tDAO.getTranport();
+        return listTransport;
 
-        DTOTransport t = new DTOTransport(s,s1,s2,s3);
+    }
+    public ArrayList<TransportRoute> getListTransport(){
+        ListGlobalTransport tl = ListGlobalTransport.getInstance();
 
-        ArrayList<Transport> list = new ArrayList(TransportDAO.getTransports(t));
+
+        ArrayList<TransportRoute> l = tl.getList();
+
+        return l;
+    }
+
+
+    //buscar transportes solo para DTOTransport
+    public ArrayList<DTOTransport> searchDTOTransport(DTOTransport t) {
+
+        ArrayList<DTOTransport> list = new ArrayList(tDAO.searchTransportByAtributte(t));
 
         return list;
     }
+
+    public void updateTransport(DTOTransport dto) {
+        TransportRoute t = this.getTransport(dto.getIdTransport());
+        t.setIdTransport(dto.getIdTransport());
+        t.setStatus(dto.getStatus());
+        t.setName(dto.getName());
+        t.setColour(t.getColour());
+
+        ListGlobalTransport lgc = ListGlobalTransport.getInstance();
+        lgc.editTransport(t);
+
+        tDAO.updateTransport(dto);
+    }
+
 
     public static void deleteTransportRoute(DTOTransport t){
         TransportDAO.deleteTransport(t);
@@ -30,13 +64,27 @@ public class TransportManager {
         tDAO.addTransport(dto);
     }
 
-    //buscar transportes solo para DTOTransport
-    public ArrayList<DTOTransport> searchDTOTransport(DTOTransport t) {
+    //buscar estacion por nombre o id
+    public TransportRoute getTransport(String s) {
+        for (TransportRoute s1 : this.getListTransport()) {
+            if (s1.getName().equals(s)) {
+                return s1;
+            }
 
-        ArrayList<DTOTransport> list = new ArrayList(TransportDAO.searchTransportByAtributte(t));
-
-        return list;
+        }
+        return null;
     }
 
+    public TransportRoute getTransport(int s) {
+        for (TransportRoute s1 : this.getListTransport()) {
+            if (s1.getIdTransport().equals(s)) {
+                return s1;
+            }
+
+        }
+        return null;
+
+
+    }
 
 }

@@ -42,8 +42,11 @@ public class StationAddGUI {
         this.frameStationAdd = new JFrame();
 
         this.frameStationAdd.setContentPane(panel1);
+        this.frameStationAdd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameStationAdd.setBounds(10, 10, 1200, 720);
         this.frameStationAdd.setResizable(false);
+        this.frameStationAdd.setLocationRelativeTo(null);
+
 
 
 
@@ -60,6 +63,10 @@ public class StationAddGUI {
         }
 
 
+        String[] estado = {"--seleccionar--", "Activa" , "No activa"};
+        statusCB.setModel(new DefaultComboBoxModel<String>(estado));
+
+
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -68,7 +75,7 @@ public class StationAddGUI {
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
 
-                    if(sm.getStation(stationId.getText()) == null && sm.getStation(stationName.getText()) == null){
+                    if(sm.getStation(stationId.getText()) != null && sm.getStation(stationName.getText()) != null){
                         JOptionPane.showMessageDialog(null, "La estacion ya existe",
                                 "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                     }else {

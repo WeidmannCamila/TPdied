@@ -5,10 +5,12 @@ import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
-import main.java.classes.ListGlobalStation;
-import main.java.classes.Maintenance;
-import main.java.classes.Station;
+import main.java.Vista.GrafoGUI;
+import main.java.Vista.GrafoPanel;
+import main.java.Vista.ViewVertex;
+import main.java.classes.*;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +22,7 @@ public class StationManager {
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
     private HashMap<Integer, Station> listStation = new HashMap<Integer, Station>();
+    private GrafoPanel grafopanel = GrafoPanel.getInstance();
 
     public StationManager() {
     }
@@ -29,46 +32,33 @@ public class StationManager {
     }
 
 
+    //funciona para la lista global
     public HashMap<Integer, Station> getListStations() {
 
         this.listStation = sDAO.getStationsV();
 
-
-        System.out.println("LISTA DE ESTACIONES DE LA BDD" + listStation.get(1) + listStation.get(2));
         return listStation;
     }
 
 
-    public static ArrayList<DTOStation> search(Integer idStation, String name, String openingTime, String closingTime, String status, List<Maintenance> maintenanceHistory) {
-        DTOStation station = new DTOStation(idStation, name, openingTime, closingTime, status);
-
-        ArrayList<DTOStation> listas = StationDAO.searchStation(station);
-
-        return listas;
-    }
-
-    public static ArrayList<DTOStation> search4name(DTOStation s) {
+    public ArrayList<DTOStation> searchStation(DTOStation s) {
         System.out.println("entro a seacrh 4 name");
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
+        ArrayList<DTOStation> listas = sDAO.searchStationWithAtribute(s);
         return listas;
     }
 
-    public static ArrayList<DTOStation> search4id(DTOStation s) {
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
-        return listas;
-    }
 
-    public static ArrayList<DTOStation> search4status(DTOStation s) {
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
-        return listas;
-    }
+    public void deleteStationObject(DTOStation s) {
+        // busco las rutas que tengan esta estacion y poder eliminarlas tambien
+        ArrayList<Route> aux = rm.getListRoutes();
+        for(Route r : aux){
+            if(r.getOrigin().getIdStation().equals(s.getIdStation()) || r.getDestination().getIdStation().equals(r.getIdRoute())){
+                rm.deleteRoute(r);
+                ListGlobalRoute lr= ListGlobalRoute.getInstance();
+                lr.deleteRoute(r);
+            }
+        }
 
-    public static ArrayList<DTOStation> search4hours(DTOStation s) {
-        ArrayList<DTOStation> listas = StationDAO.searchStationWithAtribute(s);
-        return listas;
-    }
-
-    public static void deleteStationObject(DTOStation s) {
         StationDAO.deleteStation(s);
     }
 
@@ -98,7 +88,7 @@ public class StationManager {
 
     }
     public void deleteStation(DTOStation s ){
-        StationDAO.deleteStation(s);
+        sDAO.deleteStation(s);
     }
 
     //buscar estacion por nombre o id
@@ -125,6 +115,25 @@ public class StationManager {
     }
 
     public void updateStation(DTOStation dto) {
+
+        ListGlobalStation ls = ListGlobalStation.getInstance();
+
+        Station s = this.getStation(dto.getIdStation());
+
+        s.setName(dto.getName());
+
+        if(!dto.getStatus().equals(s.getStatus())){
+
+            if(dto.getStatus().equals("MANTENIMIENTO")){
+                rm.editRoute(false, s);
+
+            }else { rm.editRoute(true, s);}
+
+
+        }
+        ls.editStation(s);
+
+
         sDAO.updateStation(dto);
     }
 }

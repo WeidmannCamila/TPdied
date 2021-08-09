@@ -158,9 +158,12 @@ public class GrafoPanel extends JPanel {
             ViewVertex VertexEnd = this.getVertex(r.getDestination());
             ViewEdges e;
             int offset=0;
+           // System.out.println("AGARRA LA RUTA " + r.getIdRoute());
+           // System.out.println("INICIO Y FIN " + r.getOrigin().getIdStation() + " " + r.getDestination().getIdStation());
+          //  System.out.println("nombres " + r.getOrigin().getName() + " " + r.getDestination().getName());
             if (TwoRoutesSameStartEnd(r, listRoutes)) {
                 Route routeaux = new Route(r.getIdRoute(), r.getOrigin(), r.getDestination());
-
+           //     System.out.println("AGARRA LA RUTA o sea encontra una con mismo origna ddestino" + r.getIdRoute());
                 //si son dos caminos al mismo nodo, pongo una arista arriba del medio del nodo y por abajo del medio  ==O (RADIO +-3) --O (RADIO/2)
                if(TwoRoutesSameStartEnd(r, aux)){
 
@@ -188,8 +191,8 @@ public class GrafoPanel extends JPanel {
     private boolean TwoRoutesSameStartEnd(Route r, ArrayList<Route> aux) {
 
         for(Route ro: aux){
-             if(ro.getIdRoute() != r.getIdRoute() && ro.getOrigin().getIdStation() == r.getOrigin().getIdStation() && ro.getDestination().getIdStation() == r.getDestination().getIdStation()){
-
+             if(!ro.getIdRoute().equals(r.getIdRoute()) && ro.getOrigin().getIdStation().equals(r.getOrigin().getIdStation()) && ro.getDestination().getIdStation().equals(r.getDestination().getIdStation())){
+           //     System.out.println("AGARRA Las dos rutas iguales " + r.getIdRoute() + " "+ ro.getIdRoute());
                  return true;
             }
 

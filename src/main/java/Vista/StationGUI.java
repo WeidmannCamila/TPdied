@@ -57,7 +57,7 @@ public class StationGUI extends JPanel{
         this.frameStation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameStation.setBounds(10, 10, 1200, 720);
         this.frameStation.setResizable(false);
-
+        this.frameStation.setLocationRelativeTo(null);
         this.maintenanceJPanel.setVisible(true);
         this.maintenanceJPanel.setPreferredSize(new Dimension(450,800));
         this.HourOpenTField.setEditable(false);
@@ -109,6 +109,9 @@ public class StationGUI extends JPanel{
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 } else {
                     int id = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
+
+                   // StationGUI.this.table.getModel().getValueAt(indice, 0).toString()
+                    System.out.println("ID DE ESTACION Q QUIERO ELIMINR " + id );
                     int resp=  JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar? Considere que se quitaran las rutas a dicha estacion");
                     if(JOptionPane.OK_OPTION == resp){
                         deleteStation(id);
@@ -317,6 +320,8 @@ public class StationGUI extends JPanel{
         sm.deleteStationObject(deleteS);
         JOptionPane.showMessageDialog(null, "Se ha eliminado la estacion",
                 "EXITO", JOptionPane.INFORMATION_MESSAGE);
+        StationGUI.this.anterior.setVisible(true);
+        StationGUI.this.frameStation.dispose();
         table.repaint();
 
 

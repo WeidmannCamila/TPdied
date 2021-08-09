@@ -33,6 +33,19 @@ public class Station {
     public Station(Integer idStation, String name, String open, String clouse, String status) {
     }
 
+    public Station(String name, String status) {
+        this.name = name;
+
+        this.status = status;
+    }
+
+    public Station(Integer idStation, String name, String status) {
+        this.idStation = idStation;
+        this.name = name;
+
+        this.status = status;
+    }
+
 
     //getters and setters
 

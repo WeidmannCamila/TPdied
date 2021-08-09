@@ -44,6 +44,7 @@ public class RouteGUI {
         this.frameRoute.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameRoute.setBounds(10, 10, 1200, 720);
         this.frameRoute.setResizable(false);
+        this.frameRoute.setLocationRelativeTo(null);
 
         ListGlobalStation ls = ListGlobalStation.getInstance();
 

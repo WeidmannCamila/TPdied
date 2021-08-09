@@ -63,19 +63,19 @@ public class StationAddGUI {
         }
 
 
-        String[] estado = {"--seleccionar--", "Activa" , "No activa"};
+        String[] estado = {"--seleccionar--", "OPERATIVA" , "MANTENIMIENTO"};
         statusCB.setModel(new DefaultComboBoxModel<String>(estado));
 
 
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(stationId.getText().length() <= 0 || stationName.getText().length() <= 0 ){
+                if(stationName.getText().length() <= 0 ){
                     JOptionPane.showMessageDialog(null, "Campos vacios.",
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
 
-                    if(sm.getStation(stationId.getText()) != null && sm.getStation(stationName.getText()) != null){
+                    if(sm.getStation(stationName.getText()) != null){
                         JOptionPane.showMessageDialog(null, "La estacion ya existe",
                                 "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                     }else {
@@ -83,7 +83,7 @@ public class StationAddGUI {
                         dto.setName(stationName.getText().substring(0,1).toUpperCase() + stationName.getText().substring(1).toLowerCase());
 
                         dto.setStatus( statusCB.getSelectedItem().toString());
-                        dto.setIdStation(Integer.parseInt(stationId.getText()));
+
                         sm.addStation(dto);
                         JOptionPane.showMessageDialog(null, "Estacion cargada con Exito",
                                 "EXISTO", JOptionPane.ERROR_MESSAGE);

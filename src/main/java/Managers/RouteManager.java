@@ -42,7 +42,7 @@ public class RouteManager {
 
     public ArrayList<Route> getListRoutesFromDao() {
         this.listRoutes = rDAO.getRoutes();
-        System.out.println("EN list route DAOO" + listRoutes.get(1).getStatus() + " nombre" + listRoutes.get(1).getIdRoute());
+        System.out.println("EN list route DAOO" + listRoutes.size());
         return listRoutes;
     }
 
@@ -62,13 +62,13 @@ public class RouteManager {
         ArrayList<Route> aux = new ArrayList<>();
 
         for (Route r : this.getListRoutes()) {
-            System.out.println("GET LIST ROUTES" + start.getIdStation() + " " + end.getIdStation() + " estadp " + r.getStatus());
+         //   System.out.println("GET LIST ROUTES" + start.getIdStation() + " " + end.getIdStation() + " estadp " + r.getStatus());
 
 
             if(r.getStatus()){
 
                 if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
-                    System.out.println("ENTRA DENTRO DEL IF !RGETSTATUS " + r.getStatus() + " " + r.getIdRoute());
+               //     System.out.println("ENTRA DENTRO DEL IF !RGETSTATUS " + r.getStatus() + " " + r.getIdRoute());
                     aux.add(r);
 
                 }}
@@ -92,15 +92,10 @@ public class RouteManager {
         return null;
     }
 
-    public Route createRoute(DTORoute dto) {
+    public void createRoute(DTORoute dto) {
         //se agrega ruta a la bdd
         rDAO.addRoute(dto);
         //se lo crea para agregar a la lista de rutas
-        Route r = new Route(dto.getOrigin(), dto.getDestination());
-
-
-        listRoutes.add(r);
-        return r;
 
     }
 
@@ -113,7 +108,7 @@ public class RouteManager {
 
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
-
+        System.out.println("TAMAÑOO LISTA " + listpaths.size());
         ArrayList<ArrayList<Station>> resultadoaux = new  ArrayList<ArrayList<Station>>();
         ArrayList<ArrayList<Station>> resultado = new  ArrayList<ArrayList<Station>>();
         if(listpaths.size() != 0){
@@ -193,9 +188,9 @@ public class RouteManager {
         Route ro = new Route();
 
         for (int i =0; i< cs.size()-1 ; i++) {
-            System.out.println("ESTACIONES DE LA LISTA dentro for estacio una" + cs.get(i).getIdStation() + " estacon dos " + cs.get(i+1).getIdStation());
+          //  System.out.println("ESTACIONES DE LA LISTA dentro for estacio una" + cs.get(i).getIdStation() + " estacon dos " + cs.get(i+1).getIdStation());
             ro = getRoute(cs.get(i), cs.get(i+1));
-            System.out.println("ESTACIONES DE LA LISTA encontro ruta?" + ro.getIdRoute());
+         //   System.out.println("ESTACIONES DE LA LISTA encontro ruta?" + ro.getIdRoute());
             distanceAux += ro.getDistance();
 
         }
@@ -368,7 +363,7 @@ public class RouteManager {
 
         for(Route r: this.getListRoutes() ){
             //Se verifica que tanto la ruta como el transporte esten activo y la estacion en operativa
-
+            System.out.println("RUTA " + r.getIdRoute() + " status " + r.getStatus() + " status tranport " + r.getTransport().isStatus() + " destino status " + r.getDestination().getStatus());
             if(r.getStatus() && r.getTransport().isStatus() && r.getDestination().getStatus().equals("OPERATIVA")){
 
                 if(start.getIdStation().equals(r.getOrigin().getIdStation())){
@@ -385,6 +380,10 @@ public class RouteManager {
     }
 
     public void deleteRoute(Route r) {
+        System.out.println("TIENE Q PASAR DOS VECES PORQ SON DOS RUTAS A ELIMINAR");
+        ListGlobalRoute lr= ListGlobalRoute.getInstance();
+        lr.deleteRoute(r);
+
         rDAO.deleteRoute(r);
     }
 

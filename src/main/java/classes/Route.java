@@ -59,7 +59,8 @@ public class Route {
         this.status= status;
     }
 
-
+    public Route(Integer id, Station origin, Station destination, long distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, TransportRoute transport) {
+    }
 
 
     //getters and setters

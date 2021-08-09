@@ -4,9 +4,6 @@ import main.java.DAO.StationDAO;
 import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
-
-
-import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
 
 import javax.swing.*;
@@ -38,6 +35,7 @@ public class StationGUI extends JPanel{
     private JTextField HourClosedTField;
     private JTextField MinuteClosedTField;
     private JTextField MinuteOpenTField;
+    private JButton nextMaintenanceButton;
     private JComboBox CBtime;
     private Integer idStationSelected;
     private StationDAO stationDAO = new StationDAO();
@@ -265,7 +263,14 @@ public class StationGUI extends JPanel{
                 updateTable(result);
             }
         });
-
+        nextMaintenanceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ListNextMaintenance Lnm = new ListNextMaintenance();
+                Lnm.setAnterior(StationGUI.this.frameStation);
+                Lnm.frameNextMaint.setVisible(true);
+            }
+        });
 
     }
 
@@ -350,12 +355,5 @@ public class StationGUI extends JPanel{
 
     }
 
-
-
-    /*
-* Falta agregar un boton que permita seleccionar una estacion y al presionarlo muestre una lista de los mantenimientos que tuvo
-* la lista tiene que mostrar el id, fechas de inicio y fin, y descripcion
-*
-* */
 
 }

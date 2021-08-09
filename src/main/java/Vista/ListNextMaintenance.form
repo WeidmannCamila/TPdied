@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.java.Vista.ListNextMaintenance">
+  <grid id="27dc6" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="599" height="450"/>
+    </constraints>
+    <properties>
+      <background color="-14869163"/>
+      <maximumSize width="300" height="450"/>
+      <minimumSize width="300" height="450"/>
+      <preferredSize width="600" height="350"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <scrollpane id="baca3" binding="stationPanel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="50" left="80" bottom="50" right="30" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <minimumSize width="17" height="100"/>
+          <preferredSize width="250" height="250"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="220af" class="javax.swing.JTable" binding="stationTable">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="26183" class="javax.swing.JButton" binding="exitButton">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="400" left="80" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <background color="-12828863"/>
+          <foreground color="-4473925"/>
+          <horizontalAlignment value="10"/>
+          <icon value="main/resources/icons8_undo_32px.png"/>
+          <maximumSize width="32" height="32"/>
+          <minimumSize width="32" height="32"/>
+          <opaque value="false"/>
+          <preferredSize width="32" height="32"/>
+          <text value=""/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

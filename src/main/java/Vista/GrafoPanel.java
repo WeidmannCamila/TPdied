@@ -31,7 +31,7 @@ public class GrafoPanel extends JPanel {
         return INSTANCE;
     }
 
- GrafoPanel(){this.initialize();}
+    GrafoPanel(){this.initialize();}
 
 
     private void initialize() {
@@ -41,7 +41,7 @@ public class GrafoPanel extends JPanel {
                 ViewVertex v = nodePressed(e.getPoint());
                 if (v != null) {
                     nodeClicked = v;
-                   updateVertex(nodeClicked, e.getPoint());
+                    updateVertex(nodeClicked, e.getPoint());
                 }
 
             }
@@ -50,7 +50,7 @@ public class GrafoPanel extends JPanel {
                 if (nodeClicked != null) {
 
                     updateVertex(nodeClicked, e.getPoint());
-                   updateRoutes();
+                    updateRoutes();
                 }
 
                 nodeClicked = null;
@@ -105,7 +105,7 @@ public class GrafoPanel extends JPanel {
         int aux = 0;
 
 
-       for(Station s: list.values()){
+        for(Station s: list.values()){
 
             aux++;
 
@@ -158,15 +158,18 @@ public class GrafoPanel extends JPanel {
             ViewVertex VertexEnd = this.getVertex(r.getDestination());
             ViewEdges e;
             int offset=0;
+            // System.out.println("AGARRA LA RUTA " + r.getIdRoute());
+            // System.out.println("INICIO Y FIN " + r.getOrigin().getIdStation() + " " + r.getDestination().getIdStation());
+            //  System.out.println("nombres " + r.getOrigin().getName() + " " + r.getDestination().getName());
             if (TwoRoutesSameStartEnd(r, listRoutes)) {
                 Route routeaux = new Route(r.getIdRoute(), r.getOrigin(), r.getDestination());
-
+                //     System.out.println("AGARRA LA RUTA o sea encontra una con mismo origna ddestino" + r.getIdRoute());
                 //si son dos caminos al mismo nodo, pongo una arista arriba del medio del nodo y por abajo del medio  ==O (RADIO +-3) --O (RADIO/2)
-               if(TwoRoutesSameStartEnd(r, aux)){
+                if(TwoRoutesSameStartEnd(r, aux)){
 
-                   offset =VertexEnd.RADIO/3;
-               } else {
-                  offset = VertexEnd.RADIO/3+ (VertexEnd.RADIO/3);
+                    offset =VertexEnd.RADIO/3;
+                } else {
+                    offset = VertexEnd.RADIO/3+ (VertexEnd.RADIO/3);
                 }
 
                 aux.add(routeaux);
@@ -188,9 +191,9 @@ public class GrafoPanel extends JPanel {
     private boolean TwoRoutesSameStartEnd(Route r, ArrayList<Route> aux) {
 
         for(Route ro: aux){
-             if(ro.getIdRoute() != r.getIdRoute() && ro.getOrigin().getIdStation() == r.getOrigin().getIdStation() && ro.getDestination().getIdStation() == r.getDestination().getIdStation()){
-
-                 return true;
+            if(!ro.getIdRoute().equals(r.getIdRoute()) && ro.getOrigin().getIdStation().equals(r.getOrigin().getIdStation()) && ro.getDestination().getIdStation().equals(r.getDestination().getIdStation())){
+                //     System.out.println("AGARRA Las dos rutas iguales " + r.getIdRoute() + " "+ ro.getIdRoute());
+                return true;
             }
 
         }
@@ -200,7 +203,7 @@ public class GrafoPanel extends JPanel {
     public ViewVertex getVertex(Station s) {
 
         ViewVertex l= this.vertices.stream().filter((v) ->
-            v.getStationV().getName().equals(s.getName())
+                v.getStationV().getName().equals(s.getName())
         ).findFirst().get();
         System.out.println(l);
         return l;
@@ -278,10 +281,10 @@ public class GrafoPanel extends JPanel {
             for (int i = 0; i < s.size() - 1; i++) {
 
                 listRouteaux = rm.getListRoutes(s.get(i), s.get(i+1));
-                 for(Route r : listRouteaux){
+                for(Route r : listRouteaux){
 
-                     this.updateColourE(this.getEdge(r), r.getTransport().getColour());
-                 }
+                    this.updateColourE(this.getEdge(r), r.getTransport().getColour());
+                }
 
             }
 
@@ -390,9 +393,9 @@ public class GrafoPanel extends JPanel {
             }
         }
 
-            result.sort((ViewPageRank v, ViewPageRank v2) -> v.getPageRank().compareTo(v2.getPageRank()));
-            return result;
-        }
+        result.sort((ViewPageRank v, ViewPageRank v2) -> v.getPageRank().compareTo(v2.getPageRank()));
+        return result;
+    }
 
 
 }

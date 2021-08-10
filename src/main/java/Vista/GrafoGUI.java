@@ -87,10 +87,6 @@ public class GrafoGUI {
         gbc_lblPanelDeAdministracin.gridy = 0;
         panel.add(lblPanelDeAdministracin, gbc_lblPanelDeAdministracin);
 
-
-
-
-
         if(bestRoute != null){
                 //lista de listroutes
 

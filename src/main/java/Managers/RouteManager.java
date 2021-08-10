@@ -427,6 +427,10 @@ public class RouteManager {
     }
 
     public void deleteRoute(Route r) {
+
+        ListGlobalRoute lr= ListGlobalRoute.getInstance();
+        lr.deleteRoute(r);
+
         rDAO.deleteRoute(r);
     }
 

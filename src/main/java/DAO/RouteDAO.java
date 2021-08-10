@@ -18,12 +18,12 @@ public class RouteDAO {
 
     public void addRoute(DTORoute dto) {
         Connection conexion = null;
-
+        ResultSet rs = null;
 
         try {
 
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
-            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.route (origin, destination, distance, duration, maxPassagers, status, cost) VALUES (? , ?, ?,?,?,?,?);");
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.route (origin, destination, distance, duration, maxPassagers, status, cost, idstationdestination, idstationOrigin, idtransport) VALUES (? , ?, ?,?,?,?,?, ?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, dto.getOrigin().getName());
             st.setString(2, dto.getDestination().getName());
@@ -65,22 +65,24 @@ public class RouteDAO {
             }*/
 
 
-            st.close();
+                st.close();
 
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (Exception e1) {
-                    System.out.println(e1.getMessage());
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                if (conexion != null) {
+                    try {
+                        conexion.close();
+                    } catch (Exception e1) {
+                        System.out.println(e1.getMessage());
+                    }
                 }
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
-
     /*busca ruta
     public Route searchRoute(Station station, Station station1) {
 
@@ -190,7 +192,6 @@ public class RouteDAO {
     public void deleteRoute(Route r) {
         Connection con = null;
         ResultSet rs = null;
-
 
         try{
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);

@@ -40,7 +40,7 @@ public class ListGlobalRoute implements Comparable<ListGlobalRoute> {
 
     }
 
-    public void addTransport(Route t){
+    public void addRoute(Route t){
         this.listsR.add(t);
     }
 

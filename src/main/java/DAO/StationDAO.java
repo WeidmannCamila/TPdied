@@ -89,9 +89,8 @@ public class StationDAO {
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.station WHERE idStation = ? ;");
             st.setInt(1, deleteS.getIdStation());
 
-            ListGlobalStation lgc = ListGlobalStation.getInstance();
-            lgc.deleteStation(deleteS);
-
+            int i =st.executeUpdate();
+            System.out.println("lo q se edito " + i);
 
             st.close();
 
@@ -178,42 +177,56 @@ public class StationDAO {
     }
 
 
-    public void addStation (DTOStation s){
+    public void addStation (DTOStation s) {
         Connection conexion = null;
 
 
         try {
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
-            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.station (idStation, name, openingTime, closingTime, status ) VALUES (?, ?, ?, ?, ?);" ) ;
-            st.setInt(1, s.getIdStation());
-            st.setString(2, s.getName());
-            st.setString(3, s.getOpen());
-            st.setString(4, s.getClouse());
-            st.setString(5, s.getStatus());
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.station (nameStation, openingTime, closingTime, status ) VALUES ( ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 
-            ListGlobalStation ls = ListGlobalStation.getInstance();
-            Station s1 = this.getStation(s.getIdStation());
-            ls.addStation(s1);
+            st.setString(1, s.getName());
+            st.setString(2, s.getOpen());
+            st.setString(3, s.getClouse());
+            st.setString(4, s.getStatus());
+            int affectedRows = st.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
 
-            st.executeUpdate();
-            st.close();
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        finally {
-            if(conexion != null){
-                try{
-                    conexion.close();
+                    s.setIdStation(generatedKeys.getInt(1));
+                    System.out.println("llega a guardar el id " + s.getIdStation());
+                    ListGlobalStation ls = ListGlobalStation.getInstance();
+                    Station s1 = new Station(s.getIdStation(), s.getName(), s.getStatus());
+                    ls.addStation(s1);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
                 }
-                catch(Exception e1){
-                    System.out.println(e1.getMessage());
+
+
+                st.executeUpdate();
+                st.close();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                if (conexion != null) {
+                    try {
+                        conexion.close();
+                    } catch (Exception e1) {
+                        System.out.println(e1.getMessage());
+                    }
                 }
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
-    //funciona para la lista global
+        //funciona para la lista global
     public static HashMap<Integer, Station> getStationsV(){
 
         HashMap<Integer, Station> stations = new HashMap<Integer, Station>();

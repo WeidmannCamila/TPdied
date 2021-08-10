@@ -94,51 +94,27 @@ public class GrafoGUI {
         if(bestRoute != null){
                 //lista de listroutes
 
-             for(ListRoute r : bestRoute) {
-                 System.out.println("LISTA DE RUTAS " + r.listRoute);
-                 System.out.println("LISTA DE RUTAS sta " + r.listStation);
-                 Double distance = rm.distanceTotal(r.listRoute);
-                 Double duration = rm.durationTotal(r.listRoute);
+             for(ListRoute lr : bestRoute) {
+                 Double distance = rm.distanceTotal(lr.listRoute);
+                 Double duration = rm.durationTotal(lr.listRoute);
+                 Double cost = rm.costTotal(lr.listRoute);
 
-                 r.setTotalDuration(duration);
-                 r.setTotalDistance(distance);
-             //    Double cost = rm.costTotalRoute(s);
+                 ArrayList<String> usedTransports = new ArrayList<>();
 
-                // listPaths.add(listRoute);
-                }
+                 lr.setTotalDuration(duration);
+                 lr.setTotalDistance(distance);
+                 lr.setTotalCost(cost);
+                 for(Route r : lr.listRoute){
 
+                     if(!usedTransports.contains(r.getTransport().getName())){
+                         usedTransports.add(r.getTransport().getName());
 
- /*
-            for(ArrayList<Station> s : bestRoute){
-                ArrayList<String> saux = new ArrayList<>();
-                for(Station s1 : s){
-                    saux.add(s1.getName());
-                }
+                     }
+                 }
+                 lr.setTransports(usedTransports);
 
-                System.out.println(saux);
-
-
-                Double distance = rm.distanceTotalRoute(s);
-                Double duration = rm.durationTotalRoute(s);
-                Double cost = rm.costTotalRoute(s);
-
-                ArrayList<Station> aux = new ArrayList<>(s.subList(1, s.size()-1));
-                ArrayList<String> usedTransports = new ArrayList<>();
-                Route ro;
-                for (int i =0; i< s.size()-1 ; i++) {
-
-                    ro = rm.getRoute(s.get(i), s.get(i+1));
-                    if(!usedTransports.contains(ro.getTransport().getName())){
-                        usedTransports.add(ro.getTransport().getName());
-                        System.out.println("LO CONTIENEE ");
-                    }
 
                 }
-
-                listRoute = new ListRoute(s.get(0),s.get(s.size()-1), distance, duration, cost, aux, usedTransports);
-*/
-
-
 
 
 
@@ -184,7 +160,7 @@ public class GrafoGUI {
                     }
 
                     ListRoute routes;
-                    routes = listPaths.get(table.convertRowIndexToModel(rowId));
+                    routes = bestRoute.get(table.convertRowIndexToModel(rowId));
 
                     RefreshBuyTicket(routes, name , email);
                 }
@@ -253,17 +229,12 @@ public class GrafoGUI {
         gbc_panel_91.gridx = 0;
         gbc_panel_91.gridy = 2;
 
-        grafoPanel.setBackground(new Color(0xcccccc));
+        grafoPanel.setBackground(new Color(0x242424));
         grafoPanel.setBorder(BorderFactory.createLineBorder(new Color(0x7A8A99)));
         panel.add(grafoPanel, gbc_panel_91);
 
 
         this.frameGrafo.setContentPane(panel);
-
-
-
-
-
 
 
     }
@@ -294,25 +265,27 @@ public class GrafoGUI {
             }
         };
 
+
+
         for (ListRoute ruta : listPaths) {
             String origen = ruta.getOrigin().getName();
             String destino =ruta.getDestination().getName();
             String distancia = ruta.getTotalDistance() + " km";
             String duracion = ruta.getTotalDuration() + " min";
-            String costo ="dos";// ruta.getTotalCost() + " $";
+            String costo = ruta.getTotalCost() + " $";
            // ArrayList<Station> stations = ruta.listStation;
             StringBuilder s = new StringBuilder("");
             for ( Station ss : ruta.listStation){
                 s.append(ss.getName());
 
-            }  /*
+            }
             StringBuilder t = new StringBuilder("");
             for ( String tt : ruta.getTransports()){
                 t.append(tt);
 
-            }*/
+            }
 
-            Object[] data = { origen, s, destino, distancia, duracion, costo, "DOS" };
+            Object[] data = { origen, s, destino, distancia, duracion, costo, t };
             tableModel.addRow(data);
         }
 

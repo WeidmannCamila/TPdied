@@ -109,29 +109,34 @@ public class GrafoPanel extends JPanel {
 
             aux++;
 
-            switch (aux%6){
+            switch (aux%7){
                 case 0: {
-                    posX =100;
+                    posX =50;
                     break;
                 }
                 case 1: {
-                    posX=400;
-                    break;
-                }
-                case 2:{
-                    posX=210;
-                    break;
-                }
-                case 3: {
-                    posX=600;
-                    break;
-                }
-                case 4: {
                     posX=300;
                     break;
                 }
+                case 2:{
+                    posX=550;
+                    break;
+                }
+                case 3: {
+                    posX=700;
+                    break;
+                }
+                case 4: {
+                    posX=100;
+                    posY +=10;
+                    break;
+                }
                 case 5: {
-                    posX=500;
+                    posX=200;
+                    break;
+                }
+                case 6:{
+                    posX=600;
                     break;
                 }
 
@@ -141,7 +146,7 @@ public class GrafoPanel extends JPanel {
             vx.setId(s.getIdStation());
             vx.setName(s.getName());
             vertices.add(vx);
-            posY +=55;
+            posY +=50;
 
         }
 
@@ -158,12 +163,10 @@ public class GrafoPanel extends JPanel {
             ViewVertex VertexEnd = this.getVertex(r.getDestination());
             ViewEdges e;
             int offset=0;
-            // System.out.println("AGARRA LA RUTA " + r.getIdRoute());
-            // System.out.println("INICIO Y FIN " + r.getOrigin().getIdStation() + " " + r.getDestination().getIdStation());
-            //  System.out.println("nombres " + r.getOrigin().getName() + " " + r.getDestination().getName());
+
             if (TwoRoutesSameStartEnd(r, listRoutes)) {
                 Route routeaux = new Route(r.getIdRoute(), r.getOrigin(), r.getDestination());
-                //     System.out.println("AGARRA LA RUTA o sea encontra una con mismo origna ddestino" + r.getIdRoute());
+
                 //si son dos caminos al mismo nodo, pongo una arista arriba del medio del nodo y por abajo del medio  ==O (RADIO +-3) --O (RADIO/2)
                 if(TwoRoutesSameStartEnd(r, aux)){
 
@@ -257,6 +260,7 @@ public class GrafoPanel extends JPanel {
 
             g2d.setPaint(a.getColour());
             g2d.setStroke(a.getLineF());
+            g2d.setFont(new Font("Serif", Font.BOLD, 15));
             g2d.drawString(ruta.getTransport().getName() , puntoMedioX + 20, puntoMedioY + 10);
             g2d.drawString(ruta.getIdRoute() + " [km]", puntoMedioX + 20, puntoMedioY + 20);
             g2d.drawString(ruta.getCost() + " [Tn]", puntoMedioX + 20, puntoMedioY + 33);

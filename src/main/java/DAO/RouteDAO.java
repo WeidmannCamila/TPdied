@@ -21,6 +21,7 @@ public class RouteDAO {
 
 
         try {
+
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.route (origin, destination, distance, duration, maxPassagers, status, cost) VALUES (? , ?, ?,?,?,?,?);");
 
@@ -31,9 +32,38 @@ public class RouteDAO {
             st.setInt(5, dto.getMaxPassagers());
             st.setBoolean(6, dto.isStatus());
             st.setDouble(7, dto.getCost());
-            ListGlobalRoute lgc = ListGlobalRoute.getInstance();
-            Route t = this.getRoute(dto.getIdRoute());
-            lgc.addTransport(t);
+            st.setInt(9, dto.getOrigin().getIdStation());
+            st.setInt(8, dto.getDestination().getIdStation());
+            st.setInt(10, dto.getTransport().getIdTransport());
+
+            int affectedRows = st.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    dto.setIdRoute(generatedKeys.getInt(1));
+                    ListGlobalRoute lgt = ListGlobalRoute.getInstance();
+                    Route t = new Route(dto.getIdRoute(), dto.getOrigin(), dto.getDestination(), dto.getDistance(), dto.getDuration(), dto.getMaxPassagers(), dto.isStatus(), dto.getCost(), dto.getTransport());
+
+                    lgt.addRoute(t);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }/*
+            rs = st.getGeneratedKeys();
+            while(rs.next()) {
+
+                Integer id = rs.getInt(1);
+                System.out.println("ID DE LA RUTA CREADA " + id);
+
+                ListGlobalRoute lgc = ListGlobalRoute.getInstance();
+                Route t = new Route(id, dto.getOrigin(), dto.getDestination(), dto.getDistance(), dto.getDuration(), dto.getMaxPassagers(), dto.isStatus(), dto.getCost(), dto.getTransport());
+
+                lgc.addTransport(t);
+            }*/
+
 
             st.close();
 
@@ -118,7 +148,7 @@ public class RouteDAO {
                 end = daoS.getStation(rs.getInt("idStationDestination"));
 
                 Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport, rs.getInt("maxPassagers"), rs.getBoolean("status"));
-                System.out.println("ROUTE DAAO DISTANCIA " + route.getIdRoute() + " " + route.getDistance());
+
                 routes.add(route);
             }
 
@@ -166,8 +196,7 @@ public class RouteDAO {
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.route WHERE idRoute = ? ;");
             st.setInt(1, r.getIdRoute());
-
-
+            int i =st.executeUpdate();
 
 
             st.close();

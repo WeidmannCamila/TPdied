@@ -30,26 +30,25 @@ public class StationDAO {
             if(station.getIdStation()!=null) {
                 PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, status, openingTime, closingTime FROM tp_died.station WHERE idStation= ?;");
                 st.setInt(1,station.getIdStation());
-                System.out.println("Entro al if del getId");
+
                 rs = st.executeQuery();
             }else
                 //pregunto si el filtro es por nombre
                 if(station.getName()!=null) {
                     PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, status, openingTime, closingTime FROM tp_died.station WHERE nameStation LIKE '%" + station.getName() +"%';");
-                    System.out.println("Entro al if del getName");
+
                     rs = st.executeQuery();
                 }else
                     //pregunto si el filtro es por status
                     if(station.getStatus()!=null) {
                         PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, status, openingTime, closingTime FROM tp_died.station WHERE status LIKE '%" + station.getStatus() +"%';");
-                        System.out.println("Entro al if del getStatus");
+
                         rs = st.executeQuery();
                     }else
                         if(station.getOpen()!= null){
-                            System.out.println("la hora es : "+ station.getOpen());
+
                             PreparedStatement st = conexion.prepareStatement("SELECT idStation,nameStation, status, openingTime, closingTime FROM tp_died.station WHERE openingTime = '" +station.getOpen()+"';");
 
-                            System.out.println("Entro al if del getOpen");
                             rs = st.executeQuery();
                         }
 

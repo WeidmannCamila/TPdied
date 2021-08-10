@@ -3,7 +3,9 @@ package main.java.Vista;
 import main.java.Enumeration.EnumBestRoute;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
+import main.java.classes.ListGlobalRoute;
 import main.java.classes.ListGlobalStation;
+import main.java.classes.ListRoute;
 import main.java.classes.Station;
 
 import javax.swing.*;
@@ -116,13 +118,16 @@ public class RouteGUI {
                                     "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                         } else{
                             String crit = CBparamSearch.getSelectedItem().toString();
+                            grafoPanel.initVertex(ListGlobalStation.getInstance().getList());
 
-                            ArrayList<ArrayList<Station>> bestRoute = rm.bestRoute4crit(start, end, crit);
+                            grafoPanel.initArista(ListGlobalRoute.getInstance().getList());
+                            ArrayList<ListRoute> bestRoute = rm.bestRoute4crit(start, end, crit);
 
                             if(bestRoute== null){
                                 JOptionPane.showMessageDialog(null, "No hay recorridos disponibles",
                                         "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                             } else {
+
                                 GrafoGUI graf = new GrafoGUI(bestRoute);
                                 graf.frameGrafo.setVisible(true);
                                 graf.setAnterior(RouteGUI.this.frameRoute);

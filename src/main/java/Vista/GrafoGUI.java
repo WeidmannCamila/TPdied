@@ -34,10 +34,10 @@ public class GrafoGUI {
     public TicketManager tm = TicketManager.getInstance();
     public RouteManager rm = RouteManager.getInstance();
     public TransportManager ttm = TransportManager.getInstance();
-    ArrayList<ArrayList<Station>> bestRoute;
+    ArrayList<ListRoute> bestRoute;
     public ArrayList<ListRoute> listPaths = new ArrayList<>();
 
-    public GrafoGUI(ArrayList<ArrayList<Station>> bestRoute) {
+    public GrafoGUI(ArrayList<ListRoute> bestRoute) {
 
 
         this.initialize(bestRoute);
@@ -48,12 +48,12 @@ public class GrafoGUI {
 
 
     public GrafoGUI() {
-    //    this.grafoPanel= grafoPanel;
+        //    this.grafoPanel= grafoPanel;
         this.initialize(null);
     }
 
 
-    private void initialize(ArrayList<ArrayList<Station>> bestRoute) {
+    private void initialize(ArrayList<ListRoute> bestRoute) {
         this.frameGrafo = new JFrame();
         this.frameGrafo.setBounds(100, 100, 1250, 720);
         this.frameGrafo.setResizable(false);
@@ -88,31 +88,29 @@ public class GrafoGUI {
         panel.add(lblPanelDeAdministracin, gbc_lblPanelDeAdministracin);
 
         if(bestRoute != null){
+                //lista de listroutes
 
+             for(ListRoute lr : bestRoute) {
+                 Double distance = rm.distanceTotal(lr.listRoute);
+                 Double duration = rm.durationTotal(lr.listRoute);
+                 Double cost = rm.costTotal(lr.listRoute);
 
-            for(ArrayList<Station> s : bestRoute){
+                 ArrayList<String> usedTransports = new ArrayList<>();
 
-                Double distance = rm.distanceTotalRoute(s);
-                Double duration = rm.durationTotalRoute(s);
-                Double cost = rm.costTotalRoute(s);
+                 lr.setTotalDuration(duration);
+                 lr.setTotalDistance(distance);
+                 lr.setTotalCost(cost);
+                 for(Route r : lr.listRoute){
 
-                ArrayList<Station> aux = new ArrayList<>(s.subList(1, s.size()-1));
-                ArrayList<String> usedTransports = new ArrayList<>();
-                Route ro;
-                for (int i =0; i< s.size()-1 ; i++) {
+                     if(!usedTransports.contains(r.getTransport().getName())){
+                         usedTransports.add(r.getTransport().getName());
 
-                    ro = rm.getRoute(s.get(i), s.get(i+1));
-                    if(!usedTransports.contains(ro.getTransport().getName())){
-                        usedTransports.add(ro.getTransport().getName());
-                        System.out.println("LO CONTIENEE ");
-                    }
+                     }
+                 }
+                 lr.setTransports(usedTransports);
+
 
                 }
-
-                listRoute = new ListRoute(s.get(0),s.get(s.size()-1), distance, duration, cost, aux, usedTransports);
-
-                listPaths.add(listRoute);
-            }
 
 
 
@@ -158,7 +156,7 @@ public class GrafoGUI {
                     }
 
                     ListRoute routes;
-                    routes = listPaths.get(table.convertRowIndexToModel(rowId));
+                    routes = bestRoute.get(table.convertRowIndexToModel(rowId));
 
                     RefreshBuyTicket(routes, name , email);
                 }
@@ -214,10 +212,10 @@ public class GrafoGUI {
             panel.add(panelscroll, tablepanel);
 
             //table.setVisible(true);
-            refreshRutaTable(listPaths);
+            refreshRutaTable(bestRoute);
 
         }
-         // Panel para el grafo
+        // Panel para el grafo
 
         GridBagConstraints gbc_panel_91 = new GridBagConstraints();
         gbc_panel_91.gridwidth = 3;
@@ -227,17 +225,12 @@ public class GrafoGUI {
         gbc_panel_91.gridx = 0;
         gbc_panel_91.gridy = 2;
 
-        grafoPanel.setBackground(new Color(0xcccccc));
+        grafoPanel.setBackground(new Color(0x242424));
         grafoPanel.setBorder(BorderFactory.createLineBorder(new Color(0x7A8A99)));
         panel.add(grafoPanel, gbc_panel_91);
 
 
         this.frameGrafo.setContentPane(panel);
-
-
-
-
-
 
 
     }
@@ -257,27 +250,28 @@ public class GrafoGUI {
     }
 
 
-   public void refreshRutaTable(ArrayList<ListRoute> listPaths) {
+    public void refreshRutaTable(ArrayList<ListRoute> listPaths) {
         String row[] = { "Origen", "Pasa", "Destino", "Distancia", "Duración", "Costo" , "Lineas"};
         DefaultTableModel tableModel = new DefaultTableModel(row, 0){
 
-           // private static final long serialVersionUID = 1L;
+            // private static final long serialVersionUID = 1L;
 
             public boolean isCellEditable(int i, int i1) {
                 return false;
             }
         };
 
+
+
         for (ListRoute ruta : listPaths) {
             String origen = ruta.getOrigin().getName();
-            String destino = ruta.getDestination().getName();
+            String destino =ruta.getDestination().getName();
             String distancia = ruta.getTotalDistance() + " km";
             String duracion = ruta.getTotalDuration() + " min";
             String costo = ruta.getTotalCost() + " $";
-            ArrayList<Station> stations = ruta.listStation;
-
+           // ArrayList<Station> stations = ruta.listStation;
             StringBuilder s = new StringBuilder("");
-            for ( Station ss : stations){
+            for ( Station ss : ruta.listStation){
                 s.append(ss.getName());
 
             }
@@ -287,7 +281,7 @@ public class GrafoGUI {
 
             }
 
-            Object[] data = { origen, s.toString(), destino, distancia, duracion, costo, t };
+            Object[] data = { origen, s, destino, distancia, duracion, costo, t };
             tableModel.addRow(data);
         }
 

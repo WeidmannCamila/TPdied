@@ -104,4 +104,13 @@ public class Station {
     public void setColour(Paint colour) {
         this.colour = colour;
     }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "idStation=" + idStation +
+                ", name='" + name + '\'' +
+                ", colour=" + colour +
+                '}';
+    }
 }

@@ -21,7 +21,7 @@ public class RouteDAO {
         ResultSet rs = null;
 
         try {
-            System.out.println("dentro del try");
+
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.route (origin, destination, distance, duration, maxPassagers, status, cost, idstationdestination, idstationOrigin, idtransport) VALUES (? , ?, ?,?,?,?,?, ?,?,?);", Statement.RETURN_GENERATED_KEYS);
 
@@ -35,9 +35,9 @@ public class RouteDAO {
             st.setInt(9, dto.getOrigin().getIdStation());
             st.setInt(8, dto.getDestination().getIdStation());
             st.setInt(10, dto.getTransport().getIdTransport());
-            System.out.println("insert");
+
             int affectedRows = st.executeUpdate();
-            System.out.println("affected " + affectedRows);
+
             if (affectedRows == 0) {
                 throw new SQLException("Creating user failed, no rows affected.");
             }
@@ -150,7 +150,7 @@ public class RouteDAO {
                 end = daoS.getStation(rs.getInt("idStationDestination"));
 
                 Route route = new Route(rs.getInt("idRoute"), start, end,  rs.getDouble("distance"), rs.getDouble("duration"), rs.getDouble("cost"), transport, rs.getInt("maxPassagers"), rs.getBoolean("status"));
-                System.out.println("ROUTE DAAO DISTANCIA " + route.getIdRoute() + " " + route.getDistance() + " " + route.getStatus());
+
                 routes.add(route);
             }
 
@@ -193,13 +193,12 @@ public class RouteDAO {
         Connection con = null;
         ResultSet rs = null;
 
-        System.out.println("ENTRO AL DAO DE ROUTE");
         try{
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.route WHERE idRoute = ? ;");
             st.setInt(1, r.getIdRoute());
             int i =st.executeUpdate();
-            System.out.println("lo q se edito " + i);
+
 
             st.close();
 

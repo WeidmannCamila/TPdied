@@ -3,17 +3,12 @@ package main.java.Managers;
 import main.java.DAO.MaintenanceDAO;
 import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
-import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
-import main.java.Vista.GrafoGUI;
 import main.java.Vista.GrafoPanel;
-import main.java.Vista.ViewVertex;
 import main.java.classes.*;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class StationManager {
 
@@ -63,8 +58,8 @@ public class StationManager {
     }
 
 
-    public static ArrayList<DTOMaintenance> searchMaintenance(int estacionParametro) {
-        ArrayList<DTOMaintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
+    public  ArrayList<Maintenance> searchMaintenance(int estacionParametro) {
+        ArrayList<Maintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
         return mantenimientos;
     }
 

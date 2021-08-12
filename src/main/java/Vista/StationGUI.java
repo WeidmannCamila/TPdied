@@ -1,10 +1,10 @@
 package main.java.Vista;
 
 import main.java.DAO.StationDAO;
-import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 import main.java.Managers.StationManager;
+import main.java.classes.Maintenance;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -43,10 +43,7 @@ public class StationGUI extends JPanel{
     private JFrame anterior;
     public StationManager sm = StationManager.getInstance();
 
-    public StationGUI() {
-        this.initialize();
-
-    }
+    public StationGUI() { this.initialize(); }
 
 
     private void initialize(){
@@ -207,7 +204,7 @@ public class StationGUI extends JPanel{
                 int id= (int) table.getModel().getValueAt(table.getSelectedRow(),0);
 
                 //llamar al dao para buscar la estacion y luego crear un mantenimiento y setearle la estacion
-                ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(id);
+                ArrayList<Maintenance> mantenimientos = sm.searchMaintenance(id);
                 if(mantenimientos.size()>0){
                     updateTableMaintenances(mantenimientos);
                 }else{
@@ -263,23 +260,31 @@ public class StationGUI extends JPanel{
                 updateTable(result);
             }
         });
+        /*
+            * Item 6:
+            * Ver las estaciones de un monticulo que como criterio de prioridad es la estacion
+            * que tenga hecho el mantenimiento mas antiguo
+         */
         nextMaintenanceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ListNextMaintenance Lnm = new ListNextMaintenance();
                 Lnm.setAnterior(StationGUI.this.frameStation);
                 Lnm.frameNextMaint.setVisible(true);
+                Lnm.showStationNextMaintenance( );
+
+                frameStation.dispose();
             }
         });
 
     }
 
-    public void updateTableMaintenances(ArrayList<DTOMaintenance> m){
+    public void updateTableMaintenances(ArrayList<Maintenance> m){
         String atributes[] = {"Id" , "Descripcion" , "Hs Inicio",  "Hs Fin"};
         DefaultTableModel tabla = new DefaultTableModel(atributes, 0 );
-        ArrayList<DTOMaintenance> listMaintenance = m;
+        ArrayList<Maintenance> listMaintenance = m;
 
-        for(DTOMaintenance maint: listMaintenance){
+        for(Maintenance maint: listMaintenance){
             Integer id = maint.getIdMaintenance();
             String desc = maint.getDescription();
             Timestamp hsInicio = maint.getStartDate();

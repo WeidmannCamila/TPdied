@@ -1,9 +1,7 @@
 package main.java.classes;
 
-import main.java.Enumeration.EnumStatus;
-
 import java.awt.*;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Station {
 
@@ -12,12 +10,12 @@ public class Station {
     private String openingTime;
     private String closingTime;
     private String status;
-    private List<Maintenance> maintenanceHistory;
+    private ArrayList<Maintenance> maintenanceHistory;
     private Paint colour;
 
     //constructor
 
-    public Station(Integer idStation, String name, String openingTime, String closingTime, String status, List<Maintenance> maintenanceHistory) {
+    public Station(Integer idStation, String name, String openingTime, String closingTime, String status, ArrayList<Maintenance> maintenanceHistory) {
         this.idStation = idStation;
         this.name = name;
         this.openingTime =  openingTime;
@@ -76,11 +74,11 @@ public class Station {
         this.status = status;
     }
 
-    public List<Maintenance> getMaintenanceHistory() {
+    public ArrayList<Maintenance> getMaintenanceHistory() {
         return maintenanceHistory;
     }
 
-    public void setMaintenanceHistory(List<Maintenance> maintenanceHistory) {
+    public void setMaintenanceHistory(ArrayList<Maintenance> maintenanceHistory) {
         this.maintenanceHistory = maintenanceHistory;
     }
 

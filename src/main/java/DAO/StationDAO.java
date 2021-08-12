@@ -1,7 +1,6 @@
 package main.java.DAO;
 
 import main.java.DTOs.DTOStation;
-import main.java.Enumeration.EnumStatus;
 import main.java.classes.Constants;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Station;
@@ -148,17 +147,13 @@ public class StationDAO {
 
         try {
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
-            PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;" ) ;
+            PreparedStatement st = conexion.prepareStatement("SELECT * FROM tp_died.station;");
             rs = st.executeQuery();
 
             while(rs.next()) {
-
-
                 Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("closingTime"), rs.getString("status"), null);
-
                 stations.add(station);
             }
-
 
             st.close();
 
@@ -221,7 +216,6 @@ public class StationDAO {
 
         Connection conexion = null;
         ResultSet rs = null;
-
 
         try {
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);

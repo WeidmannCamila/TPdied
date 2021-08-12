@@ -3,6 +3,7 @@ package main.java.Managers;
 import main.java.DAO.RouteDAO;
 import main.java.DTOs.DTORoute;
 import main.java.Vista.GrafoPanel;
+import main.java.Vista.ViewPageRank;
 import main.java.classes.*;
 
 import java.util.ArrayList;
@@ -61,6 +62,20 @@ public class RouteManager {
         return aux;
     }
 
+    public ArrayList<Route> getRoutesFilter(Station start, Station end){
+        ArrayList<Route> aux = new ArrayList<>();
+
+        for (Route r : this.getListRoutes()) {
+            if(r.getStatus() && r.getTransport().isStatus()){
+                if (r.getOrigin().getIdStation().equals(start.getIdStation()) && r.getDestination().getIdStation().equals(end.getIdStation())) {
+                    aux.add(r);
+                }}
+
+        }
+        return aux;
+    }
+
+
 
     public Route getRoute(Station start, Station end) {
         for (Route r : this.getListRoutes()) {
@@ -97,7 +112,8 @@ public class RouteManager {
             resultadoaux= listpaths;
          switch(crit){
 
-            case "MAS_BARATO": {
+            case "MENOR_COSTO": {
+
                 listCheaper(listTotable);
                 break;
             }
@@ -118,8 +134,9 @@ public class RouteManager {
              }
 
         }
-            System.out.println("TAMAÑO RESULTADOAUX " + resultadoaux.size());
-            grafoPanel.paintRoutes(resultadoaux);
+            //System.out.println("TAMAÑO RESULTADOAUX " + resultadoaux.size());
+
+         grafoPanel.paintRoutes(resultadoaux);
             grafoPanel.repaint();
 
         }
@@ -133,27 +150,30 @@ public class RouteManager {
         ArrayList<ListRoute> listResult1 = new ArrayList<>();
         ListRoute trayecto = new ListRoute();
 
-        for(int i = 0; i < listpaths.size() - 1; i++){
+        for(int i = 0; i < listpaths.size(); i++){
             int contador =0;
             ArrayList<Route> lr = new ArrayList<Route>();
             ArrayList<Route> lr2 = new ArrayList<Route>();
             ArrayList<Station> Initstations = new ArrayList<>();
             ArrayList<ListRoute> listResult = new ArrayList<>();
 
+         //   System.out.println("TANAÑOS LISTHPATH" +  i);
 
-            listResult1.addAll(recursive(listpaths.get(i), listResult, lr, lr2, start, end,Initstations));
+            listResult1.addAll(recursive(listpaths.get(i), listResult, lr, start, end,Initstations));
 
-            contador =listResult1.size();
+            contador =listResult.size();
             if(contador!=0){
                 i= i+(contador-1);
            }
 
+    //        System.out.println("TANAÑOS II" + listResult.size() + i);
         }
+
         return listResult1;
     }
 
     // le doy una lista de estaciones [start, ..., end]
-    private ArrayList<ListRoute> recursive(ArrayList<Station> stations, ArrayList<ListRoute> listResult , ArrayList<Route> lr, ArrayList<Route> lr2, Station start, Station end,  ArrayList<Station> Initstations) {
+    private ArrayList<ListRoute> recursive(ArrayList<Station> stations, ArrayList<ListRoute> listResult , ArrayList<Route> lr, Station start, Station end,  ArrayList<Station> Initstations) {
       //  ArrayList<ListRoute> listResult = new ArrayList<>();
         ListRoute trayecto = new ListRoute();
         ListRoute trayecto2 = new ListRoute();
@@ -165,12 +185,16 @@ public class RouteManager {
 
         }
 
-        ArrayList<Route> routes = this.getListRoutes(stations.get(0) , stations.get(1));
+        ArrayList<Route> routes = this.getRoutesFilter(stations.get(0) , stations.get(1));
+      //  System.out.println("RUTAS tamaño " + routes.size() +  " "+stations.get(0).getName() + stations.get(1).getName());
+        int n = routes.size();
+    //    System.out.println("numer N " + n);
 
         if(stations.get(1).getIdStation().equals(stations.get(stations.size()-1).getIdStation())) {
                 if(routes.size()==1) {
-                lr.add(routes.get(0));
-                    if(lr2.size() != 0 && !lr.containsAll(lr2)){
+                    lr.add(routes.get(0));
+                  //  System.out.println("termina con una sola ruta" + routes.get(0).getDistance());
+                    /*if(lr2.size() != 0 && !lr.containsAll(lr2)){
                         lr2.add(routes.get(0));
                         trayecto2.setListRoute(lr2);
                         listResult.add(trayecto2);
@@ -178,17 +202,19 @@ public class RouteManager {
                         trayecto2.setDestination(end);
                         trayecto2.setListStation(Initstations);
 
-                    }
+                    }*/
                     trayecto.setOrigin(start);
                     trayecto.setDestination(end);
                     trayecto.setListRoute(lr);
                     trayecto.setListStation(Initstations);
+              //      System.out.println("trayecto " + trayecto.listRoute);
+                 listResult.add(trayecto);
+                   // System.out.println("ListResult " + listResult.size());
 
-                    listResult.add(trayecto);
                 }
                 else{
 
-                    lr.add(routes.get(0));
+                   /* lr.add(routes.get(0));
                     lr2.add(routes.get(1));
 
                     trayecto.listRoute = lr;
@@ -201,7 +227,17 @@ public class RouteManager {
                     trayecto.setListStation(Initstations);
 
                     listResult.add(trayecto);
-                    listResult.add(trayecto2);
+                    listResult.add(trayecto2);*/
+                    while(n ==0){
+                        lr.add(routes.get(n-1));
+                        trayecto.listRoute = lr;
+                        trayecto.setOrigin(start);
+                        trayecto.setDestination(end);
+                        trayecto.setListStation(Initstations);
+                        listResult.add(trayecto);
+                        lr.remove(routes.get(n-1));
+                        n--;
+                    }
 
                 }
             return listResult;
@@ -209,20 +245,32 @@ public class RouteManager {
 
         } else {
                 if(routes.size()==1) {
-                    lr.add(routes.get(0));
-                    lr2.add(routes.get(0));
-                    ArrayList<Station> scopy = new ArrayList<Station>(stations.subList(1, stations.size()));
 
-                    recursive(scopy, listResult, lr, lr2, start, end, Initstations);
+                  //  System.out.println("una sola ruta");
+
+                    lr.add(routes.get(0));
+                  //  lr2.add(routes.get(0));
+                    ArrayList<Station> scopy = new ArrayList<Station>(stations.subList(1, stations.size()));
+                  //  System.out.println("arrelo " + scopy );
+                    recursive(scopy, listResult, lr, start, end, Initstations);
 
 
                 }
                 else {
-                    lr.add(routes.get(0));
+                    while(n ==0){
+                        lr.add(routes.get(n-1));
+                        ArrayList<Station> scopy = new ArrayList<Station>(stations.subList(1, stations.size()));
+                        recursive(scopy, listResult, lr, start, end, Initstations);
+                        lr.remove(routes.get(n-1));
+                        n--;
+                    }
+
+
+                   /* lr.add(routes.get(0));
                     lr2.add(routes.get(1));
                     ArrayList<Station> scopy = new ArrayList<Station>(stations.subList(1, stations.size()));
                     recursive(scopy, listResult, lr, lr2, start, end, Initstations);
-                    recursive(scopy, listResult, lr2, lr, start, end, Initstations);
+                    recursive(scopy, listResult, lr2, lr, start, end, Initstations);*/
                 }
 
 
@@ -293,13 +341,13 @@ public class RouteManager {
 
 
     private ArrayList<ListRoute> listCheaper(ArrayList<ListRoute> listr){
-
+        System.out.println("COSTO list " + listr);
         for(ListRoute r: listr){
 
             r.setTotalCost(costTotal(r.listRoute));
         }
 
-        Comparator <ListRoute> distanceComparator = new Comparator<ListRoute>() {
+     Comparator <ListRoute> costeComparator = new Comparator<ListRoute>() {
 
             @Override
             public int compare(ListRoute r1, ListRoute r2) {
@@ -308,16 +356,20 @@ public class RouteManager {
 
         };
 
-        Collections.sort(listr, distanceComparator);
+        //listr.sort((ListRoute v, ListRoute v2) -> v.getTotalCost().compareTo(v2.getTotalCost()));
+
+
+    Collections.sort(listr,costeComparator );
         return listr;
     }
 
     public Double costTotal(ArrayList<Route> listRoute) {
         Double costAux = 0.0;
         for(Route r: listRoute){
+            System.out.println("hay ruta" + r);
             costAux+= r.getCost();
         }
-
+        System.out.println("COSTO" + costAux);
         return costAux;
     }
 

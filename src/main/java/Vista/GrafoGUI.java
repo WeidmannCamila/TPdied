@@ -91,15 +91,19 @@ public class GrafoGUI {
                 //lista de listroutes
 
              for(ListRoute lr : bestRoute) {
-                 Double distance = rm.distanceTotal(lr.listRoute);
-                 Double duration = rm.durationTotal(lr.listRoute);
-                 Double cost = rm.costTotal(lr.listRoute);
 
+
+                 if (lr.getTotalCost() == null){
+                    lr.setTotalCost(rm.costTotal(lr.listRoute));
+                 }
+                 if(lr.getTotalDuration() == null){
+                     lr.setTotalDuration(rm.durationTotal(lr.listRoute));
+                 }
+                 if(lr.getTotalDistance() == null){
+                     lr.setTotalDistance(rm.distanceTotal(lr.listRoute));
+                 }
                  ArrayList<String> usedTransports = new ArrayList<>();
 
-                 lr.setTotalDuration(duration);
-                 lr.setTotalDistance(distance);
-                 lr.setTotalCost(cost);
                  for(Route r : lr.listRoute){
 
                      if(!usedTransports.contains(r.getTransport().getName())){
@@ -254,14 +258,11 @@ public class GrafoGUI {
         String row[] = { "Origen", "Pasa", "Destino", "Distancia", "Duración", "Costo" , "Lineas"};
         DefaultTableModel tableModel = new DefaultTableModel(row, 0){
 
-            // private static final long serialVersionUID = 1L;
 
             public boolean isCellEditable(int i, int i1) {
                 return false;
             }
         };
-
-
 
         for (ListRoute ruta : listPaths) {
             String origen = ruta.getOrigin().getName();

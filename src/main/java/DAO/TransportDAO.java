@@ -1,6 +1,7 @@
 package main.java.DAO;
 
 
+import main.java.DTOs.DTOStation;
 import main.java.DTOs.DTOTransport;
 import main.java.classes.*;
 
@@ -16,42 +17,64 @@ public class TransportDAO {
     public TransportDAO() {
     }
 
-    public void addTransport(DTOTransport T) {
+
+
+    public void addTransport(DTOTransport t) {
         Connection conexion = null;
 
 
         try {
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
-            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.transport_route (idTransport, name, colour, status) VALUES (? , ?, ?,?);");
-            st.setInt(1, T.getIdTransport());
-            st.setString(2, T.getName());
-            st.setString(3, T.getColour().toString());
-            st.setBoolean(4, T.getStatus());
-            st.executeUpdate();
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.transport_route ( name, colour, status) VALUES (? , ?, ?);", Statement.RETURN_GENERATED_KEYS);
 
-            ListGlobalTransport lgc = ListGlobalTransport.getInstance();
-            TransportRoute t = this.getTransport(T.getIdTransport());
-            lgc.addTransport(t);
+            st.setString(1, t.getName());
+            st.setString(2, t.getColour().toString());
+            st.setBoolean(3, t.getStatus());
 
-            st.close();
+            int affectedRows = st.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+
+                    System.out.println("PASA POR ADDTRANSPORT DENTRO DEL IF");
+                    t.setIdTransport(generatedKeys.getInt(1));
+                    Paint c;
+                    c = colourTransport(t.getColour());
+
+                    ListGlobalTransport lgc = ListGlobalTransport.getInstance();
+                    TransportRoute t1 = new TransportRoute(t.getIdTransport(), t.getName(),c , t.getStatus());
+                    lgc.addTransport(t1);
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
 
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (Exception e1) {
-                    System.out.println(e1.getMessage());
+               // st.executeUpdate();
+                st.close();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                if (conexion != null) {
+                    try {
+                        conexion.close();
+                    } catch (Exception e1) {
+                        System.out.println(e1.getMessage());
+                    }
                 }
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
-
     }
 
-    public static void deleteTransport(DTOTransport deleteT) {
+
+
+    public void deleteTransport(DTOTransport deleteT) {
+        System.out.println("LLEGO A DAO TRANPORTE DELECE");
         Connection conexion = null;
         ResultSet rs = null;
 
@@ -235,7 +258,7 @@ public class TransportDAO {
                 break;
             }
             default:
-                throw new IllegalStateException("Unexpected value: " + Color.BLUE);
+                co = Color.BLUE;
         };
 
         return co;

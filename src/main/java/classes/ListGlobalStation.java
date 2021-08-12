@@ -47,6 +47,8 @@ public class ListGlobalStation implements Comparable<ListGlobalStation>{
             if(s1.getIdStation().equals(s.getIdStation())){
                 s1.setName(s.getName());
                 s1.setStatus(s.getStatus());
+                s1.setOpeningTime(s.getOpeningTime());
+                s1.setClosingTime(s.getOpeningTime());
 
             }
 

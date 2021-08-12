@@ -86,7 +86,7 @@ public class StationAddGUI {
 
                         sm.addStation(dto);
                         JOptionPane.showMessageDialog(null, "Estacion cargada con Exito",
-                                "EXISTO", JOptionPane.ERROR_MESSAGE);
+                                "EXITO", JOptionPane.ERROR_MESSAGE);
                         StationAddGUI.this.anterior.setVisible(true);
                         StationAddGUI.this.frameStationAdd.dispose();
 

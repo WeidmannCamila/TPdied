@@ -21,8 +21,10 @@ public class StationEditGUI {
     private JTextField stationId;
     private JButton editButton;
     private JTextField stationName;
-    private JComboBox CBhscla;
-    private JComboBox CBhsAper;
+    private JTextField HourOpenTField;
+    private JTextField MinuteOpenTField;
+    private JTextField HourClosedTField;
+    private JTextField MinuteCloseTf;
     private DTOStation dto = new DTOStation();
     private StationDAO sDAO = new StationDAO();
     public JFrame frameStationEdit;
@@ -49,20 +51,24 @@ public class StationEditGUI {
 
         this.stationName.setText(stationToEdit.getName());
 
-        String[] estado = {stationToEdit.getStatus() ,"--seleccionar--","OPERATIVA", "MANTENIMIENTO"} ;
+        String[] estado = {stationToEdit.getStatus() ,"OPERATIVA", "MANTENIMIENTO"} ;
         statusCB.setModel(new DefaultComboBoxModel<String>(estado));
 
         editButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                    if(stationName.getText() != null && statusCB.getSelectedIndex() !=0){
+                    if(stationName.getText() != null){
 
                         dto.setIdStation(stationToEdit.getIdStation());
                         dto.setName(stationName.getText());
 
+                        String fechaApertura = HourOpenTField.getText()+ ":" + MinuteOpenTField.getText();
+                        dto.setOpen(fechaApertura);
+                        String fechaCierre = HourClosedTField.getText()+ ":" + MinuteCloseTf.getText();
+                        dto.setClosed(fechaCierre);
 
                         dto.setStatus(statusCB.getSelectedItem().toString());
-                        System.out.println("ESTADO 1: " + dto.getStatus());
+
                         sm.updateStation(dto);
                         JOptionPane.showMessageDialog(null, "Estacion  actualizada.",
                                 "EXITO", JOptionPane.INFORMATION_MESSAGE);

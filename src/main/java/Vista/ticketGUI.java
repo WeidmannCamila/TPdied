@@ -47,10 +47,7 @@ public class ticketGUI {
         ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
         ZonedDateTime zdt = ZonedDateTime.now(z);
 
-     tm.createTicket(routes, name, email, zdt.toLocalDate());
-
-
-
+        tm.createTicket(routes, name, email, zdt.toLocalDate());
         this.name.setText(name);
         this.name.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.name.setText(name);

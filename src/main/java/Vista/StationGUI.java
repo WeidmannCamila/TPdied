@@ -26,7 +26,7 @@ public class StationGUI extends JPanel{
     private JTable table;
     private JButton searchButton;
     private JButton addStationButton;
-    private JTable tableT;
+
     private JButton editStationButton;
     private JButton deleteStationButton;
     private JTextField textStation;
@@ -142,7 +142,7 @@ public class StationGUI extends JPanel{
 
         searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-               String param = textStation.getText();
+               String param = textStation.getText().substring(0,1).toUpperCase() + textStation.getText().substring(1).toLowerCase();
 
                estacionParametro.setStatus(null);
                estacionParametro.setName(null);
@@ -155,7 +155,8 @@ public class StationGUI extends JPanel{
                        try{
                            id = Integer.parseInt(param);
                        }catch(NumberFormatException i){
-                           System.out.println("tiene que ser un id");
+                           JOptionPane.showMessageDialog(null, "El campo tiene que ser numerico",
+                                   "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                            return;
                        }
                        estacionParametro.setIdStation(id);
@@ -164,6 +165,7 @@ public class StationGUI extends JPanel{
                    }
                    case 1: {
                        //se buscar por nombre
+
                        estacionParametro.setName(param);
 
                        int id = table.getSelectedRow();
@@ -189,7 +191,7 @@ public class StationGUI extends JPanel{
                    }
                    case 4:{
                        String fechaCierre = HourClosedTField.getText()+ ":" + MinuteClosedTField.getText();
-                       estacionParametro.setOpen(fechaCierre);
+                       estacionParametro.setClosed(fechaCierre);
 
                        break;
                     }
@@ -229,9 +231,11 @@ public class StationGUI extends JPanel{
                 estacionParametro.setStatus(EnumStatus.values().toString());
                 if(CBsearch.getSelectedIndex()==2){
                     CBstatus.setVisible(true);
+                    textStation.setVisible(false);
                 }
                 else if(CBsearch.getSelectedIndex()!=2){
                     CBstatus.setVisible(false);
+                    textStation.setVisible(true);
                 }
                 if(CBsearch.getSelectedIndex()==3){
                     HourOpenTField.setEditable(true);
@@ -302,7 +306,7 @@ public class StationGUI extends JPanel{
             String name = station.getName();
             String status = station.getStatus();
             String ha = station.getOpen();
-            String hc = station.getClouse();
+            String hc = station.getClosed();
 
             Object[] data = {id, name, status, ha, hc};
             tm.addRow(data);

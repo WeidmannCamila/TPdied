@@ -68,7 +68,7 @@ public class TransportAddGUI {
         // final ArrayList<DTOTransport> listTransport = tDAO.getTransports();
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(transportName.getText().length() <= 0 || TransportAddGUI.this.transportColour.getText().length() <= 0 || CBstatus.getSelectedIndex() == 0){
+                if(transportName.getText().length() <= 0 || CBTransportColour.getSelectedIndex() == 0 || CBstatus.getSelectedIndex() == 0){
                     JOptionPane.showMessageDialog(null, "Campos vacios.",
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
@@ -88,7 +88,7 @@ public class TransportAddGUI {
                         dto.setStatus(stat);
                         tm.addTransport(dto);
                        JOptionPane.showMessageDialog(null, "Transporte cargada con Exito",
-                               "EXISTO", JOptionPane.ERROR_MESSAGE);
+                               "EXITO", JOptionPane.INFORMATION_MESSAGE);
                        TransportAddGUI.this.anterior.setVisible(true);
                        TransportAddGUI.this.frameTransportAdd.dispose();
 

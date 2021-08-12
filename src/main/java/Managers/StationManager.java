@@ -122,7 +122,8 @@ public class StationManager {
         ListGlobalStation ls = ListGlobalStation.getInstance();
 
         Station s = this.getStation(dto.getIdStation());
-
+        s.setOpeningTime(dto.getOpen());
+        s.setClosingTime(dto.getClosed());
         s.setName(dto.getName());
 
         if(!dto.getStatus().equals(s.getStatus())){

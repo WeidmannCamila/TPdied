@@ -9,10 +9,11 @@ import main.java.classes.*;
 import java.util.ArrayList;
 
 public class TransportManager {
-    private static TransportManager instan = null;
+
     private TransportDAO tDAO = new TransportDAO();
     private static final TransportManager INSTANCE = new TransportManager();
     private ArrayList<TransportRoute> listTransport = new ArrayList<TransportRoute>();
+    private RouteManager rm = new RouteManager();
 
     public TransportManager(){}
 
@@ -56,11 +57,25 @@ public class TransportManager {
     }
 
 
-    public static void deleteTransportRoute(DTOTransport t){
-        TransportDAO.deleteTransport(t);
+    public void deleteTransportRoute(DTOTransport t){
+        ArrayList<Route> aux = rm.getListRoutes();
+
+        for(int i= 0; i<aux.size();i++  ){
+            if(aux.get(i).getTransport().getIdTransport().equals(t.getIdTransport())){
+                System.out.println("encuentra una ruta " + aux.get(i));
+             rm.deleteRoute(aux.get(i));
+
+            }
+        }
+        ListGlobalTransport lt = ListGlobalTransport.getInstance();
+        lt.deleteTransport(t);
+
+        tDAO.deleteTransport(t);
     }
 
     public void addTransport(DTOTransport dto) {
+
+        System.out.println("PASA POR ADDTRANSPORT");
         tDAO.addTransport(dto);
     }
 

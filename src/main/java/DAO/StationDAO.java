@@ -121,6 +121,8 @@ public class StationDAO {
 
             updateId.executeUpdate("UPDATE tp_died.station SET nameStation = '" + dto.getName() + "' WHERE idStation = " + dto.getIdStation() + ";");
             updateId.executeUpdate("UPDATE tp_died.station SET status = '" + dto.getStatus() + "' WHERE idStation = " + dto.getIdStation() + ";");
+            updateId.executeUpdate("UPDATE tp_died.station SET openingTime = '" + dto.getOpen() + "' WHERE idStation = " + dto.getIdStation() + ";");
+            updateId.executeUpdate("UPDATE tp_died.station SET closingTime = '" + dto.getClosed() + "' WHERE idStation = " + dto.getIdStation() + ";");
 
         } catch (Exception var12) {
             System.out.println(var12.getMessage());
@@ -187,7 +189,7 @@ public class StationDAO {
 
             st.setString(1, s.getName());
             st.setString(2, s.getOpen());
-            st.setString(3, s.getClouse());
+            st.setString(3, s.getClosed());
             st.setString(4, s.getStatus());
             int affectedRows = st.executeUpdate();
             if (affectedRows == 0) {
@@ -207,7 +209,7 @@ public class StationDAO {
                 }
 
 
-                st.executeUpdate();
+               // st.executeUpdate();
                 st.close();
 
             } catch (SQLException e) {

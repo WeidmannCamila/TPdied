@@ -346,6 +346,7 @@ public class GrafoPanel extends JPanel {
         ArrayList<ViewPageRank> result = new ArrayList<>();
         List<ViewVertex> listRoute = this.vertices;
         ViewPageRank e;
+        //viewpagrank tiene los valores q necesito, y se le setea el page rank en 1 antes de arrancar
         for (ViewVertex s : listRoute) {
             e = new ViewPageRank();
             e.setVertice(s);
@@ -357,6 +358,7 @@ public class GrafoPanel extends JPanel {
 
         int j = 0;
         for (int i = 0; i < result.size(); i++) {
+            //recorrer el tamaño del arreglo y crear otro para usar los valores de los nodos adyacentes 
             ArrayList<ViewPageRank> aux = new ArrayList<>();
 
 
@@ -368,9 +370,6 @@ public class GrafoPanel extends JPanel {
                 set.setPageRank(s.getPageRank());
                 aux.add(set);
             }
-
-
-
             for(j = 0; j < result.size(); ++j) {
                 Double PRA = 0.0D;
                 for (ViewVertex v2 : result.get(j).getNodesIn()) {

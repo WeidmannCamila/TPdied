@@ -128,19 +128,26 @@ public class TransportGUI extends JPanel{
         String[] estado = {"--seleccionar--", "Activa" , "No activa"};
         CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
 
-        String[] atributosTransporte = {"Id", "Nombre", "Color", "Estado"};
+        String[] atributosTransporte = {"TODOS","Id", "Nombre", "Color", "Estado"};
         CBsearchTransport.setModel(new DefaultComboBoxModel<String>(atributosTransporte));
 
 
         buscarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String param = textTransport.getText();
+                String param = new String();
                 DTOTransport transportParam = new DTOTransport();
-
+                ArrayList<DTOTransport> result = new ArrayList<>();
 
                 switch (CBsearchTransport.getSelectedIndex()){
                     case 0: {
+                        result = tm.getTransports();
+                        System.out.println("entra a case 0 " + result.size());
+                        break;
+                    }
+                    case 1: {
                         //busqueda por id
+
+                        param= textTransport.getText();
                         Integer id = Integer.parseInt(param);
                         try{
                             id = Integer.parseInt(param);
@@ -153,19 +160,21 @@ public class TransportGUI extends JPanel{
 
                         break;
                     }
-                    case 1:{
+                    case 2:{
                         //busca por nombre
+                        param= textTransport.getText();
                         transportParam.setName(param.substring(0,1).toUpperCase() + param.substring(1).toLowerCase());
 
                         break;
                     }
-                    case 2:{
+                    case 3:{
                         //busca por color
+                        param= textTransport.getText();
                         transportParam.setColour(param);
 
                         break;
                     }
-                    case 3:{
+                    case 4:{
                         //busca por estado de linea
 
                         if(CBStatus.getSelectedIndex()==1){
@@ -179,15 +188,20 @@ public class TransportGUI extends JPanel{
                     }
                     default:
                 }
-                ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                if(result.size()>0){
+              if(result.size()!= 0) {
                     updateTabla(result);
-                }else{
-                    JOptionPane.showMessageDialog(null, "No se encuentran transportes con los atributos seleccionados.",
-                            "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                  System.out.println("entra a if siz3");
+                } else{
+                  System.out.println("entra a else siz3");
+                    if(tm.searchDTOTransport(transportParam) != null){
+                        result = tm.searchDTOTransport(transportParam);
+                        updateTabla(result);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encuentran transportes con los atributos seleccionados.",
+                                "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                    }
 
                 }
-
 
             }
         });
@@ -197,11 +211,11 @@ public class TransportGUI extends JPanel{
                 String[] estado = {"--seleccionar--", "Activa" , "No activa"};
                 CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
 
-                if(CBsearchTransport.getSelectedIndex()==3){
+                if(CBsearchTransport.getSelectedIndex()==4){
                     textTransport.setVisible(false);
                     CBStatus.setVisible(true);
                 }else
-                if(CBsearchTransport.getSelectedIndex()!=3){
+                if(CBsearchTransport.getSelectedIndex()!=4){
                     CBStatus.setVisible(false);
                     textTransport.setVisible(true);
                 }

@@ -40,6 +40,16 @@ public class StationManager {
         return listStation;
     }
 
+    public ArrayList<DTOStation> getStations(){
+        ArrayList<DTOStation> listresult = new ArrayList<>();
+
+        for(Station s : this.listStation.values()){
+            DTOStation d = new DTOStation(s.getIdStation(), s.getName(), s.getStatus(), s.getOpeningTime(), s.getClosingTime());
+            listresult.add(d);
+        }
+        return listresult;
+    }
+
 
     public ArrayList<DTOStation> searchStation(DTOStation s) {
         System.out.println("entro a seacrh 4 name");
@@ -67,7 +77,7 @@ public class StationManager {
     }
 
 
-    public static ArrayList<DTOMaintenance> searchMaintenance(int estacionParametro) {
+    public ArrayList<DTOMaintenance> searchMaintenance(int estacionParametro) {
         ArrayList<DTOMaintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
         return mantenimientos;
     }

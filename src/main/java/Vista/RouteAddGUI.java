@@ -12,6 +12,8 @@ import main.java.classes.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +56,13 @@ public class RouteAddGUI {
         this.frameRouteAdd.setResizable(false);
         this.frameRouteAdd.setLocationRelativeTo(null);
 
+        exitButton.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                RouteAddGUI.this.anterior.setVisible(true);
+                RouteAddGUI.this.frameRouteAdd.dispose();
+            }
 
+        });
 
         //buscar toda las estaciones y transporte para meter en el combobox
         ListGlobalStation ls = ListGlobalStation.getInstance();

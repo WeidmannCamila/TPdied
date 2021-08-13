@@ -134,7 +134,7 @@
                   <autoCreateRowSorter value="false"/>
                   <maximumSize width="2147483647" height="100"/>
                   <minimumSize width="30" height="100"/>
-                  <preferredSize width="110" height="150"/>
+                  <preferredSize width="110" height="350"/>
                 </properties>
               </component>
             </children>

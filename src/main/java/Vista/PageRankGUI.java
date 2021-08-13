@@ -9,6 +9,7 @@ import main.java.classes.Station;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -44,32 +45,21 @@ public class PageRankGUI {
         this.framePageRank.setResizable(false);
         this.framePageRank.setLocationRelativeTo(null);
 
+        table.setFont(new Font("Serif", Font.BOLD, 20));
 
 
-        //Carga del Combobox con la lista de estaciones
-        HashMap<Integer, Station> lists =new HashMap<Integer, Station>(ls.getList());
-        String[] array = new String[lists.size()];
-        array[0]= "TODOS";
-        for(int i =1; i< lists.size()-1 ; i++){
-            array[i] = lists.get(i).getName();
-        }
-         CBStart.setModel(new DefaultComboBoxModel<>(array));
 
         //Boton buscar, busca todos depende si se seleccionó TODOS o alguna estacion en especial
-        buscarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
 
-                if (CBStart.getSelectedIndex() == 0){
-                        listaDatos = grafoPanel.getPageRank();
-                    pageRankTable(listaDatos);
+        System.out.println("Entra a if sea page");
+        listaDatos = grafoPanel.getPageRank();
+        pageRankTable(listaDatos);
 
 
-                    } else {
+
                   //  listaDatos = grafoPanel.getPageRank(CBStart.getSelectedItem());
-                }
 
-            }
-        });
+
 
         // Boton para volver
         exitButton.addMouseListener(new MouseAdapter() {

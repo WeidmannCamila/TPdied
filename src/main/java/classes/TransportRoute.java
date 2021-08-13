@@ -57,4 +57,37 @@ public class TransportRoute {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public String getColor(Paint colour){
+        String c = new String();
+        switch (colour.toString()){
+            case "java.awt.Color[r=255,g=0,b=0]" :{
+                c = "Rojo";
+                break;
+            }
+            case "java.awt.Color[r=76,g=145,b=65]" :{
+                c = "VerdeAB";
+                break;
+            }
+            case "java.awt.Color[r=0,g=255,b=0]" :{
+                c = "VerdeAR";
+                break;
+            }
+            case "java.awt.Color[r=0,g=255,b=255]" : {
+                c = "Azul";
+                break;
+            }
+            case "java.awt.Color[r=255,g=200,b=0]" :{
+                c = "Naranja";
+                break;
+            }
+            case "java.awt.Color[r=255,g=255,b=0]": {
+                c = "Amarillo";
+                break;
+            }
+            default:
+        }
+        return c;
+    }
+
 }

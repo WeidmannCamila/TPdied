@@ -33,6 +33,16 @@ public class TransportManager {
 
         return l;
     }
+    public ArrayList<DTOTransport> getTransports(){
+        ArrayList<DTOTransport> listresult = new ArrayList<>();
+        System.out.println("SIEZE " + this.getListTransport().size());
+
+        for(TransportRoute t : this.getListTransport()){
+            DTOTransport d = new DTOTransport(t.getIdTransport(), t.getName(), t.getColor(t.getColour()) ,t.isStatus());
+            listresult.add(d);
+        }
+        return listresult;
+    }
 
 
     //buscar transportes solo para DTOTransport

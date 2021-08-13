@@ -376,20 +376,31 @@ public class RouteManager {
 
 
     public List<String> flujoMax(Station start, Station end){
+        ArrayList<ListRoute> listRflujo= this.bestRoute4crit(start,end,"TODOS");
+
+        //como el numero de pasajeros se va modificando, guardo los originales para volver a setearlos
+        ArrayList<Integer> maxPaux = new ArrayList<>();
+        for(ListRoute l : listRflujo){
+            maxPaux.add(l.getMaxPassagers());
+        }
 
         ArrayList<ArrayList<Station>> listRoutesFlujo = this.paths(start, end);
+        //string para presentar en tabla
         List<String> returnString =new ArrayList<>();
         Integer TotalFlujoMax = 0;
 
-        for(ArrayList<Station> cs : listRoutesFlujo) {
+
+        for(ListRoute cs : listRflujo) {
 
             Route ro = new Route();
+
             Integer flujRoute = flowPerPart(cs);
+            System.out.println("Integer "+ flujRoute);
             TotalFlujoMax += flujRoute;
 
             // Se le setea los valores nuevos a la cap max (Pesos)
-            for (int i = 0; i < cs.size() - 1; i++) {
-                ro = getRoute(cs.get(i), cs.get(i+1));
+            for (int i = 0; i < cs.listRoute.size() ; i++) {
+                ro = cs.listRoute.get(i);
                 ro.setMaxPassagers(ro.getMaxPassagers() - flujRoute);
             }
 
@@ -399,16 +410,25 @@ public class RouteManager {
         returnString.add(end.getName());
         returnString.add(TotalFlujoMax.toString());
 
+        int i =0;
+        for(ListRoute l : listRflujo){
+           l.setMaxPassagers(maxPaux.get(i));
+           i++;
+        }
+
+
         return returnString;
     }
 
-    private Integer flowPerPart(ArrayList<Station> cs) {
+    private Integer flowPerPart(ListRoute cs) {
         Route ro;
         Integer flujAux = 0;
-        for (int i =0; i< cs.size()-1 ; i++) {
-            ro = getRoute(cs.get(i), cs.get(i+1));
+
+        for (int i =0; i< cs.listRoute.size() ; i++) {
+            ro = cs.listRoute.get(i);
+            System.out.println("flow " + cs.listRoute.get(i).getOrigin() + " " +cs.listRoute.get(i).getDestination()+ " cantidad de pasajeros " + ro.getMaxPassagers());
           if(ro.getMaxPassagers() < flujAux || flujAux ==0){
-                flujAux = ro.getIdRoute();
+                flujAux = ro.getMaxPassagers();
             }
            }
 

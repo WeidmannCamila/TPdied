@@ -46,4 +46,40 @@ public class MaintenanceDAO {
 
         return maintenances;
     }
+
+
+    //METODO PARA OBTENER TODOS LOS MANTENIMIENTOS
+
+    public static ArrayList<Maintenance> getMaintenance() {
+        //  System.out.println("llego al dao de maintenance");
+        ArrayList<Maintenance> maintenances = new ArrayList();
+        Connection con = null;
+        ResultSet resultado = null;
+
+        try {
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            PreparedStatement st = con.prepareStatement("SELECT idMaintenance, description, startDate, endDate  FROM tp_died.maintenance;");
+            resultado = st.executeQuery();
+
+            //no va un while porque es solo un elemento
+            while(resultado.next()) {
+                Maintenance m1 = new Maintenance(resultado.getInt(1), resultado.getString(2), resultado.getTimestamp(3), resultado.getTimestamp(4));
+                maintenances.add(m1);
+            }
+            st.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            if(con!= null){
+                try{
+                    con.close();
+                }catch (Exception e1){
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
+        return maintenances;
+    }
 }

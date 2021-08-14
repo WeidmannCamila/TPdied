@@ -81,6 +81,9 @@ public class Station {
     public void setMaintenanceHistory(ArrayList<Maintenance> maintenanceHistory) {
         this.maintenanceHistory = maintenanceHistory;
     }
+    public void addMaintenance(Maintenance m){
+        this.maintenanceHistory.add(m);
+    }
 
     public Paint getColour() {
         return colour;

@@ -3,6 +3,7 @@ package main.java.Vista;
 import main.java.Managers.StationManager;
 import main.java.classes.ListGlobalStation;
 import main.java.classes.Station;
+import main.java.classes.StationMaintenance;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -55,64 +56,64 @@ public class ListNextMaintenance extends JPanel {
 
         ListGlobalStation listS = ListGlobalStation.getInstance();
         HashMap<Integer, Station> listaEstaciones = new HashMap<Integer,Station>(listS.getList());
-
+        ArrayList<StationMaintenance> listStation = new ArrayList<StationMaintenance>();
+        int indice =0;
         for(Station s: listaEstaciones.values()){
-            s.setMaintenanceHistory(sm.searchMaintenance(s.getIdStation()));
+            StationMaintenance stationMaintenance = new StationMaintenance();
+            sm.searchMaintenanceStation(s);
+            if(s.getMaintenanceHistory().size()>0){
+                indice = s.getMaintenanceHistory().size();
+                stationMaintenance.setIdStationMaintenance(s.getIdStation());
+                stationMaintenance.setNameStationMaintenance(s.getName());
+                if (indice > 0) {
+                    stationMaintenance.setLastDateMaintenance(s.getMaintenanceHistory().get(indice-1).getEndDate());
+                }
+                listStation.add(stationMaintenance);
+            }
         }
 
-
-        Comparator<Station> timestampComparator = new Comparator<Station>() {
+        Comparator<StationMaintenance> timestampComparator = new Comparator<StationMaintenance>() {
             @Override
-            public int compare(Station o1, Station o2) {
-                if(returnLastDateMaintenance(o1).after(returnLastDateMaintenance(o2))){
+            public int compare(StationMaintenance o1, StationMaintenance o2) {
+                if(o1.getLastDateMaintenance().after(o2.getLastDateMaintenance())){
                     return -1;
                 }else
-                if(returnLastDateMaintenance(o2).after(returnLastDateMaintenance(o1))){
+                if(o2.getLastDateMaintenance().after(o1.getLastDateMaintenance())){
                     return 1;
                 }else {return 0;}
             }
         };
+       /* PriorityQueue<StationMaintenance> priorityQueueStation= new PriorityQueue<StationMaintenance>(timestampComparator);
 
-
-
-        PriorityQueue<Station> priorityQueueStation= new PriorityQueue<Station>(timestampComparator);
-
-        for(Station s : listaEstaciones.values()){
+        for(StationMaintenance s :listStation){
             priorityQueueStation.add(s);
-        }
-        /*
-           *    Por cada estacion buscar el ultimo mantenimiento y guardar la fecha
-           *    Crear un comparator y listo wey
-         */
-
-
-
+        }*/
         String[] valores = {"Id", "Nombre", "Fecha Ultimo Mantenimiento"};
 
         DefaultTableModel tabla = new DefaultTableModel(valores, 0);
-        Iterator<Station> timestampIterator = priorityQueueStation.iterator();
-        while (timestampIterator.hasNext()){
-            Integer id = priorityQueueStation.poll().getIdStation();
-            String name = priorityQueueStation.poll().getName();
-            Timestamp lastMaint = returnLastDateMaintenance(priorityQueueStation.poll());
+
+       // Iterator<StationMaintenance> timestampIterator = priorityQueueStation.iterator();
+
+       /* while (timestampIterator.hasNext()){
+            Integer id = priorityQueueStation.poll().getIdStationMaintenance();
+            String name = priorityQueueStation.poll().getNameStationMaintenance();
+            Timestamp lastMaint = priorityQueueStation.poll().getLastDateMaintenance();
 
             Object[] data = {id, name, lastMaint};
             tabla.addRow(data);
 
+        }*/
+
+        for(StationMaintenance man: listStation){
+            Integer id = man.getIdStationMaintenance();
+            String name = man.getNameStationMaintenance();
+            Timestamp time = man.getLastDateMaintenance();
+
+            Object[] data = {id, name, time};
+            tabla.addRow(data);
         }
         stationTable.setModel(tabla);
 
     }
-
-    /*
-        *Metodo que recibe una estacion y retorna la fecha del ultimo mantenimiento que se hizo
-     */
-    public Timestamp returnLastDateMaintenance(Station s){
-
-        int posUltimoMant = s.getMaintenanceHistory().size();
-        return s.getMaintenanceHistory().get(posUltimoMant-1).getEndDate();
-
-    }
-
 
 }

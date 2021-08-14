@@ -16,6 +16,7 @@ public class StationManager {
     private RouteDAO rDAO = new RouteDAO();
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
+    private MaintenanceDAO mDAO = new MaintenanceDAO();
     private HashMap<Integer, Station> listStation = new HashMap<Integer, Station>();
     private GrafoPanel grafopanel = GrafoPanel.getInstance();
 
@@ -63,6 +64,13 @@ public class StationManager {
         return mantenimientos;
     }
 
+    public void searchMaintenanceStation(Station s){
+        ArrayList<Maintenance> mant = mDAO.getMaintenanceById(s.getIdStation());
+       /* for(Maintenance m : mant){
+            s.addMaintenance(m);
+        }*/
+        s.setMaintenanceHistory(mant);
+    }
     public ArrayList<Station> searchStation1() {
         System.out.println("entro a seach station");
         Station st = new Station();
@@ -97,6 +105,10 @@ public class StationManager {
         return null;
     }
 
+    public ArrayList<Maintenance> searchAllMaintenance(){
+        ArrayList<Maintenance> mantenimientos = mDAO.getMaintenance();
+        return mantenimientos;
+    }
     public Station getStation(int s) {
         for (Station s1 : this.getListStations().values()) {
             if (s1.getIdStation().equals(s)) {

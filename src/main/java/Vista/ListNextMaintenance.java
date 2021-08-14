@@ -75,35 +75,37 @@ public class ListNextMaintenance extends JPanel {
         Comparator<StationMaintenance> timestampComparator = new Comparator<StationMaintenance>() {
             @Override
             public int compare(StationMaintenance o1, StationMaintenance o2) {
-                if(o1.getLastDateMaintenance().after(o2.getLastDateMaintenance())){
+                if(o1.getLastDateMaintenance().before(o2.getLastDateMaintenance())){
                     return -1;
                 }else
-                if(o2.getLastDateMaintenance().after(o1.getLastDateMaintenance())){
+                if(o2.getLastDateMaintenance().before(o1.getLastDateMaintenance())){
                     return 1;
                 }else {return 0;}
             }
         };
-       /* PriorityQueue<StationMaintenance> priorityQueueStation= new PriorityQueue<StationMaintenance>(timestampComparator);
+       PriorityQueue<StationMaintenance> priorityQueueStation= new PriorityQueue<StationMaintenance>(timestampComparator);
 
         for(StationMaintenance s :listStation){
             priorityQueueStation.add(s);
-        }*/
+        }
         String[] valores = {"Id", "Nombre", "Fecha Ultimo Mantenimiento"};
 
         DefaultTableModel tabla = new DefaultTableModel(valores, 0);
 
-       // Iterator<StationMaintenance> timestampIterator = priorityQueueStation.iterator();
+       Iterator<StationMaintenance> timestampIterator = priorityQueueStation.iterator();
 
-       /* while (timestampIterator.hasNext()){
-            Integer id = priorityQueueStation.poll().getIdStationMaintenance();
-            String name = priorityQueueStation.poll().getNameStationMaintenance();
-            Timestamp lastMaint = priorityQueueStation.poll().getLastDateMaintenance();
+        System.out.println("El proximo elemento a salir es : "+ priorityQueueStation.peek().getNameStationMaintenance());
+
+        while (timestampIterator.hasNext()){
+            Integer id = priorityQueueStation.peek().getIdStationMaintenance();
+            String name = priorityQueueStation.peek().getNameStationMaintenance();
+            Timestamp lastMaint = priorityQueueStation.peek().getLastDateMaintenance();
 
             Object[] data = {id, name, lastMaint};
             tabla.addRow(data);
-
-        }*/
-
+            priorityQueueStation.remove();
+        }
+/*
         for(StationMaintenance man: listStation){
             Integer id = man.getIdStationMaintenance();
             String name = man.getNameStationMaintenance();
@@ -111,7 +113,7 @@ public class ListNextMaintenance extends JPanel {
 
             Object[] data = {id, name, time};
             tabla.addRow(data);
-        }
+        }*/
         stationTable.setModel(tabla);
 
     }

@@ -97,11 +97,11 @@ public class StationManager {
     }
 
     public void addStation(DTOStation dto) {
-        Station ss = new Station(dto.getName(), dto.getStatus());
+
 
         sDAO.addStation(dto);
 
-        Station ss = new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
+        Station ss = new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClosed(), dto.getStatus());
 
         listStation.put(ss.getIdStation(), ss);
 

@@ -285,7 +285,7 @@ public class StationGUI extends JPanel{
                 updateTable(result);
             }
         });*/
-        });
+
         /*
             * Item 6:
             * Ver las estaciones de un monticulo que como criterio de prioridad es la estacion

@@ -24,11 +24,11 @@ public class TicketManager {
     public static TicketManager getInstance() {return INSTANCE;    }
 
 
-    public void createTicket(ListRoute routes, String name, String email, LocalDate date){
-        tDAO.addTicket(routes, name, email, date);
+    public int createTicket(ListRoute routes, String name, String email, LocalDate date){
+        int id = tDAO.addTicket(routes, name, email, date);
 
 
-
+        return id;
     }
 
 

@@ -1,7 +1,9 @@
 package main.java.DAO;
 
 import main.java.classes.Constants;
+import main.java.classes.ListGlobalStation;
 import main.java.classes.ListRoute;
+import main.java.classes.Station;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -11,9 +13,9 @@ public class TicketDAO {
     }
 
 
-    public void addTicket(ListRoute listRoute, String nameuser, String email, LocalDate date) {
+    public int addTicket(ListRoute listRoute, String nameuser, String email, LocalDate date) {
         Connection conexion = null;
-
+        int id = 0;
 
         try {
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
@@ -24,7 +26,22 @@ public class TicketDAO {
             st.setString(4, listRoute.getOrigin().getIdStation().toString());
             st.setString(5, listRoute.getDestination().getIdStation().toString());
             st.setDouble(6, listRoute.getTotalCost());
-            st.executeUpdate();
+            int affectedRows = st.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = st.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+
+                    id = generatedKeys.getInt(1);
+
+                } else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            
+            
             st.close();
 
 
@@ -40,7 +57,9 @@ public class TicketDAO {
             }
         }
 
-
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return id;
     }
-
 }

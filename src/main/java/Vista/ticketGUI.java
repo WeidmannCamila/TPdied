@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class ticketGUI {
     private JPanel panelColour;
     private JTextField date;
-    private JTextField textField1;
+    private JTextField idText;
 
     private JLabel email;
     private JLabel destino;
@@ -47,7 +47,9 @@ public class ticketGUI {
         ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
         ZonedDateTime zdt = ZonedDateTime.now(z);
 
-        tm.createTicket(routes, name, email, zdt.toLocalDate());
+        int id = tm.createTicket(routes, name, email, zdt.toLocalDate());
+
+        this.idText.setText(String.valueOf(id));
         this.name.setText(name);
         this.name.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.name.setText(name);

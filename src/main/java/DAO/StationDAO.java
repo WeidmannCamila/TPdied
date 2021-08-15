@@ -151,7 +151,7 @@ public class StationDAO {
             rs = st.executeQuery();
 
             while(rs.next()) {
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("closingTime"), rs.getString("status"), null);
+                Station station = new Station(rs.getInt("idStation"), rs.getString("nameStation"), rs.getString("openingTime"), rs.getString("closingTime"), rs.getString("status"), null);
                 stations.add(station);
             }
 
@@ -224,7 +224,7 @@ public class StationDAO {
     }
 
         //funciona para la lista global
-    public static HashMap<Integer, Station> getStationsV(){
+    public HashMap<Integer, Station> getStationsV(){
 
         HashMap<Integer, Station> stations = new HashMap<Integer, Station>();
 
@@ -237,7 +237,7 @@ public class StationDAO {
             rs = st.executeQuery();
 
             while(rs.next()) {
-                Station station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString("closingTime"), rs.getString("status"), null);
+                Station station = new Station(rs.getInt("idStation"), rs.getString("nameStation"), rs.getString("openingTime"), rs.getString("closingTime"), rs.getString("status"), null);
                 stations.put(station.getIdStation(), station);
             }
 

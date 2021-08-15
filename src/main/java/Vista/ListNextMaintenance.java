@@ -23,10 +23,14 @@ public class ListNextMaintenance extends JPanel {
     StationManager sm = new StationManager();
 
     public ListNextMaintenance(){
+
+        this.showStationNextMaintenance();
+
         this.initialize();
     }
 
     private void initialize(){
+
         this.frameNextMaint = new JFrame();
         this.frameNextMaint.setContentPane(nextStationPanel);
         this.frameNextMaint.setResizable(false);

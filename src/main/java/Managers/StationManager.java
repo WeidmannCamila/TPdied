@@ -37,9 +37,11 @@ public class StationManager {
     }
 
     public ArrayList<DTOStation> getStations(){
+        HashMap<Integer, Station> ls = ListGlobalStation.getInstance().getList();
+
         ArrayList<DTOStation> listresult = new ArrayList<>();
 
-        for(Station s : this.listStation.values()){
+        for(Station s : ls.values()){
             DTOStation d = new DTOStation(s.getIdStation(), s.getName(), s.getStatus(), s.getOpeningTime(), s.getClosingTime());
             listresult.add(d);
         }
@@ -150,8 +152,11 @@ public class StationManager {
             s.setStatus(dto.getStatus());
             if(dto.getStatus().equals("MANTENIMIENTO")){
                 rm.editRoute(false, s);
+                // TODO poner aca funcion para inicar mantenimiento
 
-            }else { rm.editRoute(true, s);}
+            }else {
+                rm.editRoute(true, s);
+            }
 
 
         }

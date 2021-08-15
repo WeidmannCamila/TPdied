@@ -46,7 +46,7 @@ public class GrafoGUI {
 
     private void initialize(ArrayList<ListRoute> bestRoute) {
         this.frameGrafo = new JFrame();
-        this.frameGrafo.setBounds(100, 100, 1250, 720);
+        this.frameGrafo.setBounds(100, 100, 1350, 720);
         this.frameGrafo.setResizable(false);
         this.frameGrafo.setLocationRelativeTo(null);
 
@@ -65,8 +65,8 @@ public class GrafoGUI {
 
         gbl_panel.columnWidths = new int[] { 185, 0};
         gbl_panel.rowHeights = new int[] { 0, 0, 0, 0};
-        gbl_panel.columnWeights = new double[] { 0.0, 1.0 };
-        gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0 , 1.0, 1.0};
+        gbl_panel.columnWeights = new double[] { 0.0, 1.7 };
+        gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0 , 0.0, 0.0 ,0.0, 1.0};
 
         panel.setLayout(gbl_panel);
 
@@ -165,9 +165,10 @@ public class GrafoGUI {
             gbc_panel_1.gridwidth =2;
             gbc_panel_1.fill = GridBagConstraints.SOUTHEAST;
             gbc_panel_1.gridx = 4;
-            gbc_panel_1.gridy = 5;
+            gbc_panel_1.gridy = 6;
             panel.add(buyTicketbutton, gbc_panel_1);
-            userEmail.setToolTipText("Esciba su email");
+
+            userEmail.setToolTipText("Escriba su email");
             userEmail.setDisabledTextColor(Color.LIGHT_GRAY);
             GridBagConstraints gbc_textField_1 = new GridBagConstraints();
             gbc_textField_1.gridheight =1;
@@ -175,11 +176,21 @@ public class GrafoGUI {
             gbc_textField_1.insets = new Insets(0, 0, 7, 5);
             gbc_textField_1.fill = GridBagConstraints.BOTH;
             gbc_textField_1.gridx = 4;
-            gbc_textField_1.gridy = 4;
+            gbc_textField_1.gridy = 6;
             userEmail.setColumns(4);
             //userName.addActionListener(buyTicketbutton);
 
             panel.add(userEmail, gbc_textField_1);
+
+            JLabel lblPanelName = new JLabel("Nombre del comprador:");
+            lblPanelDeAdministracin.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+            GridBagConstraints GBCName = new GridBagConstraints();
+            GBCName.gridwidth = 4;
+            GBCName.insets = new Insets(1, 1, 0, 1);
+            GBCName.gridx = 4;
+            GBCName.gridy = 3;
+            panel.add(lblPanelName, GBCName);
+
 
             userName.setToolTipText("Escriba su nombre");
             GridBagConstraints camponame = new GridBagConstraints();
@@ -188,12 +199,20 @@ public class GrafoGUI {
             camponame.insets = new Insets(3, 0, 8, 6);
             camponame.fill = GridBagConstraints.BOTH;
             camponame.gridx = 4;
-            camponame.gridy = 3;
+            camponame.gridy = 4;
             userName.setColumns(1);
             //userEmail.addActionListener(buyTicketbutton);
 
             panel.add(userName, camponame);
 
+            JLabel lblPanelEmail = new JLabel("Email del comprador:");
+            lblPanelEmail.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+            GridBagConstraints GBCEmail = new GridBagConstraints();
+            GBCEmail.gridwidth = 4;
+            GBCEmail.insets = new Insets(1, 1, 0, 1);
+            GBCEmail.gridx = 4;
+            GBCEmail.gridy = 5;
+            panel.add(lblPanelEmail, GBCEmail);
 
             //panel derecha
             table = new JTable();
@@ -249,7 +268,7 @@ public class GrafoGUI {
 
 
     public void refreshRutaTable(ArrayList<ListRoute> listPaths) {
-        String row[] = { "Origen", "Pasa", "Destino", "Distancia", "Duración", "Costo" , "Lineas"};
+        String row[] = { "Origen", "Pasa por", "Destino", "Distancia", "Duración", "Costo" , "Lineas"};
         DefaultTableModel tableModel = new DefaultTableModel(row, 0){
 
 

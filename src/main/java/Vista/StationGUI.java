@@ -297,7 +297,7 @@ public class StationGUI extends JPanel{
                 ListNextMaintenance Lnm = new ListNextMaintenance();
                 Lnm.setAnterior(StationGUI.this.frameStation);
                 Lnm.frameNextMaint.setVisible(true);
-                Lnm.showStationNextMaintenance( );
+
 
                 frameStation.dispose();
             }

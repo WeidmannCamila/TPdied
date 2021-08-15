@@ -50,6 +50,8 @@ public class StationEditGUI {
 
 
         this.stationName.setText(stationToEdit.getName());
+        this.HourOpenTField.setText(stationToEdit.getOpeningTime());
+        this.HourClosedTField.setText(stationToEdit.getClosingTime());
 
         String[] estado = {stationToEdit.getStatus() ,"OPERATIVA", "MANTENIMIENTO"} ;
         statusCB.setModel(new DefaultComboBoxModel<String>(estado));

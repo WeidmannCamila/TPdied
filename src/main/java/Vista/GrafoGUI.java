@@ -60,6 +60,7 @@ public class GrafoGUI {
         this.frameGrafo.setLocationRelativeTo(null);
 
 
+
         JPanel panelView = new JPanel();
         frameGrafo.getContentPane().add(panelView);
         panelView.setLayout(new BorderLayout(0,0));
@@ -176,6 +177,7 @@ public class GrafoGUI {
             gbc_panel_1.gridy = 5;
             panel.add(buyTicketbutton, gbc_panel_1);
             userEmail.setToolTipText("Esciba su email");
+            userEmail.setDisabledTextColor(Color.LIGHT_GRAY);
             GridBagConstraints gbc_textField_1 = new GridBagConstraints();
             gbc_textField_1.gridheight =1;
             gbc_textField_1.gridwidth =2;
@@ -192,7 +194,7 @@ public class GrafoGUI {
             GridBagConstraints camponame = new GridBagConstraints();
             camponame.gridheight =1;
             camponame.gridwidth =2;
-            camponame.insets = new Insets(0, 0, 6, 5);
+            camponame.insets = new Insets(3, 0, 8, 6);
             camponame.fill = GridBagConstraints.BOTH;
             camponame.gridx = 4;
             camponame.gridy = 3;
@@ -212,6 +214,7 @@ public class GrafoGUI {
             tablepanel.fill = GridBagConstraints.BOTH;
             tablepanel.gridx =3;
             tablepanel.gridy =1;
+            table.setFont(new Font("Roboto Light", Font.CENTER_BASELINE, 14));
             table.setVisible(true);
             panel.add(panelscroll, tablepanel);
 
@@ -287,5 +290,8 @@ public class GrafoGUI {
         }
 
         table.setModel(tableModel);
+        table.getColumnModel().getColumn(0).setPreferredWidth(20);
+        table.getColumnModel().getColumn(2).setPreferredWidth(20);
+
     }
 }

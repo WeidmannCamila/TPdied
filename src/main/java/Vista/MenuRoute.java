@@ -12,6 +12,7 @@ public class MenuRoute {
     private JButton queTrayectoPuedoTomarButton;
     private JButton flujoMax;
     private JButton queRecorridosLleganButton;
+    private JButton addRoute;
     public JFrame frameMenuRoute;
     private JFrame anterior;
 
@@ -68,6 +69,21 @@ public class MenuRoute {
                 frameMenuRoute.dispose();
             }
         });
+
+
+        addRoute.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RouteAddGUI t = new RouteAddGUI();
+                t.frameRouteAdd.setVisible(true);
+                t.setAnterior(MenuRoute.this.frameMenuRoute);
+
+
+                frameMenuRoute.dispose();
+            }
+        });
+
+
         // salir menu
         exitButton.addMouseListener(new MouseAdapter() {
             @Override

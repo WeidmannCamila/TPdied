@@ -7,16 +7,16 @@ public class DTOStation {
     private Integer idStation;
     private String name;
     private String open; // VER TIPO
-    private String clouse;
+    private String closed;
     private String status;
     private Paint colour;
 
 
-    public DTOStation(Integer idStation, String name, String status, String open, String clouse ) {
+    public DTOStation(Integer idStation, String name, String status, String open, String closed ) {
         this.idStation = idStation;
         this.name = name;
         this.open = open;
-        this.clouse = clouse;
+        this.closed = closed;
         this.status = status;
     }
 
@@ -48,12 +48,12 @@ public class DTOStation {
         this.open = open;
     }
 
-    public String getClouse() {
-        return clouse;
+    public String getClosed() {
+        return closed;
     }
 
-    public void setClouse(String clouse) {
-        this.clouse = clouse;
+    public void setClosed(String closed) {
+        this.closed = closed;
     }
 
     public String getStatus() {

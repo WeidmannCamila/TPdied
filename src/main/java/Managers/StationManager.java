@@ -40,6 +40,16 @@ public class StationManager {
         return listStation;
     }
 
+    public ArrayList<DTOStation> getStations(){
+        ArrayList<DTOStation> listresult = new ArrayList<>();
+
+        for(Station s : this.listStation.values()){
+            DTOStation d = new DTOStation(s.getIdStation(), s.getName(), s.getStatus(), s.getOpeningTime(), s.getClosingTime());
+            listresult.add(d);
+        }
+        return listresult;
+    }
+
 
     public ArrayList<DTOStation> searchStation(DTOStation s) {
         System.out.println("entro a seacrh 4 name");
@@ -51,19 +61,23 @@ public class StationManager {
     public void deleteStationObject(DTOStation s) {
         // busco las rutas que tengan esta estacion y poder eliminarlas tambien
         ArrayList<Route> aux = rm.getListRoutes();
-        for(Route r : aux){
-            if(r.getOrigin().getIdStation().equals(s.getIdStation()) || r.getDestination().getIdStation().equals(r.getIdRoute())){
-                rm.deleteRoute(r);
-                ListGlobalRoute lr= ListGlobalRoute.getInstance();
-                lr.deleteRoute(r);
-            }
-        }
 
-        StationDAO.deleteStation(s);
+        for(int i= 0; i<aux.size();i++  ){
+                if(aux.get(i).getOrigin().equals(s.getIdStation()) || aux.get(i).getDestination().getIdStation().equals(s.getIdStation())){
+                    System.out.println("encuentra una ruta " + aux.get(i));
+                    rm.deleteRoute(aux.get(i));
+
+                }
+            }
+
+        ListGlobalStation ls = ListGlobalStation.getInstance();
+        ls.deleteStation(s);
+
+        sDAO.deleteStation(s);
     }
 
 
-    public static ArrayList<DTOMaintenance> searchMaintenance(int estacionParametro) {
+    public ArrayList<DTOMaintenance> searchMaintenance(int estacionParametro) {
         ArrayList<DTOMaintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
         return mantenimientos;
     }
@@ -80,11 +94,10 @@ public class StationManager {
     }
 
     public void addStation(DTOStation dto) {
+        Station ss = new Station(dto.getName(), dto.getStatus());
+
         sDAO.addStation(dto);
 
-        Station ss = new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
-
-        listStation.put(ss.getIdStation(), ss);
 
     }
     public void deleteStation(DTOStation s ){
@@ -119,11 +132,12 @@ public class StationManager {
         ListGlobalStation ls = ListGlobalStation.getInstance();
 
         Station s = this.getStation(dto.getIdStation());
-
+        s.setOpeningTime(dto.getOpen());
+        s.setClosingTime(dto.getClosed());
         s.setName(dto.getName());
 
         if(!dto.getStatus().equals(s.getStatus())){
-
+            s.setStatus(dto.getStatus());
             if(dto.getStatus().equals("MANTENIMIENTO")){
                 rm.editRoute(false, s);
 

@@ -1,5 +1,6 @@
 package main.java.Vista;
 
+import main.java.Managers.TicketManager;
 import main.java.classes.ListRoute;
 import main.java.classes.Station;
 import main.java.classes.TransportRoute;
@@ -27,7 +28,7 @@ public class ticketGUI {
     private JTextField transports;
     private JLabel namelabel;
     private JLabel name;
-
+    public TicketManager tm = TicketManager.getInstance();
     public JFrame frameTicket;
     private JFrame anterior;
 
@@ -46,6 +47,7 @@ public class ticketGUI {
         ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
         ZonedDateTime zdt = ZonedDateTime.now(z);
 
+        tm.createTicket(routes, name, email, zdt.toLocalDate());
         this.name.setText(name);
         this.name.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.name.setText(name);

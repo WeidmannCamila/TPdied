@@ -6,7 +6,7 @@ import java.awt.*;
 
 public enum EnumColour {
 
-    RED(Color.RED, "rojo"), YELLOW(Color.YELLOW, "amarillo"), CYAN(Color.CYAN, "cyan"), GREEN(Color.GREEN, "verdeAR"), ORANGE(Color.orange, "naranja"), VERDECLA(Constants.verdecla, "verdeAB"); //each is an instance of Color
+    rojo(Color.RED, "rojo"), amarillo(Color.YELLOW, "amarillo"), cyan(Color.CYAN, "cyan"), verdeAR(Color.GREEN, "verdeAR"), naranja(Color.orange, "naranja"), verdeAB(Constants.verdecla, "verdeAB"); //each is an instance of Color
 
     private Color vColor;
     private String vString;

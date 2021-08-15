@@ -33,6 +33,19 @@ public class Station {
     public Station(Integer idStation, String name, String open, String clouse, String status) {
     }
 
+    public Station(String name, String status) {
+        this.name = name;
+
+        this.status = status;
+    }
+
+    public Station(Integer idStation, String name, String status) {
+        this.idStation = idStation;
+        this.name = name;
+
+        this.status = status;
+    }
+
 
     //getters and setters
 
@@ -90,5 +103,14 @@ public class Station {
 
     public void setColour(Paint colour) {
         this.colour = colour;
+    }
+
+    @Override
+    public String toString() {
+        return "Station{" +
+                "idStation=" + idStation +
+                ", name='" + name + '\'' +
+                ", colour=" + colour +
+                '}';
     }
 }

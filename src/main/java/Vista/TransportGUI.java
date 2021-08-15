@@ -16,7 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class TransportGUI {
+public class TransportGUI extends JPanel{
 
 
     private JPanel panel1;
@@ -39,7 +39,7 @@ public class TransportGUI {
 
     public TransportGUI() {
         this.initialize();
-        this.tableInit();
+        //this.tableInit();
     }
 
 
@@ -74,6 +74,7 @@ public class TransportGUI {
                 tadd.setAnterior(TransportGUI.this.frameTransport);
                 tadd.frameTransportAdd.setVisible(true);
 
+                frameTransport.dispose();
 
 
             }
@@ -111,8 +112,11 @@ public class TransportGUI {
                     JOptionPane.showMessageDialog(null, "Seleccione una estacion para eliminar.",
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    deleteTransport();
-                    JOptionPane.showMessageDialog(frameTransport,"Estacion eliminada" , "Failure", JOptionPane.INFORMATION_MESSAGE);
+                    int resp=  JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar? Considere que se quitaran las rutas a dicho transporte");
+                    if(JOptionPane.OK_OPTION == resp) {
+                        deleteTransport();
+                    }
+
                 }
 
             }
@@ -124,35 +128,53 @@ public class TransportGUI {
         String[] estado = {"--seleccionar--", "Activa" , "No activa"};
         CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
 
-        String[] atributosTransporte = {"Id", "Nombre", "Color", "Estado"};
+        String[] atributosTransporte = {"TODOS","Id", "Nombre", "Color", "Estado"};
         CBsearchTransport.setModel(new DefaultComboBoxModel<String>(atributosTransporte));
-        DTOTransport transportParam = new DTOTransport();
+
 
         buscarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String param = textTransport.getText();
+                String param = new String();
+                DTOTransport transportParam = new DTOTransport();
+                ArrayList<DTOTransport> result = new ArrayList<>();
 
                 switch (CBsearchTransport.getSelectedIndex()){
                     case 0: {
+                        result = tm.getTransports();
+                        System.out.println("entra a case 0 " + result.size());
+                        break;
+                    }
+                    case 1: {
                         //busqueda por id
+
+                        param= textTransport.getText();
                         Integer id = Integer.parseInt(param);
+                        try{
+                            id = Integer.parseInt(param);
+                        }catch(NumberFormatException i){
+                            JOptionPane.showMessageDialog(null, "El campo tiene que ser numerico",
+                                    "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
                         transportParam.setIdTransport(id);
 
                         break;
                     }
-                    case 1:{
-                        //busca por nombre
-                        transportParam.setName(param);
-
-                        break;
-                    }
                     case 2:{
-                        //busca por color
-                        transportParam.setColour(param);
+                        //busca por nombre
+                        param= textTransport.getText();
+                        transportParam.setName(param.substring(0,1).toUpperCase() + param.substring(1).toLowerCase());
 
                         break;
                     }
                     case 3:{
+                        //busca por color
+                        param= textTransport.getText();
+                        transportParam.setColour(param);
+
+                        break;
+                    }
+                    case 4:{
                         //busca por estado de linea
 
                         if(CBStatus.getSelectedIndex()==1){
@@ -166,8 +188,20 @@ public class TransportGUI {
                     }
                     default:
                 }
-                ArrayList<DTOTransport> result = tm.searchDTOTransport(transportParam);
-                updateTabla(result);
+              if(result.size()!= 0) {
+                    updateTabla(result);
+                  System.out.println("entra a if siz3");
+                } else{
+                  System.out.println("entra a else siz3");
+                    if(tm.searchDTOTransport(transportParam) != null){
+                        result = tm.searchDTOTransport(transportParam);
+                        updateTabla(result);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encuentran transportes con los atributos seleccionados.",
+                                "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }
 
             }
         });
@@ -177,15 +211,15 @@ public class TransportGUI {
                 String[] estado = {"--seleccionar--", "Activa" , "No activa"};
                 CBStatus.setModel(new DefaultComboBoxModel<String>(estado));
 
-                if(CBsearchTransport.getSelectedIndex()==3){
+                if(CBsearchTransport.getSelectedIndex()==4){
                     textTransport.setVisible(false);
                     CBStatus.setVisible(true);
                 }else
-                if(CBsearchTransport.getSelectedIndex()!=3){
+                if(CBsearchTransport.getSelectedIndex()!=4){
                     CBStatus.setVisible(false);
                     textTransport.setVisible(true);
                 }
-
+                table.repaint();
             }
         });
 
@@ -198,7 +232,10 @@ public class TransportGUI {
         int id = Integer.parseInt(this.table.getModel().getValueAt(selected, 0).toString());
         DTOTransport deleteT = new DTOTransport();
         deleteT.setIdTransport(id);
-        TransportManager.deleteTransportRoute(deleteT);
+        tm.deleteTransportRoute(deleteT);
+        JOptionPane.showMessageDialog(frameTransport,"Estacion eliminada" , "Failure", JOptionPane.INFORMATION_MESSAGE);
+        TransportGUI.this.anterior.setVisible(true);
+        TransportGUI.this.frameTransport.dispose();
         table.repaint();
 
     }
@@ -223,8 +260,9 @@ public class TransportGUI {
         }
         table.setModel(t);
 
+
     }
-    public void tableInit(){
+  /*  public void tableInit(){
         String [] atributos = {"ID", "Nombre", "Color", "Estado"};
         DefaultTableModel model = (DefaultTableModel)this.table.getModel();
         model.setRowCount(0);
@@ -241,10 +279,10 @@ public class TransportGUI {
             }
             Object[] datos = {id, name, color, estado};
             model.addRow(datos);
-
+            table.repaint();
         }
     }
-
+*/
 
 
 

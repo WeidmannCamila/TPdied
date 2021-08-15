@@ -2,6 +2,7 @@ package main.java.DTOs;
 
 import com.sun.jdi.connect.Transport;
 import main.java.classes.Station;
+import main.java.classes.TransportRoute;
 
 import java.util.List;
 
@@ -10,24 +11,25 @@ public class DTORoute {
     private Station origin;
 
     private Station destination;
-    private long distance;
-    private Integer duration ;
+    private Double distance;
+    private Double duration ;
     private Integer maxPassagers;
     private boolean status;
-    private Integer cost;
+    private Double cost;
+    private TransportRoute transport;
 
     /*
     * Indicar la lista de trayectos que puede completar.
       Para cada tramo entre 2 estaciones, se debe registrar:
     * */
   //  private List<Station> listStation;
-    private Transport transport;
+
 
 
     //constructor
     public DTORoute(){};
 
-    public DTORoute(Station origin, Station destination, long distance, Integer duration, Integer maxPassagers, boolean status, Integer cost, List<Station> listStation, Transport transport) {
+    public DTORoute(Station origin, Station destination, Double distance, Double duration, Integer maxPassagers, boolean status, Double cost, TransportRoute transport) {
 
         this.origin = origin;
         this.destination = destination;
@@ -64,19 +66,19 @@ public class DTORoute {
         this.destination = destination;
     }
 
-    public long getDistance() {
+    public Double getDistance() {
         return distance;
     }
 
-    public void setDistance(long distance) {
+    public void setDistance(Double distance) {
         this.distance = distance;
     }
 
-    public Integer getDuration() {
+    public Double getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(Double duration) {
         this.duration = duration;
     }
 
@@ -96,11 +98,11 @@ public class DTORoute {
         this.status = status;
     }
 
-    public Integer getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
@@ -112,11 +114,11 @@ public class DTORoute {
         this.listStation = listStation;
     }*/
 
-    public Transport getTransport() {
+    public TransportRoute getTransport() {
         return transport;
     }
 
-    public void setTransport(Transport transport) {
+    public void setTransport(TransportRoute transport) {
         this.transport = transport;
     }
 

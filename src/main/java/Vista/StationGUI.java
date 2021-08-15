@@ -26,7 +26,7 @@ public class StationGUI extends JPanel{
     private JTable table;
     private JButton searchButton;
     private JButton addStationButton;
-    private JTable tableT;
+
     private JButton editStationButton;
     private JButton deleteStationButton;
     private JTextField textStation;
@@ -57,7 +57,7 @@ public class StationGUI extends JPanel{
         this.frameStation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frameStation.setBounds(10, 10, 1200, 720);
         this.frameStation.setResizable(false);
-
+        this.frameStation.setLocationRelativeTo(null);
         this.maintenanceJPanel.setVisible(true);
         this.maintenanceJPanel.setPreferredSize(new Dimension(450,800));
         this.HourOpenTField.setEditable(false);
@@ -109,6 +109,9 @@ public class StationGUI extends JPanel{
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 } else {
                     int id = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
+
+                   // StationGUI.this.table.getModel().getValueAt(indice, 0).toString()
+                    System.out.println("ID DE ESTACION Q QUIERO ELIMINR " + id );
                     int resp=  JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar? Considere que se quitaran las rutas a dicha estacion");
                     if(JOptionPane.OK_OPTION == resp){
                         deleteStation(id);
@@ -131,7 +134,7 @@ public class StationGUI extends JPanel{
         });
 
         //busqueda de estaciones
-       String[] items = {"Id", "Nombre", "Estado", "Hora Apertura", "Hora Clausura"};
+       String[] items = {"TODOS","Id", "Nombre", "Estado", "Hora Apertura", "Hora Clausura"};
 
        CBsearch.setModel(new DefaultComboBoxModel<String>(items));
 
@@ -139,34 +142,41 @@ public class StationGUI extends JPanel{
 
         searchButton.addActionListener(new ActionListener() {
            public void actionPerformed(ActionEvent e) {
-               String param = textStation.getText();
+               String param = new String();
 
                estacionParametro.setStatus(null);
                estacionParametro.setName(null);
                estacionParametro.setIdStation(null);
                ArrayList<DTOStation> result = new ArrayList<>();
                switch (CBsearch.getSelectedIndex()){
-                   case 0:{
+                   case 0: {
+                        result= sm.getStations();
+                       break;
+                   }
+                   case 1:{
                        // por id
                        Integer id;
+                       param = textStation.getText().substring(0,1).toUpperCase() + textStation.getText().substring(1).toLowerCase();
                        try{
                            id = Integer.parseInt(param);
                        }catch(NumberFormatException i){
-                           System.out.println("tiene que ser un id");
+                           JOptionPane.showMessageDialog(null, "El campo tiene que ser numerico",
+                                   "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                            return;
                        }
                        estacionParametro.setIdStation(id);
 
                        break;
                    }
-                   case 1: {
+                   case 2: {
                        //se buscar por nombre
+                       param = textStation.getText().substring(0,1).toUpperCase() + textStation.getText().substring(1).toLowerCase();
                        estacionParametro.setName(param);
 
                        int id = table.getSelectedRow();
                        break;
                    }
-                   case 2: {
+                   case 3: {
                        //por estado
                        //avisar que no se encontraron estaciones
                        if(CBstatus.getSelectedIndex()==1){
@@ -178,26 +188,33 @@ public class StationGUI extends JPanel{
 
                        break;
                    }
-                   case 3: {
+                   case 4: {
                        String fechaApertura = HourOpenTField.getText()+ ":" + MinuteOpenTField.getText();
                        estacionParametro.setOpen(fechaApertura);
 
                        break;
                    }
-                   case 4:{
+                   case 5:{
                        String fechaCierre = HourClosedTField.getText()+ ":" + MinuteClosedTField.getText();
-                       estacionParametro.setOpen(fechaCierre);
+                       estacionParametro.setClosed(fechaCierre);
 
                        break;
                     }
                    default:
                }
-               result = sm.searchStation(estacionParametro);
-               if(result.size()>0){
+               if(result.size()!= 0) {
                    updateTable(result);
-               }else{
-                   showStationListEmpty();
+
+               } else{
+                   if(sm.searchStation(estacionParametro) != null){
+                       result = sm.searchStation(estacionParametro);
+                       updateTable(result);
+                   } else {
+                       showStationListEmpty();
+                   }
+
                }
+
            }
        });
 
@@ -209,7 +226,7 @@ public class StationGUI extends JPanel{
                 int id= (int) table.getModel().getValueAt(table.getSelectedRow(),0);
 
                 //llamar al dao para buscar la estacion y luego crear un mantenimiento y setearle la estacion
-                ArrayList<DTOMaintenance> mantenimientos = StationManager.searchMaintenance(id);
+                ArrayList<DTOMaintenance> mantenimientos = sm.searchMaintenance(id);
                 if(mantenimientos.size()>0){
                     updateTableMaintenances(mantenimientos);
                 }else{
@@ -224,25 +241,32 @@ public class StationGUI extends JPanel{
                 String[] estado = {"--seleccionar--","OPERATIVA", "MANTENIMIENTO"} ;
                 CBstatus.setModel(new DefaultComboBoxModel<String>(estado));
                 estacionParametro.setStatus(EnumStatus.values().toString());
-                if(CBsearch.getSelectedIndex()==2){
-                    CBstatus.setVisible(true);
-                }
-                else if(CBsearch.getSelectedIndex()!=2){
+                if(CBsearch.getSelectedIndex()==1){
                     CBstatus.setVisible(false);
+                    textStation.setVisible(false);
                 }
+
                 if(CBsearch.getSelectedIndex()==3){
+                    CBstatus.setVisible(true);
+                    textStation.setVisible(false);
+                }
+                else if(CBsearch.getSelectedIndex()!=3){
+                    CBstatus.setVisible(false);
+                    textStation.setVisible(true);
+                }
+                if(CBsearch.getSelectedIndex()==4){
                     HourOpenTField.setEditable(true);
                     MinuteOpenTField.setEditable(true);
                 }
-                else if(CBsearch.getSelectedIndex()!=3){
+                else if(CBsearch.getSelectedIndex()!=4){
                     HourOpenTField.setEditable(false);
                     MinuteOpenTField.setEditable(false);
                 }
-                if(CBsearch.getSelectedIndex()==4){
+                if(CBsearch.getSelectedIndex()==5){
                     HourClosedTField.setEditable(true);
                     MinuteClosedTField.setEditable(true);
                 }
-                else if(CBsearch.getSelectedIndex()!=4){
+                else if(CBsearch.getSelectedIndex()!=5){
                     HourClosedTField.setEditable(false);
                     MinuteClosedTField.setEditable(false);
                 }
@@ -252,7 +276,7 @@ public class StationGUI extends JPanel{
         });
 
         //combo box del status
-        CBstatus.addActionListener(new ActionListener() {
+      /*  CBstatus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(CBstatus.getSelectedIndex()==1){
@@ -264,7 +288,7 @@ public class StationGUI extends JPanel{
                 ArrayList<DTOStation> result = sm.searchStation(estacionParametro);
                 updateTable(result);
             }
-        });
+        });*/
 
 
     }
@@ -299,7 +323,7 @@ public class StationGUI extends JPanel{
             String name = station.getName();
             String status = station.getStatus();
             String ha = station.getOpen();
-            String hc = station.getClouse();
+            String hc = station.getClosed();
 
             Object[] data = {id, name, status, ha, hc};
             tm.addRow(data);
@@ -317,6 +341,8 @@ public class StationGUI extends JPanel{
         sm.deleteStationObject(deleteS);
         JOptionPane.showMessageDialog(null, "Se ha eliminado la estacion",
                 "EXITO", JOptionPane.INFORMATION_MESSAGE);
+        StationGUI.this.anterior.setVisible(true);
+        StationGUI.this.frameStation.dispose();
         table.repaint();
 
 

@@ -1,27 +1,19 @@
 package main.java.Vista;
 
-import main.java.DTOs.DTOTicket;
 import main.java.Managers.RouteManager;
-import main.java.Managers.StationManager;
 import main.java.Managers.TicketManager;
 import main.java.Managers.TransportManager;
-import main.java.classes.*;
+import main.java.classes.ListRoute;
+import main.java.classes.Route;
+import main.java.classes.Station;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class GrafoGUI {
 
@@ -38,7 +30,6 @@ public class GrafoGUI {
     public ArrayList<ListRoute> listPaths = new ArrayList<>();
 
     public GrafoGUI(ArrayList<ListRoute> bestRoute) {
-
 
         this.initialize(bestRoute);
         this.bestRoute =bestRoute;

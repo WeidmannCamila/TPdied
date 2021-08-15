@@ -3,17 +3,12 @@ package main.java.Managers;
 import main.java.DAO.MaintenanceDAO;
 import main.java.DAO.RouteDAO;
 import main.java.DAO.StationDAO;
-import main.java.DTOs.DTOMaintenance;
 import main.java.DTOs.DTOStation;
-import main.java.Vista.GrafoGUI;
 import main.java.Vista.GrafoPanel;
-import main.java.Vista.ViewVertex;
 import main.java.classes.*;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class StationManager {
 
@@ -21,6 +16,7 @@ public class StationManager {
     private RouteDAO rDAO = new RouteDAO();
     private static final StationManager INSTANCE = new StationManager();
     private StationDAO sDAO = new StationDAO();
+    private MaintenanceDAO mDAO = new MaintenanceDAO();
     private HashMap<Integer, Station> listStation = new HashMap<Integer, Station>();
     private GrafoPanel grafopanel = GrafoPanel.getInstance();
 
@@ -77,11 +73,18 @@ public class StationManager {
     }
 
 
-    public ArrayList<DTOMaintenance> searchMaintenance(int estacionParametro) {
-        ArrayList<DTOMaintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
+    public  ArrayList<Maintenance> searchMaintenance(int estacionParametro) {
+        ArrayList<Maintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
         return mantenimientos;
     }
 
+    public void searchMaintenanceStation(Station s){
+        ArrayList<Maintenance> mant = mDAO.getMaintenanceById(s.getIdStation());
+       /* for(Maintenance m : mant){
+            s.addMaintenance(m);
+        }*/
+        s.setMaintenanceHistory(mant);
+    }
     public ArrayList<Station> searchStation1() {
         System.out.println("entro a seach station");
         Station st = new Station();
@@ -98,6 +101,9 @@ public class StationManager {
 
         sDAO.addStation(dto);
 
+        Station ss = new Station(dto.getIdStation(), dto.getName(), dto.getOpen(), dto.getClouse(), dto.getStatus());
+
+        listStation.put(ss.getIdStation(), ss);
 
     }
     public void deleteStation(DTOStation s ){
@@ -115,6 +121,10 @@ public class StationManager {
         return null;
     }
 
+    public ArrayList<Maintenance> searchAllMaintenance(){
+        ArrayList<Maintenance> mantenimientos = mDAO.getMaintenance();
+        return mantenimientos;
+    }
     public Station getStation(int s) {
         for (Station s1 : this.getListStations().values()) {
             if (s1.getIdStation().equals(s)) {

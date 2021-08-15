@@ -314,6 +314,19 @@
               <text value="Editar"/>
             </properties>
           </component>
+          <component id="c762e" class="javax.swing.JButton" binding="nextMaintenanceButton">
+            <constraints>
+              <grid row="11" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag top="10" left="15" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <background color="-13024377"/>
+              <font name="Roboto Light" size="14"/>
+              <foreground color="-852481"/>
+              <icon value="main/resources/next_maintenance.png"/>
+              <text value="Proximo Mantenimiento"/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

@@ -19,7 +19,7 @@ public class TicketDAO {
 
         try {
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
-            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.ticket (name , emailClient , dateTicket, nameOriginStation, nameDestinationStation, cost ) VALUES (? , ?, ?,?,?,?);");
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.ticket (name , emailClient , dateTicket, nameOriginStation, nameDestinationStation, cost ) VALUES (? , ?, ?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
             st.setString(1, nameuser);
             st.setString(2, email);
             st.setDate(3, Date.valueOf(date));
@@ -36,7 +36,7 @@ public class TicketDAO {
                 if (generatedKeys.next()) {
 
                     id = generatedKeys.getInt(1);
-
+                    System.out.println("id tiii" + id);
                 } else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }

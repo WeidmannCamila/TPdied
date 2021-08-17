@@ -11,7 +11,7 @@ public class MenuRoute {
     private JLabel exitButton;
     private JButton queTrayectoPuedoTomarButton;
     private JButton flujoMax;
-    private JButton queRecorridosLleganButton;
+    private JButton PageR;
     private JButton addRoute;
     public JFrame frameMenuRoute;
     private JFrame anterior;
@@ -58,7 +58,7 @@ public class MenuRoute {
         });
 
         // gui para el Page Rank
-        queRecorridosLleganButton.addActionListener(new ActionListener() {
+        PageR.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PageRankGUI r = new PageRankGUI();

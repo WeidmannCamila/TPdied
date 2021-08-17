@@ -24,8 +24,10 @@ public class StationAddGUI {
     private JTextField stationId;
     private JButton addButton;
     private JTextField stationName;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
+    private JTextField HourOpenTField;
+    private JTextField MinuteOpenTField;
+    private JTextField HourClosedTField;
+    private JTextField MinuteCloseTf;
     private DTOStation dto;
     private StationDAO sDAO = new StationDAO();
     public JFrame frameStationAdd;
@@ -50,8 +52,6 @@ public class StationAddGUI {
 
 
 
-        statusCB.setModel(new DefaultComboBoxModel<EnumStatus>(EnumStatus.values()));
-
         ListGlobalStation ls = ListGlobalStation.getInstance();
 
         HashMap<Integer, Station> lists =new HashMap<Integer, Station>(ls.getList());
@@ -63,28 +63,30 @@ public class StationAddGUI {
         }
 
 
-        String[] estado = {"--seleccionar--", "OPERATIVA" , "MANTENIMIENTO"};
-        statusCB.setModel(new DefaultComboBoxModel<String>(estado));
-
 
 
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(stationName.getText().length() <= 0 ){
+                if(stationName.getText().length() <= 0 || HourClosedTField.getText().length() <= 0 || HourOpenTField.getText().length() <= 0){
                     JOptionPane.showMessageDialog(null, "Campos vacios.",
                             "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                 }else {
 
                     if(sm.getStation(stationName.getText()) != null){
-                        JOptionPane.showMessageDialog(null, "La estacion ya existe",
+                        JOptionPane.showMessageDialog(null, "La estacion con tal nombre ya existe",
                                 "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);
                     }else {
                         dto = new DTOStation();
                         dto.setName(stationName.getText().substring(0,1).toUpperCase() + stationName.getText().substring(1).toLowerCase());
+                        dto.setOpen(HourOpenTField.getText()+ ":" + MinuteOpenTField.getText());
+                        dto.setClosed(HourClosedTField.getText()+ ":" + MinuteCloseTf.getText());
 
-                        dto.setStatus( statusCB.getSelectedItem().toString());
+
+                        dto.setStatus( "OPERATIVA");
 
                         sm.addStation(dto);
+
+
                         JOptionPane.showMessageDialog(null, "Estacion cargada con Exito",
                                 "EXITO", JOptionPane.ERROR_MESSAGE);
                         StationAddGUI.this.anterior.setVisible(true);

@@ -35,7 +35,7 @@
               <gridbag top="0" left="20" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <font style="1"/>
+              <font size="16" style="1"/>
               <text value="Fecha de Compra"/>
             </properties>
           </component>
@@ -44,10 +44,11 @@
               <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
-              <gridbag weightx="0.5" weighty="0.0"/>
+              <gridbag top="0" left="5" bottom="0" right="0" weightx="0.5" weighty="0.0"/>
             </constraints>
             <properties>
               <background color="-9925445"/>
+              <font size="14"/>
               <preferredSize width="60" height="30"/>
             </properties>
           </component>
@@ -56,10 +57,11 @@
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
-              <gridbag weightx="0.2" weighty="0.0"/>
+              <gridbag top="0" left="10" bottom="0" right="0" weightx="0.2" weighty="0.0"/>
             </constraints>
             <properties>
               <background color="-9925445"/>
+              <font size="14"/>
               <preferredSize width="60" height="30"/>
             </properties>
           </component>
@@ -69,7 +71,7 @@
               <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <font style="1"/>
+              <font size="18" style="1"/>
               <text value="Nro. Ticket"/>
             </properties>
           </component>
@@ -81,7 +83,7 @@
           <gridbag top="5" left="0" bottom="0" right="0" weightx="0.0" weighty="0.2"/>
         </constraints>
         <properties>
-          <font style="1"/>
+          <font size="16" style="1"/>
           <foreground color="-16777216"/>
           <text value="Nombre "/>
         </properties>
@@ -93,7 +95,7 @@
         </constraints>
         <properties>
           <background color="-16777216"/>
-          <font style="1"/>
+          <font size="16" style="1"/>
           <foreground color="-16777216"/>
           <text value="Email"/>
         </properties>
@@ -104,7 +106,7 @@
           <gridbag weightx="0.0" weighty="0.2"/>
         </constraints>
         <properties>
-          <font style="1"/>
+          <font size="16" style="1"/>
           <foreground color="-16777216"/>
           <text value="Destino"/>
         </properties>
@@ -115,7 +117,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <font style="1"/>
+          <font size="16" style="1"/>
           <foreground color="-16777216"/>
           <text value="Distancia"/>
         </properties>
@@ -126,18 +128,18 @@
           <gridbag weightx="0.0" weighty="0.2"/>
         </constraints>
         <properties>
-          <font style="1"/>
+          <font size="16" style="1"/>
           <foreground color="-16777216"/>
           <text value="Duracion"/>
         </properties>
       </component>
       <component id="57ddb" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.2"/>
         </constraints>
         <properties>
-          <font style="1"/>
+          <font size="16" style="1"/>
           <foreground color="-16777216"/>
           <text value="Costo"/>
         </properties>
@@ -174,9 +176,10 @@
       <component id="229ee" class="javax.swing.JLabel" binding="name">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag top="5" left="2" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
+          <gridbag top="5" left="5" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
         </constraints>
         <properties>
+          <font size="14"/>
           <foreground color="-16777216"/>
           <text value="Label"/>
         </properties>
@@ -184,9 +187,10 @@
       <component id="da86b" class="javax.swing.JLabel" binding="destino">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag top="0" left="2" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
+          <gridbag top="0" left="5" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
         </constraints>
         <properties>
+          <font size="14"/>
           <foreground color="-16777216"/>
           <text value="Label"/>
         </properties>
@@ -194,9 +198,10 @@
       <component id="8a493" class="javax.swing.JLabel" binding="duracion">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag top="0" left="2" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
+          <gridbag top="0" left="5" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
         </constraints>
         <properties>
+          <font size="14"/>
           <foreground color="-16777216"/>
           <text value="Label"/>
         </properties>
@@ -204,9 +209,10 @@
       <component id="1357a" class="javax.swing.JLabel" binding="email">
         <constraints>
           <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag top="5" left="2" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
+          <gridbag top="5" left="5" bottom="0" right="0" weightx="0.25" weighty="0.0"/>
         </constraints>
         <properties>
+          <font size="14"/>
           <foreground color="-16777216"/>
           <text value="Label"/>
         </properties>
@@ -217,17 +223,18 @@
           <gridbag top="0" left="2" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <font/>
+          <font size="14"/>
           <foreground color="-16777216"/>
           <text value="Label"/>
         </properties>
       </component>
       <component id="ee6ec" class="javax.swing.JLabel" binding="costo">
         <constraints>
-          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-          <gridbag top="0" left="2" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="5" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
+          <font size="16" style="1"/>
           <foreground color="-16776905"/>
           <text value="Label"/>
         </properties>

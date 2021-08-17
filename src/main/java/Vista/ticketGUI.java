@@ -50,6 +50,8 @@ public class ticketGUI {
         int id = tm.createTicket(routes, name, email, zdt.toLocalDate());
 
         this.idText.setText(String.valueOf(id));
+        this.idText.setBorder(new EmptyBorder(0, 0, 0, 0));
+
         this.name.setText(name);
         this.name.setBorder(new EmptyBorder(0, 0, 0, 0));
         this.name.setText(name);
@@ -75,7 +77,7 @@ public class ticketGUI {
 
         StringBuilder t = new StringBuilder("");
         for ( String tt : routes.getTransports()){
-            t.append(tt);
+            t.append(" - " +tt);
 
         }
         this.transports.setText(t.toString());

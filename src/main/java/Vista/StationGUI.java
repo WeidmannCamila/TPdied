@@ -61,6 +61,7 @@ public class StationGUI extends JPanel{
         this.HourClosedTField.setEditable(false);
         this.MinuteClosedTField.setEditable(false);
 
+
         // Añadir estacion
 
         addStationButton.addActionListener(new ActionListener() {
@@ -191,6 +192,7 @@ public class StationGUI extends JPanel{
                        break;
                    }
                    case 5:{
+
                        String fechaCierre = HourClosedTField.getText()+ ":" + MinuteClosedTField.getText();
                        estacionParametro.setClosed(fechaCierre);
 
@@ -319,8 +321,10 @@ public class StationGUI extends JPanel{
             Object[] data = {id, desc, hsInicio, hsFin};
             tabla.addRow(data);
         }
-        maintenanceTable.setModel(tabla);
 
+
+        maintenanceTable.setModel(tabla);
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);
     }
 
     private void updateTable(ArrayList<DTOStation> result) {

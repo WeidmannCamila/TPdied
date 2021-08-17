@@ -12,7 +12,7 @@ public class MaintenanceDAO {
 
 
     public ArrayList<Maintenance> getMaintenanceById(int estacionParametro) {
-      //  System.out.println("llego al dao de maintenance");
+
         ArrayList<Maintenance> maintenances = new ArrayList();
         Connection con = null;
         ResultSet resultado = null;

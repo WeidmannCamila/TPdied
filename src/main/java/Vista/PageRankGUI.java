@@ -45,7 +45,7 @@ public class PageRankGUI {
         this.framePageRank.setResizable(false);
         this.framePageRank.setLocationRelativeTo(null);
 
-        table.setFont(new Font("Roboto Light", Font.BOLD, 20));
+        table.setFont(new Font("Roboto Light", Font.CENTER_BASELINE, 18));
 
 
 

@@ -6,6 +6,8 @@ import main.java.Vista.GrafoPanel;
 import main.java.Vista.ViewPageRank;
 import main.java.classes.*;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -459,13 +461,13 @@ public class RouteManager {
         for(Route r: this.getListRoutes() ){
             //Se verifica que tanto la ruta como el transporte esten activo y la estacion en operativa
 
-            if(r.getStatus() && r.getTransport().isStatus() && r.getDestination().getStatus().equals("OPERATIVA")){
+                if (r.getStatus() && r.getTransport().isStatus() && r.getDestination().getStatus().equals("OPERATIVA")) {
 
-                if(start.getIdStation().equals(r.getOrigin().getIdStation())){
+                    if (start.getIdStation().equals(r.getOrigin().getIdStation())) {
 
-                    adjacents.add(r.getDestination());
+                        adjacents.add(r.getDestination());
+                    }
                 }
-            }
 
 
 

@@ -122,7 +122,7 @@
                   <maximumSize width="500" height="100"/>
                   <minimumSize width="500" height="100"/>
                   <preferredSize width="500" height="100"/>
-                  <text value="¿Que recorridos llegan?"/>
+                  <text value="Page Rank"/>
                 </properties>
               </component>
               <component id="c0a8b" class="javax.swing.JButton" binding="addRoute">

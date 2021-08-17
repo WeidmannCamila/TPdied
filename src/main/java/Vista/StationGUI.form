@@ -187,6 +187,7 @@
               <maximumSize width="30" height="30"/>
               <minimumSize width="30" height="30"/>
               <preferredSize width="30" height="30"/>
+              <visible value="true"/>
             </properties>
           </component>
           <component id="605f" class="javax.swing.JTextField" binding="MinuteClosedTField">
@@ -202,6 +203,7 @@
               <maximumSize width="30" height="30"/>
               <minimumSize width="30" height="30"/>
               <preferredSize width="30" height="30"/>
+              <visible value="true"/>
             </properties>
           </component>
           <component id="cbd3" class="javax.swing.JButton" binding="searchButton">
@@ -233,6 +235,7 @@
               <minimumSize width="30" height="30"/>
               <opaque value="true"/>
               <preferredSize width="30" height="30"/>
+              <visible value="true"/>
             </properties>
           </component>
           <component id="ccdc" class="javax.swing.JTextField" binding="HourClosedTField">
@@ -247,6 +250,7 @@
               <maximumSize width="30" height="30"/>
               <minimumSize width="30" height="30"/>
               <preferredSize width="30" height="30"/>
+              <visible value="true"/>
             </properties>
           </component>
           <component id="a21f5" class="javax.swing.JLabel">
@@ -258,6 +262,7 @@
               <font size="14"/>
               <foreground color="-327693"/>
               <text value="Horario de Cierre:"/>
+              <visible value="true"/>
             </properties>
           </component>
           <component id="7ee5b" class="javax.swing.JLabel">
@@ -269,6 +274,7 @@
               <font size="14"/>
               <foreground color="-1537"/>
               <text value="Horario de Apertura:"/>
+              <visible value="true"/>
             </properties>
           </component>
           <component id="6ff68" class="javax.swing.JButton" binding="verHistorialDeMantenimientosButton" default-binding="true">

@@ -104,11 +104,12 @@ public class RouteManager {
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
         System.out.println("TAMAÑO LISTPATH" + listpaths.size());
-        ArrayList<ListRoute> listTotable = recursiveRoutes(listpaths, start, end);
+        ArrayList<ListRoute> listTotable = null;
 
         ArrayList<ArrayList<Station>> resultadoaux = new  ArrayList<ArrayList<Station>>();
 
         if(listpaths.size() != 0){
+            listTotable = recursiveRoutes(listpaths, start, end);
             resultadoaux= listpaths;
          switch(crit){
 
@@ -144,7 +145,7 @@ public class RouteManager {
             resultadoaux= null;
         }
 
-        System.out.println("TAMAÑO LISTABLE" + listTotable.size());
+
         return listTotable;
     }
 
@@ -152,6 +153,7 @@ public class RouteManager {
         ArrayList<ListRoute> listResult1 = new ArrayList<>();
         ListRoute trayecto = new ListRoute();
         System.out.println("recursive 1" + start.getName() + " " + end.getName());
+
         for(int i = 0; i < listpaths.size(); i++){
             int contador =0;
             ArrayList<Route> lr = new ArrayList<Route>();

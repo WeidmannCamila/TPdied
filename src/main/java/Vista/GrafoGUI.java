@@ -281,7 +281,7 @@ public class GrafoGUI {
             String origen = ruta.getOrigin().getName();
             String destino =ruta.getDestination().getName();
             String distancia = ruta.getTotalDistance() + " km";
-            String duracion = ruta.getTotalDuration() + " min";
+            String duracion = ruta.getTotalDuration() + " '";
             String costo = ruta.getTotalCost() + " $";
            // ArrayList<Station> stations = ruta.listStation;
             StringBuilder s = new StringBuilder("");
@@ -301,7 +301,11 @@ public class GrafoGUI {
 
         table.setModel(tableModel);
         table.getColumnModel().getColumn(0).setPreferredWidth(20);
+        table.getColumnModel().getColumn(1).setPreferredWidth(40);
         table.getColumnModel().getColumn(2).setPreferredWidth(20);
+        table.getColumnModel().getColumn(3).setPreferredWidth(40);
+        table.getColumnModel().getColumn(4).setPreferredWidth(40);
+        table.getColumnModel().getColumn(5).setPreferredWidth(40);
 
     }
 }

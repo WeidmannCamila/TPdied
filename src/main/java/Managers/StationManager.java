@@ -76,7 +76,8 @@ public class StationManager {
 
 
     public  ArrayList<Maintenance> searchMaintenance(int estacionParametro) {
-        ArrayList<Maintenance> mantenimientos = mDAO.getMaintenanceById(estacionParametro);
+        ArrayList<Maintenance> mantenimientos = new ArrayList<>();
+        mantenimientos = mDAO.getMaintenanceById(estacionParametro);
         return mantenimientos;
     }
 
@@ -151,6 +152,8 @@ public class StationManager {
         s.setClosingTime(dto.getClosed());
         s.setName(dto.getName());
 
+
+
         if(!dto.getStatus().equals(s.getStatus())){
             s.setStatus(dto.getStatus());
             if(dto.getStatus().equals("MANTENIMIENTO")){
@@ -167,5 +170,9 @@ public class StationManager {
 
 
         sDAO.updateStation(dto);
+    }
+
+    public void updateMaintenance(Maintenance mant) {
+        mDAO.updateM(mant);
     }
 }

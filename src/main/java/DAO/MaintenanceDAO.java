@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class MaintenanceDAO {
 
 
-    public static ArrayList<Maintenance> getMaintenanceById(int estacionParametro) {
+    public ArrayList<Maintenance> getMaintenanceById(int estacionParametro) {
       //  System.out.println("llego al dao de maintenance");
         ArrayList<Maintenance> maintenances = new ArrayList();
         Connection con = null;
@@ -53,10 +53,11 @@ public class MaintenanceDAO {
 
         try {
             conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
-            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.maintenance (idstation, startDate ) VALUES (?, ?);");
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.maintenance (idstation, startDate, description ) VALUES (?, ?, ?);");
 
             st.setInt(1,idStation);
             st.setTimestamp(2, mant.getStartDate());
+            st.setString(3, mant.getDescription());
 
 
             st.executeUpdate();
@@ -79,7 +80,7 @@ public class MaintenanceDAO {
 
     //METODO PARA OBTENER TODOS LOS MANTENIMIENTOS
 
-    public static ArrayList<Maintenance> getMaintenance() {
+    public ArrayList<Maintenance> getMaintenance() {
         //  System.out.println("llego al dao de maintenance");
         ArrayList<Maintenance> maintenances = new ArrayList();
         Connection con = null;
@@ -113,5 +114,28 @@ public class MaintenanceDAO {
     }
 
 
+    public void updateM(Maintenance mant) {
+        Connection con = null;
+        ResultSet rs = null;
 
+        try {
+            con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            Statement updateId = con.createStatement();
+
+            updateId.executeUpdate("UPDATE tp_died.maintenance SET endDate = '" + mant.getEndDate() + "' WHERE idMaintenance = " + mant.getIdMaintenance() + ";");
+
+
+        } catch (Exception var12) {
+            System.out.println(var12.getMessage());
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception var11) {
+                    System.out.println(var11.getMessage());
+                }
+            }
+
+        }
+    }
 }

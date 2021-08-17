@@ -114,6 +114,9 @@ public class StationDAO {
         Connection con = null;
         ResultSet rs = null;
 
+        System.out.println("HORA APAERTURA " + dto.getOpen());
+        System.out.println("HORA CLAUSURA " + dto.getClosed());
+
         try {
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             Statement updateId = con.createStatement();

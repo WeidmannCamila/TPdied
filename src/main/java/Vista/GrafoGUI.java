@@ -234,17 +234,17 @@ public class GrafoGUI {
         }
         // Panel para el grafo
 
-        GridBagConstraints gbc_panel_91 = new GridBagConstraints();
-        gbc_panel_91.gridwidth = 3;
-        gbc_panel_91.gridheight = 4;
-        gbc_panel_91.insets = new Insets(0, 0, 0, 1);
-        gbc_panel_91.fill = GridBagConstraints.BOTH;
-        gbc_panel_91.gridx = 0;
-        gbc_panel_91.gridy = 2;
+        GridBagConstraints gbcGrafo = new GridBagConstraints();
+        gbcGrafo.gridwidth = 3;
+        gbcGrafo.gridheight = 6;
+        gbcGrafo.insets = new Insets(0, 0, 0, 1);
+        gbcGrafo.fill = GridBagConstraints.BOTH;
+        gbcGrafo.gridx = 0;
+        gbcGrafo.gridy = 2;
 
         grafoPanel.setBackground(new Color(0x242424));
         grafoPanel.setBorder(BorderFactory.createLineBorder(new Color(0x7A8A99)));
-        panel.add(grafoPanel, gbc_panel_91);
+        panel.add(grafoPanel, gbcGrafo);
 
 
         this.frameGrafo.setContentPane(panel);

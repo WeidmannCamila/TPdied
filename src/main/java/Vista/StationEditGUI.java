@@ -5,6 +5,7 @@ import main.java.DTOs.DTOStation;
 import main.java.Enumeration.EnumStatus;
 import main.java.Managers.RouteManager;
 import main.java.Managers.StationManager;
+import main.java.classes.Maintenance;
 import main.java.classes.Station;
 
 import javax.swing.*;
@@ -13,6 +14,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
+import java.util.GregorianCalendar;
+import java.util.logging.SimpleFormatter;
 
 public class StationEditGUI {
     private JPanel panel1;
@@ -48,10 +57,20 @@ public class StationEditGUI {
         this.frameStationEdit.setResizable(false);
         this.frameStationEdit.setLocationRelativeTo(null);
 
-
         this.stationName.setText(stationToEdit.getName());
-        this.HourOpenTField.setText(stationToEdit.getOpeningTime());
-        this.HourClosedTField.setText(stationToEdit.getClosingTime());
+
+        String horarioApertura = stationToEdit.getOpeningTime();
+        String horarioCierre= stationToEdit.getClosingTime();
+        String[] partesApertura = horarioApertura.split(":");
+        String[] partesCierre = horarioCierre.split(":");
+
+        SimpleDateFormat nuevoFormato = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+        this.HourOpenTField.setText(partesApertura[0]);
+        this.MinuteOpenTField.setText(partesApertura[1]);
+        this.HourClosedTField.setText(partesCierre[0]);
+        this.MinuteCloseTf.setText(partesCierre[1]);
 
         String[] estado = {stationToEdit.getStatus() ,"OPERATIVA", "MANTENIMIENTO"} ;
         statusCB.setModel(new DefaultComboBoxModel<String>(estado));
@@ -68,12 +87,32 @@ public class StationEditGUI {
                         dto.setOpen(fechaApertura);
                         String fechaCierre = HourClosedTField.getText()+ ":" + MinuteCloseTf.getText();
                         dto.setClosed(fechaCierre);
-
+                        if(stationToEdit.getStatus().equals("OPERATIVA")){
+                            if(stationToEdit.getStatus()!= dto.getStatus()){
+                                Calendar cal = GregorianCalendar.getInstance();
+                                Timestamp tApertura = new Timestamp(cal.getTimeInMillis());
+                                Maintenance maint = new Maintenance(tApertura);
+                                sm.addMaintenance(maint, stationToEdit.getIdStation());
+                                //stationToEdit.getMaintenanceHistory().add(maint);
+                                //stationToEdit.addMaintenance(maint);
+                                //aca va un update Station
+                                System.out.println("El tiempo de apertura de mantenimiento es : "+ tApertura);
+                            }
+                        }else
+                            if(stationToEdit.getStatus().equals("MANTENIMIENTO")){
+                                if(stationToEdit.getStatus()!= dto.getStatus()){
+                                    Calendar cal = GregorianCalendar.getInstance();
+                                    Timestamp tCierre = new Timestamp(cal.getTimeInMillis());
+                                    ArrayList<Maintenance> mant = sm.searchMaintenance(stationToEdit.getMaintenanceHistory().get(stationToEdit.getMaintenanceHistory().size()-1).getIdMaintenance());
+                                    mant.get(0).setEndDate(tCierre);
+                                    //hacer un update del mantenimiento creado
+                                    System.out.println("La fecha de cierre de mant es : " + mant.get(0).getEndDate());
+                                }
+                            }
                         dto.setStatus(statusCB.getSelectedItem().toString());
 
                         sm.updateStation(dto);
-                        JOptionPane.showMessageDialog(null, "Estacion  actualizada.",
-                                "EXITO", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Estacion  actualizada.","EXITO", JOptionPane.INFORMATION_MESSAGE);
                         StationEditGUI.this.anterior.setVisible(true);
                         StationEditGUI.this.frameStationEdit.dispose();
 

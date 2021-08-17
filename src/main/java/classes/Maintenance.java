@@ -8,13 +8,18 @@ public class Maintenance {
     private String description;
     private Timestamp startDate;
     private Timestamp endDate;
-    //constructor
 
+
+    //constructores
     public Maintenance(Integer idMaintenance, String description, Timestamp startDate, Timestamp endDate) {
         this.idMaintenance = idMaintenance;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+    public Maintenance(Timestamp startDate){
+        this.startDate= startDate;
+
     }
 
     //getters and setters

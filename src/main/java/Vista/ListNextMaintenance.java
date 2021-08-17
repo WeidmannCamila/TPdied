@@ -34,9 +34,8 @@ public class ListNextMaintenance extends JPanel {
         this.frameNextMaint = new JFrame();
         this.frameNextMaint.setContentPane(nextStationPanel);
         this.frameNextMaint.setResizable(false);
-        this.frameNextMaint.setBounds(30,30,500,700);
+        this.frameNextMaint.setBounds(30,30,700,500);
         this.frameNextMaint.setLocationRelativeTo(null);
-
 
 
         //volver atras
@@ -121,5 +120,6 @@ public class ListNextMaintenance extends JPanel {
         stationTable.setModel(tabla);
 
     }
+
 
 }

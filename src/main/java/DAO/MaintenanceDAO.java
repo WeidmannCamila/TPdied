@@ -1,7 +1,9 @@
 package main.java.DAO;
 
 import main.java.classes.Constants;
+import main.java.classes.ListGlobalStation;
 import main.java.classes.Maintenance;
+import main.java.classes.Station;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,6 +48,33 @@ public class MaintenanceDAO {
 
         return maintenances;
     }
+    public void nuevoMantenimiento (Maintenance mant, Integer idStation) {
+        Connection conexion = null;
+
+        try {
+            conexion = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO tp_died.maintenance (idstation, startDate ) VALUES (?, ?);");
+
+            st.setInt(1,idStation);
+            st.setTimestamp(2, mant.getStartDate());
+
+
+            st.executeUpdate();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (Exception e1) {
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
+    }
+
 
 
     //METODO PARA OBTENER TODOS LOS MANTENIMIENTOS
@@ -82,4 +111,7 @@ public class MaintenanceDAO {
         }
         return maintenances;
     }
+
+
+
 }

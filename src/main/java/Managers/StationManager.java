@@ -76,7 +76,7 @@ public class StationManager {
 
 
     public  ArrayList<Maintenance> searchMaintenance(int estacionParametro) {
-        ArrayList<Maintenance> mantenimientos = MaintenanceDAO.getMaintenanceById(estacionParametro);
+        ArrayList<Maintenance> mantenimientos = mDAO.getMaintenanceById(estacionParametro);
         return mantenimientos;
     }
 
@@ -137,6 +137,9 @@ public class StationManager {
         return null;
 
 
+    }
+    public void addMaintenance (Maintenance m, Integer idSta){
+        mDAO.nuevoMantenimiento(m, idSta);
     }
 
     public void updateStation(DTOStation dto) {

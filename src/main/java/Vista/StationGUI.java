@@ -325,7 +325,7 @@ public class StationGUI extends JPanel{
 
     private void updateTable(ArrayList<DTOStation> result) {
 
-        String column[] = {"ID", "Nombre",  "Estado" , "Hora a", "Hora c"};
+        String column[] = {"ID", "Nombre",  "Estado" , "Hora Apertura", "Hora Cierre"};
         DefaultTableModel tm = new DefaultTableModel(column, 0);
 
         ArrayList<DTOStation> listStations = result;

@@ -51,7 +51,6 @@ public class PageRankGUI {
 
         //Boton buscar, busca todos depende si se seleccionó TODOS o alguna estacion en especial
 
-        System.out.println("Entra a if sea page");
         listaDatos = grafoPanel.getPageRank();
         pageRankTable(listaDatos);
 

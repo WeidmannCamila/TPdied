@@ -103,7 +103,7 @@ public class RouteManager {
 
         // [[inicio, estaciones, fin],[inicio, estaciones, fin],[inicio, estaciones, fin]]
         ArrayList<ArrayList<Station>> listpaths = this.paths(start, end);
-        System.out.println("TAMAÑO LISTPATH" + listpaths.size());
+
         ArrayList<ListRoute> listTotable = null;
 
         ArrayList<ArrayList<Station>> resultadoaux = new  ArrayList<ArrayList<Station>>();
@@ -152,7 +152,7 @@ public class RouteManager {
     public ArrayList<ListRoute> recursiveRoutes(ArrayList<ArrayList<Station>> listpaths, Station start, Station end) {
         ArrayList<ListRoute> listResult1 = new ArrayList<>();
         ListRoute trayecto = new ListRoute();
-        System.out.println("recursive 1" + start.getName() + " " + end.getName());
+
 
         for(int i = 0; i < listpaths.size(); i++){
             int contador =0;
@@ -160,18 +160,15 @@ public class RouteManager {
 
             ArrayList<Station> Initstations = new ArrayList<>();
             ArrayList<ListRoute> listResult = new ArrayList<>();
-
-         System.out.println("TANAÑOS LISTHPATH" +  i);
-
             listResult1.addAll(recursive(listpaths.get(i), listResult, lr, start, end,Initstations));
-            System.out.println("recursive2" + listResult1.size());
+
 
             contador =listResult.size();
             if(contador!=0){
                 i= i+(contador-1);
            }
 
-            System.out.println("TANAÑOS II" + listResult.size() + i);
+
         }
 
         return listResult1;
@@ -191,48 +188,25 @@ public class RouteManager {
         }
 
         ArrayList<Route> routes = this.getRoutesFilter(stations.get(0) , stations.get(1));
-         System.out.println("RUTAS tamaño " + routes.size() +  " "+stations.get(0).getName() + stations.get(1).getName());
+
         int n = routes.size();
-        System.out.println("numer N " + n);
+
 
         if(stations.get(1).getIdStation().equals(stations.get(stations.size()-1).getIdStation())) {
                 if(routes.size()==1) {
                     lr.add(routes.get(0));
-                 System.out.println("termina con una sola ruta" + routes.get(0).getDistance());
-                    /*if(lr2.size() != 0 && !lr.containsAll(lr2)){
-                        lr2.add(routes.get(0));
-                        trayecto2.setListRoute(lr2);
-                        listResult.add(trayecto2);
-                        trayecto2.setOrigin(start);
-                        trayecto2.setDestination(end);
-                        trayecto2.setListStation(Initstations);
 
-                    }*/
                     trayecto.setOrigin(start);
                     trayecto.setDestination(end);
                     trayecto.setListRoute(lr);
                     trayecto.setListStation(Initstations);
-               System.out.println("trayecto " + trayecto.listRoute);
+
                  listResult.add(trayecto);
-                    System.out.println("ListResult " + listResult.size());
+
 
                 }
                 else{
-                    System.out.println("ENTRA A TERMINA EN DOS ");
-                   /* lr.add(routes.get(0));
-                    lr2.add(routes.get(1));
 
-                    trayecto.listRoute = lr;
-                    trayecto2.listRoute =lr2;
-                    trayecto.setOrigin(start);
-                    trayecto.setDestination(end);
-                    trayecto2.setOrigin(start);
-                    trayecto2.setDestination(end);
-                    trayecto2.setListStation(Initstations);
-                    trayecto.setListStation(Initstations);
-
-                    listResult.add(trayecto);
-                    listResult.add(trayecto2);*/
                     while(n !=0){
                         lr.add(routes.get(n-1));
                         trayecto.listRoute = lr;
@@ -251,7 +225,6 @@ public class RouteManager {
         } else {
                 if(routes.size()==1) {
 
-                  System.out.println("una sola ruta");
 
                     lr.add(routes.get(0));
                   //  lr2.add(routes.get(0));
@@ -262,9 +235,9 @@ public class RouteManager {
 
                 }
                 else {
-                    System.out.println("ENTRO AL ELSE DE DOS RUTAS " + n);
+
                     while(n!=0){
-                        System.out.println("entra al while");
+
                                 lr.add(routes.get(n-1));
                         ArrayList<Station> scopy = new ArrayList<Station>(stations.subList(1, stations.size()));
                         recursive(scopy, listResult, lr, start, end, Initstations);
@@ -273,11 +246,7 @@ public class RouteManager {
                     }
 
 
-                   /* lr.add(routes.get(0));
-                    lr2.add(routes.get(1));
-                    ArrayList<Station> scopy = new ArrayList<Station>(stations.subList(1, stations.size()));
-                    recursive(scopy, listResult, lr, lr2, start, end, Initstations);
-                    recursive(scopy, listResult, lr2, lr, start, end, Initstations);*/
+
                 }
 
 
@@ -348,7 +317,7 @@ public class RouteManager {
 
 
     private ArrayList<ListRoute> listCheaper(ArrayList<ListRoute> listr){
-        System.out.println("COSTO list " + listr);
+
         for(ListRoute r: listr){
 
             r.setTotalCost(costTotal(r.listRoute));
@@ -373,10 +342,10 @@ public class RouteManager {
     public Double costTotal(ArrayList<Route> listRoute) {
         Double costAux = 0.0;
         for(Route r: listRoute){
-            System.out.println("hay ruta" + r);
+
             costAux+= r.getCost();
         }
-        System.out.println("COSTO" + costAux);
+
         return costAux;
     }
 
@@ -402,7 +371,7 @@ public class RouteManager {
             Route ro = new Route();
 
             Integer flujRoute = flowPerPart(cs);
-            System.out.println("Integer "+ flujRoute);
+
             TotalFlujoMax += flujRoute;
 
             // Se le setea los valores nuevos a la cap max (Pesos)

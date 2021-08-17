@@ -141,7 +141,7 @@ public class TransportGUI extends JPanel{
                 switch (CBsearchTransport.getSelectedIndex()){
                     case 0: {
                         result = tm.getTransports();
-                        System.out.println("entra a case 0 " + result.size());
+
                         break;
                     }
                     case 1: {
@@ -190,9 +190,9 @@ public class TransportGUI extends JPanel{
                 }
               if(result.size()!= 0) {
                     updateTabla(result);
-                  System.out.println("entra a if siz3");
+
                 } else{
-                  System.out.println("entra a else siz3");
+
                     if(tm.searchDTOTransport(transportParam) != null){
                         result = tm.searchDTOTransport(transportParam);
                         updateTabla(result);

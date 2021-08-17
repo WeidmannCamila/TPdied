@@ -36,7 +36,7 @@ public class TicketDAO {
                 if (generatedKeys.next()) {
 
                     id = generatedKeys.getInt(1);
-                    System.out.println("id tiii" + id);
+
                 } else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }

@@ -208,7 +208,7 @@ public class GrafoPanel extends JPanel {
         ViewVertex l= this.vertices.stream().filter((v) ->
                 v.getStationV().getName().equals(s.getName())
         ).findFirst().get();
-        System.out.println(l);
+
         return l;
     }
 

@@ -35,7 +35,7 @@ public class TransportManager {
     }
     public ArrayList<DTOTransport> getTransports(){
         ArrayList<DTOTransport> listresult = new ArrayList<>();
-        System.out.println("SIEZE " + this.getListTransport().size());
+
 
         for(TransportRoute t : this.getListTransport()){
             DTOTransport d = new DTOTransport(t.getIdTransport(), t.getName(), t.getColor(t.getColour()) ,t.isStatus());
@@ -72,7 +72,7 @@ public class TransportManager {
 
         for(int i= 0; i<aux.size();i++  ){
             if(aux.get(i).getTransport().getIdTransport().equals(t.getIdTransport())){
-                System.out.println("encuentra una ruta " + aux.get(i));
+
              rm.deleteRoute(aux.get(i));
 
             }
@@ -85,7 +85,6 @@ public class TransportManager {
 
     public void addTransport(DTOTransport dto) {
 
-        System.out.println("PASA POR ADDTRANSPORT");
         tDAO.addTransport(dto);
     }
 

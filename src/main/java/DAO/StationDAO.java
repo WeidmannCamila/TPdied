@@ -58,7 +58,7 @@ public class StationDAO {
                 estaciones.add(station1);
             }
             rs.close();
-            System.out.println("La longitud de estaciones es: "+ estaciones.size());
+
 
             //no trae ninguna estacion ver esto
 
@@ -82,14 +82,14 @@ public class StationDAO {
         Connection con = null;
         ResultSet rs = null;
 
-        System.out.println("ID EN DAO DE ESTACION " + deleteS.getIdStation());
+
         try{
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             PreparedStatement st = con.prepareStatement("DELETE FROM tp_died.station WHERE idStation = ? ;");
             st.setInt(1, deleteS.getIdStation());
 
             int i =st.executeUpdate();
-            System.out.println("lo q se edito " + i);
+
 
             st.close();
 
@@ -114,8 +114,6 @@ public class StationDAO {
         Connection con = null;
         ResultSet rs = null;
 
-        System.out.println("HORA APAERTURA " + dto.getOpen());
-        System.out.println("HORA CLAUSURA " + dto.getClosed());
 
         try {
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
@@ -198,7 +196,7 @@ public class StationDAO {
                 if (generatedKeys.next()) {
 
                     s.setIdStation(generatedKeys.getInt(1));
-                    System.out.println("llega a guardar el id " + s.getIdStation());
+
                     ListGlobalStation ls = ListGlobalStation.getInstance();
                     Station s1 = new Station(s.getIdStation(), s.getName(), s.getStatus());
                     ls.addStation(s1);

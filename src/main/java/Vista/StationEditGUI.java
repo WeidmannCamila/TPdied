@@ -104,19 +104,14 @@ public class StationEditGUI {
                             if(stationToEdit.getStatus()!= dto.getStatus()){
                                 Calendar cal = GregorianCalendar.getInstance();
                                 Timestamp tApertura = new Timestamp(cal.getTimeInMillis());
-
-
-
-
                                 Maintenance maint = new Maintenance(tApertura);
-                                maint.setDescription(textAreaM.getText());
-                                System.out.println("MANTENIMIENTO " + maint + " " + maint.getDescription());
+
+                                if(textAreaM.getText() == null){
+                                    maint.setDescription("Sin Detalles");
+                                } else{maint.setDescription(textAreaM.getText());}
+
                                 sm.addMaintenance(maint, stationToEdit.getIdStation());
 
-                                //stationToEdit.getMaintenanceHistory().add(maint);
-                                //stationToEdit.addMaintenance(maint);
-                                //aca va un update Station
-                                System.out.println("El tiempo de apertura de mantenimiento es : "+ tApertura);
                             }
                         }else
                             if(stationToEdit.getStatus().equals("MANTENIMIENTO")){

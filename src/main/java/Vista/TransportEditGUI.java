@@ -63,7 +63,7 @@ public class TransportEditGUI {
         for(EnumColour s : colours.values()){
             if(s.getvColor().toString().equals(transportToEdit.getColour().toString())){
                 array[0] = s.getvString();
-                System.out.println("COLOR TRANPORT "+ s.getvColor().toString() + "  " + transportToEdit.getColour().toString());
+
             }
 
             i++;
@@ -89,7 +89,7 @@ public class TransportEditGUI {
                     if(statusCB.getSelectedIndex() ==1){
                         stat= true;
                     } else { stat= false;}
-                    System.out.println("STATUS EDITAR "+ stat);
+
                     dto.setStatus(stat);
 
                     tm.updateTransport(dto);

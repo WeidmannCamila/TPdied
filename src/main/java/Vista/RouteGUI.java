@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -112,6 +114,28 @@ public class RouteGUI {
                         String en = CBEnd.getSelectedItem().toString();
                         end =sm.getStation(en);
 
+                        ZoneId z = ZoneId.of("America/Argentina/Buenos_Aires");
+                        ZonedDateTime zdt = ZonedDateTime.now(z);
+                        Integer hor =  zdt.getHour() ;
+                        Integer min = zdt.getMinute();
+
+
+                        String horarioApertura = start.getOpeningTime();
+                        String horarioCierre= start.getClosingTime();
+                        String[] partesApertura = horarioApertura.split(":");
+                        String[] partesCierre = horarioCierre.split(":");
+
+
+                        String horarioAperturaEnd = end.getOpeningTime();
+                        String horarioCierreEnd= end.getClosingTime();
+                        String[] partesAperturaEnd = horarioAperturaEnd.split(":");
+                        String[] partesCierreEnd = horarioCierreEnd.split(":");
+
+
+
+                      if(hor>=Integer.parseInt(partesApertura[0]) && min>=Integer.parseInt(partesApertura[1]) && min>=Integer.parseInt(partesCierre[1]) && hor<= Integer.parseInt(partesCierre[0]) && hor>=Integer.parseInt(partesAperturaEnd[0]) && min>=Integer.parseInt(partesAperturaEnd[1]) && min>=Integer.parseInt(partesCierreEnd[1]) && hor<= Integer.parseInt(partesCierreEnd[0])){
+
+
 
                         if(start.getStatus().equals("MANTENIMIENTO") || end.getStatus().equals("MANTENIMIENTO")){
                             JOptionPane.showMessageDialog(null, "La estacion de la que quiere partir/llegar esta en mantenimiento.",
@@ -133,6 +157,8 @@ public class RouteGUI {
                                 graf.setAnterior(RouteGUI.this.frameRoute);
                             }
                         }
+                      } else { JOptionPane.showMessageDialog(null, "Cerrada, consulte Hr de Apertura",
+                              "ADVERTENCIA", JOptionPane.ERROR_MESSAGE);}
                     }
 
                 }

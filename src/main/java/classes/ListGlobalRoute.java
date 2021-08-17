@@ -48,9 +48,9 @@ public class ListGlobalRoute implements Comparable<ListGlobalRoute> {
 
         for(Route r1 : this.listsR){
             if(r1.getIdRoute().equals(r.getIdRoute())){
-                System.out.println("ESTADO EN LIST GLOBAR " + status + " estado antes de laruta " + r1.getStatus());
+
                 r1.setStatus(status);
-                System.out.println("ESTADO DESPUES E LA RUT " + r1.getStatus());
+
             }
         }
 

@@ -62,7 +62,7 @@ public class StationManager {
 
         for(int i= 0; i<aux.size();i++  ){
                 if(aux.get(i).getOrigin().equals(s.getIdStation()) || aux.get(i).getDestination().getIdStation().equals(s.getIdStation())){
-                    System.out.println("encuentra una ruta " + aux.get(i));
+
                     rm.deleteRoute(aux.get(i));
 
                 }

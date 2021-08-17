@@ -107,7 +107,7 @@ public class StationGUI extends JPanel{
                     int id = (int) table.getModel().getValueAt(table.getSelectedRow(),0);
 
                    // StationGUI.this.table.getModel().getValueAt(indice, 0).toString()
-                    System.out.println("ID DE ESTACION Q QUIERO ELIMINR " + id );
+
                     int resp=  JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar? Considere que se quitaran las rutas a dicha estacion");
                     if(JOptionPane.OK_OPTION == resp){
                         deleteStation(id);

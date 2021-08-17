@@ -39,7 +39,6 @@ public class TransportDAO {
             try (ResultSet generatedKeys = st.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
 
-                    System.out.println("PASA POR ADDTRANSPORT DENTRO DEL IF");
                     t.setIdTransport(generatedKeys.getInt(1));
                     Paint c;
                     c = colourTransport(t.getColour());
@@ -74,7 +73,7 @@ public class TransportDAO {
 
 
     public void deleteTransport(DTOTransport deleteT) {
-        System.out.println("LLEGO A DAO TRANPORTE DELECE");
+
         Connection conexion = null;
         ResultSet rs = null;
 
@@ -112,7 +111,7 @@ public class TransportDAO {
         try {
             con = DriverManager.getConnection(Constants.url, Constants.user, Constants.pass);
             Statement updateId = con.createStatement();
-            System.out.println("ESTADO" + dto.getStatus());
+
             updateId.executeUpdate("UPDATE tp_died.transport_route SET name = '" + dto.getName() + "' WHERE idTransport = " + dto.getIdTransport() + ";");
             updateId.executeUpdate("UPDATE tp_died.transport_route SET colour = '" + dto.getColour() + "' WHERE idTransport = " + dto.getIdTransport() + ";");
             updateId.executeUpdate("UPDATE tp_died.transport_route SET status = '" + dto.getStatus() + "' WHERE idTransport = " + dto.getIdTransport() + ";");

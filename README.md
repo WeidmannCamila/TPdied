@@ -1,2 +1,2 @@
 # TPdied
-<div><h3>Trabajo Practico, ESTADO: Sin terminar (inciso 6)</h3></div>
+<div><h3>Trabajo Practico, terminado</h3></div>
